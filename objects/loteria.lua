@@ -19,7 +19,7 @@ SMODS.ConsumableType({
     primary_colour = HEX("CC56CC"),
     secondary_colour = HEX("A85D7C"),
     loc_txt = {
-        name = "Loteria Card",
+        name = "Loteria",
         collection = "Loteria Cards",
         undiscovered = {
             name = 'Unknown Loteria Card',

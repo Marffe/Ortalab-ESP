@@ -35,7 +35,7 @@ SMODS.ConsumableType({ -- Zodiac Card ConsumableType creation
     primary_colour = HEX("a84040"),
     secondary_colour = HEX("a84040"),
     loc_txt = { -- move to localization
-        name = "Zodiac Card",
+        name = "Zodiac",
         collection = "Zodiac Cards",
         undiscovered = {
             name = 'Unknown Zodiac Card',
