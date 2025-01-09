@@ -505,10 +505,52 @@ SMODS.Consumable({
         return {vars = {card.ability.extra.cards}}
     end,
     can_use = function(self, card)
-        return true
+        if #G.hand.highlighted == card.ability.extra.select and not G.hand.highlighted[1].curse then return true end
     end,
     use = function(self, card, area, copier)
-        sendDebugMessage("Not yet implemented")
+        -- set the curse
+        G.hand.highlighted[1]:set_curse(card.ability.extra.curse)
+        G.hand.highlighted[1]:juice_up()
+        -- unhighlight card
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                G.hand:unhighlight_all()
+                return true
+            end
+        }))
+        -- add 3 enhanced/editioned Face cards
+        local cards = {}
+        for i=1, card.ability.extra.cards do
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.7,
+            func = function()
+                    local _suit = pseudorandom_element(SMODS.Suits, pseudoseed('ortalab_basilisk_suit')).card_key
+                    local faces = {}
+                        for _, v in ipairs(SMODS.Rank.obj_buffer) do
+                            local r = SMODS.Ranks[v]
+                            if r.face then table.insert(faces, r) end
+                        end
+                    local _rank = pseudorandom_element(faces, pseudoseed('ortalab_basilisk_rank')).card_key
+                    
+                    local enhancement = SMODS.poll_enhancement({guaranteed = true, key = 'ortalab_basilisk', no_replace = true})
+                    local new_card = create_playing_card({front = G.P_CARDS[_suit..'_'.._rank], center = G.P_CENTERS[enhancement]}, G.hand, nil, i ~= 1, {G.C.SECONDARY_SET.Spectral})
+                    new_card:set_edition(poll_edition('ortalab_basilisk_edition', nil, false, true), true)
+                    new_card:add_to_deck()
+                    G.deck.config.card_limit = G.deck.config.card_limit + 1
+                    table.insert(G.playing_cards, new_card)
+                    G.hand:emplace(new_card)
+                    new_card:juice_up()
+
+
+                    cards[i] = new_card
+                    return true
+                end
+            }))
+        end
+        playing_card_joker_effects(cards)                
+            
+        
     end
 })
 
@@ -524,10 +566,45 @@ SMODS.Consumable({
         return {vars = {card.ability.extra.cards, card.ability.extra.rank}}
     end,
     can_use = function(self, card)
-        return true
+        if #G.hand.highlighted == card.ability.extra.select and not G.hand.highlighted[1].curse then return true end
     end,
     use = function(self, card, area, copier)
-        sendDebugMessage("Not yet implemented")
+        -- set the curse
+        G.hand.highlighted[1]:set_curse(card.ability.extra.curse)
+        G.hand.highlighted[1]:juice_up()
+        -- unhighlight card
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                G.hand:unhighlight_all()
+                return true
+            end
+        }))
+        -- add 3 enhanced/editioned Face cards
+        local cards = {}
+        for i=1, card.ability.extra.cards do
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.7,
+            func = function()
+                    local _suit = pseudorandom_element(SMODS.Suits, pseudoseed('ortalab_abaia_suit')).card_key
+                
+                    local enhancement = SMODS.poll_enhancement({guaranteed = true, key = 'ortalab_abaia', no_replace = true})
+                    local new_card = create_playing_card({front = G.P_CARDS[_suit..'_'..card.ability.extra.rank], center = G.P_CENTERS[enhancement]}, G.hand, nil, i ~= 1, {G.C.SECONDARY_SET.Spectral})
+                    new_card:set_edition(poll_edition('ortalab_abaia_edition', nil, false, true), true)
+                    new_card:add_to_deck()
+                    G.deck.config.card_limit = G.deck.config.card_limit + 1
+                    table.insert(G.playing_cards, new_card)
+                    G.hand:emplace(new_card)
+                    new_card:juice_up()
+
+
+                    cards[i] = new_card
+                    return true
+                end
+            }))
+        end
+        playing_card_joker_effects(cards)                
+            
     end
 })
 
@@ -537,16 +614,50 @@ SMODS.Consumable({
     atlas = 'mythos_cards',
     pos = {x=1, y=2},
     discovered = false,
-    config = {extra = {select = 1, curse = 'ortalab_corroded', method = 'c_ortalab_one_selected', cards = 3}},
+    config = {extra = {select = 1, curse = 'ortalab_corroded', method = 'c_ortalab_one_selected', cards = 3, rank = 'A'}},
     loc_vars = function(self, info_queue, card)
         if Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'kosze'} end
         return {vars = {card.ability.extra.cards}}
     end,
     can_use = function(self, card)
-        return true
+        if #G.hand.highlighted == card.ability.extra.select and not G.hand.highlighted[1].curse then return true end
     end,
     use = function(self, card, area, copier)
-        sendDebugMessage("Not yet implemented")
+        -- set the curse
+        G.hand.highlighted[1]:set_curse(card.ability.extra.curse)
+        G.hand.highlighted[1]:juice_up()
+        -- unhighlight card
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                G.hand:unhighlight_all()
+                return true
+            end
+        }))
+        -- add 3 enhanced/editioned Face cards
+        local cards = {}
+        for i=1, card.ability.extra.cards do
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.7,
+            func = function()
+                    local _suit = pseudorandom_element(SMODS.Suits, pseudoseed('ortalab_jormungand_suit')).card_key
+                
+                    local enhancement = SMODS.poll_enhancement({guaranteed = true, key = 'ortalab_jormungand', no_replace = true})
+                    local new_card = create_playing_card({front = G.P_CARDS[_suit..'_'..card.ability.extra.rank], center = G.P_CENTERS[enhancement]}, G.hand, nil, i ~= 1, {G.C.SECONDARY_SET.Spectral})
+                    new_card:set_edition(poll_edition('ortalab_jormungand_edition', nil, false, true), true)
+                    new_card:add_to_deck()
+                    G.deck.config.card_limit = G.deck.config.card_limit + 1
+                    table.insert(G.playing_cards, new_card)
+                    G.hand:emplace(new_card)
+                    new_card:juice_up()
+
+
+                    cards[i] = new_card
+                    return true
+                end
+            }))
+        end
+        playing_card_joker_effects(cards)  
     end
 })
 
