@@ -19,7 +19,7 @@ SMODS.Atlas{
     py = 150
 }
 
-SMODS.load_file('objects/zodiac_boosters.lua')() -- load boosters
+assert(SMODS.load_file('objects/zodiac_boosters.lua'))() -- load boosters
 
 SMODS.UndiscoveredSprite({ -- undiscovered sprite
     key = "Zodiac",

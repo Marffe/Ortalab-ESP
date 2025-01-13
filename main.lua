@@ -18,12 +18,12 @@ G.ARGS.LOC_COLOURS['Ortalab'] = HEX('990000')
 G.ARGS.LOC_COLOURS.Ort_menu_colourA = HEX('686868')
 G.ARGS.LOC_COLOURS.Ort_menu_colourB = HEX('C9013C')
 for k, v in pairs(Ortalab.load_table) do
-    if v then SMODS.load_file('objects/'..k..'.lua')() end
+    if v then assert(SMODS.load_file('objects/'..k..'.lua'))() end
 end
 
-SMODS.load_file('util/artists.lua')()
-SMODS.load_file('util/functions.lua')()
-SMODS.load_file('util/menu.lua')()
+assert(SMODS.load_file('util/artists.lua'))()
+assert(SMODS.load_file('util/functions.lua'))()
+assert(SMODS.load_file('util/menu.lua'))()
 
 SMODS.Atlas({
     key = 'modicon',
