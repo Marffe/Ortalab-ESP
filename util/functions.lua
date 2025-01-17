@@ -37,7 +37,7 @@ function Game:init_game_object()
         temp_levels = 0,
 		tree_of_life_count = 0,
         ya_te_veo_count = 0,
-        jackalope_count = 0,
+        jackalope_count = 1,
     }
 	return ret
 end

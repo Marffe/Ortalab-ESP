@@ -155,6 +155,9 @@ function Card:set_curse(_curse, silent, immediate, spread, message)
                 self.ability.curse[k] = v
             end
         end
+        if Ortalab.Curses[_curse].set_ability then
+            Ortalab.Curses[_curse]:set_ability(self)
+        end
 
         G.CONTROLLER.locks.seal = true
         local sound = Ortalab.Curses[_curse].sound or {sound = 'gold_seal', per = 1.2, vol = 0.4}
@@ -215,7 +218,11 @@ Ortalab.Curse({
     end,
     loc_vars = function(self, info_queue, card)
         if card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'gappie'} end
-		return {vars = {self.config.extra.base, self.config.extra.gain}}
+        if card and card.config.center.set == 'Joker' then 
+            return {vars = {card.ability.curse.extra.gain}, key = 'ortalab_corroded_joker'}
+        else
+            return {vars = {card.ability.curse.extra.base, card.ability.curse.extra.gain}}
+        end
     end,
     calculate = function(self, card, context)
         if context.discard and context.other_card == card then
@@ -226,6 +233,15 @@ Ortalab.Curse({
         if context.cardarea == G.play and context.main_scoring and not context.repetition and not context.individual then
             return {
                 p_dollars = -card.ability.curse.extra.base,
+            }
+        end
+        if context.cardarea == G.jokers and context.post_trigger and context.other_card == card then
+            card.ability.extra_value = card.ability.extra_value - card.ability.curse.extra.gain
+            card:set_cost()
+            return {
+                message = '-$'..card.ability.curse.extra.gain,
+                colour = G.C.GOLD,
+                message_card = card
             }
         end
     end
@@ -239,7 +255,60 @@ Ortalab.Curse({
     config = {extra = {force = true}},
     loc_vars = function(self, info_queue, card)
         if card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'gappie'} end
+        if card and card.config.center.set == 'Joker' then 
+            return {key = 'ortalab_possessed_joker'}
+        end
     end,
+    set_ability = function(self, card)
+        if card.config.center.set == 'Joker' then
+            card.states.drag.can = false
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                delay = 0.7,
+                func = function()
+                    local in_use = {}
+                    for _, joker in pairs(G.jokers.cards) do
+                        if joker.ability.curse and joker.ability.curse.extra.possessed then
+                            in_use[joker.ability.curse.extra.possessed] = true
+                        end
+                    end
+                    local position = pseudorandom(pseudoseed('possessed_joker'), 1, #G.jokers.cards)
+                    while in_use[position] do
+                        position = pseudorandom(pseudoseed('possessed_joker_reroll'), 1, #G.jokers.cards)
+                    end
+                    card.ability.curse.extra.possessed = position
+                    return true
+                end
+            }))
+        end
+    end,
+    calculate = function(self, card, context)
+        if context.after and card.config.center.set == 'Joker' then
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                delay = 0.7,
+                func = function()                
+                    local in_use = {}
+                    for _, joker in pairs(G.jokers.cards) do
+                        if joker.ability.curse and joker.ability.curse.extra.possessed then
+                            in_use[joker.ability.curse.extra.possessed] = true
+                        end
+                    end
+                    local position = pseudorandom(pseudoseed('possessed_joker'), 1, #G.jokers.cards)
+                    while in_use[position] do
+                        position = pseudorandom(pseudoseed('possessed_joker_reroll'), 1, #G.jokers.cards)
+                    end
+                    card.ability.curse.extra.possessed = position
+                    card.states.drag.can = false
+                    return true
+                end
+            }))
+            return {
+                message = localize({type = 'name_text', set = 'Curse', key = self.key})..'!',
+                colour = self.badge_colour
+            }
+        end 
+    end
 })
 
 Ortalab.Curse({
@@ -250,10 +319,14 @@ Ortalab.Curse({
     config = {extra = {level_loss = 2}},
     loc_vars = function(self, info_queue, card)
         if card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'gappie'} end
-        return {vars = {self.config.extra.level_loss}}
+        if card and card.config.center.set == 'Joker' then 
+            return {vars = {card.ability.curse.extra.level_loss}, key = 'ortalab_restrained_joker'}
+        else
+            return {vars = {card.ability.curse.extra.level_loss}}
+        end
     end,
     calculate = function(self, card, context)
-        if context.before and context.cardarea == G.hand then
+        if context.before and (context.cardarea == G.hand or context.cardarea == G.jokers) then
             G.GAME.ortalab.temp_levels = G.GAME.ortalab.temp_levels - card.ability.curse.extra.level_loss
             return {
                 message = localize({type = 'name_text', set = 'Curse', key = self.key})..'!',
@@ -277,10 +350,25 @@ Ortalab.Curse({
     pos = {x = 3, y = 0},
     badge_colour = HEX('849a3f'),
     sound = {sound = 'ortalab_infected', per = 1.2, vol = 0.4},
+    config = {extra = {denom = 2}},
     loc_vars = function(self, info_queue, card)
         if card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'flare'} end
+        if card and card.config.center.set == 'Joker' then 
+            return {vars = {G.GAME.probabilities.normal, card.ability.curse.extra.denom}, key = 'ortalab_infected_joker'}
+        end
     end,
     calculate = function(self, card, context)
+        if context.remove_curse and context.cardarea == G.jokers and card.ability.no_score then
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                delay = 0.4,
+                func = function()
+                    card.ability.no_score = false
+                    card:juice_up()        
+                    return true
+                end
+            }))
+        end
         if context.discard and context.other_card == card then
             G.E_MANAGER:add_event(Event({
                 trigger = 'after',
@@ -301,13 +389,56 @@ Ortalab.Curse({
                 end
             }))
         end
+        if context.setting_blind and context.cardarea == G.jokers then
+            if pseudorandom('infected_joker_chance') < G.GAME.probabilities.normal / card.ability.curse.extra.denom then
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'after',
+                    delay = 0.4,
+                    func = function()
+                        card.ability.no_score = true
+                        return true
+                    end
+                }))
+                return {
+                    message = localize({set = 'Curse', type = 'name_text', key = 'ortalab_infected'})..'!',
+                    colour = Ortalab.Curses.ortalab_infected.badge_colour
+                }
+            else
+                return {
+                    message = localize('ortalab_infected_safe'),
+                    colour = Ortalab.Curses.ortalab_infected.badge_colour
+                }
+            end
+        end
     end
 })
 
 local dfdtd = G.FUNCS.draw_from_discard_to_deck
 G.FUNCS.draw_from_discard_to_deck = function(e)
     for _, card in pairs(G.discard.cards) do
-        card.no_score = nil
+        card.ability.no_score = false
     end
     dfdtd(e)
+end
+
+local ec = eval_card
+function eval_card(card, context)
+    if card.ability.no_score then
+        local cur = {}
+        if context.remove_curse then
+            local curses = card:calculate_curse(context)
+            if curses then
+                cur.curses = curses
+            end
+        end
+        return cur, {}
+    end
+    local ret, post = ec(card, context)
+    return ret, post
+end
+
+local cashout = G.FUNCS.cash_out
+G.FUNCS.cash_out = function(e)
+    cashout(e)
+    SMODS.calculate_context({remove_curse = true}, {})
 end

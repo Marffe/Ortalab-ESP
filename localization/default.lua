@@ -81,6 +81,8 @@ return {
 			ortalab_blind_no_rank_caps = 'No rank',
 			ortalab_joker_slot = ' Joker slot!',
 			ortalab_joker_slots = ' Joker slots!',
+			ortalab_hand_size_gain = '+1 hand size!',
+			ortalab_infected_safe = 'Safe!'
         },
 		['labels'] = {
 			ortalab_greyscale = 'Greyscale',
@@ -1944,6 +1946,13 @@ return {
 					"into deck"
                 }
             },
+			['ortalab_corroded_joker'] = {
+                name = "Corroded",
+                text = {
+                    "{C:red}Reduce {C:money}sell value{} by",
+					"{C:red}$#1#{} when {C:attention}triggered",
+                }
+            },
 			['ortalab_possessed'] = {
                 name = "Possessed",
                 text = {
@@ -1951,12 +1960,28 @@ return {
 					"drawn"
                 }
             },
+			['ortalab_possessed_joker'] = {
+                name = "Possessed",
+                text = {
+					'Moves position after',
+					'each {C:blue}hand',
+                    "Position cannot be", 
+					"manually changed"
+                }
+            },
 			['ortalab_restrained'] = {
                 name = "Restrained",
                 text = {
                     '{C:red}Reduces{} level of played',
 					'{C:attention}poker hand{} by {C:red}#1#{}',
-					'when played'
+					'whilst held in hand'
+                }
+            },
+			['ortalab_restrained_joker'] = {
+                name = "Restrained",
+                text = {
+                    '{C:red}Reduces{} level of played',
+					'{C:attention}poker hand{} by {C:red}#1#{}',
                 }
             },
 			['ortalab_infected'] = {
@@ -1965,6 +1990,13 @@ return {
                     'Card {C:attention}does not{} score',
 					'{C:infected}Infected{} swaps to an uncursed',
 					'card in hand when {C:red}discarded'
+                }
+            },
+			['ortalab_infected_joker'] = {
+                name = "Infected",
+                text = {
+                    '{C:green}#1# in #2#{} chance to',
+					'be {C:mythos}disabled{} each round'
                 }
             },
 		},
@@ -2396,6 +2428,12 @@ return {
 					'{s:0.9}with {V:1,E:2,s:0.9}#2#{}',
 				},
 			},
+			c_ortalab_mult_random_joker = {
+				text = {
+					'{C:Mythos,s:0.9}Curse #1# random{s:0.9,C:attention} Joker',
+					'{s:0.9}with {V:1,E:2,s:0.9}#2#{}',
+				},
+			},
             c_ortalab_gnome = {
 				name = 'Gnome',
 				text = {
@@ -2446,8 +2484,9 @@ return {
 			c_ortalab_wendigo = {
 				name = 'Wendigo',
 				text = {
-					'Add {C:dark_edition}Overexposed{} to',
-					'a {C:attention}random Joker'
+					'Add {C:dark_edition}Overexposed{} or',
+					'{C:dark_edition}Greyscale{} to',
+					'a {C:attention}selected Joker'
 				},
 			},
 			c_ortalab_genie = {
@@ -2475,12 +2514,14 @@ return {
 				name = 'Jackalope',
 				text = {
 					'Gain {C:blue}+#1#{} Hand',
+					'permanently'
 				},
 			},
 			c_ortalab_ya_te_veo = {
 				name = 'Ya Te Veo',
 				text = {
-					'{C:blue}+#1#{} hand size'
+					'{C:blue}+#1#{} hand size',
+					'permanently'
 				},
 			},
 			c_ortalab_anubis = {

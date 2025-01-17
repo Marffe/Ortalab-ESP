@@ -12,7 +12,7 @@ position = 'before'
 match_indent = true
 payload = '''
 if self.curse then
-    if self.curse == 'ortalab_infected' and self.area == G.play and self.no_score then
+    if self.curse == 'ortalab_infected' and ((self.area == G.play or self.config.center.set == 'Joker') and self.ability.no_score) then
         self.children.center:draw_shader('ortalab_celadon', nil, self.ARGS.send_to_shader)
         if self.children.front then
             self.children.front:draw_shader('ortalab_celadon', nil, self.ARGS.send_to_shader)
@@ -48,7 +48,7 @@ self.curse = cardTable.curse
 [[patches]]
 [patches.pattern]
 target = 'functions/common_events.lua'
-pattern = '''local seal = SMODS.Seals[v] or SMODS.Seal.badge_to_key[v] and SMODS.Seals[SMODS.Seal.badge_to_key[v]]'''
+pattern = '''local seal = G.P_SEALS[v] or G.P_SEALS[SMODS.Seal.badge_to_key[v] or '']'''
 position = 'before'
 match_indent = true
 payload = '''
@@ -183,7 +183,7 @@ position = 'after'
 match_indent = true
 payload = '''
 elseif scoring_hand[i].curse == 'ortalab_infected' then
-    G.E_MANAGER:add_event(Event({func = function() scoring_hand[i].no_score = true; return true; end}))
+    G.E_MANAGER:add_event(Event({func = function() scoring_hand[i].ability.no_score = true; return true; end}))
     card_eval_status_text(scoring_hand[i], 'extra', nil, nil, nil, {message = localize({set = 'Curse', type = 'name_text', key = 'ortalab_infected'})..'!', colour = Ortalab.Curses.ortalab_infected.badge_colour})
 '''
 # Infected
@@ -196,8 +196,34 @@ match_indent = true
 payload = '''
 for _, card in ipairs(scoring_hand) do
     if card.curse == 'ortalab_infected' then
-        G.E_MANAGER:add_event(Event({func = function() card.no_score = true; return true; end}))
+        G.E_MANAGER:add_event(Event({func = function() card.ability.no_score = true; return true; end}))
         card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize({set = 'Curse', type = 'name_text', key = 'ortalab_infected'})..'!', colour = Ortalab.Curses.ortalab_infected.badge_colour})
     end
 end
 '''
+# calc_dollar_bonus infected compat
+[[patches]]
+[patches.pattern]
+target = 'functions/state_events.lua'
+match_indent = true
+position = 'before'
+pattern = '''
+-- TARGET: calc_dollar_bonus per card
+'''
+payload = '''
+if _card.ability.no_score then ret = nil end
+'''
+
+# Possessed on jokers
+[[patches]]
+[patches.pattern]
+target = 'cardarea.lua'
+match_indent = true
+position = 'after'
+pattern = '''
+table.sort(self.cards, function (a, b) return a.T.x + a.T.w/2 - 100*((a.pinned and not a.ignore_pinned) and a.sort_id or 0) < b.T.x + b.T.w/2 - 100*((b.pinned and not b.ignore_pinned) and b.sort_id or 0) end)
+'''
+payload = '''
+for i, card in ipairs(G.jokers.cards) do if card.ability.curse and card.ability.curse.extra.possessed then table.remove(G.jokers.cards, i); table.insert(G.jokers.cards, card.ability.curse.extra.possessed, card) end end
+'''
+

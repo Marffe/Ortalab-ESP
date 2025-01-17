@@ -29,8 +29,8 @@ SMODS.ConsumableType({
             }
         }
     },
-    collection_rows = {3, 3},
-    shop_rate = 0.3,
+    collection_rows = {5, 4},
+    shop_rate = 1.5,
     default = 'c_ortalab_zod_aries'
 })
 
@@ -115,7 +115,7 @@ SMODS.Consumable({
         for _, card in pairs(G.hand.cards) do
             if not card.curse then uncursed_cards = uncursed_cards + 1 end
         end
-        if uncursed_cards >= card.ability.extra.select + G.GAME.ortalab.tree_of_life_count  then
+        if uncursed_cards >= math.min(G.hand.config.card_limit, card.ability.extra.select + G.GAME.ortalab.tree_of_life_count)  then
             return true
         end
     end,
@@ -125,7 +125,7 @@ SMODS.Consumable({
         local curses = {'corroded', 'infected', 'possessed', 'restrained'}
         local applied = {}
 
-        for i=1, card.ability.extra.select + G.GAME.ortalab.tree_of_life_count  do
+        for i=1, math.min(G.hand.config.card_limit, card.ability.extra.select + G.GAME.ortalab.tree_of_life_count)  do
             G.E_MANAGER:add_event(Event({
                 trigger = 'after',
                 delay = 0.5,
@@ -166,6 +166,8 @@ SMODS.Consumable({
                     local joker, pos = pseudorandom_element(available_jokers, pseudoseed('tree_perish'))
                     SMODS.Stickers.perishable:apply(joker, true)
                     joker:juice_up()
+                    play_sound('tarot1')
+                    card:juice_up(0.3, 0.5)
                     table.remove(available_jokers, pos)
                     return true
                 end
@@ -204,7 +206,7 @@ SMODS.Consumable({
     atlas = 'mythos_cards',
     pos = {x=2, y=0},
     discovered = false,
-    config = {extra = {select = 2, curse = 'ortalab_restrained', method = 'c_ortalab_mult_random_deck', cards = 3}},
+    config = {extra = {select = 2, curse = 'ortalab_possessed', method = 'c_ortalab_mult_random_deck', cards = 3}},
     loc_vars = function(self, info_queue, card)
         if Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'gappie'} end
         info_queue[#info_queue + 1] = {set = 'Curse', key = card.ability.extra.curse, specific_vars = Ortalab.Curses[card.ability.extra.curse]:loc_vars().vars}
@@ -251,6 +253,7 @@ SMODS.Consumable({
                     local new_edition = poll_edition('mythos_genie', nil, false, true)
                     G.hand.highlighted[i]:set_edition(new_edition, true)
                     G.hand.highlighted[i]:juice_up()
+                    card:juice_up(0.3, 0.5)
                     return true
                 end
             }))
@@ -342,6 +345,8 @@ SMODS.Consumable({
                     G.deck:emplace(new_card)
                     G.deck:shuffle('pandora')
                     used_card:juice_up()
+                    play_sound('tarot1')
+                    card:juice_up(0.3, 0.5)
                     
                     return true
                 end
@@ -386,6 +391,7 @@ SMODS.Consumable({
                         if not p_card.curse then 
                             p_card:set_curse(card.ability.extra.curse, true)
                             G.deck.cards[1]:juice_up()
+                            card:juice_up(0.3, 0.5)
                             select = false
                         end
                     end
@@ -400,6 +406,7 @@ SMODS.Consumable({
             delay = 0.5,
             func = function()
                 G.hand.highlighted[1]:set_edition('e_ortalab_overexposed', true)
+                card:juice_up(0.3, 0.5)
                 return true
             end
         }))
@@ -441,6 +448,7 @@ SMODS.Consumable({
                             G.hand:add_to_highlighted(p_card)
                             p_card:set_curse(card.ability.extra.curse, false, true)
                             p_card:juice_up()
+                            card:juice_up(0.3, 0.5)
                             select = false
                         end
                     end
@@ -511,6 +519,7 @@ SMODS.Consumable({
         -- set the curse
         G.hand.highlighted[1]:set_curse(card.ability.extra.curse)
         G.hand.highlighted[1]:juice_up()
+        card:juice_up(0.3, 0.5)
         -- unhighlight card
         G.E_MANAGER:add_event(Event({
             func = function()
@@ -541,6 +550,7 @@ SMODS.Consumable({
                     table.insert(G.playing_cards, new_card)
                     G.hand:emplace(new_card)
                     new_card:juice_up()
+                    card:juice_up(0.3, 0.5)
 
 
                     cards[i] = new_card
@@ -572,6 +582,7 @@ SMODS.Consumable({
         -- set the curse
         G.hand.highlighted[1]:set_curse(card.ability.extra.curse)
         G.hand.highlighted[1]:juice_up()
+        card:juice_up(0.3, 0.5)
         -- unhighlight card
         G.E_MANAGER:add_event(Event({
             func = function()
@@ -596,7 +607,7 @@ SMODS.Consumable({
                     table.insert(G.playing_cards, new_card)
                     G.hand:emplace(new_card)
                     new_card:juice_up()
-
+                    card:juice_up(0.3, 0.5)
 
                     cards[i] = new_card
                     return true
@@ -626,6 +637,7 @@ SMODS.Consumable({
         -- set the curse
         G.hand.highlighted[1]:set_curse(card.ability.extra.curse)
         G.hand.highlighted[1]:juice_up()
+        card:juice_up(0.3, 0.5)
         -- unhighlight card
         G.E_MANAGER:add_event(Event({
             func = function()
@@ -650,6 +662,7 @@ SMODS.Consumable({
                     table.insert(G.playing_cards, new_card)
                     G.hand:emplace(new_card)
                     new_card:juice_up()
+                    card:juice_up(0.3, 0.5)
 
 
                     cards[i] = new_card
@@ -667,16 +680,84 @@ SMODS.Consumable({
     atlas = 'mythos_cards',
     pos = {x=3, y=2},
     discovered = false,
-    config = {extra = {select = 1, money_gain = 2, curse = 'ortalab_corroded', method = 'c_ortalab_one_selected'}},
+    config = {extra = {select = 1, money_gain = 2, curse = 'ortalab_corroded', method = 'c_ortalab_mult_random_joker'}},
     loc_vars = function(self, info_queue, card)
         if Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'gappie'} end
-        return {vars = {card.ability.extra.money_gain, 20}}
+        local total_value = 0
+        for k=1, #G.jokers.cards + #G.consumeables.cards do
+            local _card = G.jokers.cards[k] or G.consumeables.cards[k - #G.jokers.cards]
+            if _card.config.center.set == 'Joker' then
+                total_value = total_value + _card.sell_cost
+            end
+        end
+        return {vars = {card.ability.extra.money_gain, total_value}}
     end,
     can_use = function(self, card)
-        return true
+        local uncursed = 0
+        local i = 1
+        while (uncursed <= card.ability.extra.select and i <= #G.jokers.cards) do
+            if not G.jokers.cards[i].curse then uncursed = uncursed + 1 end
+            i = i + 1
+        end
+        if uncursed >= card.ability.extra.select then return true end
     end,
     use = function(self, card, area, copier)
-        sendDebugMessage("Not yet implemented")
+        -- Curse random joker
+        local select = true
+        while select do
+            local p_card = pseudorandom_element(G.jokers.cards, pseudoseed('ortalab_gnome'))
+            if not p_card.curse then 
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'after',
+                    delay = 0.7,
+                    func = function()                
+                        p_card:set_curse(card.ability.extra.curse, false, true)
+                        p_card:juice_up()
+                        play_sound('tarot1')
+                        card:juice_up(0.3, 0.5)
+                        return true
+                    end
+                }))
+                select = false
+            end
+        end
+
+        -- unhighlight card
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                G.hand:unhighlight_all()
+                return true
+            end
+        }))
+
+        local total_value = 0
+        for k=1, #G.jokers.cards + #G.consumeables.cards do
+            local _card = G.jokers.cards[k] or G.consumeables.cards[k - #G.jokers.cards]
+            if _card.config.center.set == 'Joker' then
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'after',
+                    delay = 0.7,
+                    func = function()
+                        _card.ability.extra_value = _card.ability.extra_value + card.ability.extra.money_gain
+                        _card:set_cost()
+                        play_sound('coin1')
+                        card:juice_up(0.3, 0.5)
+                        SMODS.calculate_effect({message = '+$'..card.ability.extra.money_gain, colour = G.C.GOLD, instant = true}, _card)
+                        total_value = total_value + _card.sell_cost
+                        _card:juice_up()
+                        return true
+                    end
+                }))
+            end
+        end
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.7,
+            func = function()
+                ease_dollars(total_value)                
+                return true
+            end
+        }))
     end
 })
 
@@ -686,15 +767,67 @@ SMODS.Consumable({
     atlas = 'mythos_cards',
     pos = {x=3, y=1},
     discovered = false,
-    config = {extra = {select = 1, curse = 'ortalab_possessed', method = 'c_ortalab_one_selected'}},
+    config = {extra = {select = 1, curse = 'ortalab_possessed', method = 'c_ortalab_mult_random_joker'}},
     loc_vars = function(self, info_queue, card)
         if Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'gappie'} end
     end,
     can_use = function(self, card)
-        return true
+        local uncursed = 0
+        local i = 1
+        while (uncursed <= card.ability.extra.select and i <= #G.jokers.cards) do
+            if not G.jokers.cards[i].curse then uncursed = uncursed + 1 end
+            i = i + 1
+        end
+        if uncursed >= card.ability.extra.select then return true end
     end,
     use = function(self, card, area, copier)
-        sendDebugMessage("Not yet implemented")
+        -- Curse random joker
+        local select = true
+        while select do
+            local p_card = pseudorandom_element(G.jokers.cards, pseudoseed('ortalab_crawler'))
+            if not p_card.curse then 
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'after',
+                    delay = 0.7,
+                    func = function()                
+                        p_card:set_curse(card.ability.extra.curse, false, true)
+                        p_card:juice_up()
+                        play_sound('tarot1')
+                        card:juice_up(0.3, 0.5)
+                        return true
+                    end
+                }))
+                select = false
+            end
+        end
+        -- unhighlight card
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                G.hand:unhighlight_all()
+                return true
+            end
+        }))
+        
+        -- Edition on joker
+        local valid_jokers = {}
+        for k=1, #G.jokers.cards + #G.consumeables.cards do
+            local _card = G.jokers.cards[k] or G.consumeables.cards[k - #G.jokers.cards]
+            if _card.config.center.set == 'Joker' and not _card.edition then
+                valid_jokers[#valid_jokers + 1] = _card
+            end
+        end
+        local edition = poll_edition('ortalab_crawler_edition',nil,false,true)
+        local selected = pseudorandom_element(valid_jokers, pseudoseed('ortalab_crawler'))
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.7,
+            func = function()
+                card:juice_up(0.3, 0.5)
+                selected:set_edition(edition, true)
+                return true
+            end
+        }))
+        SMODS.calculate_effect({message = localize{type = 'name_text', set = 'Edition', key = edition}, colour = G.C.DARK_EDITION}, selected)
     end
 })
 
@@ -702,7 +835,7 @@ SMODS.Consumable({
     key = 'kraken',
     set = 'Mythos',
     atlas = 'mythos_cards',
-    pos = {x=3, y=2},
+    pos = {x=2, y=1},
     discovered = false,
     config = {extra = {select = 2, curse = 'ortalab_corroded', method = 'c_ortalab_mult_random_deck', cards = 4}},
     loc_vars = function(self, info_queue, card)
@@ -710,10 +843,62 @@ SMODS.Consumable({
         return {vars = {card.ability.extra.cards}}
     end,
     can_use = function(self, card)
-        return true
+        if #G.hand.highlighted > 0 and #G.hand.highlighted <= card.ability.extra.cards then
+            local uncursed = 0
+            local i = 1
+            while (uncursed <= card.ability.extra.select and i <= #G.deck.cards) do
+                if not G.deck.cards[i].curse then uncursed = uncursed + 1 end
+                i = i + 1
+            end
+            if uncursed >= card.ability.extra.select then return true end
+        end
     end,
     use = function(self, card, area, copier)
-        sendDebugMessage("Not yet implemented")
+        -- Curse random cards in deck
+        for i=1, card.ability.extra.select do
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                delay = 0.5,
+                func = function()
+                    local select = true
+                    while select do
+                        local p_card = pseudorandom_element(G.deck.cards, pseudoseed('ortalab_kraken'))
+                        if not p_card.curse then 
+                            p_card:set_curse(card.ability.extra.curse, true)
+                            G.deck.cards[1]:juice_up()
+                            card:juice_up(0.3, 0.5)
+                            select = false
+                        end
+                    end
+                    return true
+                end
+            }))
+        end
+
+        -- Give random editions
+        for i=1, #G.hand.highlighted do
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                delay = 0.5,
+                func = function()
+                    local enhancement = SMODS.poll_enhancement({key = 'ortalab_kraken', guaranteed = true})
+                    card:juice_up(0.3, 0.5)
+                    G.hand.highlighted[i]:set_ability(G.P_CENTERS[enhancement])
+                    G.hand.highlighted[i]:juice_up()
+                    return true
+                end
+            }))
+        end
+
+        -- Unhighlight cards
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.5,
+            func = function()
+                G.hand:unhighlight_all()
+                return true
+            end
+        }))
     end
 })
 
@@ -723,15 +908,56 @@ SMODS.Consumable({
     atlas = 'mythos_cards',
     pos = {x=1, y=1},
     discovered = false,
-    config = {extra = {select = 2, curse = 'ortalab_possessed', method = 'c_ortalab_mult_random_deck'}},
+    config = {extra = {select = 1, curse = 'ortalab_restrained', method = 'c_ortalab_mult_random_joker', cards = 1}},
     loc_vars = function(self, info_queue, card)
         if Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'gappie'} end
     end,
     can_use = function(self, card)
-        return true
+        if #G.jokers.highlighted > 0 and #G.jokers.highlighted <= card.ability.extra.cards then
+            local uncursed = 0
+            local i = 1
+            while (uncursed <= card.ability.extra.select and i <= #G.jokers.cards) do
+                if not G.jokers.cards[i].curse then uncursed = uncursed + 1 end
+                i = i + 1
+            end
+            if uncursed >= card.ability.extra.select then return true end
+        end
     end,
     use = function(self, card, area, copier)
-        sendDebugMessage("Not yet implemented")
+        -- Curse random joker
+        local select = true
+        while select do
+            local p_card = pseudorandom_element(G.jokers.cards, pseudoseed('ortalab_wendigo'))
+            if not p_card.curse then 
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'after',
+                    delay = 0.7,
+                    func = function()                
+                        p_card:set_curse(card.ability.extra.curse, false, true)
+                        p_card:juice_up()
+                        play_sound('tarot1')
+                        card:juice_up(0.3, 0.5)
+                        return true
+                    end
+                }))
+                select = false
+            end
+        end
+
+        -- Edition on joker
+        local edition = poll_edition('ortalab_crawler_edition',nil,false,true,{'e_ortalab_greyscale','e_ortalab_overexposed'})
+        local selected = G.jokers.highlighted[1]
+         --  local selected = pseudorandom_element(valid_jokers, pseudoseed('ortalab_crawler'))
+         G.E_MANAGER:add_event(Event({
+             trigger = 'after',
+             delay = 0.7,
+             func = function()
+                 card:juice_up(0.3, 0.5)
+                 selected:set_edition(edition, true)
+                 return true
+             end
+         }))
+         SMODS.calculate_effect({message = localize{type = 'name_text', set = 'Edition', key = edition}, colour = G.C.DARK_EDITION}, selected)
     end
 })
 
@@ -747,10 +973,60 @@ SMODS.Consumable({
         return {vars = {card.ability.extra.hands}}
     end,
     can_use = function(self, card)
-        return true
+        local uncursed_cards = 0
+        for _, card in pairs(G.hand.cards) do
+            if not card.curse then uncursed_cards = uncursed_cards + 1 end
+        end
+        if uncursed_cards >= math.min(G.hand.config.card_limit, card.ability.extra.select + G.GAME.ortalab.jackalope_count)  then
+            return true
+        end
     end,
     use = function(self, card, area, copier)
-        sendDebugMessage("Not yet implemented")
+        -- curse cards
+        G.hand:unhighlight_all()
+
+        for i=1, card.ability.extra.select * G.GAME.ortalab.jackalope_count do
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                delay = 0.5,
+                func = function()
+                    local select = true
+                    while select do
+                        local p_card = pseudorandom_element(G.hand.cards, pseudoseed('ortalab_jackalope_curse'))
+                        if not p_card.highlighted and not p_card.curse then 
+                            G.hand:add_to_highlighted(p_card)
+                            p_card:set_curse(card.ability.extra.curse, false, true)
+                            p_card:juice_up()
+                            card:juice_up(0.3, 0.5)
+                            select = false
+                        end
+                    end
+                    return true
+                end
+            }))
+        end
+
+        -- unhighlight card
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.5,
+            func = function()
+                G.hand:unhighlight_all()
+                return true
+            end
+        }))
+
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.7,
+            func = function()
+                ease_hands_played(card.ability.extra.hands)
+                G.GAME.round_resets.hands = G.GAME.round_resets.hands + card.ability.extra.hands  
+                G.GAME.ortalab.jackalope_count = G.GAME.ortalab.jackalope_count + 1             
+                SMODS.calculate_effect({message = localize('ortalab_cardist'), colour = G.C.BLUE}, card) 
+                return true
+            end
+        }))
     end
 })
 
@@ -766,10 +1042,60 @@ SMODS.Consumable({
         return {vars = {card.ability.extra.handsize}}
     end,
     can_use = function(self, card)
-        return true
+        local uncursed_cards = 0
+        for _, card in pairs(G.hand.cards) do
+            if not card.curse then uncursed_cards = uncursed_cards + 1 end
+        end
+        if uncursed_cards >= math.min(G.hand.config.card_limit, card.ability.extra.select + G.GAME.ortalab.ya_te_veo_count)  then
+            return true
+        end
     end,
     use = function(self, card, area, copier)
-        sendDebugMessage("Not yet implemented")
+        -- curse cards
+        G.hand:unhighlight_all()
+
+        for i=1, card.ability.extra.select + G.GAME.ortalab.ya_te_veo_count do
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                delay = 0.5,
+                func = function()
+                    local select = true
+                    while select do
+                        local p_card = pseudorandom_element(G.hand.cards, pseudoseed('ortalab_jackalope_curse'))
+                        if not p_card.highlighted and not p_card.curse then 
+                            G.hand:add_to_highlighted(p_card)
+                            p_card:set_curse(card.ability.extra.curse, false, true)
+                            p_card:juice_up()
+                            card:juice_up(0.3, 0.5)
+                            select = false
+                        end
+                    end
+                    return true
+                end
+            }))
+        end
+
+        -- unhighlight card
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.5,
+            func = function()
+                G.hand:unhighlight_all()
+                return true
+            end
+        }))
+
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.7,
+            func = function()
+                G.hand.config.card_limit = G.hand.config.card_limit + card.ability.extra.handsize
+                SMODS.calculate_effect({message = localize('ortalab_hand_size_gain'), colour = G.C.BLUE}, card)
+                draw_card(G.deck, G.hand)
+                G.GAME.ortalab.ya_te_veo_count = G.GAME.ortalab.ya_te_veo_count + 1
+                return true
+            end
+        }))
     end
 })
 
@@ -779,15 +1105,51 @@ SMODS.Consumable({
     atlas = 'mythos_cards',
     pos = {x=4, y=1},
     discovered = false,
-    config = {extra = {select = 2, curse = 'ortalab_infected', method = 'c_ortalab_mult_random'}},
+    config = {extra = {select = 1, curse = 'ortalab_infected', method = 'c_ortalab_mult_random_joker', cards = 1}},
     loc_vars = function(self, info_queue, card)
         if Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'gappie'} end
     end,
     can_use = function(self, card)
-        return true
+        if #G.jokers.highlighted > 0 and #G.jokers.highlighted <= card.ability.extra.cards then
+            local uncursed = 0
+            local i = 1
+            while (uncursed <= card.ability.extra.select and i <= #G.jokers.cards) do
+                if not G.jokers.cards[i].curse then uncursed = uncursed + 1 end
+                i = i + 1
+            end
+            if uncursed >= card.ability.extra.select then return true end
+        end
     end,
     use = function(self, card, area, copier)
-        sendDebugMessage("Not yet implemented")
+        -- Curse random joker
+        local select = true
+        while select do
+            local p_card = pseudorandom_element(G.jokers.cards, pseudoseed('ortalab_anubis'))
+            if not p_card.curse then 
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'after',
+                    delay = 0.7,
+                    func = function()                
+                        p_card:set_curse(card.ability.extra.curse, false, true)
+                        p_card:juice_up()
+                        play_sound('tarot1')
+                        card:juice_up(0.3, 0.5)
+                        return true
+                    end
+                }))
+                select = false
+            end
+        end
+
+        -- Move joker
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.7,
+            func = function()
+                draw_card(G.jokers, G.consumeables, nil, nil, nil, G.jokers.highlighted[1])                
+                return true
+            end
+        }))
     end
 })
 
@@ -844,6 +1206,10 @@ function generate_card_ui(_c, full_UI_table, specific_vars, card_type, badges, h
         }
         if _c.key == 'c_ortalab_tree_of_life' then
             vars[1] = vars[1] + G.GAME.ortalab.tree_of_life_count
+        elseif _c.key == 'c_ortalab_jackalope' then
+            vars[1] = math.min(vars[1] * G.GAME.ortalab.jackalope_count, G.hand.config.card_limit)
+        elseif _c.key == 'c_ortalab_ya_te_veo' then
+            vars[1] = vars[1] + G.GAME.ortalab.ya_te_veo_count
         end
         localize{type = 'descriptions', set = _c.set, key = card.ability.extra.method, nodes = mythos_nodes, vars = vars}
         ui.mythos = mythos_nodes

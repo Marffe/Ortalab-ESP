@@ -82,21 +82,6 @@ G.GAME.Ortalab_Scoring_Active = false
 '''
 match_indent = true
 
-[[patches]]
-[patches.pattern]
-target = "functions/state_events.lua"
-pattern = '''if effects[ii].message then'''
-position = "before"
-payload = '''
-if effects[ii].chips then 
-    mod_percent = true
-    hand_chips = mod_chips(hand_chips + effects[ii].chips)
-    update_hand_text({delay = 0}, {chips = hand_chips})
-    card_eval_status_text(G.hand.cards[i], 'chips', effects[ii].chips, percent)
-end
-'''
-match_indent = true
-
 # ## Demo Card Badges
 # [[patches]]
 # [patches.pattern]
@@ -227,25 +212,7 @@ if self.sell_cost < 0 and self.facing ~= 'back' then self.sell_cost_label = self
 [[patches]]
 [patches.pattern]
 target = 'functions/state_events.lua'
-pattern = "local effects = {eval_card(scoring_hand[i], {cardarea = G.play, full_hand = G.play.cards, scoring_hand = scoring_hand, poker_hand = text})}"
-match_indent = true
-position = 'after'
-payload = '''
-local ortalab_soil_jokers = SMODS.find_card('j_ortalab_soil')
-for _, soil_joker in ipairs(ortalab_soil_jokers) do
-    if not soil_joker.ability.extra.last_triggered then
-        soil_joker.ability.extra.last_triggered = scoring_hand[i].base.id
-    elseif soil_joker.ability.extra.last_triggered == scoring_hand[i].base.id then
-        G.E_MANAGER:add_event(Event({func = function() soil_joker:juice_up(); return true; end}))
-        soil_joker.ability.extra.consecutive_ranks = soil_joker.ability.extra.consecutive_ranks + 1
-    end
-    soil_joker.ability.extra.last_triggered = scoring_hand[i].base.id
-end
-'''
-[[patches]]
-[patches.pattern]
-target = 'functions/state_events.lua'
-pattern = "local effects = {eval_card(G.hand.cards[i], {cardarea = G.hand, full_hand = G.play.cards, scoring_hand = scoring_hand, scoring_name = text, poker_hands = poker_hands})}"
+pattern = "--calculate the hand effects"
 match_indent = true
 position = 'after'
 payload = '''
