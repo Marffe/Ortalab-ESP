@@ -263,11 +263,13 @@ SMODS.Back({
     atlas = 'decks',
     pos = {x = 3, y = 2},
     config = {round = 1},
-    trigger_effect = function(self, args)
-        if args.context == 'final_scoring_step' and G.GAME.current_round.hands_played == 0 then
-            G.GAME.modifiers.frozen_deck = true
-        else
-            G.GAME.modifiers.frozen_deck = false
+    calculate = function(self, card, context)
+        if context.final_scoring_step then
+            if G.GAME.current_round.hands_played == 0 then
+                G.GAME.modifiers.frozen_deck = true
+            else
+                G.GAME.modifiers.frozen_deck = false
+            end
         end
     end,
     loc_vars = function(self, info_queue, card)
