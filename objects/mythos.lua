@@ -209,7 +209,6 @@ SMODS.Consumable({
     config = {extra = {select = 2, curse = 'ortalab_possessed', method = 'c_ortalab_mult_random_deck', cards = 3}},
     loc_vars = function(self, info_queue, card)
         if Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'gappie'} end
-        info_queue[#info_queue + 1] = {set = 'Curse', key = card.ability.extra.curse, specific_vars = Ortalab.Curses[card.ability.extra.curse]:loc_vars().vars}
         return {vars = {card.ability.extra.cards}}
     end,
     can_use = function(self, card)
@@ -280,7 +279,7 @@ SMODS.Consumable({
     config = {extra = {select = 4, curse = 'ortalab_all_curses', method = 'c_ortalab_mult_random', choose = 1, copies = 6}},
     loc_vars = function(self, info_queue, card)
         if Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'gappie'} end
-        card.ability.extra.select = math.ceil(#G.hand.cards / 2)
+        card.ability.extra.select = math.ceil(G.hand and #G.hand.cards or 8 / 2)
         return {vars = {card.ability.extra.copies}}
     end,
     set_ability = function(self, card)
@@ -684,10 +683,12 @@ SMODS.Consumable({
     loc_vars = function(self, info_queue, card)
         if Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'gappie'} end
         local total_value = 0
-        for k=1, #G.jokers.cards + #G.consumeables.cards do
-            local _card = G.jokers.cards[k] or G.consumeables.cards[k - #G.jokers.cards]
-            if _card.config.center.set == 'Joker' then
-                total_value = total_value + _card.sell_cost
+        if G.jokers then
+            for k=1, #G.jokers.cards + #G.consumeables.cards do
+                local _card = G.jokers.cards[k] or G.consumeables.cards[k - #G.jokers.cards]
+                if _card.config.center.set == 'Joker' then
+                    total_value = total_value + _card.sell_cost
+                end
             end
         end
         return {vars = {card.ability.extra.money_gain, total_value}}
@@ -969,7 +970,7 @@ SMODS.Consumable({
     discovered = false,
     config = {extra = {select = 2, curse = 'ortalab_corroded', method = 'c_ortalab_mult_random', hands = 1}},
     loc_vars = function(self, info_queue, card)
-        if Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'gappie'} end
+        if Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'kosze'} end
         return {vars = {card.ability.extra.hands}}
     end,
     can_use = function(self, card)
@@ -1207,7 +1208,7 @@ function generate_card_ui(_c, full_UI_table, specific_vars, card_type, badges, h
         if _c.key == 'c_ortalab_tree_of_life' then
             vars[1] = vars[1] + G.GAME.ortalab.tree_of_life_count
         elseif _c.key == 'c_ortalab_jackalope' then
-            vars[1] = math.min(vars[1] * G.GAME.ortalab.jackalope_count, G.hand.config.card_limit)
+            vars[1] = math.min(vars[1] * G.GAME.ortalab.jackalope_count, G.hand and G.hand.config.card_limit or 100)
         elseif _c.key == 'c_ortalab_ya_te_veo' then
             vars[1] = vars[1] + G.GAME.ortalab.ya_te_veo_count
         end
