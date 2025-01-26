@@ -39,6 +39,7 @@ return {
 			['ortalab_leak'] = 'Leaked!',
 			['ortalab_empty'] = 'Empty!',
 			['ortalab_copied'] = 'Copied!',
+			ortalab_cutout = 'Chop!',
 			['ortalab_na'] = 'N/A',
 			['ortalab_explode'] = 'Exploded!',
 			['ortalab_infected'] = 'Infected!',
@@ -414,6 +415,14 @@ return {
 				["text"] = {
 					"Booster packs contain",
 					"{C:attention}1{} additional card",
+				}
+			},
+			['j_ortalab_cutout'] = {
+				["name"] = "Cutout Joker",
+				["text"] = {
+					"{X:mult,C:white}X#1#{} Mult",
+					'{C:red,E:2}self destructs{} when a', 
+					'{C:attention}Joker{} is sold'
 				}
 			},
 			['j_ortalab_damp'] = {

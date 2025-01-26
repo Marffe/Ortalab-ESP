@@ -15,7 +15,7 @@ local joker_list = {
     'direct',
     'dull',
     -- 'other_half',
-    -- 'cutout',
+    'cutout',
     -- 'polydactyly',
     -- 'wallet',
     'bank_loan',
