@@ -34,6 +34,17 @@ local igo = Game.init_game_object
 function Game:init_game_object()
     local ret = igo(self)
     ret.ortalab = {
+        vouchers = {
+            horoscope = 0,
+            cantor = 0,
+            tabla = 0,
+            leap_year = 0
+        },
+        zodiacs = {
+            reduction = 2,
+            temp_level_mod = 1,
+            activated = {}
+        },
         temp_levels = 0,
 		tree_of_life_count = 0,
         ya_te_veo_count = 0,
@@ -72,4 +83,90 @@ end
 
 to_big = to_big or function(x, y)
     return x
+end
+
+function Card:is_numbered(from_boss)
+    if self.debuff and not from_boss then return end
+    local id = self:get_id()
+    local rank = SMODS.Ranks[self.base.value]
+    if not id then return end
+    if (id > 0 and rank and not rank.face) or next(SMODS.find_card("j_ortalab_hypercalculia")) then
+        return true
+    end
+end
+
+function get_new_small()
+    G.GAME.perscribed_small = G.GAME.perscribed_small or {
+    }
+    if G.GAME.perscribed_small and G.GAME.perscribed_small[G.GAME.round_resets.ante] then 
+        local ret_boss = G.GAME.perscribed_small[G.GAME.round_resets.ante] 
+        G.GAME.perscribed_small[G.GAME.round_resets.ante] = nil
+        return ret_boss
+    end
+    if G.FORCE_SMALL then return G.FORCE_SMALL end
+
+    local eligible_bosses = {bl_small = true}
+    for k, v in pairs(G.P_BLINDS) do
+        if not v.small then
+            -- don't add
+        elseif v.in_pool and type(v.in_pool) == 'function' then
+            local res, options = v:in_pool()
+            eligible_bosses[k] = res and true or nil
+        elseif (v.small.min <= math.max(1, G.GAME.round_resets.ante) and ((math.max(1, G.GAME.round_resets.ante))%G.GAME.win_ante ~= 0 or G.GAME.round_resets.ante < 2)) then
+            eligible_bosses[k] = true
+        end
+    end
+    for k, v in pairs(G.GAME.banned_keys) do
+        if eligible_bosses[k] then eligible_bosses[k] = nil end
+    end
+
+    if G.GAME.modifiers.ortalab_only then
+        for k, v in pairs(eligible_bosses) do
+            if v and not G.P_BLINDS[k].mod or G.P_BLINDS[k].mod.id ~= 'ortalab' then
+                eligible_bosses[k] = nil
+            end
+        end
+    end
+
+    local _, boss = pseudorandom_element(eligible_bosses, pseudoseed('boss'))
+    
+    return boss
+end
+
+function get_new_big()
+    G.GAME.perscribed_big = G.GAME.perscribed_big or {
+    }
+    if G.GAME.perscribed_big and G.GAME.perscribed_big[G.GAME.round_resets.ante] then 
+        local ret_boss = G.GAME.perscribed_big[G.GAME.round_resets.ante] 
+        G.GAME.perscribed_big[G.GAME.round_resets.ante] = nil
+        return ret_boss
+    end
+    if G.FORCE_BIG then return G.FORCE_BIG end
+
+    local eligible_bosses = {bl_big = true}
+    for k, v in pairs(G.P_BLINDS) do
+        if not v.big then
+            -- don't add
+        elseif v.in_pool and type(v.in_pool) == 'function' then
+            local res, options = v:in_pool()
+            eligible_bosses[k] = res and true or nil
+        elseif (v.big.min <= math.max(1, G.GAME.round_resets.ante) and ((math.max(1, G.GAME.round_resets.ante))%G.GAME.win_ante ~= 0 or G.GAME.round_resets.ante < 2)) then
+            eligible_bosses[k] = true
+        end
+    end
+    for k, v in pairs(G.GAME.banned_keys) do
+        if eligible_bosses[k] then eligible_bosses[k] = nil end
+    end
+
+    if G.GAME.modifiers.ortalab_only then
+        for k, v in pairs(eligible_bosses) do
+            if v and not G.P_BLINDS[k].mod or G.P_BLINDS[k].mod.id ~= 'ortalab' then
+                eligible_bosses[k] = nil
+            end
+        end
+    end
+
+    local _, boss = pseudorandom_element(eligible_bosses, pseudoseed('boss'))
+    
+    return boss
 end

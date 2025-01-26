@@ -57,7 +57,7 @@ local small_boosters = {keys = {'small_zodiac_1', 'small_zodiac_2', 'small_zodia
     config = {choose = 1, extra = 2},
     loc_vars = function(self, info_queue, card)
         if Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'gappie'} end
-        return {vars = {(card and card.ability.choose or self.config.choose) + (G.GAME and G.GAME.Ortalab_zodiac_voucher and G.GAME.Ortalab_zodiac_voucher or 0), card and card.ability.extra or self.config.extra}}
+        return {vars = {card and card.ability.choose or self.config.choose, (card and card.ability.extra or self.config.extra) + (G.GAME and G.GAME.ortalab.vouchers.horoscope or 0)}}
     end,
     ease_background_colour = function(self)
         ease_colour(G.C.DYN_UI.MAIN, G.C.SET.Zodiac)
@@ -81,38 +81,9 @@ local small_boosters = {keys = {'small_zodiac_1', 'small_zodiac_2', 'small_zodia
         G.booster_pack_sparkles.fade_alpha = 1
         G.booster_pack_sparkles:fade(1, 0)
     end,
-    },
-    create = {
-        {create_card = function(self, card, i)
-            local most_used = nil
-            if G.GAME.used_vouchers.v_ortalab_horoscope and i == 1 then
-                local new_most_used, value = nil, 0
-                for zodiac_key, hand_type in pairs(hand_types_typing.positive) do
-                    if G.GAME.hands[hand_type].visible and G.GAME.hands[hand_type].played > value then
-                        new_most_used = zodiac_key
-                        value = G.GAME.hands[hand_type].played
-                    end
-                end
-                most_used = new_most_used
-            end
-            return create_card("Zodiac", G.pack_cards, nil, nil, true,  true, most_used or pseudorandom_element(zodiac_pool('positive'), pseudoseed('zodiac_positive_pack')), "zodpack")
-        end,
-        group_key = 'ortalab_zodiac_pack_plus',},
-        {create_card = function(self, card, i)
-            local most_used = nil
-            if G.GAME.used_vouchers.v_ortalab_horoscope and i == 1 then
-                local new_most_used, value = nil, 0
-                for zodiac_key, hand_type in pairs(hand_types_typing.negative) do
-                    if G.GAME.hands[hand_type].visible and G.GAME.hands[hand_type].played > value then
-                        new_most_used = zodiac_key
-                        value = G.GAME.hands[hand_type].played
-                    end
-                end
-                most_used = new_most_used
-            end
-            return create_card("Zodiac", G.pack_cards, nil, nil, true,  true, most_used or pseudorandom_element(zodiac_pool('negative'), pseudoseed('zodiac_negative_pack')), "zodpack")
-        end,
-        group_key = 'ortalab_zodiac_pack_minus',}
+    create_card = function(self, card, i)
+        return create_card("Zodiac", G.pack_cards, nil, nil, true,  true, most_used or pseudorandom_element(zodiac_pool(), pseudoseed('zodiac_pack')), "zodpack")
+    end,
     }
 }
 
@@ -121,12 +92,9 @@ for i, key in ipairs(small_boosters.keys) do
     for k,v in pairs(small_boosters.info) do
         booster_args[k] = v
     end
-    local other_values = small_boosters.create[(i-1)%2 + 1]
-    for k,v in pairs(other_values) do
-        booster_args[k] = v
-    end
     booster_args.key = key
     booster_args.pos = { x = i - 1, y = 0 }
+    booster_args.ortalab_type = 'Zodiac'
     SMODS.Booster(booster_args)
 end
 
@@ -135,26 +103,9 @@ local mid_boosters = {keys = {'mid_zodiac_1', 'mid_zodiac_2'}, info = {
     config = {choose = 1, extra = 4},
     loc_vars = function(self, info_queue, card)
         if card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'gappie'} end
-        return {vars = {(card and card.ability.choose or self.config.choose) + (G.GAME and G.GAME.Ortalab_zodiac_voucher and G.GAME.Ortalab_zodiac_voucher or 0), card and card.ability.extra or self.config.extra}}
+        return {vars = {card and card.ability.choose or self.config.choose, (card and card.ability.extra or self.config.extra) + (G.GAME and G.GAME.ortalab.vouchers.horoscope or 0)}}
     end,
     create_card = function(self, card, i)
-        local most_used = nil
-        if G.GAME.used_vouchers.v_ortalab_horoscope and i == 1 then
-            local new_most_used, value = nil, 0
-            for zodiac_key, hand_type in pairs(hand_types_typing.positive) do
-                if G.GAME.hands[hand_type].visible and G.GAME.hands[hand_type].played > value then
-                    new_most_used = zodiac_key
-                    value = G.GAME.hands[hand_type].played
-                end
-            end
-            for zodiac_key, hand_type in pairs(hand_types_typing.negative) do
-                if G.GAME.hands[hand_type].visible and G.GAME.hands[hand_type].played > value then
-                    new_most_used = zodiac_key
-                    value = G.GAME.hands[hand_type].played
-                end
-            end
-            most_used = new_most_used
-        end
         return create_card("Zodiac", G.pack_cards, nil, nil, true,  true, most_used or pseudorandom_element(zodiac_pool(), pseudoseed('zodiac_pack')), "zodpack")
     end,
     ease_background_colour = function(self)
@@ -189,6 +140,7 @@ for i, key in ipairs(mid_boosters.keys) do
     end
     booster_args.key = key
     booster_args.pos = { x = i - 1, y = 1 }
+    booster_args.ortalab_type = 'Zodiac'
     SMODS.Booster(booster_args)
 end
 
@@ -197,26 +149,9 @@ local large_boosters = {keys = {'big_zodiac_1', 'big_zodiac_2'}, info = {
     config = {choose = 2, extra = 4},
     loc_vars = function(self, info_queue, card)
         if Ortalab.config.artist_credits and card then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'gappie'} end
-        return {vars = {(card and card.ability.choose or self.config.choose) + (G.GAME and G.GAME.Ortalab_zodiac_voucher and G.GAME.Ortalab_zodiac_voucher or 0), card and card.ability.extra or self.config.extra}}
+        return {vars = {card and card.ability.choose or self.config.choose, (card and card.ability.extra or self.config.extra) + (G.GAME and G.GAME.ortalab.vouchers.horoscope or 0)}}
     end,
     create_card = function(self, card, i)
-        local most_used = nil
-        if G.GAME.used_vouchers.v_ortalab_horoscope and i == 1 then
-            local new_most_used, value = nil, 0
-            for zodiac_key, hand_type in pairs(hand_types_typing.positive) do
-                if G.GAME.hands[hand_type].visible and G.GAME.hands[hand_type].played > value then
-                    new_most_used = zodiac_key
-                    value = G.GAME.hands[hand_type].played
-                end
-            end
-            for zodiac_key, hand_type in pairs(hand_types_typing.negative) do
-                if G.GAME.hands[hand_type].visible and G.GAME.hands[hand_type].played > value then
-                    new_most_used = zodiac_key
-                    value = G.GAME.hands[hand_type].played
-                end
-            end
-            most_used = new_most_used
-        end
         return create_card("Zodiac", G.pack_cards, nil, nil, true,  true, most_used or pseudorandom_element(zodiac_pool(), pseudoseed('zodiac_pack')), "zodpack")
     end,
     ease_background_colour = function(self)
@@ -251,6 +186,7 @@ for i, key in ipairs(large_boosters.keys) do
     end
     booster_args.key = key
     booster_args.pos = { x = i + 1, y = 1 }
+    booster_args.ortalab_type = 'Zodiac'
     SMODS.Booster(booster_args)
 end
 

@@ -15,11 +15,11 @@ SMODS.Joker({
         return {vars = {card.ability.extra.mod}}
     end,
 	add_to_deck = function(self, card, from_debuff)
-        G.GAME.Ortalab_Zodiac_Reduction = G.GAME.Ortalab_Zodiac_Reduction * card.ability.extra.mod
-        G.GAME.Ortalab_zodiac_temp_level_mod = G.GAME.Ortalab_zodiac_temp_level_mod * card.ability.extra.mod
+        G.GAME.ortalab.zodiacs.reduction = G.GAME.ortalab.zodiacs.reduction * card.ability.extra.mod
+        G.GAME.ortalab.zodiacs.temp_level_mod = G.GAME.ortalab.zodiacs.temp_level_mod * card.ability.extra.mod
     end,
     remove_from_deck = function(self, card, from_debuff)
-        G.GAME.Ortalab_Zodiac_Reduction = G.GAME.Ortalab_Zodiac_Reduction / card.ability.extra.mod
-        G.GAME.Ortalab_zodiac_temp_level_mod = G.GAME.Ortalab_zodiac_temp_level_mod / card.ability.extra.mod
+        G.GAME.ortalab.zodiacs.reduction = G.GAME.ortalab.zodiacs.reduction / card.ability.extra.mod
+        G.GAME.ortalab.zodiacs.temp_level_mod = G.GAME.ortalab.zodiacs.temp_level_mod / card.ability.extra.mod
     end
 })

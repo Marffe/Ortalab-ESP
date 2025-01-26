@@ -17,9 +17,7 @@ SMODS.Joker({
 	calculate = function(self, card, context)
         if context.joker_main and not next(context.poker_hands[card.ability.extra.hand_type]) then
             return {
-                mult_mod = card.ability.extra.mult, 
-                colour = G.C.RED,
-                card = card
+                mult = card.ability.extra.mult, 
             }
         end
     end

@@ -34,6 +34,7 @@ return {
 			ortalab_hide_intro = 'Don\'t show again',
 			ortalab_toggle_intro = 'Skip Intro Screen',
 			["ortalab_artist"] = 'Artist',
+			ortalab_effects = 'Effects',
 			["ortalab_swap"] = 'Swap!',
 			['ortalab_leak'] = 'Leaked!',
 			['ortalab_empty'] = 'Empty!',
@@ -299,8 +300,8 @@ return {
 				["name"] = "Broken Masquerade",
 				["text"] = {
 					"Earn {C:money}$#1#{} at end of round",
-					"Gains {C:money}$#2#{} per discarded {C:attention,E:1}Cosmic Card{}",
-					"Discarded {C:attention,E:1}Cosmic Cards{} are destroyed",
+					"Gains {C:money}$#2#{} per scored {C:attention,E:1}Cosmic Card{}",
+					"Scored {C:attention,E:1}Cosmic Cards{} are destroyed",
 				}
 			},
 			['j_ortalab_blacklist'] = {
@@ -324,7 +325,7 @@ return {
 				["name"] = "Black Friday",
 				["text"] = {
 					"All cards in the shop",
-					"are {C:money}#2#%{} off",
+					"are {C:money}#1#%{} off",
 				}
 			},
 			['j_ortalab_blue_card'] = {
@@ -418,7 +419,7 @@ return {
 			['j_ortalab_damp'] = {
 				["name"] = "Damp Joker",
 				["text"] = {
-					"Upgrades the last",
+					"Upgrades the first",
 					"played {C:attention}poker hand{}",
 					"scored this blind",
 				}
@@ -527,9 +528,9 @@ return {
 				["name"] = "Freezer",
 				["text"] = {
 					'Gain {X:red,C:white}X#1#{} Mult for each',
-					'{C:attention}consumeable{} you are holding',
-					'Consumeables have a {C:green}#3# in #4#',
-					'chance to be consumed',
+					'{C:attention}consumable{} you are holding',
+					'Consumables have a {C:green}#3# in #4#',
+					'chance to be consumed when used',
 					'{C:inactive,s:0.9}(Currently {s:0.9,X:red,C:white}X#2#{C:inactive,s:0.9})'
 				}
 			},
@@ -624,7 +625,8 @@ return {
 			['j_ortalab_hypercalculia'] = {
 				["name"] = "Hypercalculia",
 				["text"] = {
-					"All cards count as",
+					"All cards are",
+					'considered',
 					"{C:attention}numbered{} cards"
 				}
 			},
@@ -690,7 +692,7 @@ return {
 			['j_ortalab_misfits'] = {
 				["name"] = "The Misfits",
 				["text"] = {
-					'{X:red,C:white}X#1#{} Mult if {C:attention}played hand',
+					'{X:red,C:white}X#1#{} Mult if {C:attention}poker hand',
 					'contains exactly',
 					'{C:attention}#2#{} Suits and {C:attention}#2#{} Ranks'
 				}
@@ -705,11 +707,10 @@ return {
 				}
 			},
 			['j_ortalab_monochrome'] = {
-				["name"] = "Monochrome Joker",
+				["name"] = "Prismatic Joker",
 				["text"] = {
-					"All cards are also",
-					"considered to be {V:1}#1#{}",
-					"{C:inactive,s:0.8}Changes when blind is selected",
+					"All cards act as",
+					"all suits when {C:attention}scored"
 				}
 			},
 			['j_ortalab_multiplyers'] = {
@@ -769,7 +770,7 @@ return {
 			['j_ortalab_pickaxe'] = {
 				["name"] = "Pickaxe",
 				["text"] = {
-					"Destroy played {C:attention}Ore{} cards",
+					"Destroy played {C:attention}rankless{} cards",
 					"Gains {X:mult,C:white}X#2#{} Mult per",
 					"card destroyed this way",
 					"{C:inactive,s:0.9}(Currently {X:mult,C:white,s:0.9}X#1#{C:inactive,s:0.9} Mult)"
@@ -1252,9 +1253,10 @@ return {
             ["c_ortalab_lot_flag"] = {
 				["name"] = "The Flag",
 				["text"] = {
-					"Increases or decreases",
-					"rank of up to {C:attention}#1#{}",
-					"selected cards by",
+					"Increases the {C:attention}left-most",
+					"selected card's rank and",
+					"decrease the {C:attention}right-most",
+					"selected card's rank by",
 					"up to {C:attention}#2#"
 				},
 			},
@@ -1270,6 +1272,8 @@ return {
             ["c_ortalab_lot_bottle"] = {
 				["name"] = "The Bottle",
 				["text"] = {
+					"Destroy up to {C:attention}#1#",
+					"selected cards",
 					"Create {C:attention}#1# modified",
 					"cards in your hand"
 				},
@@ -1294,7 +1298,9 @@ return {
 				["name"] = "The Bonnet",
 				["text"] = {
 					"Gain between {C:money}-$#1#",
-                    "and {C:money}$#2#"
+                    "and {C:money}$#2#",
+					"{C:inactive}Doubled if played with",
+					"{C:inactive}$#2# or more"
 				},
 			},
 			["c_ortalab_lot_boot"] = {
@@ -1398,7 +1404,7 @@ return {
 				["text"] = {
 					"{X:mult,C:white}X#1#{} Mult,",
                     "loses {X:mult,C:white}X#2#{} Mult", 
-					"when played",
+					"when held in hand",
                     "{C:inactive,s:0.7}(Destroyed when played at {X:mult,C:white,s:0.7}X1{C:inactive,s:0.7} Mult)",
 				},
 			},
@@ -1608,8 +1614,8 @@ return {
                 name = "Aries",
                 text = {
 					"{C:attention}+#1#{} levels to next {C:attention}#2#",
-					'Destroy #3# {C:attention}left-most{} cards',
-					'in hand'
+					'Destroy up to #3# {C:attention}left-most{} cards',
+					'of a different rank in hand'
                 }
             },
 			['zodiac_ortalab_taurus'] = {
@@ -1819,10 +1825,8 @@ return {
 			['v_ortalab_horoscope'] = {
 				["name"] = "Horoscope",
 				["text"] = {
-					'{C:zodiac}Astral Packs{} always contain',
-					'the {C:zodiac}Zodiac{} card for your',
-					'most played {C:attention}poker hand',
-					'{C:inactive,s:0.8}(Respects +/- types)'
+					"{C:zodiac}Astral Packs{} contain",
+					'{C:attention}#1#{} extra card'
 				}
 			},
 			['v_ortalab_natal_sign'] = {
@@ -2066,34 +2070,34 @@ return {
                 }
             },
 			['p_ortalab_small_zodiac_1'] = {
-                name = "Astral+ Pack",
+                name = "Astral Pack",
                 text = {
                     "Choose {C:attention}#1#{} of up to",
-                    "{C:attention}#2#{C:zodiac} +Zodiac{} cards to",
+                    "{C:attention}#2#{C:zodiac} Zodiac{} cards to",
                     "be used immediately"
                 }
             },
 			['p_ortalab_small_zodiac_2'] = {
-                name = "Astral- Pack",
+                name = "Astral Pack",
                 text = {
                     "Choose {C:attention}#1#{} of up to",
-                    "{C:attention}#2#{C:zodiac} -Zodiac{} cards to",
+                    "{C:attention}#2#{C:zodiac} Zodiac{} cards to",
                     "be used immediately"
                 }
             },
 			['p_ortalab_small_zodiac_3'] = {
-                name = "Astral+ Pack",
+                name = "Astral Pack",
                 text = {
                     "Choose {C:attention}#1#{} of up to",
-                    "{C:attention}#2#{C:zodiac} +Zodiac{} cards to",
+                    "{C:attention}#2#{C:zodiac} Zodiac{} cards to",
                     "be used immediately"
                 }
             },
 			['p_ortalab_small_zodiac_4'] = {
-                name = "Astral- Pack",
+                name = "Astral Pack",
                 text = {
                     "Choose {C:attention}#1#{} of up to",
-                    "{C:attention}#2#{C:zodiac} -Zodiac{} cards to",
+                    "{C:attention}#2#{C:zodiac} Zodiac{} cards to",
                     "be used immediately"
                 }
             },

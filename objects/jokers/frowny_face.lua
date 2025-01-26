@@ -15,7 +15,7 @@ SMODS.Joker({
         return {vars = {card.ability.extra.mult}}
     end,
 	calculate = function(self, card, context) --Frowny Face Logic
-        if context.individual and context.cardarea == G.play and not (context.other_card:is_face()) then
+        if context.individual and context.cardarea == G.play and context.other_card:is_numbered() then
             return {
                 mult = card.ability.extra.mult,
                 card = card

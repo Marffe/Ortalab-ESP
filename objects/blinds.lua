@@ -12,15 +12,12 @@ SMODS.Blind({
     atlas = 'ortalab_blinds',
     pos = {x=0, y=33},
     boss_colour = HEX('00b99f'),
-    -- boss = {min = 1, max = 10},
-    in_pool = function(self)
-        return false
-    end,
     loc_vars = function(self, info_queue, card)
         if card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'coro'} end
     end,
     mult = 0.5,
     dollars = 2,
+    small = {min = 1}
 })
 
 SMODS.Blind({
@@ -28,15 +25,12 @@ SMODS.Blind({
     atlas = 'ortalab_blinds',
     pos = {x=0, y=28},
     boss_colour = HEX('27b955'),
-    -- boss = {min = 1, max = 10},
-    in_pool = function(self)
-        return false
-    end,
     loc_vars = function(self, info_queue, card)
         if card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'coro'} end
     end,
     mult = 1.25,
     dollars = 4,
+    small = {min = 1}
 })
 
 SMODS.Blind({
@@ -44,15 +38,12 @@ SMODS.Blind({
     atlas = 'ortalab_blinds',
     pos = {x=0, y=30},
     boss_colour = HEX('71ba27'),
-    -- boss = {min = 1, max = 10},
-    in_pool = function(self)
-        return false
-    end,
     loc_vars = function(self, info_queue, card)
         if card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'eremel'} end
     end,
     mult = 1.4,
     dollars = 4,
+    small = {min = 3}
 })
 
 SMODS.Blind({
@@ -60,15 +51,12 @@ SMODS.Blind({
     atlas = 'ortalab_blinds',
     pos = {x=0, y=31},
     boss_colour = HEX('b94a00'),
-    -- boss = {min = 1, max = 10},
-    in_pool = function(self)
-        return false
-    end,
     loc_vars = function(self, info_queue, card)
         if card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'eremel'} end
     end,
     mult = 1.4,
     dollars = 4,
+    big = {min = 1}
 })
 
 SMODS.Blind({
@@ -76,15 +64,12 @@ SMODS.Blind({
     atlas = 'ortalab_blinds',
     pos = {x=0, y=29},
     boss_colour = HEX('c73a38'),
-    -- boss = {min = 1, max = 10},
-    in_pool = function(self)
-        return false
-    end,
     loc_vars = function(self, info_queue, card)
         if card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'coro'} end
     end,
-    mult = 1.65,
+    mult = 1.6,
     dollars = 5,
+    big = {min = 1}
 })
 
 SMODS.Blind({
@@ -92,39 +77,19 @@ SMODS.Blind({
     atlas = 'ortalab_blinds',
     pos = {x=0, y=32},
     boss_colour = HEX('b92aff'),
-    -- boss = {min = 1, max = 10},
-    in_pool = function(self)
-        return false
-    end,
     loc_vars = function(self, info_queue, card)
         if card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'eremel'} end
     end,
     mult = 1.8,
     dollars = 5,
+    big = {min = 3}
 })
-
-Ortalab_blinds = {
-    Small = {
-        bl_ortalab_check = 'bl_ortalab_check',
-        bl_ortalab_fold = 'bl_ortalab_fold',
-        bl_ortalab_bet = 'bl_ortalab_bet'
-    },
-    Big = {
-        bl_ortalab_raise = 'bl_ortalab_raise',
-        bl_ortalab_call = 'bl_ortalab_call',
-        bl_ortalab_all_in = 'bl_ortalab_all_in'
-    }
-}
 
 local blind_get_type = Blind.get_type
 function Blind:get_type()
-    if Ortalab_blinds.Small[self.config.blind.key] then
-        return 'Small'
-    elseif Ortalab_blinds.Big[self.config.blind.key] then 
-        return 'Big'
-    else
-        return blind_get_type(self)
-    end
+    if self.small then return 'Small'
+    elseif self.big then return 'Big'
+    else return blind_get_type(self) end
 end
 
 SMODS.Blind({
@@ -844,6 +809,14 @@ SMODS.Blind({
         return {key = 'bl_ortalab_sheep_collection', vars = {self.config.extra.reset}}
     end,
     set_blind = function(self)
+        local _handname, _played, _order = 'High Card', -1, 100
+        for k, v in pairs(G.GAME.hands) do
+            if v.played > _played or (v.played == _played and _order > v.order) then 
+                _played = v.played
+                _handname = k
+            end
+        end
+        G.GAME.current_round.most_played_poker_hand = _handname
         self.config.extra.hand_type = G.GAME.current_round.most_played_poker_hand
         G.GAME.blind:set_text()
     end,
@@ -904,7 +877,7 @@ SMODS.Blind({
     boss = {min = 3, max = 7},
     boss_colour = HEX('b52d2d'),
     in_pool = function(self)
-        if G.GAME.round_resets.ante > 8 or G.GAME.round_resets.ante < 2 then return false end
+        if G.GAME.round_resets.ante > 8 then return false end
         return true
     end,
     loc_vars = function(self, info_queue, card)
@@ -1087,7 +1060,7 @@ SMODS.Blind({
     atlas = 'ortalab_blinds',
     pos = {x = 0, y = 26},
     dollars = 8,
-    mult = 2.5,
+    mult = 2,
     boss = {min = 1, max = 10, showdown = true},
     boss_colour = HEX('a85476'),
     loc_vars = function(self, info_queue, card)

@@ -10,6 +10,7 @@ SMODS.Joker({
 	eternal_compat = true,
 	perishable_compat = false,
 	config = {extra = {dollars = 1, dollars_add = 1}},
+    enhancement_gate = 'm_ortalab_iou',
 	calc_dollar_bonus = function(self, card)
 		return card.ability.extra.dollars
 	end,
@@ -22,14 +23,14 @@ SMODS.Joker({
         return {vars = {card.ability.extra.dollars, card.ability.extra.dollars_add}}
     end,
 	calculate = function(self, card, context) --Beyond The Mask Logic
-        if context.discard and not context.blueprint and not context.other_card.debuff and context.other_card.config.center_key == 'm_ortalab_iou' then
+        if context.destroy_card and context.cardarea == G.play and not context.blueprint and context.destroy_card.config.center_key == 'm_ortalab_iou' then
             card.ability.extra.dollars = card.ability.extra.dollars + card.ability.extra.dollars_add
             return {
                 message = localize('k_upgrade_ex'),
                 colour = G.C.MONEY,
                 delay = 0.45, 
                 remove = true,
-                card = card
+                message_card = card
             }
         end
     end

@@ -15,7 +15,7 @@ SMODS.Joker({
         return {vars = {card.ability.extra.repetitions}}
     end,
     calculate = function(self, card, context)
-        if context.repetition and context.cardarea == G.play and not context.other_card:is_face() and not context.other_card.config.center.always_scores then
+        if context.repetition and context.cardarea == G.play and context.other_card:is_numbered() and not context.other_card.config.center.always_scores then
             return {
                 repetitions = card.ability.extra.repetitions,
                 message = localize('k_again_ex'),

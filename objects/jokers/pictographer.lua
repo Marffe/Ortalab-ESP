@@ -25,7 +25,7 @@ SMODS.Joker({
                 card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('ortalab_joker_miles_reset')})
             end
         end
-        if context.end_of_round and not context.repetition and not context.individual then
+        if context.end_of_round and context.main_eval then
             card.ability.extra.current = 0
             card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('ortalab_joker_miles_reset')})
         end

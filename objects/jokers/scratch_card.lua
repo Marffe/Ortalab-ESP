@@ -16,7 +16,7 @@ SMODS.Joker({
         return {vars = {G.GAME.probabilities.normal, card.ability.extra.chance, card.ability.extra.money}}
     end,
     calculate = function(self, card, context)
-        if context.individual and context.cardarea == G.play and not context.other_card:is_face() and not context.other_card.config.center.always_scores then
+        if context.individual and context.cardarea == G.play and context.other_card:is_numbered() and not context.other_card.config.center.always_scores then
             if pseudorandom(pseudoseed('ortalab_scratchcard')) < G.GAME.probabilities.normal / card.ability.extra.chance then
                 return {
                     dollars = card.ability.extra.money,

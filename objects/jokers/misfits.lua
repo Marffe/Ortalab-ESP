@@ -9,7 +9,7 @@ SMODS.Joker({
 	blueprint_compat = true,
 	eternal_compat = true,
 	perishable_compat = false,
-	config = {extra = {xmult = 4, count = 4}},
+	config = {extra = {xmult = 10, count = 4}},
 	loc_vars = function(self, info_queue, card)
         if card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'gappie'} end
 		return {vars = {card.ability.extra.xmult, card.ability.extra.count}}
@@ -18,7 +18,7 @@ SMODS.Joker({
         if context.joker_main then
             local suits = {}
             local ranks = {}
-            for _, played_card in ipairs(G.play.cards) do
+            for _, played_card in ipairs(context.scoring_hand) do
                 local suit = played_card.base.suit
                 local rank = played_card.base.value
                 suits[suit] = suit

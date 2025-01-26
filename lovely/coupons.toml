@@ -70,17 +70,25 @@ target = 'card.lua'
 pattern = '''G.GAME.pack_choices = self.config.center.config.choose or 1'''
 position = 'after'
 match_indent = true
-payload = '''if self.config.center.group_key and self.config.center.group_key:find('loteria') and G.GAME.used_vouchers['v_ortalab_cantor'] then G.GAME.pack_choices = G.GAME.pack_choices + G.GAME.Ortalab_loteria_voucher end'''
+payload = '''
+if self.config.center.ortalab_type == 'Loteria' then
+    G.GAME.pack_choices = G.GAME.pack_choices + G.GAME.ortalab.vouchers.cantor
+end'''
 
+# Horoscope Coupon Increase Zodiac Pack Limit
 [[patches]]
 [patches.pattern]
 target = 'card.lua'
-pattern = '''local used_tarot = copier or self'''
-position = 'after'
 match_indent = true
-payload = '''if self.config.center.set == 'Loteria' and G.GAME.used_vouchers['v_ortalab_tabla'] then
-    if self.ability.extra.amount then self.ability.extra.amount = self.ability.extra.amount + G.GAME.Ortalab_loteria_voucher_2 end
-end'''
+position = 'after'
+pattern = '''
+booster_obj = self.config.center
+'''
+payload = '''
+if self.config.center.ortalab_type == 'Zodiac' then
+    self.ability.extra = self.ability.extra + G.GAME.ortalab.vouchers.horoscope
+end
+'''
 
 # Natal Sign Calculation
 [[patches]]
@@ -92,7 +100,7 @@ match_indent = true
 payload = '''
 if G.GAME.used_vouchers.v_ortalab_natal_sign then
     for _, curr_zod in pairs(G.zodiacs) do
-        for i=1, math.ceil(curr_zod.config.extra.temp_level / 4) do
+        for i=1, math.floor(curr_zod.config.extra.temp_level / 4) do
             if not Ortalab.config.zodiac_skip then 
                 G.E_MANAGER:add_event(Event({
                     delay = 2/G.SETTINGS.GAMESPEED,

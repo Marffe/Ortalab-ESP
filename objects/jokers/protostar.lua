@@ -29,7 +29,7 @@ SMODS.Joker({
                     trigger = 'after',
                     delay = 0.4,
                     func = function() 
-                        local edition = card.edition.key
+                        local edition = card.edition and card.edition.key or nil
                         local stickers = {}
                         for k, v in pairs(SMODS.Stickers) do
                             if card.ability[k] then

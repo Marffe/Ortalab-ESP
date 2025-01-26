@@ -27,8 +27,7 @@ SMODS.Joker({
         end
         if context.joker_main and card.ability.extra.xmult > 1 then
             return {
-                Xmult_mod = card.ability.extra.xmult,
-                colour = G.C.RED
+                xmult = card.ability.extra.xmult,
             }
         end
     end

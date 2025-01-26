@@ -235,7 +235,7 @@ SMODS.Back({
                 G.E_MANAGER:add_event(Event({
                     trigger = 'after', delay = 0.4,
                     func = (function()
-                        local new_tag = Tag(selected_tag)
+                        local new_tag = Tag(selected_tag, false, 'Small')
                         if selected_tag == 'tag_orbital' then
                             local _poker_hands = {}
                             for k, v in pairs(G.GAME.hands) do

@@ -20,18 +20,26 @@ SMODS.Joker({
                 chips = card.ability.extra.chips
             }
         end
-        if context.discard and not context.blueprint then
-            if card.ability.extra.change == card.ability.extra.chips then
-                Ortalab.remove_joker(card)
+        if context.discard and not context.blueprint and card.ability.extra.chips > 0 then
+            card.ability.extra.chips = card.ability.extra.chips - card.ability.extra.change
+            if card.ability.extra.chips == 0 then
                 return {
                     message = localize('k_eaten_ex'),
+                    message_card = card,
+                    func = function()
+                        G.E_MANAGER:add_event(Event({
+                            trigger = 'immediate',
+                            func = function()                
+                                card:start_dissolve()
+                                return true
+                            end
+                        }))
+                    end
                 }
             else
-                card.ability.extra.chips = card.ability.extra.chips - card.ability.extra.change
                 return {
                     message = '-'..card.ability.extra.change,
                     colour = G.C.BLUE,
-                    card = card
                 }
             end
             

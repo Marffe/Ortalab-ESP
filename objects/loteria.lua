@@ -64,10 +64,14 @@ SMODS.Consumable({
             end
         end
         play_sound('timpani')
-        local card = create_card(nil, G.consumeables, nil, nil, nil, nil, pseudorandom_element(options, pseudoseed('rooster_card')), 'rooster')
-        card:add_to_deck()
-        G.consumeables:emplace(card)
-        card:juice_up(0.3, 0.5)
+        G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
+        if #G.consumeables.cards + G.GAME.consumeable_buffer <= G.consumeables.config.card_limit then
+            local card = create_card(nil, G.consumeables, nil, nil, nil, nil, pseudorandom_element(options, pseudoseed('rooster_card')), 'rooster')
+            card:add_to_deck()
+            G.consumeables:emplace(card)
+            card:juice_up(0.3, 0.5)
+        end
+        G.GAME.consumeable_buffer = G.GAME.consumeable_buffer - 1
     end
 })
 
@@ -77,11 +81,11 @@ SMODS.Consumable({
     atlas = 'loteria_cards',
     pos = {x=3, y=4},
     discovered = false,
-    config = {extra = {key = 'm_ortalab_recycled', amount = 2}},
+    config = {extra = {key = 'm_ortalab_recycled', amount = 3}},
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS[self.config.extra.key]
         if Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'kosze'} end
-        return {vars = {card.ability.extra.amount + (G.GAME and G.GAME.Ortalab_loteria_voucher_2 and G.GAME.Ortalab_loteria_voucher_2 or 0)}}
+        return {vars = {card.ability.extra.amount + (G.GAME and G.GAME.ortalab.vouchers.tabla)}}
     end,
     can_use = function(self, card)
         return can_enhance_cards(self, card)
@@ -101,14 +105,11 @@ SMODS.Consumable({
     atlas = 'loteria_cards',
     pos = {x=1, y=3},
     discovered = false,
-    in_pool = function(self)
-        return false
-    end,
     config = {extra = {type = 'Zodiac', amount = 2}},
     loc_vars = function(self, info_queue, card)
         if Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'kosze'} end
         info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'no_demo', title = 'Not In Demo'}
-        return {vars = {card.ability.extra.amount + (G.GAME and G.GAME.Ortalab_loteria_voucher_2 and G.GAME.Ortalab_loteria_voucher_2 or 0)}}
+        return {vars = {card.ability.extra.amount + (G.GAME and G.GAME.ortalab.vouchers.tabla)}}
     end,
     can_use = function(self, card)
         return standard_use(self, card)
@@ -132,7 +133,7 @@ SMODS.Consumable({
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS[self.config.extra.key]
         if Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'parchment'} end
-        return {vars = {card.ability.extra.amount + (G.GAME and G.GAME.Ortalab_loteria_voucher_2 and G.GAME.Ortalab_loteria_voucher_2 or 0)}}
+        return {vars = {card.ability.extra.amount + (G.GAME and G.GAME.ortalab.vouchers.tabla)}}
     end,
     can_use = function(self, card)
         return can_enhance_cards(self, card)
@@ -155,7 +156,7 @@ SMODS.Consumable({
     config = {extra = {type = 'Loteria', amount = 2}},
     loc_vars = function(self, info_queue, card)
         if Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'parchment'} end
-        return {vars = {card and (card.ability.extra.amount + (G.GAME and G.GAME.Ortalab_loteria_voucher_2 and G.GAME.Ortalab_loteria_voucher_2 or 0)) or self.config.extra.amount}}
+        return {vars = {card and (card.ability.extra.amount + (G.GAME and G.GAME.ortalab.vouchers.tabla)) or self.config.extra.amount}}
     end,
     can_use = function(self, card)
         return standard_use(self, card)
@@ -179,7 +180,7 @@ SMODS.Consumable({
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS[self.config.extra.key]
         if Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'parchment'} end
-        return {vars = {card.ability.extra.amount + (G.GAME and G.GAME.Ortalab_loteria_voucher_2 and G.GAME.Ortalab_loteria_voucher_2 or 0)}}
+        return {vars = {card.ability.extra.amount + (G.GAME and G.GAME.ortalab.vouchers.tabla)}}
     end,
     can_use = function(self, card)
         return can_enhance_cards(self, card)
@@ -203,7 +204,7 @@ SMODS.Consumable({
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS[self.config.extra.key]
         if Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'parchment'} end
-        return {vars = {card.ability.extra.amount + (G.GAME and G.GAME.Ortalab_loteria_voucher_2 and G.GAME.Ortalab_loteria_voucher_2 or 0)}}
+        return {vars = {card.ability.extra.amount + (G.GAME and G.GAME.ortalab.vouchers.tabla)}}
     end,
     can_use = function(self, card)
         return can_enhance_cards(self, card)
@@ -223,11 +224,11 @@ SMODS.Consumable({
     atlas = 'loteria_cards',
     pos = {x=2, y=0},
     discovered = false,
-    config = {extra = {key = 'm_ortalab_rusty', amount = 2}},
+    config = {extra = {key = 'm_ortalab_rusty', amount = 3}},
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS[self.config.extra.key]
         if Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'parchment'} end
-        return {vars = {card.ability.extra.amount + (G.GAME and G.GAME.Ortalab_loteria_voucher_2 and G.GAME.Ortalab_loteria_voucher_2 or 0)}}
+        return {vars = {card.ability.extra.amount + (G.GAME and G.GAME.ortalab.vouchers.tabla)}}
     end,
     can_use = function(self, card)
         return can_enhance_cards(self, card)
@@ -251,7 +252,7 @@ SMODS.Consumable({
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS[self.config.extra.key]
         if Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'kosze'} end
-        return {vars = {card.ability.extra.amount + (G.GAME and G.GAME.Ortalab_loteria_voucher_2 and G.GAME.Ortalab_loteria_voucher_2 or 0)}}
+        return {vars = {card.ability.extra.amount + (G.GAME and G.GAME.ortalab.vouchers.tabla)}}
     end,
     can_use = function(self, card)
         return can_enhance_cards(self, card)
@@ -284,7 +285,8 @@ SMODS.Consumable({
     end,
     use = function(self, card, area, copier)
         track_usage(card.config.center.set, card.config.center_key)
-        local money = pseudorandom(pseudoseed('bonnet'), card.ability.extra.min, card.ability.extra.max)
+        local doubled = to_big(G.GAME.dollars) >= to_big(card.ability.extra.max) and 2 or 1
+        local money = pseudorandom(pseudoseed('bonnet'), card.ability.extra.min * doubled, card.ability.extra.max * doubled)
         ease_dollars(money)
     end
 })
@@ -360,7 +362,7 @@ SMODS.Consumable({
     config = {extra = {selected = 2, rank_change = 2}},
     loc_vars = function(self, info_queue, card)
         if Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'parchment'} end
-        return {vars = {card.ability.extra.selected + (G.GAME and G.GAME.Ortalab_loteria_voucher_2 and G.GAME.Ortalab_loteria_voucher_2 or 0), card.ability.extra.rank_change}}
+        return {vars = {card.ability.extra.selected + (G.GAME and G.GAME.ortalab.vouchers.tabla), card.ability.extra.rank_change}}
     end,
     can_use = function(self, card)
         return selected_use(self, card)
@@ -370,25 +372,24 @@ SMODS.Consumable({
     end,
     use = function(self, card, area, copier)
         track_usage(card.config.center.set, card.config.center_key)
-        local options = {}
-        for i=1, card.ability.extra.rank_change do
-            table.insert(options, i)
-        end
+        table.sort(G.hand.highlighted, function (a, b) return a.T.x + a.T.w/2 < b.T.x + b.T.w/2 end)
+        local signs = {1, -1}
         for i=1, #G.hand.highlighted do
             local percent = 1.15 - (i-0.999)/(#G.hand.highlighted-0.998)*0.3
             G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.15,func = function() G.hand.highlighted[i]:flip();play_sound('card1', percent);G.hand.highlighted[i]:juice_up(0.3, 0.3);return true end }))
-        end
-        for _, card in pairs(G.hand.highlighted) do
-            local sign = pseudorandom(pseudoseed('flag_sign')) > 0.5 and 1 or -1
-            local change = pseudorandom_element(options, pseudoseed('flag_change'))
-            for i=1, change do
-                G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.4,func = function()
-                    card.base.id = card.base.id+sign
-                    local rank_suffix = get_rank_suffix(card)
-                    assert(SMODS.change_base(card, nil, rank_suffix))
-                return true end }))
-            end
-            -- card_eval_status_text(card, 'extra', nil, nil, nil, {message = tostring(sign*change), colour = G.ARGS.LOC_COLOURS.loteria, delay = 0.4})
+            local change = pseudorandom(pseudoseed('flag_change'), 1, card.ability.extra.rank_change)
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                delay = 0.4,
+                func = function()
+                    for j=1, change do
+                        G.hand.highlighted[i].base.id = G.hand.highlighted[i].base.id + signs[2 - (i % 2)]
+                        local rank_suffix = get_rank_suffix(G.hand.highlighted[i])
+                        assert(SMODS.change_base(G.hand.highlighted[i], nil, rank_suffix))
+                    end
+                    return true
+                end
+            }))
         end
         for i=1, #G.hand.highlighted do
             local percent = 0.85 + (i-0.999)/(#G.hand.highlighted-0.998)*0.3
@@ -405,23 +406,44 @@ SMODS.Consumable({
     atlas = 'loteria_cards',
     pos = {x=3, y=2},
     discovered = false,
-    config = {extra = {amount = 2}},
+    config = {extra = {amount = 2, selected = 2}},
     loc_vars = function(self, info_queue, card)
         if Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'parchment'} end
-        return {vars = {card.ability.extra.amount + (G.GAME and G.GAME.Ortalab_loteria_voucher_2 and G.GAME.Ortalab_loteria_voucher_2 or 0)}}
+        return {vars = {card.ability.extra.amount + (G.GAME and G.GAME.ortalab.vouchers.tabla)}}
     end,
     can_use = function(self, card)
-        return #G.hand.cards > 0
+        return selected_use(self, card)
     end,
     keep_on_use = function(self, card)
         return loteria_joker_save_check(card)
     end,
     use = function(self, card, area, copier)
         track_usage(card.config.center.set, card.config.center_key)
+        local destroyed_cards = {}
+        for i=#G.hand.highlighted, 1, -1 do
+            destroyed_cards[#destroyed_cards+1] = G.hand.highlighted[i]
+        end
+        G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
+            play_sound('tarot1')
+            card:juice_up(0.3, 0.5)
+            return true end }))
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.2,
+            func = function() 
+                for i=#G.hand.highlighted, 1, -1 do
+                    local card = G.hand.highlighted[i]
+                    if SMODS.shatters(card) then 
+                        card:shatter()
+                    else
+                        card:start_dissolve(nil, i == #G.hand.highlighted)
+                    end
+                end
+                return true end }))
         delay(0.5)
         G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.35,func = function()
             local new_cards = {}
-            for i=1, card.ability.extra.amount do
+            for i=1, card.ability.extra.amount + G.GAME.ortalab.vouchers.tabla do
                 G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.15,func = function()
                     local new_card = create_playing_card({center = G.P_CENTERS[pseudorandom_element(get_current_pool('Enhanced'), pseudoseed('bottle'))]}, G.play)
                     G.deck.config.card_limit = G.deck.config.card_limit + 1
@@ -562,7 +584,7 @@ SMODS.Consumable({
     config = {extra = {money = 1, value = 2, amount = 3}},
     loc_vars = function(self, info_queue, card)
         if Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'parchment'} end
-        return {vars = {card.ability.extra.money, card.ability.extra.value, card.ability.extra.amount + (G.GAME and G.GAME.Ortalab_loteria_voucher_2 and G.GAME.Ortalab_loteria_voucher_2 or 0)        }}
+        return {vars = {card.ability.extra.money, card.ability.extra.value, card.ability.extra.amount + (G.GAME and G.GAME.ortalab.vouchers.tabla)        }}
     end,
     can_use = function(self, card)
         return #G.hand.cards > 0 and #G.hand.highlighted == 0
@@ -573,12 +595,18 @@ SMODS.Consumable({
     use = function(self, loteria, area, copier)
         track_usage(loteria.config.center.set, loteria.config.center_key)
         local cards = {}
+        local available_cards = {}
+        for _, card in pairs(G.hand.cards) do
+            if card:get_chip_bonus() > 0 or get_chips_from_enhancement(card) > 0 or get_chips_from_edition(card) > 0 then
+                table.insert(available_cards, card)
+            end
+        end
 
-        for i=1, math.min(loteria.ability.extra.amount, #G.hand.cards) do
+        for i=1, math.min(loteria.ability.extra.amount + G.GAME.ortalab.vouchers.tabla, #available_cards) do
             G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.35,func = function()
                 local selected = false
                 while not selected do
-                    local selected_card = pseudorandom_element(G.hand.cards, pseudoseed('heron'))
+                    local selected_card = pseudorandom_element(available_cards, pseudoseed('heron'))
                     if not selected_card.highlighted then
                         G.hand:add_to_highlighted(selected_card)
                         selected = true
@@ -593,10 +621,9 @@ SMODS.Consumable({
             for _, card in pairs(G.hand.highlighted) do
                 G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.35,func = function()
                     local chips = card:get_chip_bonus()
-                    if card.edition then
-                        local ret = card:get_edition()
-                        if ret.chip_mod then chips = chips + ret.chip_mod end
-                    end
+                    local edition_chips = get_chips_from_edition(card)
+                    local enhancement_chips = get_chips_from_enhancement(card)
+                    chips = chips + edition_chips + enhancement_chips
                     local money = math.floor(chips/loteria.ability.extra.value)
                     card_eval_status_text(card, 'dollars', money, nil, nil, {instant = true})
                     total = total + money
@@ -613,6 +640,23 @@ SMODS.Consumable({
     end
 })
 
+function get_chips_from_edition(card)
+    if not card.edition then return 0 end
+    local ret = card:calculate_edition({main_scoring = true, cardarea = G.play})
+    if ret.chips then return ret.chips end
+    if ret.chip_mod then return ret.chip_mod end
+    return 0
+end
+
+function get_chips_from_enhancement(card)
+    if card.config.center.set ~= 'Enhanced' then return 0 end
+    local ret = card:calculate_enhancement({heron_check = true})
+    if not ret then return 0 end
+    if ret.chips then return ret.chips end
+    if ret.chip_mod then return ret.chip_mod end
+    return 0
+end
+
 SMODS.Consumable({
     key = 'lot_rose',
     set = 'Loteria',
@@ -623,7 +667,7 @@ SMODS.Consumable({
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS[self.config.extra.key]
         if Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'kosze'} end
-        return {vars = {card.ability.extra.amount + (G.GAME and G.GAME.Ortalab_loteria_voucher_2 and G.GAME.Ortalab_loteria_voucher_2 or 0)}}
+        return {vars = {card.ability.extra.amount + (G.GAME and G.GAME.ortalab.vouchers.tabla)}}
     end,
     can_use = function(self, card)
         return can_enhance_cards(self, card)
@@ -647,7 +691,7 @@ SMODS.Consumable({
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS[self.config.extra.key]
         if Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'parchment'} end
-        return {vars = {card.ability.extra.amount + (G.GAME and G.GAME.Ortalab_loteria_voucher_2 and G.GAME.Ortalab_loteria_voucher_2 or 0)}}
+        return {vars = {card.ability.extra.amount + (G.GAME and G.GAME.ortalab.vouchers.tabla)}}
     end,
     can_use = function(self, card)
         return can_enhance_cards(self, card)
@@ -670,7 +714,7 @@ SMODS.Consumable({
     config = {extra = {selected = 3, suit = 'Diamonds'}},
     loc_vars = function(self, info_queue, card)
         if Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'parchment'} end
-        return {vars = {card.ability.extra.selected + (G.GAME and G.GAME.Ortalab_loteria_voucher_2 and G.GAME.Ortalab_loteria_voucher_2 or 0), card.ability.extra.suit,
+        return {vars = {card.ability.extra.selected + (G.GAME and G.GAME.ortalab.vouchers.tabla), card.ability.extra.suit,
             colours = {G.C.SUITS[card.ability.extra.suit]}}}
     end,
     can_use = function(self, card)
@@ -694,7 +738,7 @@ SMODS.Consumable({
     config = {extra = {selected = 3, suit = 'Clubs'}},
     loc_vars = function(self, info_queue, card)
         if Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'parchment'} end
-        return {vars = {card.ability.extra.selected + (G.GAME and G.GAME.Ortalab_loteria_voucher_2 and G.GAME.Ortalab_loteria_voucher_2 or 0), card.ability.extra.suit,
+        return {vars = {card.ability.extra.selected + (G.GAME and G.GAME.ortalab.vouchers.tabla), card.ability.extra.suit,
         colours = {G.C.SUITS[card.ability.extra.suit]}}}
     end,
     can_use = function(self, card)
@@ -718,7 +762,7 @@ SMODS.Consumable({
     config = {extra = {selected = 3, suit = 'Hearts'}},
     loc_vars = function(self, info_queue, card)
         if Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'parchment'} end
-        return {vars = {card.ability.extra.selected + (G.GAME and G.GAME.Ortalab_loteria_voucher_2 and G.GAME.Ortalab_loteria_voucher_2 or 0), card.ability.extra.suit,
+        return {vars = {card.ability.extra.selected + (G.GAME and G.GAME.ortalab.vouchers.tabla), card.ability.extra.suit,
         colours = {G.C.SUITS[card.ability.extra.suit]}}}
     end,
     can_use = function(self, card)
@@ -747,6 +791,10 @@ SMODS.Consumable({
     can_use = function(self, card)
         if G.STATE ~= G.STATES.HAND_PLAYED and G.STATE ~= G.STATES.DRAW_TO_HAND and G.STATE ~= G.STATES.PLAY_TAROT or any_state then
             if #G.jokers.highlighted == card.ability.extra.selected then
+                local base_rarities = {'Common', 'Uncommon', 'Rare', 'Legendary'}
+            local rarity = base_rarities[G.jokers.highlighted[1].config.center.rarity] or G.jokers.highlighted[1].config.center.rarity
+                local pool = get_current_pool('Joker', rarity, rarity == 'Legendary')
+                if #pool == 1 and pool[1] == 'j_joker' then return false end
                 return true
             end
         end
@@ -758,8 +806,8 @@ SMODS.Consumable({
         track_usage(card.config.center.set, card.config.center_key)
         local joker = G.jokers.highlighted[1]
         local original = joker.config.center
-        local rarity = original.rarity
-        rarity = (rarity == 4 and 4) or (rarity == 3 and 0.98) or (rarity == 2 and 0.75) or 0
+        local base_rarities = {'Common', 'Uncommon', 'Rare', 'Legendary'}
+        local rarity = base_rarities[original.rarity] or original.rarity
         delay(0.5)
         draw_card(G.jokers, G.play, 1, 'up', false, joker, nil, true)
         G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.35, func = function()
@@ -767,11 +815,11 @@ SMODS.Consumable({
             if joker.remove_from_deck and type(joker.remove_from_deck) == 'function' then joker:remove_from_deck() end
             joker:check_chameleon()
             for i=1, 40 do
-                local new_joker = pseudorandom_element(get_current_pool('Joker', rarity, rarity == 4), pseudoseed('loteria_hand'))
+                local new_joker = pseudorandom_element(get_current_pool('Joker', rarity, rarity == 'Legendary'), pseudoseed('loteria_hand'))
                 if G.P_CENTERS[new_joker] and new_joker ~= original.key then
                     G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.15, func = function()
                         _center = G.P_CENTERS[new_joker]
-                        joker.children.center = Sprite(joker.T.x, joker.T.y, joker.T.w, joker.T.h, G.ASSET_ATLAS[_center.atlas or 'centers'], _center.pos)
+                        joker.children.center = Sprite(joker.T.x, joker.T.y, joker.T.w, joker.T.h, G.ASSET_ATLAS[_center.atlas or 'Joker'], _center.pos)
                         joker.children.center.states.hover = joker.states.hover
                         joker.children.center.states.click = joker.states.click
                         joker.children.center.states.drag = joker.states.drag
@@ -828,7 +876,7 @@ SMODS.Consumable({
     config = {extra = {selected = 3, suit = 'Spades'}},
     loc_vars = function(self, info_queue, card)
         if Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'parchment'} end
-        return {vars = {card.ability.extra.selected + (G.GAME and G.GAME.Ortalab_loteria_voucher_2 and G.GAME.Ortalab_loteria_voucher_2 or 0), card.ability.extra.suit,
+        return {vars = {card.ability.extra.selected + (G.GAME and G.GAME.ortalab.vouchers.tabla), card.ability.extra.suit,
         colours = {G.C.SUITS[card.ability.extra.suit]}}}
     end,
     can_use = function(self, card)
@@ -853,7 +901,7 @@ end
 
 function selected_use(self, card)
     if G.STATE ~= G.STATES.HAND_PLAYED and G.STATE ~= G.STATES.DRAW_TO_HAND and G.STATE ~= G.STATES.PLAY_TAROT or any_state then
-        if #G.hand.highlighted > 0 and #G.hand.highlighted <= card.ability.extra.selected + (G.GAME and G.GAME.Ortalab_loteria_voucher_2 and G.GAME.Ortalab_loteria_voucher_2 or 0) then
+        if #G.hand.highlighted > 0 and #G.hand.highlighted <= card.ability.extra.selected + (G.GAME and G.GAME.ortalab.vouchers.tabla) then
             return true
         end
     end
@@ -876,7 +924,7 @@ function use_enhance_cards(self, loteria, area, copier)
         if v.config.center_key ~= loteria.ability.extra.key then valid_cards = valid_cards + 1 end
     end
     shuffle_cards()
-    for i=1, math.min(loteria.ability.extra.amount, valid_cards) do
+    for i=1, math.min(loteria.ability.extra.amount + G.GAME.ortalab.vouchers.tabla, valid_cards) do
         local set = true
         while set do
             local card = pseudorandom_element(G.hand.cards, pseudoseed(loteria.ability.extra.key..'_select'))
@@ -920,7 +968,7 @@ function set_enhancement(card, key)
 end
 
 function create_consumables(card)
-    for i = 1, math.min(card.ability.extra.amount, G.consumeables.config.card_limit - #G.consumeables.cards) do
+    for i = 1, math.min(card.ability.extra.amount + G.GAME.ortalab.vouchers.tabla, G.consumeables.config.card_limit - #G.consumeables.cards) do
         G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
             if G.consumeables.config.card_limit > #G.consumeables.cards then
                 play_sound('timpani')

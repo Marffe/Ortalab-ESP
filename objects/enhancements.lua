@@ -18,6 +18,9 @@ SMODS.Enhancement({
         }
     end,
     calculate = function(self, card, context)
+        if context.heron_check then
+            return { chips = (#G.hand.cards - #G.hand.highlighted) * card.ability.extra.hand_chips }
+        end
         if context.cardarea == G.play and context.main_scoring then
             local chip_return = 0
             for i, held_card in pairs(G.hand.cards) do
@@ -119,7 +122,7 @@ SMODS.Enhancement({
                 xmult = card.ability.extra.x_mult
             }
         end
-        if context.final_scoring_step and not next(SMODS.find_card('j_ortalab_sandstone')) then
+        if context.final_scoring_step and context.cardarea == G.hand and not next(SMODS.find_card('j_ortalab_sandstone')) then
             card.ability.extra.x_mult = card.ability.extra.x_mult - card.ability.extra.change
             G.E_MANAGER:add_event(Event({
                 trigger = 'immediate',
@@ -172,7 +175,7 @@ SMODS.Enhancement({
     atlas = "ortalab_enhanced",
     pos = {x = 0, y = 1},
     discovered = false,
-    config = {extra = {base_x = 0.5, x_gain = 0.75}},
+    config = {extra = {base_x = 0.75, x_gain = 0.5}},
     loc_vars = function(self, info_queue, card)
         if card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'gappie'} end
         local card_ability = card and card.ability or self.config
@@ -218,7 +221,7 @@ SMODS.Enhancement({
     no_suit = true,
     replace_base_card = true,
     always_scores = true,
-    config = {mult = 10},
+    config = {mult = 15},
     loc_vars = function(self, info_queue, card)
         if card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'eremel'} end
         return {
@@ -284,7 +287,7 @@ SMODS.Enhancement({
                 G.E_MANAGER:add_event(Event({
                     trigger = 'after', delay = 0.4,
                     func = (function()
-                        add_tag(Tag(selected_tag))
+                        add_tag(Tag(selected_tag, false, 'Small'))
                         play_sound('generic1', 0.9 + math.random()*0.1, 0.8)
                         play_sound('holo1', 1.2 + math.random()*0.1, 0.4)
                         return true

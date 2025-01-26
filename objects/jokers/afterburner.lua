@@ -11,7 +11,6 @@ SMODS.Joker({
 	perishable_compat = true,
     config = {extra = {money = 8, money_loss = 2}},
 	calc_dollar_bonus = function(self, card)
-        sendDebugMessage(tprint(G.GAME))
 		return card.ability.extra.money
 	end,
 	loc_vars = function(self, info_queue, card)

@@ -15,14 +15,14 @@ SMODS.Joker({
         return {vars = {card.ability.extra.chips}}
     end,
 	calculate = function (self, card, context)
-        if context.individual and context.cardarea == G.play and not context.other_card:is_face() then
+        if context.individual and context.cardarea == G.play and context.other_card:is_numbered() then
             local prior_cards = 0
             local chip_mod = 0
             for i=1, #context.scoring_hand do
                 if context.scoring_hand[i] == context.other_card then
                     chip_mod = prior_cards
                 else
-                    if not context.scoring_hand[i]:is_face() then prior_cards = prior_cards + 1 end
+                    if context.scoring_hand[i]:is_numbered() then prior_cards = prior_cards + 1 end
                 end
             end
             if chip_mod > 0 then

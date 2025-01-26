@@ -134,9 +134,14 @@ SMODS.Voucher({
 	unlocked = true,
 	discovered = false,
 	available = true,
+    config = {extra = {extra_choices = 1}},
     loc_vars = function(self, info_queue, card)
         if card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'gappie'} end
+        return {vars = {card.ability.extra.extra_choices}}
     end,
+    redeem = function(self, voucher)
+        G.GAME.ortalab.vouchers.horoscope = G.GAME.ortalab.vouchers.horoscope + voucher.ability.extra.extra_choices
+    end
 })
 
 SMODS.Voucher({
@@ -147,7 +152,7 @@ SMODS.Voucher({
 	unlocked = true,
 	discovered = false,
 	available = true,
-    config = {extra = {xmult = 1.25, per = 4}},
+    config = {extra = {xmult = 1.1, per = 4}},
     requires = {'v_ortalab_horoscope'},
 	redeem = function(self)
         G.GAME.natal_sign_rate = self.config.extra.xmult
@@ -245,8 +250,8 @@ SMODS.Voucher({
 	discovered = false,
 	available = true,
     config = {extra = {bonus_cards = 1}},
-	redeem = function(self)
-        G.GAME.Ortalab_loteria_voucher = self.config.extra.bonus_cards
+	redeem = function(self, voucher)
+        G.GAME.ortalab.vouchers.cantor = voucher.ability.extra.bonus_cards
     end,
     loc_vars = function(self, info_queue, card)
         if card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'crimson'} end
@@ -265,7 +270,7 @@ SMODS.Voucher({
     config = {extra = {bonus_cards = 1}},
     requires = {'v_ortalab_cantor'},
 	redeem = function(self)
-        G.GAME.Ortalab_loteria_voucher_2 = self.config.extra.bonus_cards
+        G.GAME.ortalab.vouchers.tabla = self.config.extra.bonus_cards
     end,
     loc_vars = function(self, info_queue, card)
         if card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'crimson'} end
@@ -283,7 +288,7 @@ SMODS.Voucher({
 	available = true,
     config = {extra = {bonus_level = 1}},
 	redeem = function(self)
-        G.GAME.Ortalab_zodiac_voucher = self.config.extra.bonus_level
+        G.GAME.ortalab.vouchers.leap_year = self.config.extra.bonus_level
     end,
     loc_vars = function(self, info_queue, card)
         if card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'gappie'} end
@@ -302,7 +307,7 @@ SMODS.Voucher({
     config = {extra = {level_decrease_mod = 2}},
     requires = {'v_ortalab_leap_year'},
 	redeem = function(self)
-        G.GAME.Ortalab_Zodiac_Reduction = G.GAME.Ortalab_Zodiac_Reduction / self.config.extra.level_decrease_mod
+        G.GAME.ortalab.zodiacs.reduction = G.GAME.ortalab.zodiacs.reduction / self.config.extra.level_decrease_mod
     end,
     loc_vars = function(self, info_queue, card)
         if card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'gappie'} end
@@ -324,19 +329,12 @@ function window_infinite(card)
 end
 
 function Ortalab.spawn_booster()
-    G.GAME.current_round.used_packs = G.GAME.current_round.used_packs or {}
-    if not G.GAME.current_round.used_packs[1] then
-        G.GAME.current_round.used_packs[1] = get_pack('shop_pack').key
-    end
-
-    if G.GAME.current_round.used_packs[1] ~= 'USED' then 
-        local card = Card(G.shop_booster.T.x + G.shop_booster.T.w/2,
-        G.shop_booster.T.y, G.CARD_W*1.27, G.CARD_H*1.27, G.P_CARDS.empty, G.P_CENTERS[G.GAME.current_round.used_packs[1]], {bypass_discovery_center = true, bypass_discovery_ui = true})
-        create_shop_card_ui(card, 'Booster', G.shop_booster)
-        card.ability.booster_pos = #G.shop_booster.cards + 1
-        card:start_materialize()
-        G.shop_booster:emplace(card)
-    end
+    local card = Card(G.shop_booster.T.x + G.shop_booster.T.w/2,
+    G.shop_booster.T.y, G.CARD_W*1.27, G.CARD_H*1.27, G.P_CARDS.empty, G.P_CENTERS[get_pack('shop_pack').key], {bypass_discovery_center = true, bypass_discovery_ui = true})
+    create_shop_card_ui(card, 'Booster', G.shop_booster)
+    card.ability.booster_pos = #G.shop_booster.cards + 1
+    card:start_materialize()
+    G.shop_booster:emplace(card)
 end
 
 local skip_blind = G.FUNCS.skip_blind

@@ -16,8 +16,9 @@ SMODS.Joker({
         -- if not G.jokers then return {vars = {localize('ortalab_na')}} end
         if card.ability.extra.copied_joker then
             local vars = card.ability.extra.copied_joker:generate_UIBox_ability_table('ortalab_chameleon')
-            if G.P_CENTERS[card.ability.extra.copied_joker.config.center_key].loc_vars then vars = G.P_CENTERS[card.ability.extra.copied_joker.config.center_key]:loc_vars({}, card.ability.extra.copied_joker); if vars then vars = vars.vars end end
-            info_queue[#info_queue+1] = {set = 'Joker', key = card.ability.extra.copied_joker.config.center_key, specific_vars = vars or nil}
+            if G.P_CENTERS[card.ability.extra.copied_joker.config.center_key] then
+                info_queue[#info_queue+1] = G.P_CENTERS[card.ability.extra.copied_joker.config.center_key]
+            end
             return {vars = {localize{type = 'name_text', set = "Joker", key = card.ability.extra.copied_joker.config.center_key, nodes = {}}}}
         else
             return {vars = {localize('ortalab_na')}}
@@ -41,7 +42,7 @@ SMODS.Joker({
                 end
                 card.ability.extra.copied_joker = chosen_joker
                 card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('ortalab_copied')})
-                update_chameleon_atlas(card, G.ASSET_ATLAS[chosen_joker.config.center.atlas], chosen_joker.config.center.pos)
+                update_chameleon_atlas(card, G.ASSET_ATLAS[chosen_joker.config.center.atlas or 'Joker'], chosen_joker.config.center.pos)
             end	
         end
         if card.ability.extra.copied_joker then
@@ -64,7 +65,7 @@ SMODS.Joker({
     set_ability = function(self, card, initial, delay_sprites)
         if card.ability.extra and card.ability.extra.copied_joker then
             local chosen_joker = card.ability.extra.copier_joker
-            update_chameleon_atlas(card, G.ASSET_ATLAS[card.ability.extra.copied_joker.config.center.atlas], card.ability.extra.copied_joker.config.center.pos)
+            update_chameleon_atlas(card, G.ASSET_ATLAS[card.ability.extra.copied_joker.config.center.atlas or 'Joker'], card.ability.extra.copied_joker.config.center.pos)
         else
             update_chameleon_atlas(card, G.ASSET_ATLAS[self.atlas], self.pos)
         end
@@ -79,7 +80,7 @@ SMODS.Joker({
             card.ability.extra.copied_joker = G.jokers.cards[card.ability.extra.copied_joker_pos]
             if card.ability.extra.copied_joker then
                 card.loaded = false
-                update_chameleon_atlas(card, G.ASSET_ATLAS[card.ability.extra.copied_joker.config.center.atlas], card.ability.extra.copied_joker.config.center.pos)
+                update_chameleon_atlas(card, G.ASSET_ATLAS[card.ability.extra.copied_joker.config.center.atlas or 'Joker'], card.ability.extra.copied_joker.config.center.pos)
             end
         end
     end
@@ -101,7 +102,7 @@ function update_chameleon_atlas(self, new_atlas, new_pos)
         self.children.front:set_role({major = self, role_type = 'Glued', draw_major = self})
     end
     self.children.front.sprite_pos = new_pos
-    self.children.front.atlas.name = new_atlas and (new_atlas.key or new_atlas.name) or 'ortalab_jokers'
+    self.children.front.atlas.name = new_atlas and (new_atlas.key or new_atlas.name) or 'Joker'
     self.children.front:reset()
     self:juice_up()    
 end

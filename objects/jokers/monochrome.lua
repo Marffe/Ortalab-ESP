@@ -9,29 +9,17 @@ SMODS.Joker({
 	key = "monochrome",
 	atlas = "monochrome",
 	pos = {x = 0, y = 0},
-	rarity = 2,
+	rarity = 3,
 	cost = 8,
 	unlocked = true,
 	discovered = false,
 	blueprint_compat = false,
 	eternal_compat = true,
 	perishable_compat = true,
-	config = {extra = {suit = 'Hearts'}},
+    config = {extra = {dt = 0}},
 	loc_vars = function(self, info_queue, card)
         if card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'crimson'} end
-        if card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'eremel', title = 'Shader'} end
-        return {vars = {localize((card.ability.extra.suit), 'suits_plural'), colours = {G.C.SUITS[card.ability.extra.suit]}}}
-    end,
-    calculate = function(self, card, context)
-        if context.setting_blind and not card.getting_sliced then
-            card.ability.extra.suit = pseudorandom_element(SMODS.Suits, pseudoseed('ortalab_monochrome')).key
-            recolour_atlases(card, G.C.SUITS[card.ability.extra.suit])
-            card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize((card.ability.extra.suit), 'suits_plural'), colour = G.C.SUITS[card.ability.extra.suit]})
-        end
-    end,
-    set_ability = function(self, card, initial, delay_sprites)
-        card.ability.extra.suit = pseudorandom_element(SMODS.Suits, pseudoseed('ortalab_monochrome')).key
-        self:set_sprites(card)
+        if card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'eremel', title = localize('ortalab_effects')} end
     end,
     set_sprites = function(self, card, front)
         if not card.config.center.discovered then return end
@@ -40,7 +28,17 @@ SMODS.Joker({
             image_data = G.ASSET_ATLAS['ortalab_monochrome'].image_data:clone(),
             image = love.graphics.newImage(G.ASSET_ATLAS['ortalab_monochrome'].image_data, {mipmaps = true, dpiscale = G.SETTINGS.GRAPHICS.texture_scaling})
         }
-        recolour_atlases(card, G.C.SUITS[card and card.ability and card.ability.extra.suit or self.config.extra.suit])
+        recolour_atlases(card, HSL_RGB({((G.TIMERS.REAL % 360)/10), 0.2, 0.2, 1}))
+    end,
+    update = function(self, card, dt)
+        card.ability.extra.dt = card.ability.extra.dt + dt
+        if card.ability.extra.dt > 2 then
+            card.ability.extra.dt = 0
+            self:set_sprites(card)
+        end
+    end,
+    draw = function(self, card, layer)
+        card.children.center:draw_shader('voucher',nil, card.ARGS.send_to_shader)
     end
 })
 
@@ -50,7 +48,7 @@ function Card.is_suit(self, suit, bypass_debuff, flush_calc) --Monochrome Logic
 	if not flush_calc and not self.debuff and not bypass_debuff and (next(SMODS.find_card('j_ortalab_monochrome'))) then
         local monochrome = SMODS.find_card('j_ortalab_monochrome')
         for _, card in pairs(monochrome) do
-            if suit == card.ability.extra.suit then return true end
+            return true
         end
 	end
     return orig_CardIs_Suit_ref

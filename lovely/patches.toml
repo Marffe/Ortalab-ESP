@@ -114,16 +114,3 @@ match_indent = true
 payload = '''
 _tag:set_ability()
 '''
-
-[[patches]]
-[patches.pattern]
-target = 'engine/controller.lua'
-pattern = 'if key == "r" and not G.SETTINGS.paused then'
-position = 'at'
-match_indent = true
-payload = '''
-if key == '[' then
-    SMODS.save_all_config()
-    SMODS.restart_game()
-elseif key == "r" and not G.SETTINGS.paused then
-'''

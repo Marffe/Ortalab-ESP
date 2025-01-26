@@ -443,55 +443,67 @@ G.FUNCS.skip_blind = function(e)
     G.GAME.last_selected_tag = _tag or G.GAME.last_selected_tag
 end
 
--- SMODS.Tag({
---     key = 'constellation',
---     atlas = 'patches',
---     pos = {x = 1, y = 4},
---     discovered = false,
---     config = {type = 'round_start_bonus', zodiacs = 2},
---     loc_vars = function(self, info_queue, card)
---         if Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'kosze'} end
---         if card.ability.zodiac_hands and G.ZODIACS[card.ability.zodiac_hands[1]] then
---             return {vars = {
---                 localize(G.ZODIACS[card.ability.zodiac_hands[1]].config.extra.hand_type, 'poker_hands'),
---                 localize(G.ZODIACS[card.ability.zodiac_hands[2]].config.extra.hand_type, 'poker_hands'),
---             }}
---         else
---             return {vars = {'['..localize('k_poker_hand')..']', '['..localize('k_poker_hand')..']'}}
---         end
---     end,
---     apply = function(self, tag, context)
---         if context.type == self.config.type then
---             tag:yep('+', G.C.GREEN,function()
---                 tag.triggered = true
---                 return true
---             end)
---             for _, key in ipairs(tag.ability.zodiac_hands) do
---                 G.E_MANAGER:add_event(Event({
---                     trigger = 'after',
---                     delay = 1,
---                     func = function()
---                         if G.zodiacs and G.zodiacs[key] then
---                             G.zodiacs[key].config.extra.temp_level = G.zodiacs[key].config.extra.temp_level + G.ZODIACS[key].config.extra.temp_level
---                             zodiac_text(zodiac_upgrade_text(key), key)
---                             G.zodiacs[key]:juice_up(1, 1)
---                             delay(0.7)
---                         else
---                             add_zodiac(Zodiac(key))
---                         end
---                         return true
---                     end
---                 }))
---             end
---         end
---     end,
---     set_ability = function(self, tag)
---         if G.zodiac_choices then
---             tag.ability.zodiac_hands = G.zodiac_choices
---         elseif tag.ability.blind_type then
---             if G.GAME.zodiac_choices and G.GAME.zodiac_choices[G.GAME.round_resets.ante][tag.ability.blind_type] then
---                 tag.ability.zodiac_hands = G.GAME.zodiac_choices[G.GAME.round_resets.ante][tag.ability.blind_type]
---             end
---         end
---     end
--- })
+SMODS.Tag({
+    key = 'constellation',
+    atlas = 'patches',
+    pos = {x = 1, y = 4},
+    discovered = false,
+    config = {type = 'round_start_bonus', zodiacs = 2},
+    loc_vars = function(self, info_queue, card)
+        if Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'kosze'} end
+        if card.ability.zodiac_hands and G.ZODIACS[card.ability.zodiac_hands[1]] then
+            return {vars = {
+                localize(G.ZODIACS[card.ability.zodiac_hands[1]].config.extra.hand_type, 'poker_hands'),
+                localize(G.ZODIACS[card.ability.zodiac_hands[2]].config.extra.hand_type, 'poker_hands'),
+            }}
+        else
+            return {vars = {'['..localize('k_poker_hand')..']', '['..localize('k_poker_hand')..']'}}
+        end
+    end,
+    apply = function(self, tag, context)
+        if context.type == self.config.type then
+            tag:yep('+', G.C.GREEN,function()
+                tag.triggered = true
+                return true
+            end)
+            for _, key in ipairs(tag.ability.zodiac_hands) do
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'after',
+                    delay = 1,
+                    func = function()
+                        if G.zodiacs and G.zodiacs[key] then
+                            G.zodiacs[key].config.extra.temp_level = G.zodiacs[key].config.extra.temp_level + G.ZODIACS[key].config.extra.temp_level
+                            zodiac_text(zodiac_upgrade_text(key), key)
+                            G.zodiacs[key]:juice_up(1, 1)
+                            delay(0.7)
+                        else
+                            add_zodiac(Zodiac(key))
+                        end
+                        return true
+                    end
+                }))
+            end
+        end
+    end,
+    set_ability = function(self, tag)
+        if G.zodiac_choices then
+            tag.ability.zodiac_hands = G.zodiac_choices
+        elseif tag.ability.blind_type then
+            if G.GAME.zodiac_choices and  G.GAME.zodiac_choices[G.GAME.round_resets.ante] and G.GAME.zodiac_choices[G.GAME.round_resets.ante][tag.ability.blind_type] then
+                tag.ability.zodiac_hands = G.GAME.zodiac_choices[G.GAME.round_resets.ante][tag.ability.blind_type]
+            else
+                local _poker_hands = {}
+                for k, _ in pairs(G.ZODIACS) do
+                    _poker_hands[#_poker_hands+1] = k
+                end
+            
+                local zodiac1 = pseudorandom_element(_poker_hands, pseudoseed('constellation_patch'))
+                local zodiac2 = pseudorandom_element(_poker_hands, pseudoseed('constellation_patch'))
+                while zodiac1 == zodiac2 do
+                    zodiac2 = pseudorandom_element(_poker_hands, pseudoseed('constellation_patch'))
+                end
+                tag.ability.zodiac_hands = {zodiac1, zodiac2}
+            end
+        end
+    end
+})

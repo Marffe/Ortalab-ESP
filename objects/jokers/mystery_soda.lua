@@ -28,7 +28,7 @@ SMODS.Joker({
             G.E_MANAGER:add_event(Event({
                 func = (function()
                     for _, tag in pairs(selected_tags) do
-                        add_tag(Tag(tag, false, 'Big'))
+                        add_tag(Tag(tag, false, 'Small'))
                     end
                     play_sound('generic1', 0.9 + math.random()*0.1, 0.8)
                     play_sound('holo1', 1.2 + math.random()*0.1, 0.4)

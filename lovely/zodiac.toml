@@ -90,7 +90,7 @@ if G.zodiacs then
         if zodiac.config.extra.hand_type == text then
             zodiac_effect = G.ZODIACS[zodiac.key]
             zodiac_current = zodiac
-            G.GAME.zodiacs_activated[zodiac.key] = true
+            G.GAME.ortalab.zodiacs.activated[zodiac.key] = true
 
             -- Update Stargazing Jokers
             local stargazings = SMODS.find_card('j_ortalab_stargazing')
@@ -122,7 +122,7 @@ if G.zodiacs then
             
             for i=1, #G.play.cards do
                 if G.play.cards[i].add_to_scoring then
-                    G.play.cards[i].add_to_scoring = nil
+                    G.play.cards[i]:add_to_scoring()
                     table.insert(scoring_hand, G.play.cards[i])
                 end
             end
@@ -168,3 +168,26 @@ payload = '''
 
 '''
 
+# Stop editions being drawn too early
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+match_indent = true
+position = 'at'
+pattern = '''
+if self.edition[v.key:sub(3)] and v.shader then
+'''
+payload = '''
+if self.edition[v.key:sub(3)] and v.shader and not self.delay_edition then
+'''
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+match_indent = true
+position = 'at'
+pattern = '''
+if (self.edition and self.edition.negative) or (self.ability.name == 'Antimatter' and (self.config.center.discovered or self.bypass_discovery_center)) then
+'''
+payload = '''
+if (self.edition and self.edition.negative and not self.delay_edition) or (self.ability.name == 'Antimatter' and (self.config.center.discovered or self.bypass_discovery_center)) then
+'''

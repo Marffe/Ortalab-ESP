@@ -32,6 +32,12 @@ SMODS.Atlas({
     py = '34'
 })
 
+Ortalab.optional_features = function()
+    return {
+        retrigger_joker = true,
+    }
+end
+
 
 if (SMODS.Mods['malverk'] or {}).can_load then
     AltTextures_Utils.default_atlas['Zodiac'] = 'ortalab_zodiac_cards'

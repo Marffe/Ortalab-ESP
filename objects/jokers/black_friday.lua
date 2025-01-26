@@ -9,7 +9,7 @@ SMODS.Joker({
 	blueprint_compat = false,
 	eternal_compat = true,
 	perishable_compat = true,
-    config = {extra = {money_off = 20}},
+    config = {extra = {money_off = 25}},
 	loc_vars = function(self, info_queue, card)
         if card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'flare'} end
         return {vars = {card.ability.extra.money_off}}

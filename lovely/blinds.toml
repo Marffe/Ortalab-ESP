@@ -3,26 +3,33 @@ version = "1.0.0"
 dump_lua = true
 priority = 3
 
-## Check Blind
+## Custom Small/Big Blinds
 [[patches]]
 [patches.pattern]
 target = 'functions/common_events.lua'
-pattern = '''if G.GAME.round_resets.blind_states.Boss == 'Defeated' then'''
+pattern = '''G.GAME.round_resets.blind_choices.Boss = get_new_boss()'''
 position = 'before'
 match_indent = true
 payload = '''
-if G.GAME.round_resets.blind_states.Small == 'Select' then
-    local types = {'Small', 'Big'}
-    for _, blind in ipairs(types) do
-        if G.GAME.modifiers.ortalab_only or pseudorandom('ortalab_check') < 3/8 then
-            G.GAME.round_resets.blind_choices[blind] = pseudorandom_element(Ortalab_blinds[blind], pseudoseed('ortalab_blind'))
-        else
-            G.GAME.round_resets.blind_choices[blind] = blind == 'Small' and 'bl_small' or 'bl_big'
-        end
-    end
-end
+G.GAME.round_resets.blind_choices.Small = get_new_small()
+G.GAME.round_resets.blind_choices.Big = get_new_big()
 '''
 
+# Add Custom Small/Big Blinds
+[[patches]]
+[patches.pattern]
+target = 'game.lua'
+match_indent = true
+position = 'before'
+pattern = '''
+self.GAME.round_resets.blind_choices.Boss = get_new_boss()
+'''
+payload = '''
+self.GAME.round_resets.blind_choices.Small = get_new_small()
+self.GAME.round_resets.blind_choices.Big = get_new_big()
+'''
+
+# Handle defeating custom small/big blinds
 [[patches]]
 [patches.pattern]
 target = 'functions/state_events.lua'
@@ -30,11 +37,26 @@ pattern = "G.GAME.round_resets.blind_states.Big = 'Defeated'"
 position = 'after'
 match_indent = true
 payload = '''
-elseif Ortalab_blinds.Small[G.GAME.round_resets.blind.key] then
+elseif G.GAME.round_resets.blind.small then
     G.GAME.round_resets.blind_states.Small = 'Defeated'
-elseif Ortalab_blinds.Big[G.GAME.round_resets.blind.key] then
+elseif G.GAME.round_resets.blind.big then
     G.GAME.round_resets.blind_states.Big = 'Defeated'
 '''
+# Handle setting new blinds
+[[patches]]
+[patches.pattern]
+target = 'blind.lua'
+match_indent = true
+position = 'after'
+pattern = '''
+self.boss = blind and not not blind.boss
+'''
+payload = '''
+self.small = blind and not not blind.small
+self.big = blind and not not blind.big
+'''
+
+
 
 [[patches]]
 [patches.pattern]

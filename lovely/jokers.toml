@@ -173,20 +173,47 @@ end
 [[patches]]
 [patches.pattern]
 target = 'functions/button_callbacks.lua'
-pattern = "if not nc and card.area then card.area:remove_card(card) end"
+pattern = "if card.area and (not nc or card.area == G.pack_cards) then card.area:remove_card(card) end"
 match_indent = true
 position = 'before'
 payload = '''
 local freezers = SMODS.find_card('j_ortalab_freezer')
-if next(freezers) then
+if card.ability.consumeable and next(freezers) then
     for _, freezer in ipairs(freezers) do
-        if not nc and pseudoseed('ortalab_freezer') > (G.GAME.probabilities.normal * freezer.ability.extra.chance) / freezer.ability.extra.denom then
+        if not nc and pseudoseed('ortalab_freezer') > (G.GAME.probabilities.normal * freezer.ability.extra.chance) / freezer.ability.extra.denom and #G.consumeables.cards + G.GAME.consumeable_buffer <= G.consumeables.config.card_limit then
             nc = true
             card_eval_status_text(freezer, 'extra', nil, nil, nil, {message = 'Saved!'})
         end
     end
 end
 '''
+# Freezer on pack consumables
+[[patches]]
+[patches.pattern]
+target = 'functions/button_callbacks.lua'
+match_indent = true
+position = 'at'
+pattern = '''
+if nc and area == G.pack_cards then G.pack_cards:remove_card(card); G.consumeables:emplace(card) end
+'''
+payload = '''
+if nc and area == G.pack_cards and #G.consumeables.cards + G.GAME.consumeable_buffer <= G.consumeables.config.card_limit then G.pack_cards:remove_card(card); G.consumeables:emplace(card) end
+'''
+
+# Freezer on shop consumables
+[[patches]]
+[patches.pattern]
+target = 'functions/button_callbacks.lua'
+match_indent = true
+position = 'before'
+pattern = '''
+if area and area.cards[1] then 
+'''
+payload = '''
+if nc and not area and #G.consumeables.cards + G.GAME.consumeable_buffer <= G.consumeables.config.card_limit then G.consumeables:emplace(card) end
+'''
+
+
 
 # Negative sell cost
 [[patches]]

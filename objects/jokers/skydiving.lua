@@ -16,7 +16,7 @@ SMODS.Joker({
     end,
 	calculate = function(self, card, context)
 		if not context.blueprint and context.cardarea == G.jokers and context.before and G.GAME.hands[context.scoring_name].level ~= 1 then
-			if G.GAME.hands[context.scoring_name].level > 1 then
+			if to_big(G.GAME.hands[context.scoring_name].level) > to_big(1) then
 				card.ability.extra.curr_xmult = card.ability.extra.curr_xmult + card.ability.extra.xmult_add
 				return {
 					message = localize('ortalab_joker_miles'),
