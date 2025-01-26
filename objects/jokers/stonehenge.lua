@@ -24,5 +24,11 @@ SMODS.Joker({
         end
         print(_handname)
         return _handname
-    end
+    end,
+	hand_contains_no_rank = function(self, hand)
+		for _, card in pairs(hand) do
+			if card.config.center.no_rank or SMODS.has_enhancement(card, 'm_stone') then return true end
+		end
+		return false
+	end
 })
