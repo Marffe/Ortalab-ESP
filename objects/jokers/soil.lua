@@ -19,6 +19,17 @@ SMODS.Joker({
             card.ability.extra.consecutive_ranks = 0
 			card.ability.extra.last_triggered = nil
         end
+		if context.cardarea == G.play and context.individual then
+			if card.ability.extra.last_triggered == context.other_card.base.id then
+				card.ability.extra.consecutive_ranks = card.ability.extra.consecutive_ranks + 1
+				return {
+					message = '+X'..card.ability.extra.xmult_gain,
+					colour = G.C.RED,
+					message_card = card,
+				}
+			end
+			card.ability.extra.last_triggered = context.other_card.base.id
+		end
         if context.joker_main then
 			local xmult_to_add = card.ability.extra.xmult + (card.ability.extra.xmult_gain * card.ability.extra.consecutive_ranks)
             return {

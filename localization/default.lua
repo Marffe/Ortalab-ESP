@@ -40,6 +40,7 @@ return {
 			['ortalab_empty'] = 'Empty!',
 			['ortalab_copied'] = 'Copied!',
 			ortalab_cutout = 'Chop!',
+			ortalab_polydactyly = 'Handy!',
 			['ortalab_na'] = 'N/A',
 			['ortalab_explode'] = 'Exploded!',
 			['ortalab_infected'] = 'Infected!',
@@ -807,6 +808,16 @@ return {
 					'When {C:attention}Blind{} is selected,',
 					'gain {C:red}+#2#{} discards',
 					'set Hands to {C:blue}#1#',
+				}
+			},
+			['j_ortalab_polydactyly'] = {
+				name = 'Polydactyly',
+				text = {
+					'If {C:attention}poker hand{} contains',
+					'a {C:attention}#3#{} or {C:attention}#2#',
+					'the {C:attention}#1#{} left-most cards',
+					'held in hand act as if',
+					'they were played'
 				}
 			},
 			['j_ortalab_popcorn_bag'] = {
