@@ -668,6 +668,15 @@ return {
 					"and 2 {C:attention}even cards",
 				}
 			},
+			j_ortalab_memorial = {
+				name = 'Memorial',
+				text = {
+					'The first time you {C:red}discard',
+					'{C:attention}#1# Enhanced{} cards in a round',
+					'give {C:attention}1{} a random {C:dark_edition}edition',
+					'and {C:attention}seal'
+				}
+			},
 			['j_ortalab_mill'] = {
 				["name"] = "Mill",
 				["text"] = {
@@ -1063,6 +1072,15 @@ return {
 					"Gains {X:mult,C:white}X#1#{} Mult",
 					"per {C:zodiac}Zodiac{} activated",
 					"{C:inactive}(Currently {C:white,X:mult}X#2#{C:inactive})"
+				}
+			},
+			j_ortalab_stonehenge = {
+				name = 'Stonehenge',
+				text = {
+					'If {C:attention}played hand{} contains', 
+					'a {C:attention}rankless{} card',
+					'it acts as your {C:attention}most',
+					'{C:attention}played poker hand'
 				}
 			},
 			['j_ortalab_sun_sign'] = {

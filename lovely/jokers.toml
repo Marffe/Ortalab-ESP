@@ -253,3 +253,24 @@ if next(ortalab_poly_jokers) then
     SMODS.calculate_effect({message = localize('ortalab_polydactyly')}, ortalab_poly_jokers[1])
 end
 '''
+
+# Stonehenge
+[[patches]]
+[patches.pattern]
+target = 'functions/state_events.lua'
+match_indent = true
+position = 'after'
+pattern = '''
+local text,disp_text,poker_hands,scoring_hand,non_loc_disp_text = G.FUNCS.get_poker_hand_info(G.play.cards)
+'''
+payload = '''
+local stonehenge = SMODS.find_card('j_ortalab_stonehenge')
+if next(stonehenge) then
+    text = stonehenge[1].config.center:calculate_most_played()
+    disp_text = localize(text, 'poker_hands')
+    non_loc_disp_text = text
+    poker_hands[text] = {{true}}
+    SMODS.calculate_effect({message = 'Changed!', colour = G.C.BLUE}, stonehenge[1])
+    delay(0.3)
+end
+'''
