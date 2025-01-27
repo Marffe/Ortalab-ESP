@@ -54,9 +54,12 @@ function Game:init_game_object()
         },
         secret_hand_list = {}
     }
-        for k, v in pairs(ret.hands) do
-            if v.visible == false then ret.ortalab.secret_hand_list[k] = k end
-        end
+    for k, v in pairs(ret.hands) do
+        if v.visible == false then ret.ortalab.secret_hand_list[k] = k end
+    end
+    -- Modify default rates
+    ret.planet_rate = 2
+    ret.tarot_rate = 2
 	return ret
 end
 

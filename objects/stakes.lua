@@ -24,6 +24,12 @@ SMODS.Stake({
     sticker_atlas = 'stickers',
     modifiers = function()
         G.GAME.modifiers.ortalab_only = true
+        -- Modify vanilla shop rates
+        G.GAME.planet_rate = 0
+        G.GAME.tarot_rate = 0
+        G.GAME.loteria_rate = 4
+        G.GAME.zodiac_rate = 1
+        G.GAME.mythos_rate = 3
     end,
 })
 

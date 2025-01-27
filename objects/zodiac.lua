@@ -46,7 +46,7 @@ SMODS.ConsumableType({ -- Zodiac Card ConsumableType creation
         }
     },
     collection_rows = {6, 6},
-    shop_rate = 0.6,
+    shop_rate = 0.5,
     default = 'c_ortalab_zod_scorpio' -- High Card zodiac
 })
 
