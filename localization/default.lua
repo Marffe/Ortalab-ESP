@@ -41,6 +41,7 @@ return {
 			['ortalab_copied'] = 'Copied!',
 			ortalab_cutout = 'Chop!',
 			ortalab_polydactyly = 'Handy!',
+			ortalab_street_rat = 'Got \'em!',
 			ortalab_memorial = 'Remembered!',
 			['ortalab_na'] = 'N/A',
 			['ortalab_explode'] = 'Exploded!',
@@ -1092,6 +1093,15 @@ return {
 					'a {C:attention}rankless{} card',
 					'it acts as your {C:attention}most',
 					'{C:attention}played poker hand'
+				}
+			},
+			j_ortalab_street_rat = {
+				name = 'Street Rat',
+				text = {
+					'When {C:attention}Blind{} is selected,',
+					'destroy {C:blue}Common{} Joker to the',
+					'right and gain {C:gold}#1#X{} it\'s',
+					'{C:gold}sell value'
 				}
 			},
 			['j_ortalab_sun_sign'] = {

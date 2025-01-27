@@ -1,0 +1,54 @@
+SMODS.Joker({
+    key = "street_rat",
+    atlas = "jokers",
+    pos = {x = 3, y = 11},
+    rarity = 1,
+    cost = 4,
+    unlocked = true,
+    discovered = false,
+    blueprint_compat = false,
+    eternal_compat = true,
+    perishable_compat = true,
+    config = {extra = {mod = 4}},
+    loc_vars = function(self, info_queue, card)
+        if card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'gappie'} end
+        return {vars = {card.ability.extra.mod}}
+    end,
+    calculate = function(self, card, context)
+        if context.setting_blind and not context.blueprint then
+            local pos
+            for i, v in ipairs(G.jokers.cards) do
+                if v == card then pos = i end
+            end
+            if G.jokers.cards[pos+1] and G.jokers.cards[pos+1].config.center.rarity == 1 then
+                local destroy_card = G.jokers.cards[pos+1]
+                local sell_val = destroy_card.sell_cost
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'immediate',
+                    func = function()
+                        destroy_card:juice_up()                
+                        return true
+                    end
+                }))
+                return {
+                    message = localize('ortalab_street_rat'),
+                    colour = G.C.GOLD,
+                    func = function()
+                        G.E_MANAGER:add_event(Event({
+                            trigger = 'after',
+                            delay = 0.4,
+                            func = function()
+                                destroy_card:start_dissolve()            
+                                return true
+                            end
+                        }))
+                    end,
+                    extra = {
+                        dollars = sell_val * card.ability.extra.mod
+                    }
+                }
+            end
+        end
+    end    
+})
+
