@@ -65,5 +65,3 @@ if (SMODS.Mods['malverk'] or {}).can_load then
         }
     }
 end
-
--- Config tab stuff to go below
