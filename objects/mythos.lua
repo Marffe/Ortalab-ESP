@@ -288,7 +288,7 @@ SMODS.Consumable({
     atlas = 'mythos_cards',
     pos = {x=3, y=0},
     discovered = false,
-    config = {extra = {select = 4, curse = 'ortalab_all_curses', method = 'c_ortalab_mult_random', choose = 1, copies = 6}},
+    config = {extra = {select = 4, curse = 'ortalab_all_curses', method = 'c_ortalab_mult_random', choose = 1, copies = 4}},
     loc_vars = function(self, info_queue, card)
         if Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'gappie'} end
         card.ability.extra.select = math.ceil((G.hand and #G.hand.cards or 8) / 2)
