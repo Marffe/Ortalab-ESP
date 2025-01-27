@@ -51,25 +51,6 @@ for _, card in ipairs(results) do
 end
 '''
 
-
-# Mysterium hand list population
-#Inject for start up
-[[patches]]
-[patches.pattern]
-target = "game.lua"
-pattern = '''boot_timer('splash prep', 'end',1)'''
-position = "after"
-payload = '''
---Ortalab/Jokers/The Mysterium
-if (SMODS.Mods['ortalab'] or {}).can_load then
-    for k, v in pairs(G.GAME.hands) do
-        if v.visible == false then G.P_CENTERS['j_ortalab_mysterium'].config.extra.secret_hand_list[#G.P_CENTERS['j_ortalab_mysterium'].config.extra.secret_hand_list+1] = k end
-    end
-end
-'''
-match_indent = true
-
-
 [[patches]]
 [patches.pattern]
 target = "functions/state_events.lua"
@@ -265,7 +246,7 @@ local text,disp_text,poker_hands,scoring_hand,non_loc_disp_text = G.FUNCS.get_po
 '''
 payload = '''
 local stonehenge = SMODS.find_card('j_ortalab_stonehenge')
-if next(stonehenge) then
+if next(stonehenge) and stonehenge[1].config.center:hand_contains_no_rank(G.play.cards) then
     text = stonehenge[1].config.center:calculate_most_played()
     disp_text = localize(text, 'poker_hands')
     non_loc_disp_text = text

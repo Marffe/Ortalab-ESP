@@ -29,7 +29,7 @@ SMODS.Joker({
                 local card_to_remember = pseudorandom_element(enhanced, pseudoseed('ortalab_memorial'))
                 card_to_remember:set_edition(poll_edition('ortalab_memorial_edition', nil, false, true))
                 card_to_remember:set_seal(SMODS.poll_seal({key = 'ortalab_memorial_seal', guaranteed = true}))
-                SMODS.calculate_effect({message = 'Remembered!', colour = G.C.L_BLACK, juice_card = card}, card_to_remember)
+                SMODS.calculate_effect({message = localize('ortalab_memorial'), colour = G.C.L_BLACK, juice_card = card}, card_to_remember)
                 card.ability.extra.triggered = true
             end
         end

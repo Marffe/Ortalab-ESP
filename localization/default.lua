@@ -41,6 +41,7 @@ return {
 			['ortalab_copied'] = 'Copied!',
 			ortalab_cutout = 'Chop!',
 			ortalab_polydactyly = 'Handy!',
+			ortalab_memorial = 'Remembered!',
 			['ortalab_na'] = 'N/A',
 			['ortalab_explode'] = 'Exploded!',
 			['ortalab_infected'] = 'Infected!',
@@ -465,6 +466,15 @@ return {
 					'{C:blue}+#2#{} Chips and',
 					'{C:red}+#3#{} Mult when',
 					'scored'
+				}
+			},
+			j_ortalab_drunk_driving = {
+				name = 'Drunk Driving',
+				text = {
+					'Gains {C:red}+#2#{} Mult when', 
+					'{C:attention}poker hand{} contains a',
+					'{C:attention}face{} card and a {C:attention}numbered{} card',
+					'{C:inactive}(Currently {C:red}+#1#{C:inactive} Mult)'
 				}
 			},
 			['j_ortalab_dull'] = {
@@ -985,9 +995,10 @@ return {
 			['j_ortalab_shrine'] = {
 				["name"] = "Shrine",
 				["text"] = {
-					"{X:mult,C:white}X#1#{} Mult per",
-					"{C:spectral}Spectral{} card used",
-					"{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult)",
+					"Create a {C:Mythos,E:1}Mythos Card{} if",
+					'played hand is a {C:dark_edition,E:1}Secret Hand',
+					'{C:Mythos,E:1}Mythos Cards{} curse {C:attention}#1#',
+					'extra card'
 				}
 			},
 			['j_ortalab_skydiving'] = {

@@ -15,12 +15,10 @@ SMODS.Joker({
         return {vars = {card.ability.extra.x_mult}}
     end,
     calculate = function(self, card, context) --The Mysterium Logic
-        if context.joker_main then
-            if table.contains(card.ability.extra.secret_hand_list, context.scoring_name) then
-                return {
-                    xmult = card.ability.extra.x_mult
-                }
-            end
+        if context.joker_main and G.GAME.ortalab.secret_hand_list[context.scoring_name] then
+            return {
+                xmult = card.ability.extra.x_mult
+            }
         end
     end
 })

@@ -46,10 +46,17 @@ function Game:init_game_object()
             activated = {}
         },
         temp_levels = 0,
-		tree_of_life_count = 0,
-        ya_te_veo_count = 0,
-        jackalope_count = 1,
+        mythos = {
+            extra_select = 0,
+            tree_of_life_count = 0,
+            ya_te_veo_count = 0,
+            jackalope_count = 1,
+        },
+        secret_hand_list = {}
     }
+        for k, v in pairs(ret.hands) do
+            if v.visible == false then ret.ortalab.secret_hand_list[k] = k end
+        end
 	return ret
 end
 

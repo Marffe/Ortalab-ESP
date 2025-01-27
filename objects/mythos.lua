@@ -12,7 +12,13 @@ SMODS.UndiscoveredSprite({
     no_overlay = true
 })
 
+SMODS.Shader({
+    key = 'mythos',
+    path = 'mythos.fs'
+})
+
 G.ARGS.LOC_COLOURS['Mythos'] = HEX("57405f")
+G.ARGS.LOC_COLOURS['mythos_alt'] = HEX('ecde33')
 
 SMODS.ConsumableType({
     key = "Mythos",
@@ -54,12 +60,18 @@ SMODS.Consumable({
         return {vars = {localize(_handname, 'poker_hands')}}
     end,
     can_use = function(self, card)
-        if #G.hand.highlighted == card.ability.extra.select and not G.hand.highlighted[1].curse then return true end
+        if #G.hand.highlighted == card.ability.extra.select + G.GAME.ortalab.mythos.extra_select then
+            for _, selected in pairs(G.hand.highlighted) do
+                if selected.curse then return false end
+            end
+            return true
+        end
     end,
     use = function(self, card, area, copier)
         -- set the curse
-        G.hand.highlighted[1]:set_curse(card.ability.extra.curse)
-        G.hand.highlighted[1]:juice_up()
+        for _, curse_card in pairs(G.hand.highlighted) do
+            curse_card:set_curse(card.ability.extra.curse)
+        end
         
         -- find most played hand
         local _handname, _played, _order = 'High Card', -1, 100
@@ -115,17 +127,17 @@ SMODS.Consumable({
         for _, card in pairs(G.hand.cards) do
             if not card.curse then uncursed_cards = uncursed_cards + 1 end
         end
-        if uncursed_cards >= math.min(G.hand.config.card_limit, card.ability.extra.select + G.GAME.ortalab.tree_of_life_count)  then
+        if uncursed_cards >= math.min(G.hand.config.card_limit, card.ability.extra.select + G.GAME.ortalab.mythos.extra_select + G.GAME.ortalab.mythos.tree_of_life_count) then
             return true
         end
     end,
     use = function(self, card, area, copier)
-        -- curse cards
+        -- curse 
         G.hand:unhighlight_all()
         local curses = {'corroded', 'infected', 'possessed', 'restrained'}
         local applied = {}
 
-        for i=1, math.min(G.hand.config.card_limit, card.ability.extra.select + G.GAME.ortalab.tree_of_life_count)  do
+        for i=1, math.min(G.hand.config.card_limit, card.ability.extra.select + G.GAME.ortalab.mythos.extra_select + G.GAME.ortalab.mythos.tree_of_life_count) do
             G.E_MANAGER:add_event(Event({
                 trigger = 'after',
                 delay = 0.5,
@@ -191,7 +203,7 @@ SMODS.Consumable({
             delay = 0.5,
             func = function()
                 G.hand:unhighlight_all()
-                G.GAME.ortalab.tree_of_life_count = G.GAME.ortalab.tree_of_life_count + card.ability.extra.inc
+                G.GAME.ortalab.mythos.tree_of_life_count = G.GAME.ortalab.mythos.tree_of_life_count + card.ability.extra.inc
                 return true
             end
         }))
@@ -215,16 +227,16 @@ SMODS.Consumable({
         if #G.hand.highlighted > 0 and #G.hand.highlighted <= card.ability.extra.cards then
             local uncursed = 0
             local i = 1
-            while (uncursed <= card.ability.extra.select and i <= #G.deck.cards) do
+            while (uncursed <= card.ability.extra.select + G.GAME.ortalab.mythos.extra_select and i <= #G.deck.cards) do
                 if not G.deck.cards[i].curse then uncursed = uncursed + 1 end
                 i = i + 1
             end
-            if uncursed >= card.ability.extra.select then return true end
+            if uncursed >= card.ability.extra.select + G.GAME.ortalab.mythos.extra_select then return true end
         end
     end,
     use = function(self, card, area, copier)
         -- Curse random cards in deck
-        for i=1, card.ability.extra.select do
+        for i=1, card.ability.extra.select + G.GAME.ortalab.mythos.extra_select do
             G.E_MANAGER:add_event(Event({
                 trigger = 'after',
                 delay = 0.5,
@@ -279,7 +291,7 @@ SMODS.Consumable({
     config = {extra = {select = 4, curse = 'ortalab_all_curses', method = 'c_ortalab_mult_random', choose = 1, copies = 6}},
     loc_vars = function(self, info_queue, card)
         if Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'gappie'} end
-        card.ability.extra.select = math.ceil(G.hand and #G.hand.cards or 8 / 2)
+        card.ability.extra.select = math.ceil((G.hand and #G.hand.cards or 8) / 2)
         return {vars = {card.ability.extra.copies}}
     end,
     set_ability = function(self, card)
@@ -305,7 +317,7 @@ SMODS.Consumable({
         local curses = {'corroded', 'infected', 'possessed', 'restrained'}
         local applied = {}
 
-        for i=1, math.ceil(#G.hand.cards / 2) do
+        for i=1, math.ceil(#G.hand.cards / 2) + G.GAME.ortalab.mythos.extra_select do
             G.E_MANAGER:add_event(Event({
                 trigger = 'after',
                 delay = 0.5,
@@ -370,16 +382,16 @@ SMODS.Consumable({
         if #G.hand.highlighted == card.ability.extra.cards then
             local uncursed = 0
             local i = 1
-            while (uncursed <= card.ability.extra.select and i <= #G.deck.cards) do
+            while (uncursed <= card.ability.extra.select + G.GAME.ortalab.mythos.extra_select and i <= #G.deck.cards) do
                 if not G.deck.cards[i].curse then uncursed = uncursed + 1 end
                 i = i + 1
             end
-            if uncursed >= card.ability.extra.select then return true end
+            if uncursed >= card.ability.extra.select + G.GAME.ortalab.mythos.extra_select then return true end
         end
     end,
     use = function(self, card, area, copier)
         -- Curse random cards in deck
-        for i=1, card.ability.extra.select do
+        for i=1, card.ability.extra.select + G.GAME.ortalab.mythos.extra_select do
             G.E_MANAGER:add_event(Event({
                 trigger = 'after',
                 delay = 0.5,
@@ -427,7 +439,7 @@ SMODS.Consumable({
         for _, card in pairs(G.hand.cards) do
             if not card.curse then uncursed_cards = uncursed_cards + 1 end
         end
-        if uncursed_cards >= card.ability.extra.select + G.GAME.ortalab.tree_of_life_count  then
+        if uncursed_cards >= card.ability.extra.select + G.GAME.ortalab.mythos.extra_select + G.GAME.ortalab.mythos.tree_of_life_count  then
             return true
         end
     end,
@@ -435,7 +447,7 @@ SMODS.Consumable({
         -- curse cards
         G.hand:unhighlight_all()
 
-        for i=1, card.ability.extra.select  do
+        for i=1, card.ability.extra.select + G.GAME.ortalab.mythos.extra_select do
             G.E_MANAGER:add_event(Event({
                 trigger = 'after',
                 delay = 0.5,
@@ -512,13 +524,18 @@ SMODS.Consumable({
         return {vars = {card.ability.extra.cards}}
     end,
     can_use = function(self, card)
-        if #G.hand.highlighted == card.ability.extra.select and not G.hand.highlighted[1].curse then return true end
+        if #G.hand.highlighted == card.ability.extra.select + G.GAME.ortalab.mythos.extra_select then
+            for _, selected in pairs(G.hand.highlighted) do
+                if selected.curse then return false end
+            end
+            return true
+        end
     end,
     use = function(self, card, area, copier)
         -- set the curse
-        G.hand.highlighted[1]:set_curse(card.ability.extra.curse)
-        G.hand.highlighted[1]:juice_up()
-        card:juice_up(0.3, 0.5)
+        for _, curse_card in pairs(G.hand.highlighted) do
+            curse_card:set_curse(card.ability.extra.curse)
+        end
         -- unhighlight card
         G.E_MANAGER:add_event(Event({
             func = function()
@@ -575,13 +592,18 @@ SMODS.Consumable({
         return {vars = {card.ability.extra.cards, card.ability.extra.rank}}
     end,
     can_use = function(self, card)
-        if #G.hand.highlighted == card.ability.extra.select and not G.hand.highlighted[1].curse then return true end
+        if #G.hand.highlighted == card.ability.extra.select + G.GAME.ortalab.mythos.extra_select then
+            for _, selected in pairs(G.hand.highlighted) do
+                if selected.curse then return false end
+            end
+            return true
+        end
     end,
     use = function(self, card, area, copier)
         -- set the curse
-        G.hand.highlighted[1]:set_curse(card.ability.extra.curse)
-        G.hand.highlighted[1]:juice_up()
-        card:juice_up(0.3, 0.5)
+        for _, curse_card in pairs(G.hand.highlighted) do
+            curse_card:set_curse(card.ability.extra.curse)
+        end
         -- unhighlight card
         G.E_MANAGER:add_event(Event({
             func = function()
@@ -630,13 +652,18 @@ SMODS.Consumable({
         return {vars = {card.ability.extra.cards}}
     end,
     can_use = function(self, card)
-        if #G.hand.highlighted == card.ability.extra.select and not G.hand.highlighted[1].curse then return true end
+        if #G.hand.highlighted == card.ability.extra.select + G.GAME.ortalab.mythos.extra_select then
+            for _, selected in pairs(G.hand.highlighted) do
+                if selected.curse then return false end
+            end
+            return true
+        end
     end,
     use = function(self, card, area, copier)
         -- set the curse
-        G.hand.highlighted[1]:set_curse(card.ability.extra.curse)
-        G.hand.highlighted[1]:juice_up()
-        card:juice_up(0.3, 0.5)
+        for _, curse_card in pairs(G.hand.highlighted) do
+            curse_card:set_curse(card.ability.extra.curse)
+        end
         -- unhighlight card
         G.E_MANAGER:add_event(Event({
             func = function()
@@ -847,16 +874,16 @@ SMODS.Consumable({
         if #G.hand.highlighted > 0 and #G.hand.highlighted <= card.ability.extra.cards then
             local uncursed = 0
             local i = 1
-            while (uncursed <= card.ability.extra.select and i <= #G.deck.cards) do
+            while (uncursed <= card.ability.extra.select + G.GAME.ortalab.mythos.extra_select and i <= #G.deck.cards) do
                 if not G.deck.cards[i].curse then uncursed = uncursed + 1 end
                 i = i + 1
             end
-            if uncursed >= card.ability.extra.select then return true end
+            if uncursed >= card.ability.extra.select + G.GAME.ortalab.mythos.extra_select then return true end
         end
     end,
     use = function(self, card, area, copier)
         -- Curse random cards in deck
-        for i=1, card.ability.extra.select do
+        for i=1, card.ability.extra.select + G.GAME.ortalab.mythos.extra_select do
             G.E_MANAGER:add_event(Event({
                 trigger = 'after',
                 delay = 0.5,
@@ -978,7 +1005,7 @@ SMODS.Consumable({
         for _, card in pairs(G.hand.cards) do
             if not card.curse then uncursed_cards = uncursed_cards + 1 end
         end
-        if uncursed_cards >= math.min(G.hand.config.card_limit, card.ability.extra.select + G.GAME.ortalab.jackalope_count)  then
+        if uncursed_cards >= math.min(G.hand.config.card_limit, card.ability.extra.select * G.GAME.ortalab.mythos.jackalope_count + G.GAME.ortalab.mythos.extra_select) then
             return true
         end
     end,
@@ -986,7 +1013,7 @@ SMODS.Consumable({
         -- curse cards
         G.hand:unhighlight_all()
 
-        for i=1, card.ability.extra.select * G.GAME.ortalab.jackalope_count do
+        for i=1, math.min(G.hand.config.card_limit, card.ability.extra.select * G.GAME.ortalab.mythos.jackalope_count + G.GAME.ortalab.mythos.extra_select) do
             G.E_MANAGER:add_event(Event({
                 trigger = 'after',
                 delay = 0.5,
@@ -1023,7 +1050,7 @@ SMODS.Consumable({
             func = function()
                 ease_hands_played(card.ability.extra.hands)
                 G.GAME.round_resets.hands = G.GAME.round_resets.hands + card.ability.extra.hands  
-                G.GAME.ortalab.jackalope_count = G.GAME.ortalab.jackalope_count + 1             
+                G.GAME.ortalab.mythos.jackalope_count = G.GAME.ortalab.mythos.jackalope_count + 1             
                 SMODS.calculate_effect({message = localize('ortalab_cardist'), colour = G.C.BLUE}, card) 
                 return true
             end
@@ -1047,7 +1074,7 @@ SMODS.Consumable({
         for _, card in pairs(G.hand.cards) do
             if not card.curse then uncursed_cards = uncursed_cards + 1 end
         end
-        if uncursed_cards >= math.min(G.hand.config.card_limit, card.ability.extra.select + G.GAME.ortalab.ya_te_veo_count)  then
+        if uncursed_cards >= math.min(G.hand.config.card_limit, card.ability.extra.select + G.GAME.ortalab.mythos.extra_select + G.GAME.ortalab.mythos.ya_te_veo_count)  then
             return true
         end
     end,
@@ -1055,7 +1082,7 @@ SMODS.Consumable({
         -- curse cards
         G.hand:unhighlight_all()
 
-        for i=1, card.ability.extra.select + G.GAME.ortalab.ya_te_veo_count do
+        for i=1, math.min(G.hand.config.card_limit, card.ability.extra.select + G.GAME.ortalab.mythos.extra_select + G.GAME.ortalab.mythos.ya_te_veo_count) do
             G.E_MANAGER:add_event(Event({
                 trigger = 'after',
                 delay = 0.5,
@@ -1093,7 +1120,7 @@ SMODS.Consumable({
                 G.hand.config.card_limit = G.hand.config.card_limit + card.ability.extra.handsize
                 SMODS.calculate_effect({message = localize('ortalab_hand_size_gain'), colour = G.C.BLUE}, card)
                 draw_card(G.deck, G.hand)
-                G.GAME.ortalab.ya_te_veo_count = G.GAME.ortalab.ya_te_veo_count + 1
+                G.GAME.ortalab.mythos.ya_te_veo_count = G.GAME.ortalab.mythos.ya_te_veo_count + 1
                 return true
             end
         }))
@@ -1201,16 +1228,16 @@ function generate_card_ui(_c, full_UI_table, specific_vars, card_type, badges, h
         local mythos_nodes = {background_colour = lighten(colour, 0.75)}
         -- ui.main.background_colour = lighten(G.C.GREEN, 0.75)
         local vars = {
-            card.ability.extra.select,
+            card.ability.extra.select + G.GAME.ortalab.mythos.extra_select,
             localize({type = 'name_text', set = 'Curse', key = card.ability.extra.curse}),
             colours = {colour}
         }
         if _c.key == 'c_ortalab_tree_of_life' then
-            vars[1] = vars[1] + G.GAME.ortalab.tree_of_life_count
+            vars[1] = vars[1] + G.GAME.ortalab.mythos.tree_of_life_count
         elseif _c.key == 'c_ortalab_jackalope' then
-            vars[1] = math.min(vars[1] * G.GAME.ortalab.jackalope_count, G.hand and G.hand.config.card_limit or 100)
+            vars[1] = math.min((vars[1] - G.GAME.ortalab.mythos.extra_select) * G.GAME.ortalab.mythos.jackalope_count + G.GAME.ortalab.mythos.extra_select, G.hand and G.hand.config.card_limit or 100)
         elseif _c.key == 'c_ortalab_ya_te_veo' then
-            vars[1] = vars[1] + G.GAME.ortalab.ya_te_veo_count
+            vars[1] = vars[1] + G.GAME.ortalab.mythos.ya_te_veo_count
         end
         localize{type = 'descriptions', set = _c.set, key = card.ability.extra.method, nodes = mythos_nodes, vars = vars}
         ui.mythos = mythos_nodes

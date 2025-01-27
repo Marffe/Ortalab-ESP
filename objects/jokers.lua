@@ -42,7 +42,7 @@ local joker_list = {
     'dropout',
     'scratch_card',
     'protostar',
-    -- 'crash',
+    'drunk_driving',
     'skydiving',
     'sunny_side',
     'policeman',
@@ -64,7 +64,7 @@ local joker_list = {
     'blue_card',
     -- 'attached',
     'triangle',
-    -- 'shrine', wait for mythos
+    'shrine',
     -- 'street_rat',
     -- 'belmont',
     'scenic',
