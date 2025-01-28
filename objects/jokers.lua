@@ -71,7 +71,7 @@ local joker_list = {
     'mirage',
     'head_honcho',
     -- 'peasant',
-    -- 'storm6',
+    'storm_6',
     'afterburner',
     -- 'foundation',
     'beyond_the_mask',
