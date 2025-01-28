@@ -545,6 +545,16 @@ return {
 					'{C:inactive}(Active!)'
 				}
 			},
+			j_ortalab_foundation = {
+				name = 'Foundation',
+				text = {
+					'Gain {X:red,C:white}X#2#{} Mult per', 
+					'{C:attention}consecutive{} hand played that is',
+					'your most played {C:attention}poker hand',
+					'{C:inactive}(Currently {X:red,C:white}X#1#{C:inactive} Mult)',
+					'{C:inactive,s:0.6}(#3#)'
+				}
+			},
 			['j_ortalab_freezer'] = {
 				["name"] = "Freezer",
 				["text"] = {

@@ -73,7 +73,7 @@ local joker_list = {
     -- 'peasant',
     'storm_6',
     'afterburner',
-    -- 'foundation',
+    'foundation',
     'beyond_the_mask',
     -- 'hooligan',
     'vinyl',

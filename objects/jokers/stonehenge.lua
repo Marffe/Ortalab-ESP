@@ -22,7 +22,6 @@ SMODS.Joker({
                 _handname = k
             end
         end
-        print(_handname)
         return _handname
     end,
 	hand_contains_no_rank = function(self, hand)
