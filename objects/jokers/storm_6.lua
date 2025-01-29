@@ -13,8 +13,10 @@ SMODS.Joker({
     loc_vars = function(self, info_queue, card)
         if card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'kosze'} end
         local sixes = 0
-        for _, card in pairs(G.playing_cards) do
-            if card:get_id() == 6 then sixes = sixes + 1 end
+        if G.playing_cards then    
+            for _, card in pairs(G.playing_cards) do
+                if card:get_id() == 6 then sixes = sixes + 1 end
+            end
         end
         return {vars = {card.ability.extra.mult, card.ability.extra.mult * sixes, card.ability.extra.dollars}}
     end,
