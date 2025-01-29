@@ -20,7 +20,7 @@ SMODS.Joker({
 local ease_hook = ease_dollars
 function ease_dollars(mod, instant)
     ease_hook(mod, instant)
-    if G.GAME.Ortalab_Scoring_Active and mod > 0 then
+    if G.GAME.Ortalab_Scoring_Active and to_big(mod) > to_big(0) then
         local mint_jokers = SMODS.find_card('j_ortalab_mint_condition')
         for _, card in pairs(mint_jokers) do
 			SMODS.calculate_effect({xmult = card.ability.extra.Xmult}, card)

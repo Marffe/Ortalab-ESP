@@ -101,7 +101,7 @@ if G.zodiacs then
 
             for i=1, zodiac_current.config.extra.temp_level do
                 G.GAME.ortalab.temp_levels = G.GAME.ortalab.temp_levels + 1
-                    update_hand_text({sound = 'button', volume = 0.7, pitch = 0.9, delay = 0}, {level=G.GAME.hands[text].level..'+'..G.GAME.ortalab.temp_levels})
+                    update_hand_text({sound = 'button', volume = 0.7, pitch = 0.9, delay = 0}, {level=number_format(G.GAME.hands[text].level)..'+'..G.GAME.ortalab.temp_levels})
                     mult = mod_mult(mult+G.GAME.hands[text].l_mult)
                     update_hand_text({delay = 0}, {mult = mult})
                     hand_chips = mod_chips(hand_chips+G.GAME.hands[text].l_chips)

@@ -643,6 +643,7 @@ SMODS.Consumable({
 function get_chips_from_edition(card)
     if not card.edition then return 0 end
     local ret = card:calculate_edition({main_scoring = true, cardarea = G.play})
+    if not ret then return 0 end
     if ret.chips then return ret.chips end
     if ret.chip_mod then return ret.chip_mod end
     return 0
@@ -1014,13 +1015,12 @@ function track_usage(type, key)
 end
 
 function get_rank_suffix(card)
-    local rank_suffix = card.base.id
-    if rank_suffix < 11 and rank_suffix > 1 then rank_suffix = tostring(rank_suffix)
-    elseif rank_suffix == 1 or rank_suffix == 14 then rank_suffix = 'Ace'
+    local rank_suffix = (card.base.id - 2) % 13 + 2
+    if rank_suffix < 11 then rank_suffix = tostring(rank_suffix)
     elseif rank_suffix == 11 then rank_suffix = 'Jack'
     elseif rank_suffix == 12 then rank_suffix = 'Queen'
     elseif rank_suffix == 13 then rank_suffix = 'King'
-    elseif rank_suffix == 15 then rank_suffix = '2'
+    elseif rank_suffix == 14 then rank_suffix = 'Ace'
     end
     return rank_suffix
 end

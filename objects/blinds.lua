@@ -1098,7 +1098,7 @@ SMODS.Blind({
     end,
     disable = function(self)
         remove_all(G.hand.cards)
-        self.defeat()
+        self:defeat()
     end,
     defeat = function(self)
         remove_all(G.deck.cards)
