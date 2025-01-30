@@ -93,7 +93,7 @@ local joker_list = {
     'mint_condition',
     -- 'bear',
     'mystery_soda',
-    -- 'collectors',
+    'collectors',
     -- 'dnd',
     'popcorn_bag',
     'knitted_sweater',

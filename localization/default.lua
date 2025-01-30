@@ -405,6 +405,15 @@ return {
 					"Joker is scored are {C:attention}even{}",
 				}
 			},
+			j_ortalab_collectors = {
+				name = 'Collector\'s Edition',
+				text = {
+					'On first {C:red}discard{} of each round,',
+					'{C:red}destroy{} one at random and give',
+					'the {C:attention}left-most{} card held in hand',
+					'it\'s {C:attention}enhancement{}, {C:attention}seal{} or {C:dark_edition}edition'
+				}
+			},
 			['j_ortalab_crime_scene'] = {
 				["name"] = "Crime Scene",
 				["text"] = {
