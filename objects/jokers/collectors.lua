@@ -13,10 +13,13 @@ SMODS.Joker({
     loc_vars = function(self, info_queue, card)
         if card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'tevi'} end
     end,
+    draw = function(self, card, layer)
+        card.children.center:draw_shader('voucher',nil, card.ARGS.send_to_shader)
+    end,
     calculate = function(self, card, context)
         if context.blueprint then return end
         if context.setting_blind then
-            local eval = function() return G.GAME.current_round.discards_used == 0 end
+            local eval = function() return G.GAME.current_round.discards_used == 0 and not G.RESET_JIGGLES end
             juice_card_until(card, eval, true)
         end
         if context.pre_discard and G.GAME.current_round.discards_used == 0 then

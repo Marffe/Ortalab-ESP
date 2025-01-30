@@ -94,7 +94,7 @@ local joker_list = {
     -- 'bear',
     'mystery_soda',
     'collectors',
-    -- 'dnd',
+    'dnd',
     'popcorn_bag',
     'knitted_sweater',
     'futuristic',
