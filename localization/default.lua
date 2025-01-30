@@ -408,10 +408,10 @@ return {
 			j_ortalab_collectors = {
 				name = 'Collector\'s Edition',
 				text = {
-					'On first {C:red}discard{} of each round,',
-					'{C:red}destroy{} one at random and give',
-					'the {C:attention}left-most{} card held in hand',
-					'it\'s {C:attention}enhancement{}, {C:attention}seal{} or {C:dark_edition}edition'
+					'On first {C:red}discard{} of round,',
+					'{C:red}destroy{} a discard card and give',
+					'it\'s {C:attention}enhancement{}, {C:attention}seal{} or {C:dark_edition}edition',
+					'to the {C:attention}left-most{} card in hand'
 				}
 			},
 			['j_ortalab_crime_scene'] = {
@@ -1097,6 +1097,14 @@ return {
 					-- 'each {C:attention}unscored{} card',
 					'{C:inactive}(Currently {C:red}+#2#{C:inactive} Mult)'
 				},
+			},
+			j_ortalab_space_ticket = {
+				name = 'Space Ticket',
+				text = {
+					'If {C:attention}winning hand{} contains a', 
+					'{C:purple}Cosmic Card{}, {C:attention}upgrade',
+					'winning {C:attention}poker hand{}'
+				}
 			},
 			['j_ortalab_spectator'] = {
 				["name"] = "Spectator",

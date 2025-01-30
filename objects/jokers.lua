@@ -104,7 +104,7 @@ local joker_list = {
     'mill',
     'frowny_face',
     'freezer',
-    -- 'polished',
+    'space_ticket',
     'grave_digger',
     'spectator',
     'multiplyers',
