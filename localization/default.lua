@@ -688,6 +688,13 @@ return {
 					"{C:inactive}(Currently {C:blue}+#2#{C:inactive} Chips)"
 				}
 			},
+			j_ortalab_klutz = {
+				name = 'Klutz',
+				text = {
+					'{C:attention}+#1#{} hand size whilst',
+					'opening a {C:attention}consumable pack'
+				}
+			},
 			['j_ortalab_knitted_sweater'] = {
 				["name"] = "Knitted Sweater",
 				["text"] = {

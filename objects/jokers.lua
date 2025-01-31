@@ -85,7 +85,7 @@ local joker_list = {
     'reduce_reuse',
     'flashback',
     'televangelist',
-    -- 'klutz',
+    'klutz',
     'cardist',
     'pickaxe',
     -- 'fools',
