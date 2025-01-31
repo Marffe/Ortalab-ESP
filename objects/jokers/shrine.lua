@@ -54,7 +54,7 @@ SMODS.Joker({
                 delay = 0.7,
                 blocking = true,
                 func = function()
-                    card.particles = Particles(1, 1, 0,0, {
+                    card.children.particles = Particles(1, 1, 0,0, {
                         timer = 0.01,
                         scale = 0.3,
                         initialize = true,
@@ -62,12 +62,13 @@ SMODS.Joker({
                         speed = 6,
                         padding = -1,
                         attach = card,
+                        behind = true,
                         colours = {G.C.SET.Mythos, darken(G.C.SET.Mythos, 0.5), G.C.RED, darken(G.C.SET.Mythos, 0.2), G.ARGS.LOC_COLOURS['mythos_alt']},
                         fill = true
                     })
-                    card.particles.fade_alpha = 1
-                    card.particles:fade(1, 0)
-                    local eval = function(card) return card.particles end
+                    card.children.particles.fade_alpha = 1
+                    card.children.particles:fade(1, 0)
+                    local eval = function(card) return card.children.particles end
                     juice_card_until(card, eval, true)
                     return true
                 end
@@ -93,8 +94,8 @@ SMODS.Joker({
                 trigger = 'after',
                 delay = 2,
                 func = function()
-                    card.particles:remove()
-                    card.particles = nil
+                    card.children.particles:remove()
+                    card.children.particles = nil
                     mythos.stay_in_middle = nil         
                     return true
                 end
