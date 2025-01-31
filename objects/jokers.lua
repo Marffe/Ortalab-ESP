@@ -14,7 +14,7 @@ local joker_list = {
     'foolish',
     'direct',
     'dull',
-    -- 'other_half',
+    'other_half',
     'cutout',
     'polydactyly',
     -- 'wallet',

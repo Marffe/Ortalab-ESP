@@ -816,6 +816,14 @@ return {
 					"held in hand to {C:blue}Chips"
 				}
 			},
+			j_ortalab_other_half = {
+				name = 'Other Half Joker',
+				text = {
+					'{C:blue}+#1#{} Chips if {C:attention}played hand',
+					'contains {C:attention}#2#{} or more',
+					'scoring cards'
+				}
+			},
 			['j_ortalab_patient'] = {
 				["name"] = "Patient Joker",
 				["text"] = {
