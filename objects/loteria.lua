@@ -108,7 +108,6 @@ SMODS.Consumable({
     config = {extra = {type = 'Zodiac', amount = 2}},
     loc_vars = function(self, info_queue, card)
         if Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'kosze'} end
-        info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'no_demo', title = 'Not In Demo'}
         return {vars = {card.ability.extra.amount + (G.GAME and G.GAME.ortalab.vouchers.tabla)}}
     end,
     can_use = function(self, card)
