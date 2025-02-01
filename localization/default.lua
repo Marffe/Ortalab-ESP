@@ -546,6 +546,14 @@ return {
 					"to gain {C:money}$#3#{}", 
 				}
 			},
+			j_ortalab_fools = {
+				name = 'Fool\'s Joker',
+				text = {
+					'Gain {C:money}$#1#{} of {C:attention}sell value',
+					'for each other {C:attention}Joker',
+					'at end of round'
+				}
+			},
 			['j_ortalab_forklift'] = {
 				["name"] = "Forklift Certificate",
 				["text"] = {
