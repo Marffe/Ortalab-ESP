@@ -584,7 +584,7 @@ Ortalab.Zodiac{
                 G.hand.cards[i].base.face_nominal = context.scoring_hand[3].base.face_nominal
                 G.hand.cards[i].delay_edition = true
                 G.hand.cards[i]:set_edition(context.scoring_hand[3].edition and context.scoring_hand[3].edition.key, false, true)
-                G.hand.cards[i]:set_ability(G.P_CENTERS[context.scoring_hand[3].config.center.key], nil, true)
+                G.hand.cards[i]:set_ability(G.P_CENTERS[context.scoring_hand[3].config.center_key], nil, true)
                 G.E_MANAGER:add_event(Event({
                     func = function()
                         copy_card(context.scoring_hand[3], G.hand.cards[i], nil, nil, true)
@@ -697,7 +697,7 @@ Ortalab.Zodiac{
                 G.hand.cards[i].base.face_nominal = context.scoring_hand[2].base.face_nominal
                 G.hand.cards[i].delay_edition = true
                 G.hand.cards[i]:set_edition(context.scoring_hand[2].edition and context.scoring_hand[2].edition.key, false, true)
-                G.hand.cards[i]:set_ability(G.P_CENTERS[context.scoring_hand[2].config.center.key], nil, true)
+                G.hand.cards[i]:set_ability(G.P_CENTERS[context.scoring_hand[2].config.center_key], nil, true)
                 G.E_MANAGER:add_event(Event({
                     func = function()
                         local _card = copy_card(context.scoring_hand[2], G.hand.cards[i], nil, nil, true)
@@ -762,14 +762,12 @@ Ortalab.Zodiac{
                             card:juice_up()
                             card.config.center.replace_base_card = true                
                             card.becoming_no_rank = nil
-                            card.ability.effect = name
                             return true
                         end
                     }))
                     card:set_ability(G.P_CENTERS[change], nil, true)
                     local name = card.ability.effect
                     card.becoming_no_rank = true
-                    card.ability.effect = nil
                     card.config.center.replace_base_card = nil
                 end
                 

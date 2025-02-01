@@ -489,7 +489,7 @@ SMODS.Tag({
         if G.zodiac_choices then
             tag.ability.zodiac_hands = G.zodiac_choices
         elseif tag.ability.blind_type then
-            if G.GAME.zodiac_choices and  G.GAME.zodiac_choices[G.GAME.round_resets.ante] and G.GAME.zodiac_choices[G.GAME.round_resets.ante][tag.ability.blind_type] then
+            if G.GAME.zodiac_choices and G.GAME.zodiac_choices[G.GAME.round_resets.ante] and G.GAME.zodiac_choices[G.GAME.round_resets.ante][tag.ability.blind_type] then
                 tag.ability.zodiac_hands = G.GAME.zodiac_choices[G.GAME.round_resets.ante][tag.ability.blind_type]
             else
                 local _poker_hands = {}

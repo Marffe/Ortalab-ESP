@@ -877,7 +877,7 @@ SMODS.Blind({
     boss = {min = 3, max = 7},
     boss_colour = HEX('b52d2d'),
     in_pool = function(self)
-        if G.GAME.round_resets.ante > 8 then return false end
+        if G.GAME.round_resets.ante > 8 or G.GAME.round_resets.ante < 3 then return false end
         return true
     end,
     loc_vars = function(self, info_queue, card)

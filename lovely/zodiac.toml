@@ -191,3 +191,17 @@ if (self.edition and self.edition.negative) or (self.ability.name == 'Antimatter
 payload = '''
 if (self.edition and self.edition.negative and not self.delay_edition) or (self.ability.name == 'Antimatter' and (self.config.center.discovered or self.bypass_discovery_center)) then
 '''
+
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+match_indent = true
+position = 'after'
+pattern = '''
+--If the card has a front, draw that next
+'''
+payload = '''
+if self.children.front and self.becoming_no_rank then
+    self.children.front:draw_shader('dissolve')
+end
+'''
