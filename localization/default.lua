@@ -951,6 +951,14 @@ return {
 					"{C:inactive}(Currently {C:blue}+#2#{C:inactive} Chips)"
 				}
 			},
+			j_ortalab_rockstar = {
+				name = 'Rockstar',
+				text = {
+					'{C:attention}-#1#{} hand size',
+					'and {C:blue}+#2#{} Hands',
+					'when {C:attention}Blind{} selected'
+				}
+			},
 			['j_ortalab_roscharch'] = {
 				["name"] = "Roscharch Test",
 				["text"] = {

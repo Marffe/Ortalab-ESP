@@ -109,7 +109,7 @@ local joker_list = {
     'spectator',
     'multiplyers',
     -- 'priest',
-    -- 'rockstar',
+    'rockstar',
     -- 'falshe_phd',
     'monochrome',
     'mixtape',
