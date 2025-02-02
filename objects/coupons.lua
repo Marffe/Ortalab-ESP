@@ -16,7 +16,7 @@ SMODS.Voucher({
 	config = {extra = {booster_gain = 1}},
 	redeem = function(self)
         G.GAME.modifiers.ortalab_boosters = (G.GAME.modifiers.ortalab_boosters or 0) + self.config.extra.booster_gain
-        if G.shop_booster then Ortalab.spawn_booster() end
+        if G.STATE == G.STATES.SHOP then Ortalab.spawn_booster() end
     end,
     loc_vars = function(self, info_queue, card)
         if card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'flare'} end

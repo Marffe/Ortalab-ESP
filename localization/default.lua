@@ -670,6 +670,14 @@ return {
 					'{C:attention}#2#'
 				}
 			},
+			j_ortalab_hooligan = {
+				name = 'Hooligan',
+				text = {
+					'{X:attention,C:white}X#1#{} Blind amount',
+					'{C:attention}Redeem{} a random {C:attention}voucher',
+					'when {C:attention}Boss Blind{} is defeated'
+				}
+			},
 			['j_ortalab_hot_chocolate'] = {
 				["name"] = "Hot Chocolate",
 				["text"] = {

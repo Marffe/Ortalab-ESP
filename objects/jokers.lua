@@ -75,7 +75,7 @@ local joker_list = {
     'afterburner',
     'foundation',
     'beyond_the_mask',
-    -- 'hooligan',
+    'hooligan',
     'vinyl',
     'black_friday',
     'fine_wine',
