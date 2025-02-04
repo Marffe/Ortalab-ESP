@@ -123,7 +123,7 @@ local joker_list = {
     'soil',
     -- 'pinkprint',
     'wide',
-    -- 'gloomy_gus',
+    'gloomy_gus',
     'woo_all_1',
     -- 'heresy',
     -- '20_20',

@@ -34,6 +34,7 @@ local igo = Game.init_game_object
 function Game:init_game_object()
     local ret = igo(self)
     ret.ortalab = {
+        hand_size = 0,
         vouchers = {
             horoscope = 0,
             cantor = 0,
@@ -179,4 +180,16 @@ function get_new_big()
     local _, boss = pseudorandom_element(eligible_bosses, pseudoseed('boss'))
     
     return boss
+end
+
+function Ortalab.change_hand_size(amount)
+    G.GAME.ortalab.hand_size = G.GAME.ortalab.hand_size + amount
+    G.hand:change_size(amount)
+end
+
+local end_round_ref = end_round
+function end_round()
+    end_round_ref()
+    G.hand:change_size(-1 * G.GAME.ortalab.hand_size)
+    G.GAME.ortalab.hand_size = 0
 end

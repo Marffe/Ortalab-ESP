@@ -616,6 +616,14 @@ return {
 					"{C:chips}+#1#{} Chips when scored", 
 				}
 			},
+			j_ortalab_gloomy_gus = {
+				name = 'Gloomy Gus',
+				text = {
+					'{C:attention}+#1#{} hand size',
+					'Only {C:red}#2#{} cards can be',
+					'discarded at a time'
+				}
+			},
 			['j_ortalab_glum'] = {
 				["name"] = "Glum Joker",
 				["text"] = {
