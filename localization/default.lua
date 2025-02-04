@@ -209,9 +209,22 @@ return {
 				["text"] = {
 					"loganboi2",
 				}
-			}
+			},
+			['akai'] = {
+				["text"] = {
+					"akai",
+				}
+			},
 		},
 		["Joker"] = {
+			j_ortalab_20_20 = {
+				name = '20/20 Vision',
+				text = {
+					'Retrigger all played cards if', 
+					'{C:attention}scored cards{} contain multiple',
+					'unique ranks'
+				}
+			},
 			['j_ortalab_televangelist'] = {
 				["name"] = "Televangelist",
 				["text"] = {
@@ -669,6 +682,14 @@ return {
 					"{C:loteria}Loteria Card{} and",
 					"lose {C:red}$#1#{} when a",
 					"{C:blue}Hand{} is played"
+				}
+			},
+			j_ortalab_hit_the_gym = {
+				name = 'Hit The Gym',
+				text = {
+					'Gain {C:white,X:red}X#1#{} Mult for', 
+					'each scored {C:attention}#3#',
+					'{C:inactive}Currently {C:white,X:red}X#2#{C:inactive} Mult)'
 				}
 			},
 			['j_ortalab_honest'] = {

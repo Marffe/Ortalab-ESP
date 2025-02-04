@@ -1,0 +1,35 @@
+SMODS.Joker({
+    key = "20_20",
+    atlas = "jokers",
+    pos = {x = 6, y = 9},
+    rarity = 2,
+    cost = 5,
+    unlocked = true,
+    discovered = false,
+    blueprint_compat = true,
+    eternal_compat = true,
+    perishable_compat = true,
+    config = {extra = {reps = 1}},
+    loc_vars = function(self, info_queue, card)
+        if card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'gappie'} end
+        return {vars = {card.ability.extra.reps}}
+    end,
+    calculate = function(self, card, context)
+        if context.before then
+            local ranks = {}
+            for _, card in pairs(context.scoring_hand) do
+                ranks[card:get_id()] = true
+            end
+            if table.size(ranks) > 1 then
+                card.ability.extra.active = true
+            else
+                card.ability.extra.active = false
+            end
+        end
+        if context.repetition and context.cardarea == G.play and card.ability.extra.active then
+            return {
+                repetitions = card.ability.extra.reps
+            }
+        end
+    end    
+})
