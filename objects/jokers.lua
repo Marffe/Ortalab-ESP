@@ -122,7 +122,7 @@ local joker_list = {
     'crime_scene',
     'soil',
     -- 'pinkprint',
-    -- 'wide',
+    'wide',
     -- 'gloomy_gus',
     'woo_all_1',
     -- 'heresy',

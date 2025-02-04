@@ -1266,6 +1266,14 @@ return {
 					"are {C:hearts}Hearts{} or {C:diamonds}Diamonds{}"
 				}
 			},
+			j_ortalab_wide = {
+				name = 'Wide Joker',
+				text = {
+					'Gains {C:red}+#1#{} Mult when',
+					'each played {C:attention}10{} is scored',
+					'{C:inactive}(Currently {C:red}+#2#{C:inactive} Mult)'
+				}
+			},
 			['j_ortalab_woo_all_1'] = {
 				["name"] = "Woo! All 1s",
 				["text"] = {
