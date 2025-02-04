@@ -33,6 +33,7 @@ return {
 			},
 			ortalab_hide_intro = 'Don\'t show again',
 			ortalab_toggle_intro = 'Skip Intro Screen',
+			ortalab_toggle_menu = 'Toggle Menu Alterations',
 			["ortalab_artist"] = 'Artist',
 			ortalab_effects = 'Effects',
 			["ortalab_swap"] = 'Swap!',

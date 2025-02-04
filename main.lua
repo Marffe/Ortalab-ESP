@@ -38,6 +38,12 @@ Ortalab.optional_features = function()
     }
 end
 
+SMODS.Atlas({
+    key = 'logo',
+    path = 'logo.png',
+    px = 333,
+    py = 216,
+})
 
 if (SMODS.Mods['malverk'] or {}).can_load then
     AltTextures_Utils.default_atlas['Zodiac'] = 'ortalab_zodiac_cards'

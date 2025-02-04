@@ -36,10 +36,63 @@ SMODS.current_mod.config_tab = function()
                 EremelUtility.create_toggle({active_colour = G.ARGS.LOC_COLOURS.Zodiac,
                         left = true, label = localize('ortalab_toggle_intro'), ref_table = Ortalab.config, ref_value = 'initial_setup_demo_3'}),
             }},
-    
+            {n=G.UIT.C, config={padding=0.2, align = 'cm'}, nodes={
+                EremelUtility.create_toggle({active_colour = Ortalab.badge_colour,
+                        left = true, label = localize('ortalab_toggle_menu'), ref_table = Ortalab.config, ref_value = 'menu_toggle', callback = menu_refresh}),
+            }},
         }}
     }}
 end
+
+function menu_refresh()
+    if G.SPLASH_BACK then G.SPLASH_BACK:remove(); G.SPLASH_BACK = nil end
+    G.SPLASH_BACK = Sprite(-30, -13, G.ROOM.T.w+60, G.ROOM.T.h+22, G.ASSET_ATLAS["ui_1"], {x = 2, y = 0})
+    G.SPLASH_BACK:set_alignment({
+        major = G.ROOM_ATTACH,
+        type = 'cm',
+        offset = {x=0,y=0}
+    })
+    local splash_args = {mid_flash = change_context == 'splash' and 1.6 or 0.}
+    ease_value(splash_args, 'mid_flash', -(change_context == 'splash' and 1.6 or 0), nil, nil, nil, 4)
+
+    G.SPLASH_BACK:define_draw_steps({{
+        shader = 'splash',
+        send = {
+            {name = 'time', ref_table = G.TIMERS, ref_value = 'REAL_SHADER'},
+            {name = 'vort_speed', val = 0.4},
+            {name = 'colour_1', ref_table = Ortalab.config.menu_toggle and G.ARGS.LOC_COLOURS or G.C, ref_value = Ortalab.config.menu_toggle and 'Ort_menu_colourA' or 'RED'},
+            {name = 'colour_2', ref_table = Ortalab.config.menu_toggle and G.ARGS.LOC_COLOURS or G.C, ref_value = Ortalab.config.menu_toggle and 'Ort_menu_colourB' or 'BLUE'},
+            {name = 'mid_flash', ref_table = splash_args, ref_value = 'mid_flash'},
+            {name = 'vort_offset', val = 0},
+        }}})
+    
+    local SC_scale = 1.1*(G.debug_splash_size_toggle and 0.8 or 1)
+    local CAI = {
+        TITLE_TOP_W = G.CARD_W,
+        TITLE_TOP_H = G.CARD_H,
+    }
+    G.SPLASH_LOGO = Sprite(0, 0, 
+        13*SC_scale, 
+        13*SC_scale*(G.ASSET_ATLAS[Ortalab.config.menu_toggle and 'ortalab_logo' or "balatro"].py/G.ASSET_ATLAS[Ortalab.config.menu_toggle and 'ortalab_logo' or "balatro"].px),
+        G.ASSET_ATLAS[Ortalab.config.menu_toggle and 'ortalab_logo' or "balatro"], {x=0,y=0})
+
+    G.SPLASH_LOGO:set_alignment({
+        major = G.title_top,
+        type = 'cm',
+        bond = 'Strong',
+        offset = {x=0,y=0}
+    })
+    G.SPLASH_LOGO:define_draw_steps({{
+            shader = 'dissolve',
+        }})
+
+    G.SPLASH_LOGO.dissolve_colours = {G.C.WHITE, G.C.WHITE}
+    G.SPLASH_LOGO.dissolve = 1   
+    ease_value(G.SPLASH_LOGO, 'dissolve', -1, nil, nil, nil, 0.9)
+
+    G.title_top.cards[1]:set_edition(Ortalab.config.menu_toggle and 'e_negative' or nil, true, true)
+end
+
 
 function artist_toggle()
     if not Ortalab.config.artist_credits and Ortalab.config.full_credits then
