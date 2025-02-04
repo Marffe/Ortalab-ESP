@@ -108,7 +108,7 @@ local joker_list = {
     'grave_digger',
     'spectator',
     'multiplyers',
-    -- 'priest',
+    'priest',
     'rockstar',
     -- 'falshe_phd',
     'monochrome',

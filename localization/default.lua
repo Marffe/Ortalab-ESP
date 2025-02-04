@@ -881,6 +881,15 @@ return {
 					"when scored"
 				}
 			},
+			j_ortalab_priest = {
+				name = 'Priest',
+				text = {
+					'Gain {C:white,X:red}X#1#{} Mult for each',
+					'{C:money}$1{} of sell value of all',
+					'other {C:attention}Jokers{} and {C:attention}consumables',
+					'{C:inactive}(Currently {X:red,C:white}X#2#{C:inactive} Mult)'
+				}
+			},
 			['j_ortalab_policeman'] = {
 				["name"] = "Policeman",
 				["text"] = {
