@@ -25,20 +25,24 @@ SMODS.Joker({
                     table.insert(final_pool, v)
                 end
             end
-            for i=1, card.ability.extra.cards_to_create do
-                G.E_MANAGER:add_event(Event({
-                    trigger = 'after',
-                    delay = 0.4,
-                    func = function() 
-                    local new_joker = create_card('Joker', G.jokers, nil, nil, nil, nil, pseudorandom_element(final_pool, pseudoseed('shinku_spawn')))
-                    new_joker:set_edition(nil, true, true)
-                    new_joker:add_to_deck()
-                    G.jokers:emplace(new_joker)
-                    new_joker:start_materialize()
-                    new_joker.ability.shinku = true
-                    return true
-                end}))  
-            end 
+            return {
+                func = function()
+                    for i=1, card.ability.extra.cards_to_create do
+                        G.E_MANAGER:add_event(Event({
+                            trigger = 'after',
+                            delay = 0.4,
+                            func = function() 
+                            local new_joker = create_card('Joker', G.jokers, nil, nil, nil, nil, pseudorandom_element(final_pool, pseudoseed('shinku_spawn')))
+                            new_joker:set_edition(nil, true, true)
+                            new_joker:add_to_deck()
+                            G.jokers:emplace(new_joker)
+                            new_joker:start_materialize()
+                            new_joker.ability.shinku = true
+                            return true
+                        end}))  
+                    end 
+                end
+            } 
         end
     end
 })

@@ -95,9 +95,7 @@ SMODS.Edition({
         if context.repetition_only or (context.retrigger_joker_check and context.other_card == card) then
             return {
                 repetitions = card.edition.extra.retriggers,
-                card = card,
                 colour = G.C.GREEN,
-                message = localize('k_again_ex')
             }     
         end
     end
