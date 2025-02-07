@@ -503,7 +503,8 @@ SMODS.Consumable({
             suit = card1.base.suit,
             enhancement = card1.ability.set == 'Enhanced' and card1.config.center or nil,
             edition = card1.edition and card1.edition.type and 'e_'..card1.edition.type or nil,
-            seal = card1.seal or nil
+            seal = card1.seal or nil,
+            curse = card1.curse or nil
         }
         local card2 = G.hand.highlighted[2]
         local card_2_info = {
@@ -511,7 +512,8 @@ SMODS.Consumable({
             suit = card2.base.suit,
             enhancement = card2.ability.set == 'Enhanced' and card2.config.center or nil,
             edition = card2.edition and card2.edition.type and 'e_'..card2.edition.type or nil,
-            seal = card2.seal or nil
+            seal = card2.seal or nil,
+            curse = card2.curse or nil
         }
         local new_card
 
@@ -1035,6 +1037,8 @@ function harp_randomise(new_card, card_1_info, card_2_info)
     if enhancement ~= 'none' then new_card:set_ability(enhancement) else new_card:set_ability(G.P_CENTERS.c_base) end
     local seal = pseudoseed('harp_seal') > (0.5 - (card_1_info.seal and weighting or 0) + (card_2_info.seal and weighting or 0)) and (card_1_info.seal or 'none') or (card_2_info.seal or 'none')
     if seal ~= 'none' then new_card:set_seal(seal, true, true) else new_card:set_seal() end
+    local curse = pseudoseed('harp_curse') > (0.5 - (card_1_info.curse and 0.5 or 0) + (card_2_info.curse and 0.5 or 0)) and (card_1_info.curse or 'none') or (card_2_info.curse or 'none')
+    if curse ~= 'none' then new_card:set_curse(curse, true, true) else new_card:set_curse() end
     Ortalab.harp_usage = false
 end
 

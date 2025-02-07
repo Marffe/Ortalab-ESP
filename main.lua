@@ -35,6 +35,7 @@ SMODS.Atlas({
 Ortalab.optional_features = function()
     return {
         retrigger_joker = true,
+        post_trigger = true
     }
 end
 

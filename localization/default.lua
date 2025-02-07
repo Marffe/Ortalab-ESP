@@ -2146,6 +2146,7 @@ return {
                 text = {
                     "{C:red}Reduce {C:money}sell value{} by",
 					"{C:red}$#1#{} when {C:attention}triggered",
+					'and at end of round'
                 }
             },
 			['ortalab_possessed'] = {
