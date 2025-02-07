@@ -117,17 +117,21 @@ SMODS.Consumable({
     atlas = 'mythos_cards',
     pos = {x=1, y=0},
     discovered = false,
-    config = {extra = {select = 4, inc = 1, curse = 'ortalab_all_curses', method = 'c_ortalab_mult_random', slots = 1, perish_count = 2}},
+    config = {extra = {select = 4, inc = 2, curse = 'ortalab_all_curses', method = 'c_ortalab_mult_random', slots = 1, perish_count = 2}},
     loc_vars = function(self, info_queue, card)
         if Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'gappie'} end
-        return {vars = {card.ability.extra.slots, card.ability.extra.perish_count}}
+        return {vars = {card.ability.extra.slots, card.ability.extra.perish_count + G.GAME.ortalab.mythos.tree_of_life_count}}
     end,
     can_use = function(self, card)
         local uncursed_cards = 0
-        for _, card in pairs(G.hand.cards) do
-            if not card.curse then uncursed_cards = uncursed_cards + 1 end
+        for _, hand_card in pairs(G.hand.cards) do
+            if not hand_card.curse then uncursed_cards = uncursed_cards + 1 end
         end
-        if uncursed_cards >= math.min(G.hand.config.card_limit, card.ability.extra.select + G.GAME.ortalab.mythos.extra_select + G.GAME.ortalab.mythos.tree_of_life_count) then
+        local unperish = 0
+        for _, joker in pairs(G.jokers.cards) do
+            if not joker.ability.perishable and joker.config.center.perishable_compat then unperish = unperish + 1 end
+        end
+        if uncursed_cards >= math.min(G.hand.config.card_limit, card.ability.extra.select + G.GAME.ortalab.mythos.extra_select) and unperish >= math.min(G.jokers.config.card_limit, card.ability.extra.perish_count + G.GAME.ortalab.mythos.tree_of_life_count) then
             return true
         end
     end,
@@ -137,7 +141,7 @@ SMODS.Consumable({
         local curses = {'corroded', 'infected', 'possessed', 'restrained'}
         local applied = {}
 
-        for i=1, math.min(G.hand.config.card_limit, card.ability.extra.select + G.GAME.ortalab.mythos.extra_select + G.GAME.ortalab.mythos.tree_of_life_count) do
+        for i=1, math.min(G.hand.config.card_limit, card.ability.extra.select + G.GAME.ortalab.mythos.extra_select) do
             G.E_MANAGER:add_event(Event({
                 trigger = 'after',
                 delay = 0.5,
@@ -170,7 +174,7 @@ SMODS.Consumable({
                 available_jokers[#available_jokers + 1] = joker
             end
         end
-        for i=1, math.min(#available_jokers, card.ability.extra.perish_count) do
+        for i=1, math.min(G.jokers.config.card_limit, card.ability.extra.perish_count + G.GAME.ortalab.mythos.tree_of_life_count) do
             G.E_MANAGER:add_event(Event({
                 trigger = 'after',
                 delay = 0.7,
@@ -435,7 +439,7 @@ SMODS.Consumable({
         for _, card in pairs(G.hand.cards) do
             if not card.curse then uncursed_cards = uncursed_cards + 1 end
         end
-        if uncursed_cards >= card.ability.extra.select + G.GAME.ortalab.mythos.extra_select + G.GAME.ortalab.mythos.tree_of_life_count  then
+        if uncursed_cards >= card.ability.extra.select + G.GAME.ortalab.mythos.extra_select then
             return true
         end
     end,
@@ -1228,9 +1232,7 @@ function generate_card_ui(_c, full_UI_table, specific_vars, card_type, badges, h
             localize({type = 'name_text', set = 'Curse', key = card.ability.extra.curse}),
             colours = {colour}
         }
-        if _c.key == 'c_ortalab_tree_of_life' then
-            vars[1] = vars[1] + G.GAME.ortalab.mythos.tree_of_life_count
-        elseif _c.key == 'c_ortalab_jackalope' then
+        if _c.key == 'c_ortalab_jackalope' then
             vars[1] = math.min((vars[1] - G.GAME.ortalab.mythos.extra_select) * G.GAME.ortalab.mythos.jackalope_count + G.GAME.ortalab.mythos.extra_select, G.hand and G.hand.config.card_limit or 100)
         elseif _c.key == 'c_ortalab_ya_te_veo' then
             vars[1] = vars[1] + G.GAME.ortalab.mythos.ya_te_veo_count

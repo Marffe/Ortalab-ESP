@@ -16,7 +16,7 @@ SMODS.Joker({
         return {vars = {card.ability.extra.mult_add, card.ability.extra.mult_total}}
     end,
     calculate = function(self, card, context) --Triangle Joker Logic
-        if context.cardarea == G.jokers and context.before and #context.full_hand == 3 and not context.blueprint then
+        if context.cardarea == G.jokers and context.before and #context.full_hand == 3 and #context.scoring_hand == 3 and not context.blueprint then
             card.ability.extra.mult_total = card.ability.extra.mult_total + card.ability.extra.mult_add
             return {
                 message = localize('k_upgrade_ex'),

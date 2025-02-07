@@ -1266,7 +1266,7 @@ return {
 				["name"] = "Triangle Joker",
 				["text"] = {
 					"This Joker gains {C:mult}+#1#{} Mult if played hand",
-					"has exactly {C:attention}3{} cards",
+					"is exactly {C:attention}3{} scoring cards",
 					"{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult)",
 				}
 			},
