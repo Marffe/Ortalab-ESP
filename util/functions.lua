@@ -123,7 +123,7 @@ function get_new_small()
         elseif v.in_pool and type(v.in_pool) == 'function' then
             local res, options = v:in_pool()
             eligible_bosses[k] = res and true or nil
-        elseif (v.small.min <= math.max(1, G.GAME.round_resets.ante) and ((math.max(1, G.GAME.round_resets.ante))%G.GAME.win_ante ~= 0 or G.GAME.round_resets.ante < 2)) then
+        elseif v.small.min <= math.max(1, G.GAME.round_resets.ante) then
             eligible_bosses[k] = true
         end
     end
@@ -161,7 +161,7 @@ function get_new_big()
         elseif v.in_pool and type(v.in_pool) == 'function' then
             local res, options = v:in_pool()
             eligible_bosses[k] = res and true or nil
-        elseif (v.big.min <= math.max(1, G.GAME.round_resets.ante) and ((math.max(1, G.GAME.round_resets.ante))%G.GAME.win_ante ~= 0 or G.GAME.round_resets.ante < 2)) then
+        elseif v.big.min <= math.max(1, G.GAME.round_resets.ante) then
             eligible_bosses[k] = true
         end
     end

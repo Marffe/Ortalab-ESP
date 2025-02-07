@@ -48,14 +48,12 @@ SMODS.Joker({
         if card.ability.extra.copied_joker then
             context.blueprint = (context.blueprint and (context.blueprint + 1)) or 1
             context.blueprint_card = context.blueprint_card or card
-            context.no_callback = true
             if context.blueprint > #G.jokers.cards + 1 then return end
             local other_joker_ret = card.ability.extra.copied_joker:calculate_joker(context)
-            context.no_callback = false
+            context.blueprint = nil
+            local eff_card = context.blueprint_card or self
+            context.blueprint_card = nil
             if other_joker_ret then
-                if not other_joker_ret then
-                    return
-                end
                 other_joker_ret.card = card
                 other_joker_ret.colour = G.C.GREEN
                 return other_joker_ret

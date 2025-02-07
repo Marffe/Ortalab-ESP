@@ -439,6 +439,7 @@ SMODS.Consumable({
                     end
                 end
                 return true end }))
+        SMODS.calculate_context({ remove_playing_cards = true, removed = destroyed_cards })
         delay(0.5)
         G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.35,func = function()
             local new_cards = {}
