@@ -191,7 +191,6 @@ SMODS.Consumable({
             trigger = 'after',
             delay = 0.5,
             func = function()
-                G.jokers.config.card_limit = G.jokers.config.card_limit + card.ability.extra.slots
                 modify_joker_slot_count(card.ability.extra.slots)
                 return true
             end
@@ -291,11 +290,8 @@ SMODS.Consumable({
     config = {extra = {select = 4, curse = 'ortalab_all_curses', method = 'c_ortalab_mult_random', choose = 1, copies = 4}},
     loc_vars = function(self, info_queue, card)
         if Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'gappie'} end
-        card.ability.extra.select = math.ceil((G.hand and #G.hand.cards or 8) / 2)
+        card.ability.extra.select = math.ceil((G.hand and G.hand.config.temp_limit or 8) / 2)
         return {vars = {card.ability.extra.copies}}
-    end,
-    set_ability = function(self, card)
-        -- set card.ability.extra.select to half of hand size
     end,
     can_use = function(self, card)
         if #G.hand.highlighted == card.ability.extra.choose then
@@ -304,7 +300,7 @@ SMODS.Consumable({
             for _, card in pairs(G.hand.cards) do
                 if not card.curse then uncursed_cards = uncursed_cards + 1 else cursed_cards = cursed_cards + 1 end
             end
-            if uncursed_cards >= cursed_cards  then
+            if uncursed_cards >= math.ceil(G.hand.config.temp_limit / 2) + G.GAME.ortalab.mythos.extra_select + 1 then
                 return true
             end
         end
@@ -317,7 +313,7 @@ SMODS.Consumable({
         local curses = {'corroded', 'infected', 'possessed', 'restrained'}
         local applied = {}
 
-        for i=1, math.ceil(#G.hand.cards / 2) + G.GAME.ortalab.mythos.extra_select do
+        for i=1, math.ceil(G.hand.config.temp_limit / 2) + G.GAME.ortalab.mythos.extra_select do
             G.E_MANAGER:add_event(Event({
                 trigger = 'after',
                 delay = 0.5,
@@ -329,7 +325,7 @@ SMODS.Consumable({
                             G.hand:add_to_highlighted(p_card)
                             while select do
                                 local curse_to_apply = pseudorandom_element(curses, pseudoseed('tree_curse_choice'))
-                                if not applied[curse_to_apply] or i > card.ability.extra.select then
+                                if not applied[curse_to_apply] or i > 4 then
                                     applied[curse_to_apply] = true
                                     p_card:set_curse('ortalab_'..curse_to_apply, false, true)
                                     p_card:juice_up()

@@ -39,8 +39,9 @@ target = 'functions/common_events.lua'
 pattern = '''if _pool_size == 0 then'''
 position = 'before'
 match_indent = true
-payload = '''if _pool_size == 0 then
-    _pool = EMPTY(G.ARGS.TEMP_POOL)
+payload = '''
+if _pool_size == 0 then
+    local new_pool = {}
     if G.GAME.modifiers.ortalab_only then
         local loteria_pool = get_current_pool('Loteria')
         local replacement_loteria = pseudorandom_element(loteria_pool, pseudoseed('ortalab_only'))
@@ -53,16 +54,17 @@ payload = '''if _pool_size == 0 then
             replacement_zodiac = pseudorandom_element(zodiac_pool, pseudoseed('ortalab_only_resample'))
         end
         if SMODS.ConsumableTypes[_type] and SMODS.ConsumableTypes[_type].default and G.P_CENTERS[SMODS.ConsumableTypes[_type].default] then
-            _pool[#_pool+1] = SMODS.ConsumableTypes[_type].default
-        elseif _type == 'Tarot' or _type == 'Tarot_Planet' then _pool[#_pool + 1] = replacement_loteria
-        elseif _type == 'Planet' then _pool[#_pool + 1] = replacement_zodiac
-        elseif _type == 'Spectral' then _pool[#_pool + 1] = 'c_ortalab_rooster'
-        elseif _type == 'Joker' then _pool[#_pool + 1] = "j_ortalab_jester"
-        elseif _type == 'Demo' then _pool[#_pool + 1] = "j_ortalab_jester"
-        elseif _type == 'Voucher' then _pool[#_pool + 1] = "v_blank"
-        elseif _type == 'Tag' then _pool[#_pool + 1] = "tag_ortalab_rewind"
-        else _pool[#_pool + 1] = "j_ortalab_jester"
+            new_pool[#new_pool+1] = SMODS.ConsumableTypes[_type].default
+        elseif _type == 'Tarot' or _type == 'Tarot_Planet' then new_pool[#new_pool + 1] = replacement_loteria
+        elseif _type == 'Planet' then new_pool[#new_pool + 1] = replacement_zodiac
+        elseif _type == 'Spectral' then _newpool[#_pool + 1] = 'c_ortalab_rooster'
+        elseif _type == 'Joker' then new_pool[#new_pool + 1] = "j_ortalab_jester"
+        elseif _type == 'Demo' then new_pool[#new_pool + 1] = "j_ortalab_jester"
+        elseif _type == 'Voucher' then new_pool[#new_pool + 1] = "v_blank"
+        elseif _type == 'Tag' then new_pool[#new_pool + 1] = "tag_ortalab_rewind"
+        else new_pool[#new_pool + 1] = "j_ortalab_jester"
         end
+        _pool = new_pool
         _pool_size = 1
     end
 end
