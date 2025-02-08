@@ -2192,7 +2192,7 @@ return {
                 name = "Infected",
                 text = {
                     '{C:green}#1# in #2#{} chance to',
-					'be {C:mythos}disabled{} each round'
+					'be {C:mythos}disabled{} each hand'
                 }
             },
 		},

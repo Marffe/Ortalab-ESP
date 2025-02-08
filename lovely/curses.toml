@@ -12,7 +12,7 @@ position = 'before'
 match_indent = true
 payload = '''
 if self.curse then
-    if self.curse == 'ortalab_infected' and ((self.area == G.play or self.config.center.set == 'Joker') and self.ability.no_score) then
+    if self.curse == 'ortalab_infected' and ((self.area == G.play or self.config.center.set == 'Joker') and self.ability.no_score_shader) then
         self.children.center:draw_shader('ortalab_celadon', nil, self.ARGS.send_to_shader)
         if self.children.front then
             self.children.front:draw_shader('ortalab_celadon', nil, self.ARGS.send_to_shader)
@@ -178,40 +178,16 @@ if #self.highlighted < self.config.highlighted_limit and (v.ability.forced_selec
 [[patches]]
 [patches.pattern]
 target = 'functions/state_events.lua'
-pattern = '''card_eval_status_text(scoring_hand[i], 'debuff')'''
-position = 'after'
-match_indent = true
-payload = '''
-elseif scoring_hand[i].curse == 'ortalab_infected' then
-    G.E_MANAGER:add_event(Event({func = function() scoring_hand[i].ability.no_score = true; return true; end}))
-    card_eval_status_text(scoring_hand[i], 'extra', nil, nil, nil, {message = localize({set = 'Curse', type = 'name_text', key = 'ortalab_infected'})..'!', colour = Ortalab.Curses.ortalab_infected.badge_colour})
-'''
-# Infected
-[[patches]]
-[patches.pattern]
-target = 'functions/state_events.lua'
 pattern = '''if not G.GAME.blind:debuff_hand(G.play.cards, poker_hands, text) then'''
 position = 'before'
 match_indent = true
 payload = '''
 for _, card in ipairs(scoring_hand) do
     if card.curse == 'ortalab_infected' then
-        G.E_MANAGER:add_event(Event({func = function() card.ability.no_score = true; return true; end}))
+        G.E_MANAGER:add_event(Event({func = function() card.ability.no_score = true; card.ability.no_score_shader = true; return true; end}))
         card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize({set = 'Curse', type = 'name_text', key = 'ortalab_infected'})..'!', colour = Ortalab.Curses.ortalab_infected.badge_colour})
     end
 end
-'''
-# calc_dollar_bonus infected compat
-[[patches]]
-[patches.pattern]
-target = 'functions/state_events.lua'
-match_indent = true
-position = 'before'
-pattern = '''
--- TARGET: calc_dollar_bonus per card
-'''
-payload = '''
-if _card.ability.no_score then ret = nil end
 '''
 
 # Possessed on jokers

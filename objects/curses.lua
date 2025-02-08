@@ -358,16 +358,13 @@ Ortalab.Curse({
         end
     end,
     calculate = function(self, card, context)
-        if context.remove_curse and context.cardarea == G.jokers and card.ability.no_score then
-            G.E_MANAGER:add_event(Event({
-                trigger = 'after',
-                delay = 0.4,
-                func = function()
-                    card.ability.no_score = false
-                    card:juice_up()        
-                    return true
-                end
-            }))
+        if context.final_scoring_step and context.cardarea == G.jokers and card.ability.no_score then
+            G.E_MANAGER:add_event(Event({func = function()
+                card.ability.no_score = false
+                card.ability.no_score_shader = false
+                card:juice_up()
+                return true
+            end}))
         end
         if context.discard and context.other_card == card then
             G.E_MANAGER:add_event(Event({
@@ -389,19 +386,19 @@ Ortalab.Curse({
                 end
             }))
         end
-        if context.setting_blind and context.cardarea == G.jokers then
+        if context.before and context.cardarea == G.jokers then
             if pseudorandom('infected_joker_chance') < G.GAME.probabilities.normal / card.ability.curse.extra.denom then
-                G.E_MANAGER:add_event(Event({
-                    trigger = 'after',
-                    delay = 0.4,
+                G.E_MANAGER:add_event(Event({func = function()
+                    card.ability.no_score_shader = true
+                    return true
+                end}))
+                return {
+                    message = localize({set = 'Curse', type = 'name_text', key = 'ortalab_infected'})..'!',
+                    colour = Ortalab.Curses.ortalab_infected.badge_colour,
                     func = function()
                         card.ability.no_score = true
                         return true
                     end
-                }))
-                return {
-                    message = localize({set = 'Curse', type = 'name_text', key = 'ortalab_infected'})..'!',
-                    colour = Ortalab.Curses.ortalab_infected.badge_colour
                 }
             else
                 return {
@@ -413,10 +410,19 @@ Ortalab.Curse({
     end
 })
 
+local score = SMODS.score_card
+function SMODS.score_card(card, context)
+    if card.curse == 'ortalab_infected' then
+        return
+    end
+    score(card, context)
+end
+
 local dfdtd = G.FUNCS.draw_from_discard_to_deck
 G.FUNCS.draw_from_discard_to_deck = function(e)
     for _, card in pairs(G.discard.cards) do
         card.ability.no_score = false
+        card.ability.no_score_shader = false
     end
     dfdtd(e)
 end
@@ -425,7 +431,7 @@ local ec = eval_card
 function eval_card(card, context)
     if card.ability.no_score then
         local cur = {}
-        if context.remove_curse then
+        if context.final_scoring_step then
             local curses = card:calculate_curse(context)
             if curses then
                 cur.curses = curses
@@ -437,8 +443,8 @@ function eval_card(card, context)
     return ret, post
 end
 
-local cashout = G.FUNCS.cash_out
-G.FUNCS.cash_out = function(e)
-    cashout(e)
-    SMODS.calculate_context({remove_curse = true}, {})
-end
+-- local evaluate_play = G.FUNCS.evaluate_play
+-- G.FUNCS.evaluate_play = function(e)
+--     evaluate_play(e)
+--     SMODS.calculate_context({remove_curse = true}, {})
+-- end
