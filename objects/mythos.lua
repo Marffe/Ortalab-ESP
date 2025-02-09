@@ -131,7 +131,7 @@ SMODS.Consumable({
         for _, joker in pairs(G.jokers.cards) do
             if not joker.ability.perishable and joker.config.center.perishable_compat then unperish = unperish + 1 end
         end
-        if uncursed_cards >= math.min(G.hand.config.card_limit, card.ability.extra.select + G.GAME.ortalab.mythos.extra_select) and unperish >= math.min(G.jokers.config.card_limit, card.ability.extra.perish_count + G.GAME.ortalab.mythos.tree_of_life_count) then
+        if uncursed_cards >= math.min(G.hand.config.card_limit, card.ability.extra.select + G.GAME.ortalab.mythos.extra_select) and unperish >= card.ability.extra.perish_count + G.GAME.ortalab.mythos.tree_of_life_count then
             return true
         end
     end,
@@ -174,7 +174,7 @@ SMODS.Consumable({
                 available_jokers[#available_jokers + 1] = joker
             end
         end
-        for i=1, math.min(G.jokers.config.card_limit, card.ability.extra.perish_count + G.GAME.ortalab.mythos.tree_of_life_count) do
+        for i=1,card.ability.extra.perish_count + G.GAME.ortalab.mythos.tree_of_life_count do
             G.E_MANAGER:add_event(Event({
                 trigger = 'after',
                 delay = 0.7,
