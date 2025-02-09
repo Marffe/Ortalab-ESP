@@ -257,6 +257,14 @@ return {
 					"{C:chips}+#1#{} Chips when scored", 
 				}
 			},
+			j_ortalab_actor = {
+				name = 'Actor',
+				text = {
+					'Gain {C:white,X:red}X#1#{} Mult per', 
+					'hand-size above or below {C:attention}#3#',
+					'{C:inactive}(Currently {X:red,C:white}X#2#{C:inactive} Mult)'
+				}
+			},
 			['j_ortalab_afterburner'] = {
 				["name"] = "Afterburner",
 				["text"] = {
