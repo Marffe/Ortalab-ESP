@@ -1017,7 +1017,7 @@ return {
 			['j_ortalab_royal_gala'] = {
 				["name"] = "Royal Gala",
 				["text"] = {
-					"{C:chips}+#1#{} Chips",
+					"{C:white,X:blue}X#1#{} Chips",
 					"{C:green}#2# in #3#{} chance this",
 					"card is destroyed",
 					"at end of round",
