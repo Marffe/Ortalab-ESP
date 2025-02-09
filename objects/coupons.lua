@@ -36,14 +36,16 @@ SMODS.Voucher({
 	config = {extra = {voucher_gain = 1}},
 	redeem = function(self)
         G.GAME.current_round.voucher_2 = get_next_voucher_key()
-        G.shop_vouchers.config.card_limit = G.shop_vouchers.config.card_limit + self.config.extra.voucher_gain
-        if G.GAME.current_round.voucher_2 and G.P_CENTERS[G.GAME.current_round.voucher_2] then
-            local card = Card(G.shop_vouchers.T.x + G.shop_vouchers.T.w/2,
-            G.shop_vouchers.T.y, G.CARD_W, G.CARD_H, G.P_CARDS.empty, G.P_CENTERS[G.GAME.current_round.voucher_2],{bypass_discovery_center = true, bypass_discovery_ui = true})
-            card.shop_voucher = true
-            create_shop_card_ui(card, 'Voucher', G.shop_vouchers)
-            card:start_materialize()
-            G.shop_vouchers:emplace(card)
+        if G.shop_vouchers then
+            G.shop_vouchers.config.card_limit = G.shop_vouchers.config.card_limit + self.config.extra.voucher_gain
+            if G.GAME.current_round.voucher_2 and G.P_CENTERS[G.GAME.current_round.voucher_2] then
+                local card = Card(G.shop_vouchers.T.x + G.shop_vouchers.T.w/2,
+                G.shop_vouchers.T.y, G.CARD_W, G.CARD_H, G.P_CARDS.empty, G.P_CENTERS[G.GAME.current_round.voucher_2],{bypass_discovery_center = true, bypass_discovery_ui = true})
+                card.shop_voucher = true
+                create_shop_card_ui(card, 'Voucher', G.shop_vouchers)
+                card:start_materialize()
+                G.shop_vouchers:emplace(card)
+            end
         end
     end,
     loc_vars = function(self, info_queue, card)
