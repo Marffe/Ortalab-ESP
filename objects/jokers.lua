@@ -136,7 +136,7 @@ local joker_list = {
     'spectrum',
     'actor',
     'chameleon',
-    -- 'right_hand',
+    'right_hand',
     'sun_sign',
     -- 'boulevard',
     'forklift',

@@ -1,0 +1,46 @@
+SMODS.Joker({
+    key = "right_hand",
+    atlas = "jokers",
+    pos = {x = 4, y = 8},
+    rarity = 3,
+    cost = 6,
+    unlocked = true,
+    discovered = false,
+    blueprint_compat = true,
+    eternal_compat = true,
+    perishable_compat = true,
+    config = {extra = {}},
+    loc_vars = function(self, info_queue, card)
+        if card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'gappie'} end
+        if G.jokers and G.jokers.cards[#G.jokers.cards] ~= card and G.jokers.cards[#G.jokers.cards].config.center.blueprint_compat then
+            card.ability.blueprint_compat = ' '..localize('k_compatible')..' '
+            card.ability.bubble_colour = mix_colours(G.C.GREEN, G.C.JOKER_GREY, 0.8)
+
+        else
+            card.ability.blueprint_compat = ' '..localize('k_incompatible')..' '
+            card.ability.bubble_colour = mix_colours(G.C.RED, G.C.JOKER_GREY, 0.8)
+        end
+        return {main_end = (card.area and card.area == G.jokers) and {
+            {n=G.UIT.C, config={align = "bm", minh = 0.4}, nodes={
+                {n=G.UIT.C, config={ref_table = card, align = "m", colour = card.ability.bubble_colour, r = 0.05, padding = 0.06}, nodes={
+                    {n=G.UIT.T, config={ref_table = card.ability, ref_value = 'blueprint_compat',colour = G.C.UI.TEXT_LIGHT, scale = 0.32*0.8}},
+                }}
+            }}}}
+    end,
+    calculate = function(self, card, context)
+        if G.jokers.cards[#G.jokers.cards] ~= card then
+            context.blueprint = (context.blueprint and (context.blueprint + 1)) or 1
+            context.blueprint_card = context.blueprint_card or card
+            if context.blueprint > #G.jokers.cards + 1 then return end
+            local other_joker_ret = G.jokers.cards[#G.jokers.cards]:calculate_joker(context)
+            context.blueprint = nil
+            local eff_card = context.blueprint_card or self
+            context.blueprint_card = nil
+            if other_joker_ret then
+                other_joker_ret.card = card
+                other_joker_ret.colour = G.C.BLUE
+                return other_joker_ret
+            end
+        end
+    end    
+})

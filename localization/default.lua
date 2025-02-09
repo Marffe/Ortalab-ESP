@@ -1006,6 +1006,13 @@ return {
 					"{C:inactive}(Currently {C:blue}+#2#{C:inactive} Chips)"
 				}
 			},
+			j_ortalab_right_hand = {
+				name = 'Right Hand Man',
+				text = {
+					'Copies the ability', 
+					'of rightmost {C:attention}Joker'
+				}
+			},
 			j_ortalab_rockstar = {
 				name = 'Rockstar',
 				text = {
