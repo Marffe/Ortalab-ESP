@@ -299,6 +299,14 @@ return {
 					'decay {C:attention}#1#{} times faster'
 				}
 			},
+			j_ortalab_attached = {
+				name = 'Attached',
+				text = {
+					'When {C:attention}Blind{} is selected,',
+					'add {C:dark_edition}#2#{} to {C:attention}right-most Joker',
+					'{C:dark_edition}#2#{} Jokers each give {X:red,C:white}X#1#{} Mult'
+				}
+			},
 			['j_ortalab_bank_loan'] = {
 				["name"] = "Bank Loan",
 				["text"] = {

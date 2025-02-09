@@ -62,7 +62,7 @@ local joker_list = {
     'royal_gala',
     'croupier',
     'blue_card',
-    -- 'attached',
+    'attached',
     'triangle',
     'shrine',
     'street_rat',
