@@ -2164,6 +2164,20 @@ return {
 					'trigger {C:attention}#1#{} extra times'
 				}
 			},
+			v_ortalab_grabber_inv = {
+				name = 'Grabber Inverse',
+				text = {
+					'Permanently gain {C:blue}+#1#{} hands',
+					'and {C:red}#2#{} discard per round'
+				}
+			},
+			v_ortalab_nacho_inv = {
+				name = 'Nacho Inverse',
+				text = {
+					'Earn an extra {C:money}$#1#{}', 
+					'per remaining hand'
+				}
+			},
 		},
 		['Curse'] = {
 			ortalab_all_curses = {
