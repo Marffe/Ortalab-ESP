@@ -172,3 +172,37 @@ end
 }))
 '''
 line_prepend = "$indent"
+
+# hone/glowup inverse
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/utils.lua"]'
+match_indent = true
+position = 'after'
+pattern = '''
+if key ~= 'smods' then
+    if type(effect) == 'table' then
+        local calc = SMODS.calculate_effect(effect, card, key == 'edition')
+        if calc then effects.calculated = true end
+    end
+end
+'''
+payload = '''
+if key == 'edition' and effects.calculated then
+    if type(effect) == 'table' and not effect.swap then
+        local edition_reps = {}
+        for _, voucher in pairs(G.vouchers.cards) do
+            if voucher.ability.extra and voucher.ability.extra.edition_reps then
+                for i=1, voucher.ability.extra.edition_reps do
+                    edition_reps[#edition_reps+1] = {message = localize('k_again_ex'), colour = G.C.DARK_EDITION, card = voucher}
+                end
+            end
+        end
+        for _, rep_eff in pairs(edition_reps) do
+            SMODS.calculate_effect(rep_eff, rep_eff.card, key == 'edition')
+            SMODS.calculate_effect(effect, card, key == 'edition')
+        end
+    end
+end
+'''
+

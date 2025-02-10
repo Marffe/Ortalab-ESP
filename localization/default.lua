@@ -2150,6 +2150,20 @@ return {
 					"from skipping {C:attention}Blinds"
 				}
 			},
+			v_ortalab_edition_1 = {
+				name = 'Hone Inverse',
+				text = {
+					'{C:dark_edition}Editions{} on {C:attention}Jokers',
+					'trigger {C:attention}#1#{} extra time'
+				}
+			},
+			v_ortalab_edition_2 = {
+				name = 'Glow Up Inverse',
+				text = {
+					'{C:dark_edition}Editions{} on {C:attention}Jokers',
+					'trigger {C:attention}#1#{} extra times'
+				}
+			},
 		},
 		['Curse'] = {
 			ortalab_all_curses = {

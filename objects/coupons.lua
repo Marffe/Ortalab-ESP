@@ -317,6 +317,41 @@ SMODS.Voucher({
     end,
 })
 
+SMODS.Voucher({
+	key = "edition_1",
+	atlas = "coupons",
+	pos = {x = 0, y = 1},
+	cost = 10,
+	unlocked = true,
+	discovered = false,
+	available = true,
+    config = {extra = {edition_reps = 1}},
+	redeem = function(self)
+    end,
+    loc_vars = function(self, info_queue, card)
+        if card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'no_demo'} end
+        return {vars = {card.ability.extra.edition_reps}}
+    end,
+})
+
+SMODS.Voucher({
+	key = "edition_2",
+	atlas = "coupons",
+	pos = {x = 1, y = 1},
+	cost = 10,
+	unlocked = true,
+	discovered = false,
+	available = false,
+    requires = {'v_ortalab_edition_1'},
+    config = {extra = {edition_reps = 2}},
+	redeem = function(self)
+    end,
+    loc_vars = function(self, info_queue, card)
+        if card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'no_demo'} end
+        return {vars = {card.ability.extra.edition_reps}}
+    end,
+})
+
 local BackApply_to_run_ref = Back.apply_to_run
 function Back.apply_to_run(self)
 	BackApply_to_run_ref(self)
