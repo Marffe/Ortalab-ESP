@@ -227,7 +227,7 @@ table.sort(scoring_hand, function (a, b) return a.T.x < b.T.x end )
 '''
 payload = '''
 local ortalab_poly_jokers = SMODS.find_card('j_ortalab_polydactyly')
-if next(ortalab_poly_jokers) then
+if next(ortalab_poly_jokers) and (next(poker_hands['Straight']) or next(poker_hands['Flush'])) then
     for i=1, ortalab_poly_jokers[1].ability.extra.cards do
         table.insert(scoring_hand, G.hand.cards[i])
     end
