@@ -36,6 +36,7 @@ function Game:init_game_object()
     ret.ortalab = {
         hand_size = 0,
         extra_discard_size = 0,
+        blind_rewards = 0,
         vouchers = {
             horoscope = 0,
             cantor = 0,

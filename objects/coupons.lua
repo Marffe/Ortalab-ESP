@@ -433,6 +433,48 @@ SMODS.Voucher({
     end,
 })
 
+SMODS.Voucher({
+	key = "seed_inv",
+	atlas = "coupons",
+	pos = {x = 2, y = 3},
+	cost = 10,
+	unlocked = true,
+	discovered = false,
+	available = true,
+    config = {extra = {money = 3}},
+	redeem = function(self, card)
+        G.GAME.ortalab.blind_rewards = G.GAME.ortalab.blind_rewards + card.ability.extra.money
+        update_blind_amounts()
+    end,
+    loc_vars = function(self, info_queue, card)
+        if card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'no_demo'} end
+        return {vars = {card.ability.extra.money}}
+    end,
+})
+
+SMODS.Voucher({
+	key = "tree_inv",
+	atlas = "coupons",
+	pos = {x = 3, y = 3},
+	cost = 10,
+	unlocked = true,
+	discovered = false,
+	available = false,
+    requires = {'v_ortalab_seed_inv'},
+    config = {extra = {money = 6}},
+	redeem = function(self, card)
+        G.GAME.ortalab.blind_rewards = G.GAME.ortalab.blind_rewards + card.ability.extra.money
+        update_blind_amounts()
+    end,
+    loc_vars = function(self, info_queue, card)
+        if card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'no_demo'} end
+        return {vars = {card.ability.extra.money}}
+    end,
+})
+
+
+
+
 local BackApply_to_run_ref = Back.apply_to_run
 function Back.apply_to_run(self)
 	BackApply_to_run_ref(self)

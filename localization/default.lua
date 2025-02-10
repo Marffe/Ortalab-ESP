@@ -2193,6 +2193,20 @@ return {
 					'to {C:red}discard'
 				}
 			},
+			v_ortalab_seed_inv = {
+				name = 'Seed Tree Inverse',
+				text = {
+					'{C:attention}Blinds{} rewards are',
+					'increased by {C:money}$#1#'
+				}
+			},
+			v_ortalab_tree_inv = {
+				name = 'Money Tree Inverse',
+				text = {
+					'{C:attention}Blinds{} rewards are',
+					'increased by {C:money}$#1#'
+				}
+			},
 		},
 		['Curse'] = {
 			ortalab_all_curses = {

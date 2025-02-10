@@ -206,3 +206,52 @@ if key == 'edition' and effects.calculated then
 end
 '''
 
+# Money coupons
+[[patches]]
+[patches.pattern]
+target = 'blind.lua'
+match_indent = true
+position = 'before'
+pattern = '''
+if G.GAME.modifiers.no_blind_reward and G.GAME.modifiers.no_blind_reward[self:get_type()] then self.dollars = 0 end 
+'''
+payload = '''
+if G.GAME.ortalab.blind_rewards then self.dollars = self.dollars + G.GAME.ortalab.blind_rewards end
+'''
+
+# comment
+[[patches]]
+[patches.pattern]
+target = 'functions/UI_definitions.lua'
+match_indent = true
+position = 'before'
+pattern = '''
+G.GAME.orbital_choices = G.GAME.orbital_choices or {}
+'''
+payload = '''
+local dollars = blind_choice.config.dollars
+if G.GAME.ortalab.blind_rewards then dollars = dollars + G.GAME.ortalab.blind_rewards end
+'''
+[[patches]]
+[patches.pattern]
+target = 'functions/UI_definitions.lua'
+match_indent = true
+position = 'at'
+pattern = '''
+{n=G.UIT.T, config={text = string.rep(localize("$"), blind_choice.config.dollars)..'+', scale = 0.35, colour = disabled and G.C.UI.TEXT_INACTIVE or G.C.MONEY, shadow = not disabled}}
+'''
+payload = '''
+{n=G.UIT.T, config={text = dollars < 10 and string.rep(localize("$"), dollars)..'+' or localize("$")..dollars..'+', scale = 0.35, colour = disabled and G.C.UI.TEXT_INACTIVE or G.C.MONEY, shadow = not disabled}}
+'''
+[[patches]]
+[patches.pattern]
+target = 'blind.lua'
+match_indent = true
+position = 'at'
+pattern = '''
+G.GAME.current_round.dollars_to_be_earned = self.dollars > 0 and (string.rep(localize('$'), self.dollars)..'') or ('')
+'''
+payload = '''
+G.GAME.current_round.dollars_to_be_earned = self.dollars > 0 and (self.dollars < 10 and string.rep(localize('$'), self.dollars)..'' or localize('$')..self.dollars) or ('')
+'''
+
