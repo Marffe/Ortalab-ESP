@@ -486,6 +486,7 @@ SMODS.Tag({
         end
     end,
     set_ability = function(self, tag)
+        if not tag.ability.blind_type then tag.ability.blind_type = 'Small' end
         if G.zodiac_choices then
             tag.ability.zodiac_hands = G.zodiac_choices
         elseif tag.ability.blind_type then

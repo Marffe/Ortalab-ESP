@@ -1069,12 +1069,8 @@ SMODS.Blind({
     collection_loc_vars = function(self)
     end,
     set_blind = function(self)
-        G.GAME.Ortalab_old_deck = CardArea(
-            0, 0,
-            G.CARD_W,G.CARD_H,
-            {card_limit = 500, type = 'discard'})
         for i=1, #G.deck.cards do
-            G.GAME.Ortalab_old_deck:draw_card_from(G.deck)
+            G.Ortalab_old_deck:draw_card_from(G.deck)
         end
         G.playing_cards = {}
         local card_protos = {}
@@ -1103,8 +1099,8 @@ SMODS.Blind({
     defeat = function(self)
         remove_all(G.deck.cards)
         G.playing_cards = {}
-        for i=1, #G.GAME.Ortalab_old_deck.cards do
-            G.deck:draw_card_from(G.GAME.Ortalab_old_deck)
+        for i=1, #G.Ortalab_old_deck.cards do
+            G.deck:draw_card_from(G.Ortalab_old_deck)
         end
         for _, card in ipairs(G.deck.cards) do
             table.insert(G.playing_cards, card)
