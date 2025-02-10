@@ -392,6 +392,47 @@ SMODS.Voucher({
     end,
 })
 
+SMODS.Voucher({
+	key = "wasteful_inv",
+	atlas = "coupons",
+	pos = {x = 0, y = 3},
+	cost = 10,
+	unlocked = true,
+	discovered = false,
+	available = true,
+    config = {extra = {hands = -1, discards = 2}},
+	redeem = function(self, card)
+        G.GAME.round_resets.hands = G.GAME.round_resets.hands + card.ability.extra.hands
+        ease_hands_played(card.ability.extra.hands)
+        G.GAME.round_resets.discards = G.GAME.round_resets.discards + card.ability.extra.discards
+        ease_discard(card.ability.extra.discards)
+    end,
+    loc_vars = function(self, info_queue, card)
+        if card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'no_demo'} end
+        return {vars = {card.ability.extra.hands, card.ability.extra.discards}}
+    end,
+})
+
+SMODS.Voucher({
+	key = "recyclo_inv",
+	atlas = "coupons",
+	pos = {x = 1, y = 3},
+	cost = 10,
+	unlocked = true,
+	discovered = false,
+	available = false,
+    requires = {'v_ortalab_grabber_inv'},
+    config = {extra = {discard_size = 1}},
+	redeem = function(self, card)
+        G.GAME.ortalab.extra_discard_size = G.GAME.ortalab.extra_discard_size + card.ability.extra.discard_size
+        G.hand.config.highlighted_limit = G.hand.config.highlighted_limit + card.ability.extra.discard_size
+    end,
+    loc_vars = function(self, info_queue, card)
+        if card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'no_demo'} end
+        return {vars = {card.ability.extra.discard_size}}
+    end,
+})
+
 local BackApply_to_run_ref = Back.apply_to_run
 function Back.apply_to_run(self)
 	BackApply_to_run_ref(self)

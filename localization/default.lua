@@ -2178,6 +2178,21 @@ return {
 					'per remaining hand'
 				}
 			},
+			v_ortalab_wasteful_inv = {
+				name = 'Wasteful Inverse',
+				text = {
+					'Permanently gain {C:red}+#2#{} discards',
+					'and {C:blue}#1#{} hand per round'
+				}
+			},
+			v_ortalab_recyclo_inv = {
+				name = 'Recyclomancy Inverse',
+				text = {
+					'You can select', 
+					'{C:attention}#1#{} extra card',
+					'to {C:red}discard'
+				}
+			},
 		},
 		['Curse'] = {
 			ortalab_all_curses = {
