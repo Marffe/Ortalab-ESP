@@ -49,7 +49,7 @@ target = 'blind.lua'
 match_indent = true
 position = 'after'
 pattern = '''
-self.boss = blind and not not blind.boss
+self.name = blind and blind.name or ''
 '''
 payload = '''
 self.small = blind and not not blind.small
