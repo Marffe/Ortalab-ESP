@@ -255,3 +255,49 @@ payload = '''
 G.GAME.current_round.dollars_to_be_earned = self.dollars > 0 and (self.dollars < 10 and string.rep(localize('$'), self.dollars)..'' or localize('$')..self.dollars) or ('')
 '''
 
+# UI for rigged game
+[[patches]]
+[patches.pattern]
+target = 'functions/UI_definitions.lua'
+match_indent = true
+position = 'before'
+pattern = '''
+G.GAME.round_resets.blind_ante = G.GAME.round_resets.blind_ante or G.GAME.round_resets.ante
+'''
+payload = '''
+local alt_button
+if G.GAME.ortalab.alt_boss then
+    local alt_blind = G.P_BLINDS[G.GAME.ortalab.alt_boss]
+    local alt_blind_name = localize{type = 'name_text', key = alt_blind.key, set = 'Blind'}
+    local alt_blind_col = alt_blind.boss_colour
+    if type == 'Boss' then
+        alt_button = {n=G.UIT.R, config={align = "cm", r = 0.1, outline = 1, outline_colour = alt_blind_col, colour = darken(alt_blind_col, 0.6), maxw = 2.4, emboss = 0.1, padding = 0.07, line_emboss = 0.8, button = 'swap_blind'}, nodes={
+                {n=G.UIT.O, config={object = DynaText({string = alt_blind_name, colours = {G.C.UI.TEXT_INACTIVE}, shadow = not disabled, float = false, y_offset = -4, scale = 0.35, maxw =2.2})}},
+            }}
+    end
+end
+'''
+# Add button to display
+[[patches]]
+[patches.pattern]
+target = 'functions/UI_definitions.lua'
+match_indent = true
+position = 'before'
+pattern = '''
+{n=G.UIT.R, config={align = "cm", r = 0.1, outline = 1, outline_colour = blind_col, colour = darken(blind_col, 0.3), minw = 2.9, emboss = 0.1, padding = 0.07, line_emboss = 1}, nodes={
+'''
+payload = '''
+alt_button and alt_button or nil,
+'''
+# Reroll extra boss
+[[patches]]
+[patches.pattern]
+target = 'functions/button_callbacks.lua'
+match_indent = true
+position = 'after'
+pattern = '''
+G.GAME.round_resets.blind_choices.Boss = get_new_boss()
+'''
+payload = '''
+G.GAME.ortalab.alt_boss = get_new_boss()
+'''

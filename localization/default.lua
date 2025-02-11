@@ -2207,6 +2207,20 @@ return {
 					'increased by {C:money}$#1#'
 				}
 			},
+			v_ortalab_shared_winnings = {
+				name = 'Shared Winnings',
+				text = {
+					'Reroll the {C:attention}Boss Blind',
+					'when you skip a {C:attention}Blind'
+				}
+			},
+			v_ortalab_rigged_game = {
+				name = 'Rigged Game',
+				text = {
+					'Choose between 2',
+					'{C:attention}Boss Blinds'
+				}
+			},
 		},
 		['Curse'] = {
 			ortalab_all_curses = {

@@ -472,7 +472,111 @@ SMODS.Voucher({
     end,
 })
 
+SMODS.Voucher({
+	key = "shared_winnings",
+	atlas = "coupons",
+	pos = {x = 6, y = 3},
+	cost = 10,
+	unlocked = true,
+	discovered = false,
+	available = true,
+	redeem = function(self, card)
+        G.GAME.ortalab.vouchers.reroll_on_skip = true
+    end,
+    loc_vars = function(self, info_queue, card)
+        if card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'no_demo'} end
+    end,
+})
 
+SMODS.Voucher({
+	key = "rigged_game",
+	atlas = "coupons",
+	pos = {x = 7, y = 3},
+	cost = 10,
+	unlocked = true,
+	discovered = false,
+	available = false,
+    requires = {'v_ortalab_shared_winnings'},
+	redeem = function(self, card)
+        G.GAME.ortalab.alt_boss = get_new_boss()
+    end,
+    loc_vars = function(self, info_queue, card)
+        if card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'no_demo'} end
+    end,
+})
+
+local skip_blind = G.FUNCS.skip_blind
+G.FUNCS.skip_blind = function(e)
+    if G.GAME.ortalab.vouchers.reroll_on_skip then
+        G.from_boss_tag = true
+        G.FUNCS.reroll_boss()
+    end
+    G.E_MANAGER:add_event(Event({
+        trigger = 'after',
+        delay = 1.4,
+        func = function()
+            skip_blind(e)
+            return true
+        end
+    }))
+end
+
+G.FUNCS.swap_blind = function(e)
+    local old_boss = G.GAME.round_resets.blind_choices['Boss']
+    G.GAME.round_resets.blind_choices['Boss'] = G.GAME.ortalab.alt_boss
+    G.GAME.ortalab.alt_boss = old_boss
+    if G.SETTINGS.paused then
+        G.FUNCS.change_tab(G.OVERLAY_MENU.definition.nodes[1].nodes[1].nodes[1].nodes[1].nodes[1].nodes[2].nodes[2].nodes[1].nodes[1].config.button_UIE)
+        save_run()
+    end
+    -- disappear
+    G.E_MANAGER:add_event(Event({
+        trigger = 'immediate',
+        func = function()
+          play_sound('other1')
+          G.blind_select_opts.boss:set_role({xy_bond = 'Weak'})
+          G.blind_select_opts.boss.alignment.offset.y = 20
+          return true
+        end
+      }))
+    -- change
+    G.E_MANAGER:add_event(Event({
+      trigger = 'after',
+      delay = 0.6,
+      func = (function()
+        local par = G.blind_select_opts.boss.parent
+        
+
+        
+            G.blind_select_opts.boss:remove()
+            G.blind_select_opts.boss = UIBox{
+            T = {par.T.x, 0, 0, 0, },
+            definition =
+                {n=G.UIT.ROOT, config={align = "cm", colour = G.C.CLEAR}, nodes={
+                UIBox_dyn_container({create_UIBox_blind_choice('Boss')},false,get_blind_main_colour('Boss'), mix_colours(G.C.BLACK, get_blind_main_colour('Boss'), 0.8))
+                }},
+            config = {align="bmi",
+                        offset = {x=0,y=G.ROOM.T.y + 9},
+                        major = par,
+                        xy_bond = 'Weak'
+                    }
+            }
+            par.config.object = G.blind_select_opts.boss
+            par.config.object:recalculate()
+            G.blind_select_opts.boss.parent = par
+            G.blind_select_opts.boss.alignment.offset.y = 0
+            
+            G.E_MANAGER:add_event(Event({blocking = false, trigger = 'after', delay = 0.5,func = function()
+                G.CONTROLLER.locks.boss_reroll = nil
+                return true
+            end
+            }))
+
+        save_run()
+        return true
+      end)
+    }))
+end
 
 
 local BackApply_to_run_ref = Back.apply_to_run

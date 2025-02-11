@@ -37,7 +37,10 @@ function Game:init_game_object()
         hand_size = 0,
         extra_discard_size = 0,
         blind_rewards = 0,
+        alt_boss = nil,
         vouchers = {
+            reroll_on_skip = false,
+            double_boss = false,
             horoscope = 0,
             cantor = 0,
             tabla = 0,

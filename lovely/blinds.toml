@@ -55,6 +55,29 @@ payload = '''
 self.small = blind and not not blind.small
 self.big = blind and not not blind.big
 '''
+# Handle 'Defeated' tagging
+[[patches]]
+[patches.pattern]
+target = 'functions/state_events.lua'
+match_indent = true
+position = 'at'
+pattern = '''
+if G.GAME.round_resets.blind == G.P_BLINDS.bl_small then
+'''
+payload = '''
+if G.GAME.round_resets.blind == G.P_BLINDS.bl_small or G.GAME.round_resets.blind.small then
+'''
+[[patches]]
+[patches.pattern]
+target = 'functions/state_events.lua'
+match_indent = true
+position = 'at'
+pattern = '''
+if G.GAME.round_resets.blind == G.P_BLINDS.bl_big then
+'''
+payload = '''
+if G.GAME.round_resets.blind == G.P_BLINDS.bl_big or G.GAME.round_resets.blind.big then
+'''
 
 
 
