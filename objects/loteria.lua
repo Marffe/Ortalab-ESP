@@ -523,8 +523,6 @@ SMODS.Consumable({
             G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.15,func = function()
                 new_card = create_playing_card({center = pseudorandom_element({card1.config.center, card2.config.center}, pseudoseed('harp_card'))}, G.play)
                 new_card:add_to_deck()
-                G.deck.config.card_limit = G.deck.config.card_limit + 1
-                table.insert(G.playing_cards, new_card)
                 harp_randomise(new_card, card_1_info, card_2_info)
                 return true
             end}))
@@ -565,13 +563,13 @@ SMODS.Consumable({
                 new_card.particles:remove()
                 return true
             end}))
-            G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.5,func = function()
-                card1:remove()
-                card2:remove()
-                delay(0.5)
-                return true
-            end}))
-            draw_card(G.play, G.hand, 1, 'up', false, new_card, nil, true)
+            G.E_MANAGER:add_event(Event({
+                trigger = 'immediate',
+                func = function()     
+                    draw_card(G.play, G.hand, 1, 'up', false, new_card, nil, true)
+                    return true
+                end
+            }))
             return true
         end}))
     end
