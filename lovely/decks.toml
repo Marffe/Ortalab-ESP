@@ -35,6 +35,7 @@ else
     for k, v in pairs(G.GAME.hands) do
         if v.visible then _poker_hands[#_poker_hands+1] = k end
     end
+    G.GAME.orbital_choices[G.GAME.round_resets.ante] = G.GAME.orbital_choices[G.GAME.round_resets.ante] or {}
     G.GAME.orbital_choices[G.GAME.round_resets.ante][type] = pseudorandom_element(_poker_hands, pseudoseed('orbital'))
 end
 '''
