@@ -255,24 +255,3 @@ if next(stonehenge) and stonehenge[1].config.center:hand_contains_no_rank(G.play
     delay(0.3)
 end
 '''
-
-# Add ending_booster calculation context
-[[patches]]
-[patches.pattern]
-target = 'functions/button_callbacks.lua'
-match_indent = true
-position = 'before'
-pattern = '''
-for i = 1, #G.GAME.tags do
-    if G.GAME.tags[i]:apply_to_run({type = 'new_blind_choice'}) then break end
-end
-
-G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.2*delayfac,
-          func = function()
-            save_run()
-            return true
-      end}))
-'''
-payload = '''
-SMODS.calculate_context({ending_booster = true})
-'''
