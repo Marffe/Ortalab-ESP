@@ -6,7 +6,7 @@ SMODS.Joker({
     cost = 5,
     unlocked = true,
     discovered = false,
-    blueprint_compat = true,
+    blueprint_compat = false,
     eternal_compat = true,
     perishable_compat = true,
     config = {extra = {hand_size = 3, discard_limit = 3}},
@@ -14,11 +14,12 @@ SMODS.Joker({
         if card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'no_demo'} end
         return {vars = {card.ability.extra.hand_size, card.ability.extra.discard_limit + G.GAME.ortalab.extra_discard_size}}
     end,
-    calculate = function(self, card, context)
-        if context.setting_blind then
-            Ortalab.change_hand_size(card.ability.extra.hand_size)
-        end
+    add_to_deck = function(self, card, from_debuff)
+        G.hand:change_size(card.ability.extra.hand_size)
     end,
+    remove_from_deck = function(self, card, from_debuff)
+        G.hand:change_size(-card.ability.extra.hand_size)
+    end
 })
 
 local can_disc = G.FUNCS.can_discard
