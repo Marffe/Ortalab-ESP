@@ -38,7 +38,7 @@ SMODS.Voucher({
         G.GAME.current_round.voucher_2 = get_next_voucher_key()
         if G.shop_vouchers then
             G.shop_vouchers.config.card_limit = G.shop_vouchers.config.card_limit + card.ability.extra.voucher_gain
-            if G.GAME.current_round.voucher_2 and G.P_CENTERS[G.GAME.current_round.voucher_2] then
+            if G.STATE == G.STATES.SHOP and G.GAME.current_round.voucher_2 and G.P_CENTERS[G.GAME.current_round.voucher_2] then
                 local card = Card(G.shop_vouchers.T.x + G.shop_vouchers.T.w/2,
                 G.shop_vouchers.T.y, G.CARD_W, G.CARD_H, G.P_CARDS.empty, G.P_CENTERS[G.GAME.current_round.voucher_2],{bypass_discovery_center = true, bypass_discovery_ui = true})
                 card.shop_voucher = true
@@ -384,7 +384,7 @@ SMODS.Voucher({
     requires = {'v_ortalab_grabber_inv'},
     config = {extra = {extra_dollars = 1}},
 	redeem = function(self, card)
-        G.GAME.modifiers.money_per_hand = G.GAME.modifiers.money_per_hand + card.ability.extra.extra_dollars
+        G.GAME.modifiers.money_per_hand = (G.GAME.modifiers.money_per_hand or 1) + card.ability.extra.extra_dollars
     end,
     loc_vars = function(self, info_queue, card)
         if card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'no_demo'} end
