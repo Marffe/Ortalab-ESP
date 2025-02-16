@@ -271,7 +271,7 @@ SMODS.Consumable({
     atlas = 'loteria_cards',
     pos = {x=2, y=4},
     discovered = false,
-    config = {extra = {min = -3, max = 25}},
+    config = {extra = {min = -3, max = 20}},
     loc_vars = function(self, info_queue, card)
         if Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'kosze'} end
         return {vars = {math.abs(card.ability.extra.min), card.ability.extra.max}}
