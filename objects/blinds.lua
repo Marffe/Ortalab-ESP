@@ -933,51 +933,51 @@ SMODS.Blind({
     end
 })
 
-SMODS.Blind({
-    key = 'celadon_clubs',
-    atlas = 'ortalab_blinds',
-    pos = {x = 0, y = 23},
-    dollars = 8,
-    mult = 2,
-    boss = {min = 1, max = 10, showdown = true},
-    boss_colour = HEX('22857b'),
-    config = {extra = {options = {'Face', 'Even', 'Odd'}, current = 'Face'}},
-    loc_vars = function(self, info_queue, card)
-        if card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'flare'} end
-        return {vars = {self.config.extra.current}}
-    end,
-    collection_loc_vars = function(self)
-        return {vars = {self.config.extra.current}}
-    end,
-    disable = function(self)
-        for _, card in pairs(G.playing_cards) do
-            card.celadon_disabled = false
-        end
-    end,
-    defeat = function(self)
-        for _, card in pairs(G.playing_cards) do
-            card.celadon_disabled = false
-        end
-    end,
-    drawn_to_hand = function(self)
-        if not self.prepped then
-            self.config.extra.current = pseudorandom_element(self.config.extra.options, pseudoseed('celadon_shuffle'))
-            attention_text({
-                scale = 1, text = 'Disabling '..self.config.extra.current..' cards!', hold = 2, align = 'cm', offset = {x = 0,y = -2.7},major = G.play
-            })
-        end
-        for _, card in pairs(G.hand.cards) do
-            celadon_check(self, card)
-        end
-    end,
-    press_play = function(self)
-        self.prepped = false
-    end,
-    recalc_debuff = function(self, card, from_blind)
-        celadon_check(self, card)
-        return card.debuff
-    end
-})
+-- SMODS.Blind({
+--     key = 'celadon_clubs',
+--     atlas = 'ortalab_blinds',
+--     pos = {x = 0, y = 23},
+--     dollars = 8,
+--     mult = 2,
+--     boss = {min = 1, max = 10, showdown = true},
+--     boss_colour = HEX('22857b'),
+--     config = {extra = {options = {'Face', 'Even', 'Odd'}, current = 'Face'}},
+--     loc_vars = function(self, info_queue, card)
+--         if card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'flare'} end
+--         return {vars = {self.config.extra.current}}
+--     end,
+--     collection_loc_vars = function(self)
+--         return {vars = {self.config.extra.current}}
+--     end,
+--     disable = function(self)
+--         for _, card in pairs(G.playing_cards) do
+--             card.celadon_disabled = false
+--         end
+--     end,
+--     defeat = function(self)
+--         for _, card in pairs(G.playing_cards) do
+--             card.celadon_disabled = false
+--         end
+--     end,
+--     drawn_to_hand = function(self)
+--         if not self.prepped then
+--             self.config.extra.current = pseudorandom_element(self.config.extra.options, pseudoseed('celadon_shuffle'))
+--             attention_text({
+--                 scale = 1, text = 'Disabling '..self.config.extra.current..' cards!', hold = 2, align = 'cm', offset = {x = 0,y = -2.7},major = G.play
+--             })
+--         end
+--         for _, card in pairs(G.hand.cards) do
+--             celadon_check(self, card)
+--         end
+--     end,
+--     press_play = function(self)
+--         self.prepped = false
+--     end,
+--     recalc_debuff = function(self, card, from_blind)
+--         celadon_check(self, card)
+--         return card.debuff
+--     end
+-- })
 
 SMODS.Shader({key = 'celadon', path = 'applied.fs'})
 
