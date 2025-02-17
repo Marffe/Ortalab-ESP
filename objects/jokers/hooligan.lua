@@ -14,16 +14,24 @@ SMODS.Joker({
         if card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'no_demo'} end
         return {vars = {card.ability.extra.blind_size}}
     end,
-    add_to_deck = function(self, card, from_debuff)
-        G.E_MANAGER:add_event(Event({func = function()
-            update_blind_amounts()
-            return true
-        end}))
-    end,
-    remove_from_deck = function(self, card, from_debuff)
-        update_blind_amounts()
-    end,
     calculate = function(self, card, context)
+        if context.setting_blind and G.GAME.blind.boss then
+            return {
+                message = 'X2',
+                func = function()
+                    G.E_MANAGER:add_event(Event({
+                        trigger = 'ease',
+                        blockable = true,
+                        blocking = false,
+                        ref_table = G.GAME.blind,
+                        ref_value = 'chips',
+                        ease_to = G.GAME.blind['chips'] + G.GAME.blind['chips'],
+                        delay =  0.6,
+                        func = (function(t) G.GAME.blind.chip_text = number_format(t); return t end)
+                    }))
+                end
+            }
+        end
         if context.end_of_round and context.main_eval and G.GAME.blind.boss then
             local _pool = get_current_pool('Voucher')
         local voucher = pseudorandom_element(_pool, pseudoseed('ortalab_hooligan'))
@@ -62,13 +70,3 @@ SMODS.Joker({
         end
     end    
 })
-
-local get_blind_amount_ref = get_blind_amount
-function get_blind_amount(ante)
-    local amount = get_blind_amount_ref(ante)
-    local hooligans = SMODS.find_card('j_ortalab_hooligan')
-    for _, card in ipairs(hooligans) do
-        amount = amount * card.ability.extra.blind_size
-    end
-    return amount
-end

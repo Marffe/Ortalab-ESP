@@ -719,7 +719,7 @@ return {
 			j_ortalab_hooligan = {
 				name = 'Hooligan',
 				text = {
-					'{X:attention,C:white}X#1#{} Blind amount',
+					'{X:attention,C:white}X#1#{} Boss Blind amount',
 					'{C:attention}Redeem{} a random {C:attention}voucher',
 					'when {C:attention}Boss Blind{} is defeated'
 				}
