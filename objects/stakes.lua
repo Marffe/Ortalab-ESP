@@ -28,8 +28,8 @@ SMODS.Stake({
         G.GAME.planet_rate = 0
         G.GAME.tarot_rate = 0
         G.GAME.loteria_rate = 4
-        G.GAME.zodiac_rate = 1
-        G.GAME.mythos_rate = 3
+        G.GAME.zodiac_rate = 2.8
+        G.GAME.mythos_rate = 1.2
     end,
 })
 
