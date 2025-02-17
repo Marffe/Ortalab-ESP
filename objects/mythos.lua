@@ -36,7 +36,7 @@ SMODS.ConsumableType({
         }
     },
     collection_rows = {5, 4},
-    shop_rate = 1.5,
+    shop_rate = 0.6,
     default = 'c_ortalab_zod_aries'
 })
 
