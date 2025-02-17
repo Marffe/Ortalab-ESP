@@ -100,28 +100,30 @@ match_indent = true
 payload = '''
 if G.GAME.used_vouchers.v_ortalab_natal_sign then
     for _, curr_zod in pairs(G.zodiacs) do
-        for i=1, math.floor(curr_zod.config.extra.temp_level / 4) do
-            if not Ortalab.config.zodiac_skip then 
-                G.E_MANAGER:add_event(Event({
-                    delay = 2/G.SETTINGS.GAMESPEED,
-                    trigger = 'after',
-                    func = (function()
-                        attention_text({
-                            text = 'X'..G.GAME.natal_sign_rate,
-                            colour = G.C.WHITE,
-                            scale = 1, 
-                            hold = 2/G.SETTINGS.GAMESPEED,
-                            cover = curr_zod.HUD_zodiac,
-                            cover_colour = G.C.RED,
-                            align = 'cm',
-                            })
-                        play_sound('multhit2', 0.7, 0.4)
-                        return true
-                    end)
-                }))
+        if text == curr_zod.config.extra.hand_type then
+            for i=1, math.floor(curr_zod.config.extra.temp_level / 4) do
+                if not Ortalab.config.zodiac_skip then 
+                    G.E_MANAGER:add_event(Event({
+                        delay = 2/G.SETTINGS.GAMESPEED,
+                        trigger = 'after',
+                        func = (function()
+                            attention_text({
+                                text = 'X'..G.GAME.natal_sign_rate,
+                                colour = G.C.WHITE,
+                                scale = 1, 
+                                hold = 2/G.SETTINGS.GAMESPEED,
+                                cover = curr_zod.HUD_zodiac,
+                                cover_colour = G.C.RED,
+                                align = 'cm',
+                                })
+                            play_sound('multhit2', 0.7, 0.4)
+                            return true
+                        end)
+                    }))
+                end
+                mult = mod_mult(mult*G.GAME.natal_sign_rate)
+                update_hand_text({delay = 0}, {mult = mult})
             end
-            mult = mod_mult(mult*G.GAME.natal_sign_rate)
-            update_hand_text({delay = 0}, {mult = mult})
         end
     end
 end
