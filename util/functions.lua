@@ -47,7 +47,7 @@ function Game:init_game_object()
             leap_year = 0
         },
         zodiacs = {
-            reduction = 2,
+            reduction = 4,
             temp_level_mod = 1,
             activated = {}
         },
