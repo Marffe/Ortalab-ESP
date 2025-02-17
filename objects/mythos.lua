@@ -754,30 +754,35 @@ SMODS.Consumable({
         for k=1, #G.jokers.cards + #G.consumeables.cards do
             local _card = G.jokers.cards[k] or G.consumeables.cards[k - #G.jokers.cards]
             if _card.config.center.set == 'Joker' then
-                G.E_MANAGER:add_event(Event({
-                    trigger = 'after',
-                    delay = 0.7,
-                    func = function()
-                        _card.ability.extra_value = _card.ability.extra_value + card.ability.extra.money_gain
-                        _card:set_cost()
-                        play_sound('coin1')
-                        card:juice_up(0.3, 0.5)
-                        SMODS.calculate_effect({message = '+$'..card.ability.extra.money_gain, colour = G.C.GOLD, instant = true}, _card)
-                        total_value = total_value + _card.sell_cost
-                        _card:juice_up()
-                        return true
-                    end
-                }))
+                total_value = total_value + _card.sell_cost
+                _card.ability.extra_value = _card.ability.extra_value + card.ability.extra.money_gain
+                _card:set_cost()
             end
         end
         G.E_MANAGER:add_event(Event({
             trigger = 'after',
             delay = 0.7,
             func = function()
-                ease_dollars(total_value)                
+                ease_dollars(total_value, true)                
                 return true
             end
         }))
+        for k=1, #G.jokers.cards + #G.consumeables.cards do
+            local _card = G.jokers.cards[k] or G.consumeables.cards[k - #G.jokers.cards]
+            if _card.config.center.set == 'Joker' then
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'after',
+                    delay = 0.5,
+                    func = function()                
+                        play_sound('coin1')
+                        card:juice_up(0.3, 0.5)
+                        SMODS.calculate_effect({message = '+$'..card.ability.extra.money_gain, colour = G.C.GOLD, instant = true}, _card)
+                        _card:juice_up()
+                        return true
+                    end
+                }))
+            end
+        end
     end
 })
 

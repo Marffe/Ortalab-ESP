@@ -2728,9 +2728,9 @@ return {
             c_ortalab_gnome = {
 				name = 'Gnome',
 				text = {
-					'Increase {C:money}sell value{} of all {C:attention}Jokers',
-					'by {C:money}$#1#{}, then gain {C:money}sell value',
-					'of all {C:attention}Jokers',
+					'Gain {C:money}sell value{} of all {C:attention}Jokers{},',
+					'then increase {C:money}sell value',
+					'of all {C:attention}Jokers{} by {C:money}$#1#{}',
 					'{C:inactive,s:0.8}(Currently $#2#)'
 				},
 			},
@@ -2818,7 +2818,7 @@ return {
 			c_ortalab_anubis = {
 				name = 'Anubis',
 				text = {
-					'Move selected {C:attention}Joker',
+					'Move selected {C:attention}Joker{} you own',
 					'to {C:attention}consumable slots'
 				},
 			},
