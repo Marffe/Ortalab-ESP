@@ -200,6 +200,6 @@ pattern = '''
 table.sort(self.cards, function (a, b) return a.T.x + a.T.w/2 - 100*((a.pinned and not a.ignore_pinned) and a.sort_id or 0) < b.T.x + b.T.w/2 - 100*((b.pinned and not b.ignore_pinned) and b.sort_id or 0) end)
 '''
 payload = '''
-for i, card in ipairs(G.jokers and G.jokers.cards or {}) do if card.ability.curse and card.ability.curse.extra.possessed then table.remove(G.jokers.cards, i); table.insert(G.jokers.cards, card.ability.curse.extra.possessed, card) end end
+for i, card in ipairs(G.jokers and G.jokers.cards or {}) do if card.ability.curse and card.ability.curse.extra.possessed then table.remove(G.jokers.cards, i); table.insert(G.jokers.cards, math.min(card.ability.curse.extra.possessed, #G.jokers.cards), card) end end
 '''
 
