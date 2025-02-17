@@ -15,14 +15,14 @@ SMODS.Joker({
         return {vars = {card.ability.extra.hand_size}}
     end,
     calculate = function(self, card, context)
-        if context.open_booster then
-            G.hand.config.card_limit = G.hand.config.card_limit + card.ability.extra.hand_size
+        if context.open_booster and context.card.config.center.draw_hand then
+            G.hand:change_size(card.ability.extra.hand_size)
             return {
                 message = '+8 hand size!'
             }
         end
-        if context.ending_booster then
-            G.hand.config.card_limit = G.hand.config.card_limit - card.ability.extra.hand_size
+        if (context.ending_booster or context.skipping_booster) and context.booster and context.booster.draw_hand then
+            G.hand:change_size(-card.ability.extra.hand_size)
             return {
                 message = '-8 hand size!'
             }
