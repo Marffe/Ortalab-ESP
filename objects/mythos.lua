@@ -289,10 +289,9 @@ SMODS.Consumable({
     atlas = 'mythos_cards',
     pos = {x=3, y=0},
     discovered = false,
-    config = {extra = {select = 4, curse = 'ortalab_all_curses', method = 'c_ortalab_mult_random', choose = 1, copies = 4}},
+    config = {extra = {select = 6, curse = 'ortalab_all_curses', method = 'c_ortalab_mult_random', choose = 1, copies = 4}},
     loc_vars = function(self, info_queue, card)
         if Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'gappie'} end
-        card.ability.extra.select = math.ceil((G.hand and G.hand.config.temp_limit or 8) / 2)
         return {vars = {card.ability.extra.copies}}
     end,
     can_use = function(self, card)
@@ -302,7 +301,7 @@ SMODS.Consumable({
             for _, card in pairs(G.hand.cards) do
                 if not card.curse then uncursed_cards = uncursed_cards + 1 else cursed_cards = cursed_cards + 1 end
             end
-            if uncursed_cards >= math.ceil(G.hand.config.temp_limit / 2) + G.GAME.ortalab.mythos.extra_select + 1 then
+            if uncursed_cards >= card.ability.extra.select + G.GAME.ortalab.mythos.extra_select then
                 return true
             end
         end
@@ -315,7 +314,7 @@ SMODS.Consumable({
         local curses = {'corroded', 'infected', 'possessed', 'restrained'}
         local applied = {}
 
-        for i=1, math.ceil(G.hand.config.temp_limit / 2) + G.GAME.ortalab.mythos.extra_select do
+        for i=1, card.ability.extra.select + G.GAME.ortalab.mythos.extra_select do
             G.E_MANAGER:add_event(Event({
                 trigger = 'after',
                 delay = 0.5,
@@ -324,7 +323,6 @@ SMODS.Consumable({
                     while select do
                         local p_card = pseudorandom_element(G.hand.cards, pseudoseed('ortalab_pandora'))
                         if not p_card.highlighted and not p_card.curse then 
-                            G.hand:add_to_highlighted(p_card)
                             while select do
                                 local curse_to_apply = pseudorandom_element(curses, pseudoseed('tree_curse_choice'))
                                 if not applied[curse_to_apply] or i > 4 then
