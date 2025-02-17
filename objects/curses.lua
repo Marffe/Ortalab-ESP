@@ -272,6 +272,7 @@ Ortalab.Curse({
                             in_use[joker.ability.curse.extra.possessed] = true
                         end
                     end
+                    if #G.jokers.cards == 1 then in_use[1] = false end
                     local position = pseudorandom(pseudoseed('possessed_joker'), 1, #G.jokers.cards)
                     while in_use[position] do
                         position = pseudorandom(pseudoseed('possessed_joker_reroll'), 1, #G.jokers.cards)
