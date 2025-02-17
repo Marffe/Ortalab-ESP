@@ -435,7 +435,7 @@ SMODS.Consumable({
         for _, card in pairs(G.hand.cards) do
             if not card.curse then uncursed_cards = uncursed_cards + 1 end
         end
-        if uncursed_cards >= card.ability.extra.select + G.GAME.ortalab.mythos.extra_select then
+        if uncursed_cards >= card.ability.extra.select + G.GAME.ortalab.mythos.talaria_count + G.GAME.ortalab.mythos.extra_select then
             return true
         end
     end,
@@ -443,7 +443,7 @@ SMODS.Consumable({
         -- curse cards
         G.hand:unhighlight_all()
 
-        for i=1, card.ability.extra.select + G.GAME.ortalab.mythos.extra_select do
+        for i=1, card.ability.extra.select + G.GAME.ortalab.mythos.talaria_count + G.GAME.ortalab.mythos.extra_select do
             G.E_MANAGER:add_event(Event({
                 trigger = 'after',
                 delay = 0.5,
@@ -504,7 +504,7 @@ SMODS.Consumable({
                 return true
             end
         }))
-
+        G.GAME.ortalab.mythos.talaria_count = G.GAME.ortalab.mythos.talaria_count + 1
     end
 })
 
@@ -1231,6 +1231,8 @@ function generate_card_ui(_c, full_UI_table, specific_vars, card_type, badges, h
             vars[1] = math.min((vars[1] - G.GAME.ortalab.mythos.extra_select) * G.GAME.ortalab.mythos.jackalope_count + G.GAME.ortalab.mythos.extra_select, G.hand and G.hand.config.card_limit or 100)
         elseif _c.key == 'c_ortalab_ya_te_veo' then
             vars[1] = vars[1] + G.GAME.ortalab.mythos.ya_te_veo_count
+        elseif _c.key == 'c_ortalab_talaria' then
+            vars[1] = vars[1] + G.GAME.ortalab.mythos.talaria_count
         end
         localize{type = 'descriptions', set = _c.set, key = card.ability.extra.method, nodes = mythos_nodes, vars = vars}
         ui.mythos = mythos_nodes

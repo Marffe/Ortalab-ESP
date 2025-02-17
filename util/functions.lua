@@ -57,6 +57,7 @@ function Game:init_game_object()
             tree_of_life_count = 0,
             ya_te_veo_count = 0,
             jackalope_count = 1,
+            talaria_count = 0
         },
         secret_hand_list = {}
     }
