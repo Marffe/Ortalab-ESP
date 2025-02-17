@@ -715,7 +715,7 @@ SMODS.Consumable({
     config = {extra = {selected = 3, suit = 'Diamonds'}},
     loc_vars = function(self, info_queue, card)
         if Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'parchment'} end
-        return {vars = {card.ability.extra.selected + (G.GAME and G.GAME.ortalab.vouchers.tabla), card.ability.extra.suit,
+        return {vars = {card.ability.extra.selected + (G.GAME and G.GAME.ortalab.vouchers.tabla), localize(card.ability.extra.suit, 'suits_plural'),
             colours = {G.C.SUITS[card.ability.extra.suit]}}}
     end,
     can_use = function(self, card)
@@ -739,7 +739,7 @@ SMODS.Consumable({
     config = {extra = {selected = 3, suit = 'Clubs'}},
     loc_vars = function(self, info_queue, card)
         if Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'parchment'} end
-        return {vars = {card.ability.extra.selected + (G.GAME and G.GAME.ortalab.vouchers.tabla), card.ability.extra.suit,
+        return {vars = {card.ability.extra.selected + (G.GAME and G.GAME.ortalab.vouchers.tabla), localize(card.ability.extra.suit, 'suits_plural'),
         colours = {G.C.SUITS[card.ability.extra.suit]}}}
     end,
     can_use = function(self, card)
@@ -763,7 +763,7 @@ SMODS.Consumable({
     config = {extra = {selected = 3, suit = 'Hearts'}},
     loc_vars = function(self, info_queue, card)
         if Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'parchment'} end
-        return {vars = {card.ability.extra.selected + (G.GAME and G.GAME.ortalab.vouchers.tabla), card.ability.extra.suit,
+        return {vars = {card.ability.extra.selected + (G.GAME and G.GAME.ortalab.vouchers.tabla), localize(card.ability.extra.suit, 'suits_plural'),
         colours = {G.C.SUITS[card.ability.extra.suit]}}}
     end,
     can_use = function(self, card)
@@ -877,7 +877,7 @@ SMODS.Consumable({
     config = {extra = {selected = 3, suit = 'Spades'}},
     loc_vars = function(self, info_queue, card)
         if Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'parchment'} end
-        return {vars = {card.ability.extra.selected + (G.GAME and G.GAME.ortalab.vouchers.tabla), card.ability.extra.suit,
+        return {vars = {card.ability.extra.selected + (G.GAME and G.GAME.ortalab.vouchers.tabla), localize(card.ability.extra.suit, 'suits_plural'),
         colours = {G.C.SUITS[card.ability.extra.suit]}}}
     end,
     can_use = function(self, card)
