@@ -262,7 +262,8 @@ return {
 				text = {
 					'Gain {C:white,X:red}X#1#{} Mult per', 
 					'hand-size above or below {C:attention}#3#',
-					'{C:inactive}(Currently {X:red,C:white}X#2#{C:inactive} Mult)'
+					'{C:inactive}(Currently {X:red,C:white}X#2#{C:inactive} Mult)',
+					'{C:inactive,s:0.7}Negative playing cards not included'
 				}
 			},
 			['j_ortalab_afterburner'] = {
