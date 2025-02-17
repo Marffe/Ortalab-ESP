@@ -2054,8 +2054,9 @@ return {
 			['v_ortalab_leap_year'] = {
 				["name"] = "Leap Year",
 				["text"] = {
-					'{C:zodiac}Zodiac cards{} give',
-					'{C:attention}+#1#{} temporary level'
+					'{C:zodiac}Zodiac cards{} have a',
+					'{C:green}50%{} chance to give',
+					'{C:attention}+#1#{} temporary levels'
 				}
 			},
 			['v_ortalab_chronomancy'] = {

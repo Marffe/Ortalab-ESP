@@ -288,13 +288,13 @@ SMODS.Voucher({
 	unlocked = true,
 	discovered = false,
 	available = true,
-    config = {extra = {bonus_level = 1}},
+    config = {extra = {gain = 2}},
 	redeem = function(self, card)
-        G.GAME.ortalab.vouchers.leap_year = card.ability.extra.bonus_level
+        G.GAME.ortalab.vouchers.leap_year = card.ability.extra.gain
     end,
     loc_vars = function(self, info_queue, card)
         if card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'gappie'} end
-        return {vars = {card.ability.extra.bonus_level}}
+        return {vars = {card.ability.extra.gain}}
     end,
 })
 
