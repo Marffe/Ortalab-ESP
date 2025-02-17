@@ -305,7 +305,7 @@ SMODS.Blind({
         local _,_,_,scoring_hand,_ = G.FUNCS.get_poker_hand_info(cards)
         local always_scores_count = 0
         for _, card in pairs(cards) do
-            if card.config.center.always_scores then always_scores_count = always_scores_count + 1 end
+            if SMODS.always_scores(card) then always_scores_count = always_scores_count + 1 end
         end
         if #scoring_hand + always_scores_count ~= #cards then return true end
     end,
@@ -488,17 +488,17 @@ SMODS.Blind({
     modify_hand = function(self, cards, poker_hands, handname, mult, hand_chips)
         local _,_,_,scoring_hand,_ = G.FUNCS.get_poker_hand_info(cards)
         for _, card in pairs(scoring_hand) do
-            self.config.extra.ranks[card.base.value] = true
+            if not SMODS.has_no_rank(card) then self.config.extra.ranks[card:get_id()] = true end
         end
         return mult, hand_chips
     end,
     drawn_to_hand = function(self)
         for _, card in pairs(G.playing_cards) do
-            if self.config.extra.ranks[card.base.value] then card:set_debuff(true); card.debuffed_by_glyph = true end
+            if not SMODS.has_no_rank(card) and self.config.extra.ranks[card:get_id()] then card:set_debuff(true); card.debuffed_by_glyph = true end
         end
     end,
     recalc_debuff = function(self, card, from_blind)
-        if self.config.extra.ranks[card.base.value] then
+        if not SMODS.has_no_rank(card) and self.config.extra.ranks[card.base.value] then
             card.debuffed_by_glyph = true
             return true
         else
@@ -546,7 +546,7 @@ SMODS.Blind({
     set_blind = function(self)
         local possible_ranks = {}
         for _, card in pairs(G.playing_cards) do
-            if not (card.ability.effect == 'Stone Card' or card.config.center.no_rank) and not SMODS.Ranks[card.base.value].face then possible_ranks[card.base.value] = card.base.value end
+            if not SMODS.has_no_rank(card) and not SMODS.Ranks[card.base.value].face then possible_ranks[card.base.value] = card.base.value end
         end
         if table.size(possible_ranks) > 0 then
             for i=1, math.min(self.config.extra.debuff_count, table.size(possible_ranks)) do
@@ -560,11 +560,11 @@ SMODS.Blind({
     end,
     drawn_to_hand = function(self)
         for _, card in pairs(G.playing_cards) do
-            if self.config.extra.ranks[card.base.value] then card:set_debuff(true); card.debuffed_by_reed = true end
+            if not SMODS.has_no_rank(card) and self.config.extra.ranks[card.base.value] then card:set_debuff(true); card.debuffed_by_reed = true end
         end
     end,
     recalc_debuff = function(self, card, from_blind)
-        if self.config.extra.ranks[card.base.value] then
+        if not SMODS.has_no_rank(card) and self.config.extra.ranks[card.base.value] then
             card.debuffed_by_reed = true
             return true
         else
@@ -587,7 +587,7 @@ SMODS.Blind({
     in_pool = function(self)
         local possible_ranks = {}
         for _, card in pairs(G.playing_cards or {}) do
-            if not (card.ability.effect == 'Stone Card' or card.config.center.no_rank) and not SMODS.Ranks[card.base.value].face then possible_ranks[card.base.value] = card.base.value end
+            if not SMODS.has_no_rank(card) and not SMODS.Ranks[card.base.value].face then possible_ranks[card.base.value] = card.base.value end
         end
         if table.size(possible_ranks) > self.config.extra.debuff_count then return true end
         return false
@@ -753,7 +753,7 @@ SMODS.Blind({
     set_blind = function(self)
         local possible_ranks = {}
         for _, card in pairs(G.playing_cards) do
-            if not (card.ability.effect == 'Stone Card' or card.config.center.no_rank) and not SMODS.Ranks[card.base.value].face then possible_ranks[card.base.value] = card.base.value end
+            if not SMODS.has_no_rank(card) and not SMODS.Ranks[card.base.value].face then possible_ranks[card.base.value] = card.base.value end
         end
         if table.size(possible_ranks) > 0 then
             for i=1, math.min(table.size(possible_ranks), self.config.extra.flipped) do
@@ -766,7 +766,7 @@ SMODS.Blind({
         G.GAME.blind:set_text()
     end,
     stay_flipped = function(self, area, card)
-        if self.config.extra.ranks[card.base.value] and area == G.hand then card.flipped_by_beam = true; return true end
+        if not SMODS.has_no_rank(card) and self.config.extra.ranks[card.base.value] and area == G.hand then card.flipped_by_beam = true; return true end
     end,
     disable = function(self)
         for _, card in pairs(G.hand.cards) do
@@ -780,7 +780,7 @@ SMODS.Blind({
     in_pool = function(self)
         local possible_ranks = {}
         for _, card in pairs(G.playing_cards or {}) do
-            if not (card.ability.effect == 'Stone Card' or card.config.center.no_rank) and not SMODS.Ranks[card.base.value].face then possible_ranks[card.base.value] = card.base.value end
+            if not SMODS.has_no_rank(card) and not SMODS.Ranks[card.base.value].face then possible_ranks[card.base.value] = card.base.value end
         end
         if table.size(possible_ranks) > self.config.extra.flipped then return true end
         return false
