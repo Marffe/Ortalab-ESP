@@ -987,7 +987,7 @@ SMODS.Consumable({
     atlas = 'mythos_cards',
     pos = {x=2, y=2},
     discovered = false,
-    config = {extra = {select = 2, curse = 'ortalab_corroded', method = 'c_ortalab_mult_random', hands = 1}},
+    config = {extra = {select = 4, curse = 'ortalab_corroded', method = 'c_ortalab_mult_random', hands = 1}},
     loc_vars = function(self, info_queue, card)
         if Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'kosze'} end
         return {vars = {card.ability.extra.hands}}
@@ -1040,8 +1040,8 @@ SMODS.Consumable({
             trigger = 'after',
             delay = 0.7,
             func = function()
-                ease_hands_played(card.ability.extra.hands)
-                G.GAME.round_resets.hands = G.GAME.round_resets.hands + card.ability.extra.hands  
+                ease_discard(card.ability.extra.hands)
+                G.GAME.round_resets.discards = G.GAME.round_resets.discards + card.ability.extra.hands  
                 G.GAME.ortalab.mythos.jackalope_count = G.GAME.ortalab.mythos.jackalope_count + 1             
                 SMODS.calculate_effect({message = localize('ortalab_cardist'), colour = G.C.BLUE}, card) 
                 return true

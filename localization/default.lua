@@ -2804,7 +2804,7 @@ return {
 			c_ortalab_jackalope = {
 				name = 'Jackalope',
 				text = {
-					'Gain {C:blue}+#1#{} Hand',
+					'Gain {C:red}+#1#{} Discard',
 					'permanently'
 				},
 			},
