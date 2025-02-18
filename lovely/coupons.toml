@@ -191,10 +191,10 @@ end
 '''
 payload = '''
 if key == 'edition' and effects.calculated then
-    if type(effect) == 'table' and not effect.swap then
+    if type(effect) == 'table' and not effect.swap and effect.card.ability.set == 'Joker' then
         local edition_reps = {}
         for _, voucher in pairs(G.vouchers.cards) do
-            if voucher.ability.extra and voucher.ability.extra.edition_reps then
+            if voucher.ability and type(voucher.ability.extra) == 'table' and voucher.ability.extra.edition_reps then
                 for i=1, voucher.ability.extra.edition_reps do
                     edition_reps[#edition_reps+1] = {message = localize('k_again_ex'), colour = G.C.DARK_EDITION, card = voucher}
                 end
