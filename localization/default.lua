@@ -1335,6 +1335,15 @@ return {
 					"{C:inactive}(ex: {C:green}2 in 4{C:inactive} -> {C:green}1 in 4{C:inactive})",
 				}
 			},
+			j_ortalab_yellow = {
+				name = 'Yellow Joker',
+				text = {
+					'{C:red}+#1#{} Mult for each', 
+					'scored or discarded card',
+					'Resets at {C:attention}end of round',
+					'{C:inactive}(Currently {C:red}+#2#{C:inactive} Mult)'
+				}
+			},
 		},
         ["Loteria"] = {
             ["c_ortalab_lot_umbrella"] = {
