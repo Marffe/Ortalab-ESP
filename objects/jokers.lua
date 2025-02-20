@@ -34,7 +34,7 @@ local joker_list = {
     'scared_face',
     'art_gallery',
     'gratification',
-    -- 'crowd_pleaser',
+    'crowd_pleaser',
     'hypercalculia',
     'taliaferro',
     'red_fred',

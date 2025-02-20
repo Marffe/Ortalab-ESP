@@ -44,6 +44,7 @@ return {
 			ortalab_polydactyly = 'Handy!',
 			ortalab_street_rat = 'Got \'em!',
 			ortalab_memorial = 'Remembered!',
+			ortalab_crowd_pleaser_success = 'Complete!',
 			['ortalab_na'] = 'N/A',
 			['ortalab_explode'] = 'Exploded!',
 			['ortalab_infected'] = 'Infected!',
@@ -458,6 +459,16 @@ return {
 				["text"] = {
 					"Booster packs contain",
 					"{C:attention}1{} additional card",
+				}
+			},
+			j_ortalab_crowd_pleaser = {
+				name = 'Crowd Pleaser',
+				text = {
+					'Upgrade your {C:attention}most-played',
+					'poker hand after playing',
+					'{C:attention}#1# different{} poker hands',
+					'in a single round',
+					'{C:inactive,s:0.9}(Upgrading #3# - #2#)'
 				}
 			},
 			['j_ortalab_cutout'] = {
