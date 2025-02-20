@@ -47,7 +47,7 @@ local joker_list = {
     'sunny_side',
     'policeman',
     'whiteboard',
-    -- 'driver',
+    'driver',
     'hot_chocolate',
     'virus',
     'miracle_cure',

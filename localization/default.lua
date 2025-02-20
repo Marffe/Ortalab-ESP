@@ -508,6 +508,15 @@ return {
 					"gives {C:blue}+#1#{} Chips",
 				}
 			},
+			j_ortalab_driver = {
+				name = 'Driver',
+				text = {
+					'Gain {C:red}+#1#{} Mult if',
+					'played hand only contains',
+					'multiple cards of the {C:attention}same rank',
+					'{C:inactive}(Currently {C:red}+#2#{C:inactive} Mult)'
+				}
+			},
 			['j_ortalab_dropout'] = {
 				["name"] = "Dropout",
 				["text"] = {
