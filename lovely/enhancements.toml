@@ -3,21 +3,6 @@ version = "1.0.0"
 dump_lua = true
 priority = 1
 
-## Shop Card Area Width
-[[patches]]
-[patches.pattern]
-target = 'functions/UI_definitions.lua'
-pattern = '''G.GAME.shop.joker_max*1.02*G.CARD_W,'''
-position = 'at'
-match_indent = true
-payload = '''math.min(G.GAME.shop.joker_max*1.02*G.CARD_W,4.08*G.CARD_W),'''
-[[patches]]
-[patches.pattern]
-target = 'functions/common_events.lua'
-pattern = '''G.shop_jokers.T.w = G.GAME.shop.joker_max*1.01*G.CARD_W'''
-position = 'at'
-match_indent = true
-payload = '''G.shop_jokers.T.w = math.min(G.GAME.shop.joker_max*1.02*G.CARD_W,4.08*G.CARD_W)'''
 # evaluate_play()
 [[patches]]
 [patches.pattern]
