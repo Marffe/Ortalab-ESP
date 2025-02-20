@@ -50,12 +50,8 @@ return {
 			['ortalab_infected'] = 'Infected!',
 			['ortalab_destroyed'] = 'Destroyed!',
 			['ortalab_loteria_pack'] = 'Chalupa Pack',
-			['ortalab_loteria_pack_2'] = 'Wumbo Chalupa Pack',
-			['ortalab_loteria_pack_3'] = 'Giga Chalupa Pack',
-			['ortalab_zodiac_pack_plus'] = 'Astral+ Pack',
-			['ortalab_zodiac_pack_minus'] = 'Astral- Pack',
-			['ortalab_zodiac_pack_2'] = 'Wumbo Astral Pack',
-			['ortalab_zodiac_pack_3'] = 'Giga Astral Pack',
+			['ortalab_astral_pack'] = 'Astral Pack',
+			ortalab_mythos_pack = 'Mythos Pack',
 			['ortalab_moldy_discard'] = 'Discard!',
 			['ortalab_moldy_tag'] = 'Tag!',
 			['ortalab_no_tag'] = 'None',
@@ -2448,6 +2444,38 @@ return {
                     "Choose {C:attention}#1#{} of up to",
                     "{C:attention}#2#{C:zodiac} Zodiac{} cards to",
                     "be used immediately"
+                }
+            },
+			['p_ortalab_small_mythos_1'] = {
+                name = "Mythos Pack",
+                text = {
+                    "Choose {C:attention}#1#{} of up to",
+                    "{C:attention}#2#{C:mythos} Mythos{} cards to",
+                    "add to your consumables"
+                }
+            },
+			['p_ortalab_small_mythos_2'] = {
+                name = "Mythos Pack",
+                text = {
+                    "Choose {C:attention}#1#{} of up to",
+                    "{C:attention}#2#{C:mythos} Mythos{} cards to",
+                    "add to your consumables"
+                }
+            },
+			['p_ortalab_mid_mythos'] = {
+                name = "Wumbo Mythos Pack",
+                text = {
+                    "Choose {C:attention}#1#{} of up to",
+                    "{C:attention}#2#{C:mythos} Mythos{} cards to",
+                    "add to your consumables"
+                }
+            },
+			['p_ortalab_big_mythos'] = {
+                name = "Giga Mythos Pack",
+                text = {
+                    "Choose {C:attention}#1#{} of up to",
+                    "{C:attention}#2#{C:mythos} Mythos{} cards to",
+                    "add to your consumables"
                 }
             },
 			['ortalab_1_sticker'] = {

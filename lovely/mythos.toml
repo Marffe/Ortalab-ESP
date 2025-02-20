@@ -11,10 +11,24 @@ pattern = '''if (self.ability.set == 'Voucher' or self.config.center.demo) and (
 position = 'before'
 match_indent = true
 payload = '''
-if self.ability.set == 'Mythos' then
+if self.ability.set == 'Mythos' or self.config.center.group_key == 'ortalab_mythos_pack' then
     self.children.center:draw_shader('ortalab_mythos', nil, self.ARGS.send_to_shader)
 end
 '''
+# Stop standard shader for booster
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+match_indent = true
+position = 'at'
+pattern = '''
+if (self.ability.set == 'Booster' or self.ability.set == 'Spectral') and self:should_draw_base_shader() then
+'''
+payload = '''
+if ((self.ability.set == 'Booster' and self.config.center.group_key ~= 'ortalab_mythos_pack') or self.ability.set == 'Spectral') and self:should_draw_base_shader() then
+'''
+
+
 [[patches]]
 [patches.pattern]
 target = 'card.lua'

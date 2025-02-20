@@ -67,7 +67,7 @@ local mid_boosters = {keys = {'mid_loteria_1', 'mid_loteria_2'}, info = {
         ease_colour(G.C.DYN_UI.MAIN, G.C.SET.Loteria)
         ease_background_colour{new_colour = G.C.SET.Loteria, special_colour = G.C.BLACK, contrast = 2}
     end,
-    group_key = 'ortalab_loteria_pack_2',
+    group_key = 'ortalab_loteria_pack',
     draw_hand = true,
     cost = 6,
     weight = 1,
@@ -113,7 +113,7 @@ local large_boosters = {keys = {'big_loteria_1', 'big_loteria_2'}, info = {
         ease_colour(G.C.DYN_UI.MAIN, G.C.SET.Loteria)
         ease_background_colour{new_colour = G.C.SET.Loteria, special_colour = G.C.BLACK, contrast = 2}
     end,
-    group_key = 'ortalab_loteria_pack_3',
+    group_key = 'ortalab_loteria_pack',
     draw_hand = true,
     cost = 8,
     weight = 1,

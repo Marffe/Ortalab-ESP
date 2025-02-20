@@ -64,6 +64,7 @@ local small_boosters = {keys = {'small_zodiac_1', 'small_zodiac_2', 'small_zodia
         ease_background_colour{new_colour = G.C.SET.Zodiac, special_colour = G.C.BLACK, contrast = 2}
     end,
     draw_hand = false,
+    group_key = 'ortalab_astral_pack',
     cost = 4,
     weight = 0.5,
     particles = function(self)
@@ -112,7 +113,7 @@ local mid_boosters = {keys = {'mid_zodiac_1', 'mid_zodiac_2'}, info = {
         ease_colour(G.C.DYN_UI.MAIN, G.C.SET.Zodiac)
         ease_background_colour{new_colour = G.C.SET.Zodiac, special_colour = G.C.BLACK, contrast = 2}
     end,
-    group_key = 'ortalab_zodiac_pack_2',
+    group_key = 'ortalab_astral_pack',
     draw_hand = false,
     cost = 6,
     weight = 0.4,
@@ -158,7 +159,7 @@ local large_boosters = {keys = {'big_zodiac_1', 'big_zodiac_2'}, info = {
         ease_colour(G.C.DYN_UI.MAIN, G.C.SET.Zodiac)
         ease_background_colour{new_colour = G.C.SET.Zodiac, special_colour = G.C.BLACK, contrast = 2}
     end,
-    group_key = 'ortalab_zodiac_pack_3',
+    group_key = 'ortalab_astral_pack',
     draw_hand = false,
     cost = 8,
     weight = 0.2,

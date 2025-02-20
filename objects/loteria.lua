@@ -5,8 +5,6 @@ SMODS.Atlas({
     py = '95'
 })
 
-assert(SMODS.load_file('objects/loteria_boosters.lua'))()
-
 SMODS.UndiscoveredSprite({
     key = "Loteria",
     atlas = "loteria_cards",

@@ -20,6 +20,9 @@ G.ARGS.LOC_COLOURS.Ort_menu_colourB = HEX('C9013C')
 for k, v in pairs(Ortalab.load_table) do
     if v then assert(SMODS.load_file('objects/'..k..'.lua'))() end
 end
+assert(SMODS.load_file('objects/loteria_boosters.lua'))() -- load boosters
+assert(SMODS.load_file('objects/zodiac_boosters.lua'))() -- load boosters
+assert(SMODS.load_file('objects/mythos_boosters.lua'))() -- load boosters
 
 assert(SMODS.load_file('util/artists.lua'))()
 assert(SMODS.load_file('util/functions.lua'))()
