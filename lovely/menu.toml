@@ -3,6 +3,18 @@ version = '1.0.0'
 dump_lua = true
 priority = 0
 
+# background shader
+[[patches]]
+[patches.pattern]
+target = 'game.lua'
+match_indent = true
+position = 'at'
+pattern = '''
+shader = 'splash',
+'''
+payload = '''
+shader = Ortalab.config.menu_toggle and 'ortalab_background' or 'splash',
+'''
 
 
 # main menu background

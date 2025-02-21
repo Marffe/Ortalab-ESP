@@ -48,6 +48,10 @@ SMODS.Atlas({
     px = 333,
     py = 216,
 })
+SMODS.Shader({
+    key = 'background',
+    path = 'new_background.fs'
+})
 
 if (SMODS.Mods['malverk'] or {}).can_load then
     AltTextures_Utils.default_atlas['Zodiac'] = 'ortalab_zodiac_cards'

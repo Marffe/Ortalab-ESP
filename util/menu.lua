@@ -56,7 +56,7 @@ function menu_refresh()
     ease_value(splash_args, 'mid_flash', -(change_context == 'splash' and 1.6 or 0), nil, nil, nil, 4)
 
     G.SPLASH_BACK:define_draw_steps({{
-        shader = 'splash',
+        shader = Ortalab.config.menu_toggle and 'ortalab_background' or 'splash',
         send = {
             {name = 'time', ref_table = G.TIMERS, ref_value = 'REAL_SHADER'},
             {name = 'vort_speed', val = 0.4},
@@ -146,7 +146,7 @@ function create_initial_config()
         Ortalab.joker_area:emplace(card)
     end
 
-    local blind_keys = {'bl_ortalab_check','bl_ortalab_ladder','bl_ortalab_celadon_clubs'}
+    local blind_keys = {'bl_ortalab_check','bl_ortalab_ladder','bl_ortalab_silver_sword'}
     for i=1,3 do
         local temp_blind = AnimatedSprite(0, 0, 1.3, 1.3, G.ANIMATION_ATLAS[G.P_BLINDS[blind_keys[i]].atlas],
         G.P_BLINDS[blind_keys[i]].pos)
