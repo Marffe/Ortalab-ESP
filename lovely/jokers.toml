@@ -195,15 +195,15 @@ if self.sell_cost < 0 and self.facing ~= 'back' then self.sell_cost_label = self
 [patches.pattern]
 target = 'functions/state_events.lua'
 match_indent = true
-position = 'after'
+position = 'before'
 pattern = '''
-table.sort(scoring_hand, function (a, b) return a.T.x < b.T.x end )
+-- TARGET: adding to hand effects
 '''
 payload = '''
 local ortalab_poly_jokers = SMODS.find_card('j_ortalab_polydactyly')
 if next(ortalab_poly_jokers) and (next(poker_hands['Straight']) or next(poker_hands['Flush'])) then
     for i=1, ortalab_poly_jokers[1].ability.extra.cards do
-        table.insert(scoring_hand, G.hand.cards[i])
+        table.insert(final_scoring_hand, G.hand.cards[i])
     end
     SMODS.calculate_effect({message = localize('ortalab_polydactyly')}, ortalab_poly_jokers[1])
 end
