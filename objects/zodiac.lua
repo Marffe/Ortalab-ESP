@@ -585,7 +585,7 @@ Ortalab.Zodiac{
                 G.hand.cards[i].base.id = context.scoring_hand[3].base.id
                 G.hand.cards[i].base.nominal = context.scoring_hand[3].base.nominal
                 G.hand.cards[i].base.face_nominal = context.scoring_hand[3].base.face_nominal
-                G.hand.cards[i].delay_edition = true
+                G.hand.cards[i].delay_edition = G.hand.cards[i].edition and G.hand.cards[i].edition.key or true
                 G.hand.cards[i]:set_edition(context.scoring_hand[3].edition and context.scoring_hand[3].edition.key, false, true)
                 G.hand.cards[i]:set_ability(G.P_CENTERS[context.scoring_hand[3].config.center_key], nil, true)
                 G.E_MANAGER:add_event(Event({
@@ -700,7 +700,7 @@ Ortalab.Zodiac{
                 G.hand.cards[i].base.id = context.scoring_hand[2].base.id
                 G.hand.cards[i].base.nominal = context.scoring_hand[2].base.nominal
                 G.hand.cards[i].base.face_nominal = context.scoring_hand[2].base.face_nominal
-                G.hand.cards[i].delay_edition = true
+                G.hand.cards[i].delay_edition = context.scoring_hand[2].edition and context.scoring_hand[2].edition.key or true
                 G.hand.cards[i]:set_edition(context.scoring_hand[2].edition and context.scoring_hand[2].edition.key, false, true)
                 G.hand.cards[i]:set_ability(G.P_CENTERS[context.scoring_hand[2].config.center_key], nil, true)
                 G.E_MANAGER:add_event(Event({

@@ -178,7 +178,7 @@ pattern = '''
 if self.edition[v.key:sub(3)] and v.shader then
 '''
 payload = '''
-if self.edition[v.key:sub(3)] and v.shader and not self.delay_edition then
+if (self.edition[v.key:sub(3)] and v.shader and not self.delay_edition) or (v.key == self.delay_edition and v.shader) then
 '''
 [[patches]]
 [patches.pattern]
