@@ -159,9 +159,9 @@ match_indent = true
 position = 'before'
 payload = '''
 local freezers = SMODS.find_card('j_ortalab_freezer')
-if card.ability.consumeable and next(freezers) and (card.area ~= G.consumeables and #G.consumeables.cards + G.GAME.consumeable_buffer <= G.consumeables.config.card_limit) then
+if card.ability.consumeable and next(freezers) and #G.consumeables.cards + G.GAME.consumeable_buffer < (G.consumeables.config.card_limit + (card.area == G.consumeables and 1 or 0)) then
     for _, freezer in ipairs(freezers) do
-        if not nc and pseudoseed('ortalab_freezer') > (G.GAME.probabilities.normal * freezer.ability.extra.chance) / freezer.ability.extra.denom and #G.consumeables.cards + G.GAME.consumeable_buffer <= G.consumeables.config.card_limit then
+        if not nc and pseudoseed('ortalab_freezer') > (G.GAME.probabilities.normal * freezer.ability.extra.chance) / freezer.ability.extra.denom then
             nc = true
             card_eval_status_text(freezer, 'extra', nil, nil, nil, {message = 'Saved!'})
         end
