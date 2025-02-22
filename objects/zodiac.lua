@@ -529,7 +529,7 @@ Ortalab.Zodiac{
         end
         for i, card in ipairs(G.hand.cards) do
             local new_rank = SMODS.Ranks[i % 2 == 0 and rank1 or rank2]
-            card.base.suit = new_suit
+            Ortalab.change_suit_no_anim(card, new_suit)
             card.base.id = new_rank.id
             card.base.nominal = new_rank.nominal or 0
             card.base.face_nominal = new_rank.face_nominal or 0
@@ -581,7 +581,7 @@ Ortalab.Zodiac{
     pre_trigger = function(self, zodiac, context)
         for i=1, zodiac.config.extra.effects do
             if G.hand.cards[i] then
-                G.hand.cards[i].base.suit = context.scoring_hand[3].base.suit
+                Ortalab.change_suit_no_anim(G.hand.cards[i], context.scoring_hand[3].base.suit)
                 G.hand.cards[i].base.id = context.scoring_hand[3].base.id
                 G.hand.cards[i].base.nominal = context.scoring_hand[3].base.nominal
                 G.hand.cards[i].base.face_nominal = context.scoring_hand[3].base.face_nominal
@@ -832,6 +832,7 @@ Ortalab.Zodiac{
         end
         for _, card in pairs(G.hand.cards) do
             if not card.base.suit ~= new_suit then
+                Ortalab.change_suit_no_anim(card, new_suit)
                 card.base.suit = new_suit
                 G.E_MANAGER:add_event(Event({
                     trigger = 'before', delay = 0.2, func = function()
@@ -847,6 +848,18 @@ Ortalab.Zodiac{
         return context.mult, context.chips
     end
 }
+
+function Ortalab.change_suit_no_anim(card, suit)
+    local change = suit and card.base.suit ~= suit
+    card.base.suit = suit
+    if change and not Ortalab.harp_usage then
+        local scaling_joker = SMODS.find_card('j_ortalab_mill')
+        for _, card in pairs(scaling_joker) do        
+            card.ability.extra.xmult = card.ability.extra.xmult + card.ability.extra.gain
+            card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize{type = 'variable', key = 'a_xmult', vars = {card.ability.extra.xmult}}})
+        end
+    end
+end
 
 SMODS.Consumable({
     key = 'zod_capr',
@@ -990,7 +1003,7 @@ Ortalab.Zodiac{
         end
         for _, card in pairs(G.hand.cards) do
             if not card.base.suit ~= new_suit then
-                card.base.suit = new_suit
+                Ortalab.change_suit_no_anim(card, new_suit)
                 if not card.edition then
                     local new_edition = poll_edition('zodiac_pisces', nil, false, true)
                     card.delay_edition = true
