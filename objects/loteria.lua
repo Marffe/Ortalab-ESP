@@ -573,6 +573,14 @@ SMODS.Consumable({
     end
 })
 
+local function count_possessed()
+    local count = 0
+    for _, card in pairs(G.hand.highlighted) do
+        if card.curse == 'ortalab_possessed' then count = count + 1 end
+    end
+    return count
+end
+
 SMODS.Consumable({
     key = 'lot_heron',
     set = 'Loteria',
@@ -585,7 +593,7 @@ SMODS.Consumable({
         return {vars = {card.ability.extra.money, card.ability.extra.value, card.ability.extra.amount + (G.GAME and G.GAME.ortalab.vouchers.tabla)        }}
     end,
     can_use = function(self, card)
-        return #G.hand.cards > 0 and #G.hand.highlighted == 0
+        return #G.hand.cards > 0 and count_possessed() <= card.ability.extra.amount
     end,
     keep_on_use = function(self, card)
         return loteria_joker_save_check(card)
@@ -600,7 +608,9 @@ SMODS.Consumable({
             end
         end
 
-        for i=1, math.min(loteria.ability.extra.amount + G.GAME.ortalab.vouchers.tabla, #available_cards) do
+        G.hand:unhighlight_all()
+
+        for i=1, math.min(loteria.ability.extra.amount + G.GAME.ortalab.vouchers.tabla, #available_cards) - #G.hand.highlighted do
             G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.35,func = function()
                 local selected = false
                 while not selected do
