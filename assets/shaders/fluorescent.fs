@@ -122,24 +122,24 @@ vec4 effect( vec4 colour, Image texture, vec2 texture_coords, vec2 screen_coords
 
     // trigonometric variable definition
     float t = fluorescent.g + time;
-    float a = 0.93;
+    float a = 0.68;
     float b = 1.1;
-    float c = 1.3;
+    float c = 1.4;
 
     if (fluorescent.g > 0.0 || fluorescent.g < 0.0) {
         // Vary the lightness of pixels that are low in saturation, otherwise increase the saturation of them
-        if (hsl.y < 0.25 || hsl.z > 0.95) {
+        if (hsl.z < 0.64 && hsl.y < 0.6) {
             //hsl.y *= (0.5*sin(a*t) + 0.5);
-            //hsl.z *= (0.5*sin(a*t) + 0.5);
-            hsl.z = 0.6 - ((0.25*cos(a*t)+0.25));
+            // hsl.z *= (0.5*sin(a*t) + 0.5);
+            hsl.z = 0.2 - ((0.5*cos(a*t)+0.4));
             // hsl.a = min(1 - ((-0.25*cos(a*t)) + 0.9), 1);
         } else {
             // Lower base saturation to stop washout
             if (bhsl.y > 0.4) {
-                hsl.y *= bhsl.y;
+                hsl.y *= bhsl.y * bhsl.y;
             }
-            hsl.y *= 2 * (b*cos(a*t) + c);  
-            float res = (.01 + .01* cos( (fluorescent.r)*4 ));
+            hsl.y *= 1.6 * (b*cos(a*t) + c);  
+            float res = (.01 + .01* cos( (fluorescent.r)*2 ));
             hsl.x += res;
 
             // hsl.y *= cos(fluorescent.r*0.513);

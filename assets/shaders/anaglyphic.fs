@@ -104,13 +104,14 @@ vec4 HSL(vec4 c)
 vec4 effect( vec4 colour, Image texture, vec2 texture_coords, vec2 screen_coords )
 {
 
-    float displacement_x = (0.1*cos(anaglyphic.g*0.3)+0.5)/texture_details.b;
+    float displacement_red = (0.2*cos(anaglyphic.g*0.3)+0.2)/texture_details.b;
+    float displacement_blue = (0.2*cos(anaglyphic.g*0.4)+0.2)/texture_details.b;
     float displacement_y = (0.03*sin(anaglyphic.r)+0.03)/texture_details.a;
     
     // turns the texture into pixels
     vec4 tex = Texel(texture, texture_coords);
-    vec4 red_tex = Texel(texture, vec2(texture_coords.x + displacement_x, texture_coords.y + displacement_y));
-    vec4 blue_tex = Texel(texture, vec2(texture_coords.x - displacement_x, texture_coords.y - displacement_y));
+    vec4 red_tex = Texel(texture, vec2(texture_coords.x + displacement_red, texture_coords.y + displacement_y));
+    vec4 blue_tex = Texel(texture, vec2(texture_coords.x - displacement_blue, texture_coords.y - displacement_y));
     vec2 uv = (((texture_coords)*(image_details)) - texture_details.xy*texture_details.ba)/texture_details.ba;
     vec2 coords = uv.xy;
     vec2 adjusted_uv = uv - vec2(0.5, 0.5);
@@ -120,10 +121,10 @@ vec4 effect( vec4 colour, Image texture, vec2 texture_coords, vec2 screen_coords
     red_tex = HSL(red_tex);
     blue_tex = HSL(blue_tex);
     
-    if (uv.x < 0.05 || uv.x > 0.95 || uv.y < 0.05 || uv.y > 0.95){
+    if (uv.x+displacement_red < 0.05 || uv.x+displacement_red > 0.95 || uv.y < 0.05 || uv.y > 0.95){
         red_tex.a = 0;
     }
-    if (uv.x-displacement_x < 0.05 || uv.x-displacement_x > 0.95 || uv.y-displacement_y < 0.05 || uv.y-displacement_y > 0.95){
+    if (uv.x-displacement_blue < 0.05 || uv.x-displacement_blue > 0.95 || uv.y-displacement_y < 0.05 || uv.y-displacement_y > 0.95){
         blue_tex.a = 0;
     }
 
@@ -135,16 +136,14 @@ vec4 effect( vec4 colour, Image texture, vec2 texture_coords, vec2 screen_coords
     }
 
     if(blue_tex.z < 0.8){
-        blue_tex.x = 0.5;
+        blue_tex.x = 0.48;
         blue_tex.y = 3;
     } else {
         blue_tex.a = 0;
     }
 
-    if(tex.z < 0.8){
-        blue_tex.a = 0.2;
-        red_tex.a = 0.2;
-    }
+    vec4 hsl = HSL(tex);
+
     if (tex.a == 0){
         red_tex.a = 0;
         blue_tex.a = 0;
@@ -156,15 +155,19 @@ vec4 effect( vec4 colour, Image texture, vec2 texture_coords, vec2 screen_coords
     
     
 
-    float ratio = 0.5;
-    tex = ratio*red_tex + ratio*blue_tex;// + (1-(2*ratio))*tex;
+    float ratio = 0.6;
     if (uv.x < 0.05 || uv.x > 0.95 || uv.y < 0.05 || uv.y > 0.95){
-        tex.a = 0;
+        blue_tex.a = 0;
+        red_tex.a = 0;
     }
-    
+    if (hsl.z < 0.6){
+        blue_tex.a = 0;
+        red_tex.a = 0;
+    }
+    vec4 final_tex = ratio*red_tex + ratio*blue_tex;// + (1-(2*ratio))*tex;
 
     // required
-	return dissolve_mask(tex*colour, texture_coords, uv);
+	return dissolve_mask(final_tex*colour, texture_coords, uv);
 }
 
 // for transforming the card while your mouse is on it
