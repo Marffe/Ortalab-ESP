@@ -19,50 +19,7 @@ target = 'game.lua'
 pattern = '''G.GAME.current_round.used_packs = G.GAME.current_round.used_packs or {}'''
 position = 'before'
 match_indent = true
-payload = '''if i == 1 and G.GAME.modifiers.ortalab_boosters then for _ = 1, G.GAME.modifiers.ortalab_boosters do Ortalab.spawn_booster() end end'''
-
-# Ad Campaign
-[[patches]]
-[patches.pattern]
-target = 'functions/state_events.lua'
-pattern = '''G.GAME.current_round.voucher = get_next_voucher_key()'''
-position = 'after'
-match_indent = true
-payload = '''if G.GAME.used_vouchers['v_ortalab_ad_campaign'] then G.GAME.current_round.voucher_2 = get_next_voucher_key() end'''
-
-[[patches]]
-[patches.pattern]
-target = 'game.lua'
-pattern = '''if G.GAME.current_round.voucher and G.P_CENTERS[G.GAME.current_round.voucher] then'''
-position = 'before'
-match_indent = true
-payload = '''
-if G.GAME.current_round.voucher_2 and G.P_CENTERS[G.GAME.current_round.voucher_2] and not G.GAME.used_vouchers[G.GAME.current_round.voucher_2] then
-    G.shop_vouchers.config.card_limit = 2
-    local card = Card(G.shop_vouchers.T.x + G.shop_vouchers.T.w / 2, G.shop_vouchers.T.y, G.CARD_W, G.CARD_H,
-        G.P_CARDS.empty, G.P_CENTERS[G.GAME.current_round.voucher_2], {
-            bypass_discovery_center = true,
-            bypass_discovery_ui = true
-        })
-    create_shop_card_ui(card, 'Voucher', G.shop_vouchers)
-    G.shop_vouchers:emplace(card)
-
-end'''
-[[patches]]
-[patches.pattern]
-target = 'functions/common_events.lua'
-pattern = '''if G.shop_vouchers and G.shop_vouchers.cards then'''
-position = 'before'
-match_indent = true
-payload = '''if G.GAME.current_round.voucher and G.GAME.current_round.voucher == v.key then include = false end'''
-
-[[patches]]
-[patches.pattern]
-target = 'game.lua'
-pattern = '''G.shop_vouchers:emplace(card)'''
-position = 'at'
-match_indent = true
-payload = '''G.shop_vouchers:emplace(card, 'front')'''
+payload = '''--if i == 1 and G.GAME.modifiers.ortalab_boosters then for _ = 1, G.GAME.modifiers.ortalab_boosters do Ortalab.spawn_booster() end end'''
 
 [[patches]]
 [patches.pattern]
@@ -129,51 +86,51 @@ if G.GAME.used_vouchers.v_ortalab_natal_sign then
 end
 '''
 
+# Home Delivery
 [[patches]]
-[patches.regex]
-target = "functions/button_callbacks.lua"
-pattern = '''(?<indent>[\t ]*)for i = 1, #G.GAME[A-z\.\:\n\t _(',)~={}]*return true\n[\t ]*end\n[\t ]*}\)\)'''
-position = "at"
-payload = '''
-    for i = 1, #G.GAME.tags do
-        if G.GAME.tags[i]:apply_to_run({type = 'new_blind_choice'}) then break end
-    end
-    G.E_MANAGER:add_event(Event({
-        trigger = 'after',
-        func = function()
-            if G.GAME.used_vouchers['v_ortalab_home_delivery'] then
-                if G.blind_select then 
-                    G.blind_select:remove()
-                    G.blind_prompt_box:remove()
-                    G.blind_select = nil
-                end
-                local prev_state = G.STATE
-                G.GAME.current_round.jokers_purchased = 0
-                G.GAME.current_round.used_packs = {}
-                local chaos = find_joker('Chaos the Clown')
-                G.GAME.current_round.free_rerolls = #chaos
-                G.GAME.current_round.free_rerolls = G.GAME.current_round.free_rerolls + (G.GAME.current_round.ortalab_rerolls or 0)
-                G.GAME.round_resets.temp_reroll_cost = nils
-                G.GAME.current_round.reroll_cost_increase = 0
-                calculate_reroll_cost(true)
-                G.E_MANAGER:add_event(Event({
-                    trigger = 'after',
-                    blocking = false,
-                    func = function()
-                    if #G.E_MANAGER.queues.base > 2 or G.GAME.PACK_INTERRUPT then return false end
-                        G.STATE = G.STATES.SHOP
-                        G.STATE_COMPLETE = false
-                        return true
-                    end
-                }))
-            end
-            return true
-    end}))
-    return true
+[patches.pattern]
+target = 'functions/button_callbacks.lua'
+match_indent = true
+position = 'after'
+pattern = '''
+for i = 1, #G.GAME.tags do
+    G.GAME.tags[i]:apply_to_run({type = 'immediate'})
 end
-}))
+for i = 1, #G.GAME.tags do
+    if G.GAME.tags[i]:apply_to_run({type = 'new_blind_choice'}) then break end
+end
 '''
-line_prepend = "$indent"
+payload = '''
+G.E_MANAGER:add_event(Event({
+    trigger = 'after',
+    func = function()
+        if G.GAME.used_vouchers['v_ortalab_home_delivery'] then
+            if G.blind_select then 
+                G.blind_select:remove()
+                G.blind_prompt_box:remove()
+                G.blind_select = nil
+            end
+            G.GAME.current_round.used_packs = {}
+            G.GAME.current_round.jokers_purchased = 0
+            G.GAME.current_round.reroll_cost_increase = 0
+            G.GAME.round_resets.temp_reroll_cost = nil
+            G.GAME.current_round.free_rerolls = G.GAME.round_resets.free_rerolls
+            calculate_reroll_cost(true)
+
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                blocking = false,
+                func = function()
+                if #G.E_MANAGER.queues.base > 2 or G.GAME.PACK_INTERRUPT then return false end
+                    G.STATE = G.STATES.SHOP
+                    G.STATE_COMPLETE = false
+                    return true
+                end
+            }))
+        end
+        return true
+end}))
+'''
 
 # hone/glowup inverse
 [[patches]]
@@ -301,5 +258,5 @@ pattern = '''
 G.GAME.round_resets.blind_choices.Boss = get_new_boss()
 '''
 payload = '''
-G.GAME.ortalab.alt_boss = get_new_boss()
+if G.GAME.ortalab.alt_boss then G.GAME.ortalab.alt_boss = get_new_boss() end
 '''

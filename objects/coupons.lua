@@ -15,8 +15,7 @@ SMODS.Voucher({
 	available = true,
 	config = {extra = {booster_gain = 1}},
 	redeem = function(self, card)
-        G.GAME.modifiers.ortalab_boosters = (G.GAME.modifiers.ortalab_boosters or 0) + card.ability.extra.booster_gain
-        if G.STATE == G.STATES.SHOP then Ortalab.spawn_booster() end
+        SMODS.change_booster_limit(card.ability.extra.booster_gain)
     end,
     loc_vars = function(self, info_queue, card)
         if card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'flare'} end
@@ -35,18 +34,7 @@ SMODS.Voucher({
     requires = {'v_ortalab_catalog'},
 	config = {extra = {voucher_gain = 1}},
 	redeem = function(self, card)
-        G.GAME.current_round.voucher_2 = get_next_voucher_key()
-        if G.shop_vouchers then
-            G.shop_vouchers.config.card_limit = G.shop_vouchers.config.card_limit + card.ability.extra.voucher_gain
-            if G.STATE == G.STATES.SHOP and G.GAME.current_round.voucher_2 and G.P_CENTERS[G.GAME.current_round.voucher_2] then
-                local card = Card(G.shop_vouchers.T.x + G.shop_vouchers.T.w/2,
-                G.shop_vouchers.T.y, G.CARD_W, G.CARD_H, G.P_CARDS.empty, G.P_CENTERS[G.GAME.current_round.voucher_2],{bypass_discovery_center = true, bypass_discovery_ui = true})
-                card.shop_voucher = true
-                create_shop_card_ui(card, 'Voucher', G.shop_vouchers)
-                card:start_materialize()
-                G.shop_vouchers:emplace(card)
-            end
-        end
+        SMODS.change_voucher_limit(card.ability.extra.voucher_gain)
     end,
     loc_vars = function(self, info_queue, card)
         if card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'flare'} end
@@ -78,8 +66,6 @@ SMODS.Voucher({
 	discovered = false,
 	available = false,
     requires = {'v_ortalab_home_delivery'},
-	redeem = function(self, card)
-    end,
     loc_vars = function(self, info_queue, card)
         if card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'flare'} end
     end,
@@ -96,7 +82,7 @@ SMODS.Voucher({
 	available = true,
 	redeem = function(self, card)
         G.E_MANAGER:add_event(Event({func = function()
-            window_infinite(card)
+            SMODS.change_free_rerolls(card.ability.extra.free_rerolls)
             return true 
         end }))
     end,
@@ -118,7 +104,7 @@ SMODS.Voucher({
 	config = {extra = {free_rerolls = 2}},
 	redeem = function(self, card)
         G.E_MANAGER:add_event(Event({func = function()
-            window_infinite(card)
+            SMODS.change_free_rerolls(card.ability.extra.free_rerolls)
             return true 
         end }))
     end,
@@ -584,12 +570,6 @@ function Back.apply_to_run(self)
 	BackApply_to_run_ref(self)
     G.GAME.modifiers.booster_count = 2
     G.GAME.modifiers.voucher_count = 1
-end
-
-function window_infinite(card)
-    G.GAME.current_round.free_rerolls = G.GAME.current_round.free_rerolls + card.ability.extra.free_rerolls
-    G.GAME.current_round["ortalab_rerolls"] = (G.GAME.current_round["ortalab_rerolls"] or 0) + card.ability.extra.free_rerolls
-    calculate_reroll_cost(true)
 end
 
 function Ortalab.spawn_booster()
