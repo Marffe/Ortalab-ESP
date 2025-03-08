@@ -121,7 +121,7 @@ match_indent = true
 [[patches]]
 [patches.pattern]
 target = 'functions/button_callbacks.lua'
-pattern = "if not nc and card.area then card.area:remove_card(card) end"
+pattern = "if card.area and (not nc or card.area == G.pack_cards) then card.area:remove_card(card) end"
 match_indent = true
 position = 'before'
 payload = '''
