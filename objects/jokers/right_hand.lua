@@ -28,19 +28,6 @@ SMODS.Joker({
             }}}}
     end,
     calculate = function(self, card, context)
-        if G.jokers.cards[#G.jokers.cards] ~= card then
-            context.blueprint = (context.blueprint and (context.blueprint + 1)) or 1
-            context.blueprint_card = context.blueprint_card or card
-            if context.blueprint > #G.jokers.cards + 1 then return end
-            local other_joker_ret = G.jokers.cards[#G.jokers.cards]:calculate_joker(context)
-            context.blueprint = nil
-            local eff_card = context.blueprint_card or self
-            context.blueprint_card = nil
-            if other_joker_ret then
-                other_joker_ret.card = card
-                other_joker_ret.colour = G.C.BLUE
-                return other_joker_ret
-            end
-        end
+        return SMODS.blueprint_effect(card, G.jokers.cards[#G.jokers.cards], context)
     end    
 })

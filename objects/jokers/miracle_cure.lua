@@ -40,3 +40,17 @@ SMODS.Joker({
         end
     end
 })
+
+SMODS.DrawStep {
+    key = 'miracle_cure',
+    order = 1,
+    func = function(self, layer)
+        if self.cured_debuff then
+            self.children.center:draw_shader('debuff', nil, self.ARGS.send_to_shader)
+            if self.children.front and self.ability.effect ~= 'Stone Card' and not self.config.center.replace_base_card then
+                self.children.front:draw_shader('debuff', nil, self.ARGS.send_to_shader)
+            end
+        end
+    end,
+    conditions = { vortex = false, facing = 'front' },
+}

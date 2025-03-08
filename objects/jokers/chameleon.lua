@@ -89,6 +89,22 @@ SMODS.Shader({
     path = 'chameleon.fs'
 })
 
+SMODS.DrawStep {
+    key = 'chameleon',
+    order = 1,
+    func = function(self, layer)
+        if self.config.center_key == 'j_ortalab_chameleon' then
+            if self.ability.extra.copied_joker then
+                if self.children.front then self.children.front:draw_shader('dissolve') end
+                self.children.center:draw_shader('ortalab_chameleon', nil, self.ARGS.send_to_shader)
+            else
+                self.children.center:draw_shader('dissolve')
+            end
+        end
+    end,
+    conditions = { vortex = false, facing = 'front' },
+}
+
 function update_chameleon_atlas(self, new_atlas, new_pos)
     self:juice_up()
     if not self.children.front then

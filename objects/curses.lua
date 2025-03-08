@@ -35,6 +35,25 @@ Ortalab.Curse = SMODS.GameObject:extend {
     get_obj = function(self, key) return Ortalab.Curses[key] end,    
 }
 
+SMODS.DrawStep {
+    key = 'curse',
+    order = 35,
+    func = function(self)
+        if self.curse then
+            if self.curse == 'ortalab_infected' and ((self.area == G.play or self.config.center.set == 'Joker') and self.ability.no_score_shader) then
+                self.children.center:draw_shader('ortalab_celadon', nil, self.ARGS.send_to_shader)
+                if self.children.front then
+                    self.children.front:draw_shader('ortalab_celadon', nil, self.ARGS.send_to_shader)
+                end
+            end
+            Ortalab.curse_sprites[self.curse].role.draw_major = self
+            Ortalab.curse_sprites[self.curse]:draw_shader('dissolve',0, nil, nil, self.children.center,nil,nil,nil, nil,nil, 0.6)
+            Ortalab.curse_sprites[self.curse]:draw_shader('dissolve', nil, nil, nil, self.children.center)
+        end
+    end,
+    conditions = { vortex = false, facing = 'front' },
+}
+
 SMODS.current_mod.custom_collection_tabs = function()
 	return {
 		UIBox_button({button = 'your_collection_curses', label = {'Curses'}, count = G.ACTIVE_MOD_UI and modsCollectionTally(Ortalab.Curses) or G.DISCOVER_TALLIES.Curse, minw = 5, minh = 1, id = 'your_collection_curses', focus_args = {snap_to = true}})
@@ -70,7 +89,7 @@ function create_UIBox_your_collection_curses(exit)
 			local curse = curse_pool[index]
 
 			if not curse then break end
-			local card = Card(G.your_collection[j].T.x + G.your_collection[j].T.w / 2, G.your_collection[j].T.y, G.CARD_W, G.CARD_H, G.P_CARDS.empty, G.P_CENTERS.c_base)
+			local card = Card(G.your_collection[j].T.x + G.your_collection[j].T.w / 2, G.your_collection[j].T.y, G.CARD_W, G.CARD_H, G.P_CARDS.S_A, G.P_CENTERS.c_base)
 			card:set_curse(curse.key, true, true)
 			G.your_collection[j]:emplace(card)
 			index = index + 1

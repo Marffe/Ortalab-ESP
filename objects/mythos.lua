@@ -40,6 +40,17 @@ SMODS.ConsumableType({
     default = 'c_ortalab_zod_aries'
 })
 
+SMODS.DrawStep {
+    key = 'mythos_shine',
+    order = 10,
+    func = function(self)
+        if self.ability.set == 'Mythos' or self.config.center.group_key == 'ortalab_mythos_pack' then
+            self.children.center:draw_shader('ortalab_mythos', nil, self.ARGS.send_to_shader)
+        end
+    end,
+    conditions = { vortex = false, facing = 'front' },
+}
+
 SMODS.Consumable({
     key = 'excalibur',
     set = 'Mythos',
