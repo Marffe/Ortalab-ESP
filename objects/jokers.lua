@@ -52,7 +52,7 @@ local joker_list = {
     'virus',
     'miracle_cure',
     'yellow', 
-    -- 'common_sense',
+    'seventh_sense',
     'stargazing',
     'biker',
     'mathmagician',

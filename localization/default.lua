@@ -1180,6 +1180,15 @@ return {
 					"to give {C:money}$#3#{} when scored"
 				}
 			},
+			j_ortalab_seventh_sense = {
+				name = 'Seventh Sense',
+				text = {
+					'If {C:attention}second{} hand of round',
+					'is a single {C:attention}#1#{},',
+					'destroy it and spawn a',
+					'random {C:mythos}Mythos Card'
+				}
+			},
 			['j_ortalab_shelter'] = {
 				["name"] = "The Shelter",
 				["text"] = {
