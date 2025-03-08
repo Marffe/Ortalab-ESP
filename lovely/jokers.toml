@@ -245,3 +245,21 @@ if next(stonehenge) and stonehenge[1].config.center:hand_contains_no_rank(G.hand
     disp_text = localize(text, 'poker_hands')
 end
 '''
+
+# Wallet - scored cards act as in hand
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/utils.lua"]'
+match_indent = true
+position = 'after'
+pattern = '''
+SMODS.score_card(card, context)
+'''
+payload = '''
+local wallets = SMODS.find_card('j_ortalab_wallet')
+if next(wallets) and context.cardarea == G.play then
+    context.cardarea = G.hand
+    SMODS.calculate_effect({message = 'Wallet', juice_card = wallets[1], message_card = card}, card)
+    SMODS.score_card(card, context)
+end
+'''

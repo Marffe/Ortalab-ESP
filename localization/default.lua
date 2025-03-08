@@ -336,6 +336,14 @@ return {
 					"Scored {C:attention,E:1}Cosmic Cards{} are destroyed",
 				}
 			},
+			j_ortalab_biker = {
+				name = 'Biker',
+				text = {
+					'Every played {C:attention}card', 
+					'permanently gains',
+					'{C:red}+1{} Mult when scored'
+				}
+			},
 			['j_ortalab_blacklist'] = {
 				["name"] = "Blacklist",
 				["text"] = {
@@ -1325,6 +1333,13 @@ return {
 					"{C:attention}1{} card, destroy it and",
 					"convert {C:attention}#1# random cards",
 					"in hand to played card",
+				}
+			},
+			j_ortalab_wallet = {
+				name = 'Wallet',
+				text = {
+					'{C:attention}Scored cards{} trigger', 
+					'{C:attention}held in hand{} abilities'
 				}
 			},
 			['j_ortalab_whiteboard'] = {
