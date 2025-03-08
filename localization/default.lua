@@ -1005,6 +1005,14 @@ return {
 					"{C:inactive,s:0.8} when reaching 0)"
 				}
 			},
+			j_ortalab_purple = {
+				name = 'Purple Joker',
+				text = {
+					'{C:blue}-#1#{} Chips, {C:red}+#2#{} Mult after hand played',
+					'{C:blue}+#1#{} Chips, {C:red}-#2#{} Mult after discard',
+					'{C:inactive}(Currently {C:blue}#3#{C:inactive} Chips, {C:red}#4#{C:inactive} Mult)'
+				}
+			},
 			['j_ortalab_red_fred'] = {
 				["name"] = "Red Fred",
 				["text"] = {
