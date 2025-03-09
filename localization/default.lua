@@ -902,6 +902,15 @@ return {
 					'{C:attention}#2#'
 				}
 			},
+			j_ortalab_no_parking = {
+				name = 'No Parking',
+				text = {
+					'{C:red}+#1#{} Mult per card',
+					'held in hand if no',
+					'{C:attention}face{} cards are',
+					'held in hand'
+				}
+			},
 			['j_ortalab_occultist'] = {
 				["name"] = "Occultist",
 				["text"] = {

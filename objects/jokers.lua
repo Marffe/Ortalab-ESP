@@ -80,7 +80,7 @@ local joker_list = {
     'black_friday',
     'fine_wine',
     'sedimentation',
-    -- 'no_parking',
+    'no_parking',
     'scam_email',
     'reduce_reuse',
     'flashback',
