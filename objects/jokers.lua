@@ -70,7 +70,7 @@ local joker_list = {
     'scenic',
     'mirage',
     'head_honcho',
-    -- 'peasant',
+    'peasant',
     'storm_6',
     'afterburner',
     'foundation',

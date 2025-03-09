@@ -934,6 +934,14 @@ return {
 					"{C:chips}+#1#{} Chips when scored", 
 				}
 			},
+			j_ortalab_peasant = {
+				name = 'Peasant',
+				text = {
+					'{C:attention}Numbered{} cards held',
+					'in hand give their',
+					'value as {C:red}Mult{}'
+				}
+			},
 			['j_ortalab_pickaxe'] = {
 				["name"] = "Pickaxe",
 				["text"] = {
