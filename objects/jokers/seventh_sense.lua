@@ -81,7 +81,7 @@ SMODS.Joker({
                     mythos.stay_in_middle = true
                     local eval = function(card) return card.stay_in_middle end
                     juice_card_until(mythos, eval, true)
-                    
+                    context.destroying_card:start_dissolve()
                     G.GAME.consumeable_buffer = G.GAME.consumeable_buffer - 1                
                     return true
                 end
@@ -91,7 +91,7 @@ SMODS.Joker({
                 trigger = 'after',
                 delay = 2,
                 func = function()
-                    context.destroying_card:start_dissolve()
+                    
                     context.destroying_card.children.particles:remove()
                     context.destroying_card.children.particles = nil
                     mythos.stay_in_middle = nil         
