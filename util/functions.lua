@@ -24,6 +24,14 @@ function Ortalab.rank_from_deck(seed)
 	return pseudorandom_element(ranks, pseudoseed(seed))
 end
 
+function Ortalab.curses_in_deck()
+    local count = 0
+    for _, card in pairs(G.playing_cards) do
+        if card.curse then count = count + 1 end
+    end
+    return count
+end
+
 function Ortalab.hand_contains_rank(hand, rank)
     for _, card in ipairs(hand) do
         if card.base.value == rank then return true end

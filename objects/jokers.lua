@@ -66,7 +66,7 @@ local joker_list = {
     'triangle',
     'shrine',
     'street_rat',
-    -- 'belmont',
+    'belmont',
     'scenic',
     'mirage',
     'head_honcho',

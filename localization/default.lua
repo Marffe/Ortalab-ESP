@@ -328,6 +328,14 @@ return {
 					"gives {C:red}+#1#{} Mult",
 				}
 			},
+			j_ortalab_belmont = {
+				name = 'Belmont',
+				text = {
+					'Gain {C:red}+#1#{} Mult per',
+					'{C:mythos}cursed card{} in your deck',
+					'{C:inactive}(Currently {C:red}+#2#{C:inactive} Mult)'
+				}
+			},
 			['j_ortalab_beyond_the_mask'] = {
 				["name"] = "Broken Masquerade",
 				["text"] = {
