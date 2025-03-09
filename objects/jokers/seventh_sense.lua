@@ -18,7 +18,6 @@ SMODS.Joker({
         if context.before and G.GAME.current_round.hands_played == 1 and #context.full_hand == 1 and Ortalab.hand_contains_rank(context.scoring_hand, card.ability.extra.rank) then
             card.ability.extra.primed = true
         end
-        if context.destroy_card and context.cardarea == 'unscored' then return {remove = true} end
         if context.destroying_card and card.ability.extra.primed then
             card.ability.extra.primed = nil
             -- G.E_MANAGER:add_event(Event({
