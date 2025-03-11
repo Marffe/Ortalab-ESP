@@ -263,3 +263,16 @@ if next(wallets) and context.cardarea == G.play then
     SMODS.score_card(card, context)
 end
 '''
+
+# Proletaire
+[[patches]]
+[patches.pattern]
+target = 'cardarea.lua'
+match_indent = true
+position = 'after'
+pattern = '''
+if card.facing == 'back' and self.config.type ~= 'discard' and self.config.type ~= 'deck' and not stay_flipped then
+'''
+payload = '''
+if SMODS.find_card('j_ortalab_proletaire') then card.ability.was_flipped = true end
+'''

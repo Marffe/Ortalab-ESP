@@ -127,7 +127,7 @@ local joker_list = {
     'woo_all_1',
     'heresy',
     '20_20',
-    -- 'proletaire',
+    'proletaire',
     'hit_the_gym',
     'solo',
     'mysterium',

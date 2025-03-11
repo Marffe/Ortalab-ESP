@@ -1046,6 +1046,15 @@ return {
 					"when activated"
 				}
 			},
+			j_ortalab_proletaire = {
+				name = 'Prolétaire',
+				text = {
+					'Gains {C:white,X:red}X#1#{} Mult for',
+					'each played card that is',
+					'{C:attention}debuffed{} or {C:attention}face down',
+					'{C:inactive}(Currently {X:red,C:white}X#2#{C:inactive} Mult)'
+				}
+			},
 			['j_ortalab_protostar'] = {
 				["name"] = "Protostar",
 				["text"] = {
