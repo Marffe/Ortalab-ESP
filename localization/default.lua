@@ -584,6 +584,14 @@ return {
 					"{C:inactive,s:0.9}(Currently {C:money,s:0.9}$#2#{C:inactive,s:0.9})",
 				}
 			},
+			j_ortalab_false_phd = {
+				name = 'False PHD',
+				text = {
+					'Add {C:attention}#1#{} identical', 
+					'{C:mythos}cursed cards{} to the',
+					'{C:attention}first hand{} of each round'
+				}
+			},
 			['j_ortalab_fine_wine'] = {
 				["name"] = "Fine Wine",
 				["text"] = {
