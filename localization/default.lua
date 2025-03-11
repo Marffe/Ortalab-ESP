@@ -328,6 +328,15 @@ return {
 					"gives {C:red}+#1#{} Mult",
 				}
 			},
+			j_ortalab_bear = {
+				name = 'Bear',
+				text = {
+					'Gain {C:red}+#1#{} Mult per', 
+					'{C:money}$#2#{} spent',
+					'{C:inactive}(Currently {C:red}+#3#{C:inactive} Mult)',
+					'{s:0.8,C:inactive}({s:0.8,C:money}$#4#{s:0.8,C:inactive}/{s:0.8,C:money}#2#{s:0.8,C:inactive})'
+				}
+			},
 			j_ortalab_belmont = {
 				name = 'Belmont',
 				text = {

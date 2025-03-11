@@ -91,7 +91,7 @@ local joker_list = {
     'fools',
     'black_cat',
     'mint_condition',
-    -- 'bear',
+    'bear',
     'mystery_soda',
     'collectors',
     'dnd',
