@@ -125,7 +125,7 @@ local joker_list = {
     'wide',
     'gloomy_gus',
     'woo_all_1',
-    -- 'heresy',
+    'heresy',
     '20_20',
     -- 'proletaire',
     'hit_the_gym',

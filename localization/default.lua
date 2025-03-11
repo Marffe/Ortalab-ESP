@@ -750,6 +750,16 @@ return {
 					"{C:blue}Hand{} is played"
 				}
 			},
+			j_ortalab_heresy = {
+				name = 'Heresy',
+				text = {
+					'Gains {C:blue}+#1#{} Chips when a', 
+					'card is {C:attention}added{} to your deck',
+					'Gains {C:red}+#2#{} Mult when a',
+					'card is {C:attention}removed{} from your deck',
+					'{C:inactive}(Currently {C:blue}+#3#{C:inactive} Chips and {C:red}+#4#{C:inactive} Mult)'
+				}
+			},
 			j_ortalab_hit_the_gym = {
 				name = 'Hit The Gym',
 				text = {
