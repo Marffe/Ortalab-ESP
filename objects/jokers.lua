@@ -143,7 +143,7 @@ local joker_list = {
     'pictographer',
     'astrologist',
     'damp',
-    -- 'inheritance',
+    'newton',
     --legendaries
     'shinku',
     'caffeyne'

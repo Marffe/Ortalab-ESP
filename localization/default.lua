@@ -930,6 +930,14 @@ return {
 					'{C:attention}#2#'
 				}
 			},
+			j_ortalab_newton = {
+				name = 'Newton\'s Third Law',
+				text = {
+					'{C:blue}+#1#{} Chips',
+					'{C:red}#2#{} Chips on {C:attention}first',
+					'{C:attention}hand{} of round'
+				}
+			},
 			j_ortalab_no_parking = {
 				name = 'No Parking',
 				text = {
