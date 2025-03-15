@@ -288,3 +288,11 @@ payload = '''
 elseif _c.pinkprint then
     localize{type = 'descriptions', set = 'Joker', key = _c.key, nodes = desc_nodes, vars = specific_vars or _c.vars}
 '''
+# Pinkprint calculation
+[[patches]]
+[patches.pattern]
+target = "card.lua"
+pattern = '''if self.ability.set == "Joker" and self:can_calculate() then'''
+position = "at"
+match_indent = true
+payload = '''if self.ability.set == "Joker" and Card.can_calculate(self) then'''
