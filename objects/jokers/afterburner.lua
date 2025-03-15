@@ -14,7 +14,7 @@ SMODS.Joker({
 		return card.ability.extra.money
 	end,
 	loc_vars = function(self, info_queue, card)
-        if card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'salad'} end
+        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'salad'} end
         return {vars = {card.ability.extra.money, card.ability.extra.money_loss}}
     end,
     calculate = function(self, card, context) --Fuel Tank Logic

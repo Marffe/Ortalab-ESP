@@ -11,7 +11,7 @@ SMODS.Joker({
     perishable_compat = false,
     config = {extra = {xmult = 1, gain = 0.1}},
     loc_vars = function(self, info_queue, card)
-        if card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'no_demo'} end
+        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'no_demo'} end
         return {vars = {card.ability.extra.gain, card.ability.extra.xmult}}
     end,
     calculate = function(self, card, context)

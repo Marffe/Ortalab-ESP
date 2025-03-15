@@ -11,7 +11,7 @@ SMODS.Joker({
 	perishable_compat = true,
 	config = {extra = {dollars = 2, rank = 'Jack'}},
 	loc_vars = function(self, info_queue, card)
-        if card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'gappie'} end
+        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'gappie'} end
 		return {vars = {card.ability.extra.dollars, localize(card.ability.extra.rank, 'ranks')}}
 	end,
     set_ability = function(self, card)

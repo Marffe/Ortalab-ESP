@@ -11,7 +11,7 @@ SMODS.Joker({
 	perishable_compat = true,
 	config = {extra = {chance = 2, denom = 4, repetitions = 1}},
 	loc_vars = function(self, info_queue, card)
-        if card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'gappie'} end
+        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'gappie'} end
 		return {vars = {math.max(G.GAME.probabilities.normal, 1) * card.ability.extra.chance, card.ability.extra.denom / math.min(G.GAME.probabilities.normal, 1), card.ability.extra.repetitions}}
 	end,
 	calculate = function(self, card, context)

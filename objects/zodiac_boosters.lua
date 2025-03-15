@@ -103,7 +103,7 @@ local mid_boosters = {keys = {'mid_zodiac_1', 'mid_zodiac_2'}, info = {
     atlas = 'zodiac_booster',
     config = {choose = 1, extra = 4},
     loc_vars = function(self, info_queue, card)
-        if card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'gappie'} end
+        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'gappie'} end
         return {vars = {card and card.ability.choose or self.config.choose, (card and card.ability.extra or self.config.extra) + (G.GAME and G.GAME.ortalab.vouchers.horoscope or 0)}}
     end,
     create_card = function(self, card, i)

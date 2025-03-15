@@ -11,8 +11,8 @@ SMODS.Joker({
 	perishable_compat = true,
 	config = {extra = {copied_joker = nil, copied_joker_pos = 1}},
 	loc_vars = function(self, info_queue, card)
-        if card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'gappie'} end
-        if card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'eremel', title = 'Shader'} end
+        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'gappie'} end
+        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'eremel', title = 'Shader'} end
         -- if not G.jokers then return {vars = {localize('ortalab_na')}} end
         if card.ability.extra.copied_joker then
             local vars = card.ability.extra.copied_joker:generate_UIBox_ability_table('ortalab_chameleon')

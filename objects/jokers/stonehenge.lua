@@ -11,7 +11,7 @@ SMODS.Joker({
 	perishable_compat = true,
 	config = {extra = {}},
 	loc_vars = function(self, info_queue, card)
-        if card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'eremel'} end
+        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'eremel'} end
 		return {vars = {}}
 	end,
     calculate_most_played = function(self)

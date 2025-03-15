@@ -236,7 +236,7 @@ Ortalab.Curse({
         return false
     end,
     loc_vars = function(self, info_queue, card)
-        if card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'gappie'} end
+        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'gappie'} end
         if card and card.config.center.set == 'Joker' then 
             return {vars = {card.ability.curse.extra.gain}, key = 'ortalab_corroded_joker'}
         else
@@ -273,7 +273,7 @@ Ortalab.Curse({
     badge_colour = HEX('82b4f4'),
     config = {extra = {force = true}},
     loc_vars = function(self, info_queue, card)
-        if card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'gappie'} end
+        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'gappie'} end
         if card and card.config.center.set == 'Joker' then 
             return {key = 'ortalab_possessed_joker'}
         end
@@ -339,7 +339,7 @@ Ortalab.Curse({
     badge_colour = HEX('d78532'),
     config = {extra = {level_loss = 2}},
     loc_vars = function(self, info_queue, card)
-        if card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'gappie'} end
+        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'gappie'} end
         if card and card.config.center.set == 'Joker' then 
             return {vars = {card.ability.curse.extra.level_loss}, key = 'ortalab_restrained_joker'}
         else
@@ -373,7 +373,7 @@ Ortalab.Curse({
     sound = {sound = 'ortalab_infected', per = 1.2, vol = 0.4},
     config = {extra = {denom = 2}},
     loc_vars = function(self, info_queue, card)
-        if card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'flare'} end
+        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'flare'} end
         if card and card.config.center.set == 'Joker' then 
             return {vars = {G.GAME.probabilities.normal, card.ability.curse.extra.denom}, key = 'ortalab_infected_joker'}
         end

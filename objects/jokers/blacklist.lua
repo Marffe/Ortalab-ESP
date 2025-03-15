@@ -12,7 +12,7 @@ SMODS.Joker({
 	perishable_compat = true,
 	config = {extra = {dollars = 2, banlist_poker_hand_1 = 'High Card', banlist_poker_hand_2 = 'Pair'}},
     loc_vars = function(self, info_queue, card)
-        if card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'kosze'} end
+        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'kosze'} end
         return {vars = {card.ability.extra.dollars, localize(card.ability.extra.banlist_poker_hand_1, 'poker_hands'), localize(card.ability.extra.banlist_poker_hand_2, 'poker_hands')}}
     end,
 	set_ability = function(self, card, initial, delay_sprites)

@@ -12,7 +12,7 @@ SMODS.Joker({
 	config = {extra = {mult_add = 3, mult_total = 0}},
     pixel_size = {h = 80},
 	loc_vars = function(self, info_queue, card)
-        if card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'gappie'} end
+        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'gappie'} end
         return {vars = {card.ability.extra.mult_add, card.ability.extra.mult_total}}
     end,
     calculate = function(self, card, context) --Triangle Joker Logic

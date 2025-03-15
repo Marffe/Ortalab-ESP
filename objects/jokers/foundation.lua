@@ -11,7 +11,7 @@ SMODS.Joker({
     perishable_compat = true,
     config = {extra = {xmult = 1, gain = 0.1, most_played = 'High Card'}},
     loc_vars = function(self, info_queue, card)
-        if card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'gappie'} end
+        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'gappie'} end
         local _handname, _played, _order = 'High Card', -1, 100
         for k, v in pairs(G.GAME.hands) do
             if v.played > _played or (v.played == _played and _order > v.order) then 

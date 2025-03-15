@@ -57,7 +57,7 @@ local mid_boosters = {keys = {'mid_loteria_1', 'mid_loteria_2'}, info = {
     atlas = 'loteria_booster',
     config = {choose = 1, extra = 5},
     loc_vars = function(self, info_queue, card)
-        if card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'kosze'} end
+        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'kosze'} end
         return {vars = {(card and card.ability.choose or self.config.choose) + (G.GAME and G.GAME.ortalab.vouchers.cantor), card and card.ability.extra or self.config.extra}}
     end,
     create_card = function(self, card)

@@ -12,7 +12,7 @@ SMODS.Enhancement({
     discovered = false,
     config = {extra = {hand_chips = 10}},
     loc_vars = function(self, info_queue, card)
-        if card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'notmario'} end
+        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'notmario'} end
         return {
             vars = { card and card.ability.extra.hand_chips or self.config.extra.hand_chips }
         }
@@ -54,7 +54,7 @@ SMODS.Enhancement({
     discovered = false,
     config = {extra = {hand_mult = 2}},
     loc_vars = function(self, info_queue, card)
-        if card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'gappie'} end
+        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'gappie'} end
         return {
             vars = { card and card.ability.extra.hand_mult or self.config.extra.hand_mult }
         }
@@ -94,7 +94,7 @@ SMODS.Enhancement({
     discovered = false,
     config = {extra = {index_state = 'MID'}},
     loc_vars = function(self, info_queue, card)
-        if card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'luna'} end
+        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'luna'} end
     end,
     set_sprites = function(self, card, front)
         if card.ability and card.ability.extra and type(card.ability.extra) == 'table' and card.ability.extra.index_state then 
@@ -111,7 +111,7 @@ SMODS.Enhancement({
     pos = {x = 3, y = 0},
     config = {extra = {x_mult = 2.5, change=0.25}},
     loc_vars = function(self, info_queue, card)
-        if card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'gappie'} end
+        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'gappie'} end
         return {
             vars = { card and card.ability.extra.x_mult or self.config.extra.x_mult, card and card.ability.extra.change or self.config.extra.change }
         }
@@ -177,7 +177,7 @@ SMODS.Enhancement({
     discovered = false,
     config = {extra = {base_x = 0.75, x_gain = 0.5}},
     loc_vars = function(self, info_queue, card)
-        if card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'gappie'} end
+        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'gappie'} end
         local card_ability = card and card.ability or self.config
         return {
             vars = { card_ability.extra.base_x, card_ability.extra.x_gain }
@@ -223,7 +223,7 @@ SMODS.Enhancement({
     always_scores = true,
     config = {mult = 15},
     loc_vars = function(self, info_queue, card)
-        if card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'eremel'} end
+        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'eremel'} end
         return {
             vars = { card and card.ability.mult or self.config.mult }
         }
@@ -237,7 +237,7 @@ SMODS.Enhancement({
     discovered = false,
     config = {extra = {level_up = 1}},
     loc_vars = function(self, info_queue, card)
-        if card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'gappie'} end
+        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'gappie'} end
         return {
             vars = { card and card.ability.extra.level_up or self.config.extra.level_up }
         }
@@ -260,7 +260,7 @@ SMODS.Enhancement({
     discovered = false,
     config = {extra = {discard_chance = 5, tag_chance = 15, discards = 1, tags = 1, chips = 100}},
     loc_vars = function(self, info_queue, card)
-        if card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'kosze'} end
+        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'kosze'} end
         local card_ability = card and card.ability or self.config
         return {
             vars = { math.max(G.GAME.probabilities.normal, 1) * (card_ability.extra.discard_chance - 1), card_ability.extra.discard_chance / math.min(G.GAME.probabilities.normal, 1), card_ability.extra.discards, math.max(1, G.GAME.probabilities.normal) * (card_ability.extra.tag_chance - 1), card_ability.extra.tag_chance / math.min(G.GAME.probabilities.normal, 1), card_ability.extra.tags, card_ability.extra.chips }
