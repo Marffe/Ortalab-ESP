@@ -121,7 +121,7 @@ local joker_list = {
     'sandstone',
     'crime_scene',
     'soil',
-    -- 'pinkprint',
+    'pinkprint',
     'wide',
     'gloomy_gus',
     'woo_all_1',

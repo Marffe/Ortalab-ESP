@@ -276,3 +276,15 @@ if card.facing == 'back' and self.config.type ~= 'discard' and self.config.type 
 payload = '''
 if SMODS.find_card('j_ortalab_proletaire') then card.ability.was_flipped = true end
 '''
+
+# Pinkprint tooltip
+[[patches]]
+[patches.pattern]
+target = 'functions/common_events.lua'
+pattern = '''elseif _c.set == 'Joker' then'''
+position = 'before'
+match_indent = true
+payload = '''
+elseif _c.pinkprint then
+    localize{type = 'descriptions', set = 'Joker', key = _c.key, nodes = desc_nodes, vars = specific_vars or _c.vars}
+'''

@@ -45,6 +45,7 @@ return {
 			ortalab_street_rat = 'Got \'em!',
 			ortalab_memorial = 'Remembered!',
 			ortalab_crowd_pleaser_success = 'Complete!',
+			ortalab_none = 'none',
 			['ortalab_na'] = 'N/A',
 			['ortalab_explode'] = 'Exploded!',
 			['ortalab_infected'] = 'Infected!',
@@ -993,6 +994,14 @@ return {
 					"Create the {C:zodiac}Zodiac Card{} for", 
 					"the {C:attention}poker hand{} that",
 					"defeats the {C:attention}Blind"
+				}
+			},
+			j_ortalab_pinkprint = {
+				name = 'Pinkprint',
+				text = {
+					'Copies the effect of', 
+					'the {C:attention}last sold{} Joker',
+					'{C:inactive,s:0.9}(Currently #1#)'
 				}
 			},
 			['j_ortalab_pitch_mitch'] = {
