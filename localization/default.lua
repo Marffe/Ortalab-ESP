@@ -1388,6 +1388,15 @@ return {
 					"contain a {C:attention}#2#",
 				}
 			},
+			j_ortalab_taking_the_trick = {
+				name = 'Taking the Trick',
+				text = {
+					'Gains {C:mult}+#1#{} Mult if',
+					'{C:attention}poker hand{} contains a',
+					'{V:1}#3#{} higher than a {C:attention}#4#',
+					'{C:inactive}(Currently {C:red}+#2#{C:inactive} Mult)'
+				}
+			},
 			['j_ortalab_taliaferro'] = {
 				["name"] = "Taliaferro",
 				["text"] = {
