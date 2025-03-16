@@ -274,7 +274,7 @@ pattern = '''
 if card.facing == 'back' and self.config.type ~= 'discard' and self.config.type ~= 'deck' and not stay_flipped then
 '''
 payload = '''
-if SMODS.find_card('j_ortalab_proletaire') then card.ability.was_flipped = true end
+if SMODS.find_card('j_ortalab_proletaire') and self == G.play then card.ability.was_flipped = true end
 '''
 
 # Pinkprint tooltip
