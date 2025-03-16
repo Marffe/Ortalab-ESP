@@ -147,7 +147,7 @@ local joker_list = {
     --legendaries
     'shinku',
     'caffeyne',
-    -- 'kopi',
+    'kopi',
     'rea',
     -- 'koko'
 }

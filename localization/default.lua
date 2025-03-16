@@ -827,6 +827,15 @@ return {
 					'{C:inactive}(Currently {C:blue}+#2#{C:inactive} Chips)'
 				}
 			},
+			j_ortalab_kopi = {
+				name = 'Kopi',
+				text = {
+					'If exactly {C:attention}#1#{} cards are',
+					'drawn, add a {C:attention}copy{} of',
+					'them to your deck',
+					'{C:inactive,s:0.8}(Number changes when triggered)'
+				}
+			},
 			['j_ortalab_mathmagician'] = {
 				["name"] = "Mathmagician",
 				["text"] = {
