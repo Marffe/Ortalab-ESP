@@ -125,7 +125,7 @@ function add_zodiac(_tag, silent, from_load) -- Add a zodiac to the indicator ar
 
     _tag.HUD_zodiac = G.HUD_zodiac[#G.HUD_zodiac]
     if not silent then zodiac_text(localize({set='Tag', key=_tag.key, type='name_text'})..localize('ortalab_zodiac_added'), _tag.key) end
-    delay(0.7)
+    -- delay(0.7)
 end
 Zodiac = Object:extend()
 
