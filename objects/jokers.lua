@@ -146,7 +146,10 @@ local joker_list = {
     'newton',
     --legendaries
     'shinku',
-    'caffeyne'
+    'caffeyne',
+    -- 'kopi',
+    'rea',
+    -- 'koko'
 }
 
 SMODS.Atlas({

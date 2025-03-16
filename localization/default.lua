@@ -1091,6 +1091,13 @@ return {
 					'{C:inactive}(Currently {C:blue}#3#{C:inactive} Chips, {C:red}#4#{C:inactive} Mult)'
 				}
 			},
+			j_ortalab_rea = {
+				name = 'Rea',
+				text = {
+					'{X:red,C:white}X#1#{} Mult if',
+					'{C:attention}Blind{} is not a Boss'
+				}
+			},
 			['j_ortalab_red_fred'] = {
 				["name"] = "Red Fred",
 				["text"] = {
