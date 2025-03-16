@@ -827,6 +827,14 @@ return {
 					'{C:inactive}(Currently {C:blue}+#2#{C:inactive} Chips)'
 				}
 			},
+			j_ortalab_koko = {
+				name = 'Koko',
+				text = {
+					'When {C:attention}Blind{} is selected,', 
+					'{C:zodiac}improve{} all future hands',
+					'that are not {C:zodiac}improved'
+				}
+			},
 			j_ortalab_kopi = {
 				name = 'Kopi',
 				text = {

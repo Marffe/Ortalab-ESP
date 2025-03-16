@@ -149,7 +149,7 @@ local joker_list = {
     'caffeyne',
     'kopi',
     'rea',
-    -- 'koko'
+    'koko'
 }
 
 SMODS.Atlas({
