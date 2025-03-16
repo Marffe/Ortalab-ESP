@@ -221,12 +221,19 @@ SMODS.Enhancement({
     no_suit = true,
     replace_base_card = true,
     always_scores = true,
-    config = {mult = 15},
+    config = {extra = {mult = 15}},
     loc_vars = function(self, info_queue, card)
         if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'eremel'} end
         return {
-            vars = { card and card.ability.mult or self.config.mult }
+            vars = { card.ability.extra.mult }
         }
+    end,
+    calculate = function(self, card, context)
+        if context.main_scoring and context.cardarea == G.play then
+            return {
+                mult = card.ability.extra.mult
+            }
+        end
     end
 })
 
