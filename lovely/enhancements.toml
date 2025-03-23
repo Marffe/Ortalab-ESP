@@ -16,7 +16,7 @@ payload = '''G.GAME.ortalab.temp_levels = 0'''
 [[patches]]
 [patches.pattern]
 target = 'functions/state_events.lua'
-pattern = '''mult, hand_chips, modded = G.GAME.blind:modify_hand(G.play.cards, poker_hands, text, mult, hand_chips)'''
+pattern = '''mult, hand_chips, modded = G.GAME.blind:modify_hand(G.play.cards, poker_hands, text, mult, hand_chips, scoring_hand)'''
 position = 'before'
 match_indent = true
 payload = '''
