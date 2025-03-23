@@ -17,7 +17,6 @@ SMODS.Joker({
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play then
             context.other_card.ability.perma_mult = context.other_card.ability.perma_mult + 1
-            print('test')
             return {
                 message = localize('k_upgrade_ex'),
                 colour = G.C.RED
