@@ -804,11 +804,11 @@ return {
 			['j_ortalab_joker_miles'] = {
 				["name"] = "Joker Miles Card",
 				["text"] = {
-					"Gains {C:blue}+#1#{} Chips per",
+					"Gains {C:red}+#1#{} Mult per",
 					"{C:blue}Hand{} played",
 					"{C:green}#3# in #4#{} chance to reset",
-					"when {C:blue}Hand{} played",
-					"{C:inactive}(Currently {C:blue}+#2#{C:inactive} Chips)"
+					"when {C:attention}Blind{} is defeated",
+					"{C:inactive}(Currently {C:red}+#2#{C:inactive} Mult)"
 				}
 			},
 			j_ortalab_klutz = {
