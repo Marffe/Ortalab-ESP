@@ -296,3 +296,31 @@ elseif _c.pinkprint then
 # position = "at"
 # match_indent = true
 # payload = '''if self.ability.set == "Joker" and Card.can_calculate(self) then'''
+
+# Scenic Route
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/overrides.lua"]'
+match_indent = true
+position = 'before'
+pattern = '''
+local function next_ranks(key, start)
+'''
+payload = '''
+local pairs_count = 0
+for _, v in pairs(ranks) do
+    if #v > 1 then pairs_count = pairs_count + (#v - 1) end
+end
+'''
+# Scenic Route
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/overrides.lua"]'
+match_indent = true
+position = 'at'
+pattern = '''
+if i > min_length and not any_tuple then
+'''
+payload = '''
+if i > min_length - pairs_count and not any_tuple then
+'''
