@@ -15,10 +15,11 @@ if self.ability.set == 'Mythos' or self.config.center.group_key == 'ortalab_myth
     self.children.center:draw_shader('ortalab_mythos', nil, self.ARGS.send_to_shader)
 end
 '''
-# Stop standard shader for booster
+
+# Stop standard shader for boosters
 [[patches]]
 [patches.pattern]
-target = 'card.lua'
+target = '=[SMODS _ "src/card_draw.lua"]'
 match_indent = true
 position = 'at'
 pattern = '''

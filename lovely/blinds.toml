@@ -73,10 +73,10 @@ target = 'functions/state_events.lua'
 match_indent = true
 position = 'at'
 pattern = '''
-if G.GAME.round_resets.blind == G.P_BLINDS.bl_big then
+elseif G.GAME.round_resets.blind == G.P_BLINDS.bl_big then
 '''
 payload = '''
-if G.GAME.round_resets.blind == G.P_BLINDS.bl_big or G.GAME.round_resets.blind.big then
+elseif G.GAME.round_resets.blind == G.P_BLINDS.bl_big or G.GAME.round_resets.blind.big then
 '''
 
 
@@ -161,15 +161,16 @@ loc_key = res.key or obj.key
 '''
 match_indent = true
 
-[[patches]]
-[patches.pattern]
-target = "blind.lua"
-pattern = '''local loc_target = localize{type = 'raw_descriptions', key = self.config.blind.key, set = 'Blind', vars = loc_vars or self.config.blind.vars}'''
-position = "at"
-payload = '''
-local loc_target = localize{type = 'raw_descriptions', key = loc_key, set = 'Blind', vars = loc_vars or vars or self.config.vars}
-'''
-match_indent = true
+# MISSING
+# [[patches]]
+# [patches.pattern]
+# target = "blind.lua"
+# pattern = '''local loc_target = localize{type = 'raw_descriptions', key = self.config.blind.key, set = 'Blind', vars = loc_vars or self.config.blind.vars}'''
+# position = "at"
+# payload = '''
+# local loc_target = localize{type = 'raw_descriptions', key = loc_key, set = 'Blind', vars = loc_vars or vars or self.config.vars}
+# '''
+# match_indent = true
 
 # blind select UI
 [[patches]]
@@ -191,15 +192,16 @@ loc_key = res.key or obj.key
 '''
 match_indent = true
 
-[[patches]]
-[patches.pattern]
-target = "functions/UI_definitions.lua"
-pattern = '''local loc_target = localize{type = 'raw_descriptions', key = blind_choice.config.key, set = 'Blind', vars = loc_vars or blind_choice.config.vars}'''
-position = "at"
-payload = '''
-local loc_target = localize{type = 'raw_descriptions', key = loc_key, set = 'Blind', vars = loc_vars or vars or blind_choice.config.vars}
-'''
-match_indent = true
+# MISSING
+# [[patches]]
+# [patches.pattern]
+# target = "functions/UI_definitions.lua"
+# pattern = '''local loc_target = localize{type = 'raw_descriptions', key = blind_choice.config.key, set = 'Blind', vars = loc_vars or blind_choice.config.vars}'''
+# position = "at"
+# payload = '''
+# local loc_target = localize{type = 'raw_descriptions', key = loc_key, set = 'Blind', vars = loc_vars or vars or blind_choice.config.vars}
+# '''
+# match_indent = true
 # blind collection UI
 [[patches]]
 [patches.pattern]
@@ -219,15 +221,16 @@ payload = '''
 loc_key = res.key or blind.key
 '''
 match_indent = true
-[[patches]]
-[patches.pattern]
-target = "functions/UI_definitions.lua"
-pattern = '''local loc_target = localize{type = 'raw_descriptions', key = blind.key, set = 'Blind', vars = loc_vars or vars or blind.vars}'''
-position = "at"
-payload = '''
-local loc_target = localize{type = 'raw_descriptions', key = loc_key, set = 'Blind', vars = loc_vars or vars or blind.vars}
-'''
-match_indent = true
+# MISSING
+# [[patches]]
+# [patches.pattern]
+# target = "functions/UI_definitions.lua"
+# pattern = '''local loc_target = localize{type = 'raw_descriptions', key = blind.key, set = 'Blind', vars = loc_vars or vars or blind.vars}'''
+# position = "at"
+# payload = '''
+# local loc_target = localize{type = 'raw_descriptions', key = loc_key, set = 'Blind', vars = loc_vars or vars or blind.vars}
+# '''
+# match_indent = true
 
 [[patches]]
 [patches.pattern]

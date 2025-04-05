@@ -3,26 +3,26 @@ version = "1.0.0"
 dump_lua = true
 priority = 1
 
-# Draw curses
-[[patches]]
-[patches.pattern]
-target = 'card.lua'
-pattern = '''local seal = G.P_SEALS[self.seal or {}] or {}'''
-position = 'before'
-match_indent = true
-payload = '''
-if self.curse then
-    if self.curse == 'ortalab_infected' and ((self.area == G.play or self.config.center.set == 'Joker') and self.ability.no_score_shader) then
-        self.children.center:draw_shader('ortalab_celadon', nil, self.ARGS.send_to_shader)
-        if self.children.front then
-            self.children.front:draw_shader('ortalab_celadon', nil, self.ARGS.send_to_shader)
-        end
-    end
-    Ortalab.curse_sprites[self.curse].role.draw_major = self
-    Ortalab.curse_sprites[self.curse]:draw_shader('dissolve',0, nil, nil, self.children.center,nil,nil,nil, nil,nil, 0.6)
-    Ortalab.curse_sprites[self.curse]:draw_shader('dissolve', nil, nil, nil, self.children.center)
-end
-'''
+# Draw curses - MISSES
+# [[patches]]
+# [patches.pattern]
+# target = 'card.lua'
+# pattern = '''local seal = G.P_SEALS[self.seal or {}] or {}'''
+# position = 'before'
+# match_indent = true
+# payload = '''
+# if self.curse then
+#     if self.curse == 'ortalab_infected' and ((self.area == G.play or self.config.center.set == 'Joker') and self.ability.no_score_shader) then
+#         self.children.center:draw_shader('ortalab_celadon', nil, self.ARGS.send_to_shader)
+#         if self.children.front then
+#             self.children.front:draw_shader('ortalab_celadon', nil, self.ARGS.send_to_shader)
+#         end
+#     end
+#     Ortalab.curse_sprites[self.curse].role.draw_major = self
+#     Ortalab.curse_sprites[self.curse]:draw_shader('dissolve',0, nil, nil, self.children.center,nil,nil,nil, nil,nil, 0.6)
+#     Ortalab.curse_sprites[self.curse]:draw_shader('dissolve', nil, nil, nil, self.children.center)
+# end
+# '''
 
 # Load/save curses on cards
 [[patches]]

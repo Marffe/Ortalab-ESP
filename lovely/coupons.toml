@@ -3,15 +3,6 @@ version = "1.0.0"
 dump_lua = true
 priority = 1
 
-## Window Shopping + Infinite Scroll
-[[patches]]
-[patches.pattern]
-target = 'functions/state_events.lua'
-pattern = '''G.GAME.current_round.free_rerolls = #chaos'''
-position = 'after'
-match_indent = true
-payload = '''G.GAME.current_round.free_rerolls = G.GAME.current_round.free_rerolls + (G.GAME.current_round.ortalab_rerolls or 0)'''
-
 # Catalog
 [[patches]]
 [patches.pattern]
@@ -24,7 +15,7 @@ payload = '''--if i == 1 and G.GAME.modifiers.ortalab_boosters then for _ = 1, G
 [[patches]]
 [patches.pattern]
 target = 'card.lua'
-pattern = '''G.GAME.pack_choices = self.config.center.config.choose or 1'''
+pattern = '''G.GAME.pack_choices = self.ability.choose or self.config.center.config.choose or 1'''
 position = 'after'
 match_indent = true
 payload = '''
@@ -141,13 +132,13 @@ position = 'after'
 pattern = '''
 if key ~= 'smods' then
     if type(effect) == 'table' then
-        local calc = SMODS.calculate_effect(effect, card, key == 'edition')
-        if calc then effects.calculated = true end
+        local calc = SMODS.calculate_effect(effect, effect.scored_card or card, key == 'edition')
+        for k,v in pairs(calc) do ret[k] = v end
     end
 end
 '''
 payload = '''
-if key == 'edition' and effects.calculated then
+if key == 'edition' and ret.calculated then
     if type(effect) == 'table' and not effect.swap and effect.card.ability.set == 'Joker' then
         local edition_reps = {}
         for _, voucher in pairs(G.vouchers.cards) do
