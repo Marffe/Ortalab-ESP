@@ -1389,7 +1389,7 @@ return {
 			j_ortalab_street_rat = {
 				name = 'Street Rat',
 				text = {
-					'When {C:attention}Blind{} is selected,',
+					'When {C:attention}Blind{} is defeated,',
 					'destroy {C:blue}Common{} Joker to the',
 					'right and gain {C:gold}#1#X{} it\'s',
 					'{C:gold}sell value'

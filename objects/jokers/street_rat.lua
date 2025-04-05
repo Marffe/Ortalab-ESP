@@ -9,13 +9,13 @@ SMODS.Joker({
     blueprint_compat = false,
     eternal_compat = true,
     perishable_compat = true,
-    config = {extra = {mod = 4}},
+    config = {extra = {mod = 5}},
     loc_vars = function(self, info_queue, card)
         if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'gappie'} end
         return {vars = {card.ability.extra.mod}}
     end,
     calculate = function(self, card, context)
-        if context.setting_blind and not context.blueprint then
+        if context.end_of_round and context.main_eval and not context.blueprint then
             local pos
             for i, v in ipairs(G.jokers.cards) do
                 if v == card then pos = i end
