@@ -10,9 +10,10 @@ SMODS.Joker({
     blueprint_compat = true,
     eternal_compat = true,
     perishable_compat = true,
-    config = {extra = {zodiacs = {}}},
+    config = {extra = {zodiacs = {}, increase = 1}},
     loc_vars = function(self, info_queue, card)
         if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'gappie'} end
+        return {vars = {card.ability.extra.increase}}
     end,
     set_ability = function(self, card, initial, delay)
         for k, _ in pairs(G.ZODIACS) do
@@ -21,40 +22,46 @@ SMODS.Joker({
     end,
     calculate = function(self, card, context)
         if context.setting_blind then
-            G.E_MANAGER:add_event(Event({
-                trigger = 'after',
-                delay = 0.4,
-                func = function()
-                    ease_background_colour{new_colour = G.C.BLUE, contrast = 1}                
-                    return true
-                end
-            }))
-            
-            for _, key in ipairs(card.ability.extra.zodiacs) do
-                G.E_MANAGER:add_event(Event({
-                    trigger = 'after',
-                    delay = 0.1,
-                    func = function()
-                        if G.zodiacs and G.zodiacs[key] then
-                            
-                        else
-                            add_zodiac(Zodiac(key), true)
-                        end
-                        return true
-                    end
-                }))
-            end
-            G.E_MANAGER:add_event(Event({
-                trigger = 'after',
-                delay = 0.7,
-                func = function()
-                    ease_background_colour{new_colour = G.C.BLIND['Small'], contrast = 1}                
-                    return true
-                end
-            }))
+           
             return {
-                message = 'Hee hee!',
-                colour = G.C.BLUE
+                func = function()
+                    G.E_MANAGER:add_event(Event({
+                        trigger = 'after',
+                        delay = 0.4,
+                        func = function()
+                            ease_background_colour{new_colour = G.C.BLUE, contrast = 1}                
+                            return true
+                        end
+                    }))
+                end,
+                extra = {
+                    func = function()
+                        for _, key in ipairs(card.ability.extra.zodiacs) do
+                            G.E_MANAGER:add_event(Event({
+                                trigger = 'after',
+                                delay = 0.1,
+                                func = function()
+                                    if G.zodiacs and G.zodiacs[key] then
+                                        G.zodiacs[key].config.extra.temp_level = G.zodiacs[key].config.extra.temp_level + (card.ability.extra.increase * G.GAME.ortalab.zodiacs.temp_level_mod)
+                                    else
+                                        add_zodiac(Zodiac(key), true)
+                                    end
+                                    return true
+                                end
+                            }))
+                        end
+                        G.E_MANAGER:add_event(Event({
+                            trigger = 'after',
+                            delay = 0.7,
+                            func = function()
+                                ease_background_colour{new_colour = G.C.BLIND['Small'], contrast = 1}                
+                                return true
+                            end
+                        }))
+                    end,
+                    message = 'Hee hee!',
+                    colour = G.C.BLUE,
+                }
             }
         end
     end    

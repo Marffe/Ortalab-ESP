@@ -832,7 +832,9 @@ return {
 				text = {
 					'When {C:attention}Blind{} is selected,', 
 					'{C:zodiac}improve{} all future hands',
-					'that are not {C:zodiac}improved'
+					'that are not {C:zodiac}improved',
+					'and add {C:zodiac}#1#{} level to',
+					'hands that are {C:zodiac}improved'
 				}
 			},
 			j_ortalab_kopi = {
