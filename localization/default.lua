@@ -1887,9 +1887,10 @@ return {
 			["tag_ortalab_common"] = {
 				["name"] = "Common Patch",
 				["text"] = {
-					"Shop has a free",
-					"{C:blue}Common Joker{} with",
-					"a random {C:dark_edition}edition"
+					"Add {C:attention}#1#{} free",
+					"{C:blue}Common Jokers{} with",
+					"a random {C:dark_edition}edition",
+					"to the next shop"
 				},
 			},
 			["tag_ortalab_slipup"] = {

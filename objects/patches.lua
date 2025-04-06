@@ -10,28 +10,33 @@ SMODS.Tag({
     atlas = 'patches',
     pos = {x = 2, y = 2},
     discovered = false,
-    config = {type = 'store_joker_create', dollars = 3},
+    config = {type = 'ortalab_shop_add', extra = {amount = 2}},
     loc_vars = function(self, info_queue, card)
         if Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = '5381'} end
         if Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'kosze'} end
-        return {vars = {self.config.dollars, (G.GAME.blinds_defeated or 0)*self.config.dollars}}
+        return {vars = {card.config.extra.amount}}
     end,
     apply = function(self, tag, context)
         if context.type == self.config.type then
-            local card = create_card('Joker', context.area, nil, 0, nil, nil, nil, 'uta')
-            if not card.edition then
-                card:set_edition(poll_edition('ortalab_common_patch', nil, false, true))
-            end
-            create_shop_card_ui(card, 'Joker', context.area)
-            card.states.visible = false
-            tag:yep('+', G.C.GREEN,function() 
+            G.shop_jokers.config.card_limit = G.shop_jokers.config.card_limit + 2
+            G.shop_jokers.T.w = math.min((G.GAME.shop.joker_max + 2)*1.02*G.CARD_W,4.08*G.CARD_W)
+            G.shop:recalculate()
+            for i=1, tag.config.extra.amount do
+                local card = create_card('Joker', context.area, nil, 0, nil, nil, nil, 'uta')
+                if not card.edition then
+                    card:set_edition(poll_edition('ortalab_common_patch', nil, false, true))
+                end
+                G.shop_jokers:emplace(card)
+                create_shop_card_ui(card, 'Joker', context.area)
+                card.states.visible = false
                 card:start_materialize()
                 card.ability.couponed = true
                 card:set_cost()
+            end
+            tag:yep('+', G.C.GREEN,function() 
                 return true
             end)
             tag.triggered = true
-            return card
         end
     end
 })
