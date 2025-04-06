@@ -180,7 +180,7 @@ SMODS.Voucher({
 	discovered = false,
 	available = false,
     requires = {'v_ortalab_abacus'},
-	config = {extra = {ante_gain = 2, joker_slots = 2}},
+	config = {extra = {ante_gain = 1, joker_slots = 1}},
 	redeem = function(self, card)
         G.GAME.win_ante = G.GAME.win_ante + card.ability.extra.ante_gain
         modify_joker_slot_count(card.ability.extra.joker_slots)
