@@ -1991,8 +1991,7 @@ return {
                 name = "Constellation Patch",
                 text = {
 					'{C:Zodiac}Improve{} the next',
-					'{C:attention}#1#{} and',
-					'{C:attention}#2#'
+					'{C:attention}#1#{} {C:attention}#2#{} times'
                 }
             },
 			['zodiac_ortalab_aries'] = {

@@ -96,11 +96,15 @@ function G.FUNCS.evaluate_play(e)
 end
 
 
-function add_zodiac(_tag, silent, from_load) -- Add a zodiac to the indicator area
-    if G.GAME.ortalab.zodiacs.temp_level_mod ~= 1 and not from_load then
+function add_zodiac(_tag, silent, from_load, from_patch)
+    -- Add a zodiac to the indicator area
+    if from_patch then
+        _tag.config.extra.temp_level = _tag.config.extra.temp_level * from_patch    
+    end 
+    if G.GAME.ortalab.zodiacs.temp_level_mod ~= 1 and not from_load and not from_patch then
         _tag.config.extra.temp_level = _tag.config.extra.temp_level * G.GAME.ortalab.zodiacs.temp_level_mod
     end
-    if G.GAME.ortalab.vouchers.leap_year and not from_load then
+    if G.GAME.ortalab.vouchers.leap_year and not from_load and not from_patch then
         _tag.config.extra.temp_level = _tag.config.extra.temp_level + (pseudorandom('ortalab_leap_year') > 0.5 and G.GAME.ortalab.vouchers.leap_year or 0)
     end
     _tag.voucher_check = true

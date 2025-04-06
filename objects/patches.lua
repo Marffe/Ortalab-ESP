@@ -448,16 +448,15 @@ SMODS.Tag({
     atlas = 'patches',
     pos = {x = 1, y = 4},
     discovered = false,
-    config = {type = 'round_start_bonus', zodiacs = 2},
+    config = {type = 'round_start_bonus', extra = {zodiacs = 3}},
     loc_vars = function(self, info_queue, card)
         if Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'kosze'} end
         if card.ability.zodiac_hands and G.ZODIACS[card.ability.zodiac_hands[1]] then
             return {vars = {
-                localize(G.ZODIACS[card.ability.zodiac_hands[1]].config.extra.hand_type, 'poker_hands'),
-                localize(G.ZODIACS[card.ability.zodiac_hands[2]].config.extra.hand_type, 'poker_hands'),
+                localize(G.ZODIACS[card.ability.zodiac_hands[1]].config.extra.hand_type, 'poker_hands'), card.config.extra.zodiacs
             }}
         else
-            return {vars = {'['..localize('k_poker_hand')..']', '['..localize('k_poker_hand')..']'}}
+            return {vars = {'['..localize('k_poker_hand')..']', card.config.extra.zodiacs}}
         end
     end,
     apply = function(self, tag, context)
@@ -466,24 +465,24 @@ SMODS.Tag({
                 tag.triggered = true
                 return true
             end)
-            for _, key in ipairs(tag.ability.zodiac_hands) do
-                G.E_MANAGER:add_event(Event({
+            local key = tag.ability.zodiac_hands[1]
+            G.E_MANAGER:add_event(Event({
                     trigger = 'after',
                     delay = 1,
                     func = function()
                         if G.zodiacs and G.zodiacs[key] then
-                            G.zodiacs[key].config.extra.temp_level = G.zodiacs[key].config.extra.temp_level + G.ZODIACS[key].config.extra.temp_level
+                            G.zodiacs[key].config.extra.temp_level = G.zodiacs[key].config.extra.temp_level + (G.ZODIACS[key].config.extra.temp_level * tag.config.extra.zodiacs)
                             zodiac_text(zodiac_upgrade_text(key), key)
                             G.zodiacs[key]:juice_up(1, 1)
                             delay(0.7)
                         else
-                            add_zodiac(Zodiac(key))
+                            print(tag.config.extra.zodiacs)
+                            add_zodiac(Zodiac(key), nil, nil, tag.config.extra.zodiacs)
                         end
                         return true
                     end
                 }))
             end
-        end
     end,
     set_ability = function(self, tag)
         if not tag.ability.blind_type then tag.ability.blind_type = 'Small' end
@@ -499,11 +498,7 @@ SMODS.Tag({
                 end
             
                 local zodiac1 = pseudorandom_element(_poker_hands, pseudoseed('constellation_patch'))
-                local zodiac2 = pseudorandom_element(_poker_hands, pseudoseed('constellation_patch'))
-                while zodiac1 == zodiac2 do
-                    zodiac2 = pseudorandom_element(_poker_hands, pseudoseed('constellation_patch'))
-                end
-                tag.ability.zodiac_hands = {zodiac1, zodiac2}
+                tag.ability.zodiac_hands = {zodiac1}
             end
         end
     end
