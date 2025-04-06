@@ -408,7 +408,7 @@ SMODS.Voucher({
 	discovered = false,
 	available = false,
     requires = {'v_ortalab_grabber_inv'},
-    config = {extra = {discard_size = 1}},
+    config = {extra = {discard_size = 2}},
 	redeem = function(self, card)
         G.GAME.ortalab.extra_discard_size = G.GAME.ortalab.extra_discard_size + card.ability.extra.discard_size
         G.hand.config.highlighted_limit = G.hand.config.highlighted_limit + card.ability.extra.discard_size

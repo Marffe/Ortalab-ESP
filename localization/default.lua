@@ -2360,9 +2360,7 @@ return {
 			v_ortalab_recyclo_inv = {
 				name = 'Recyclomancy Inverse',
 				text = {
-					'You can select', 
-					'{C:attention}#1#{} extra card',
-					'to {C:red}discard'
+					'{C:attention}+#1#{} {C:red}discard{} size'
 				}
 			},
 			v_ortalab_seed_inv = {
