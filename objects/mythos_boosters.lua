@@ -21,7 +21,7 @@ local small_boosters = {keys = {'small_mythos_1', 'small_mythos_2'}, info = {
     draw_hand = false,
     select_card = 'consumeables',
     group_key = 'ortalab_mythos_pack',
-    cost = 7,
+    cost = 4,
     weight = 0.5,
     particles = function(self)
         G.booster_pack_sparkles = Particles(1, 1, 0,0, {
@@ -71,7 +71,7 @@ SMODS.Booster({
     draw_hand = false,
     select_card = 'consumeables',
     group_key = 'ortalab_mythos_pack',
-    cost = 9,
+    cost = 6,
     weight = 0.4,
     ortalab_type = 'Mythos',
     particles = function(self)
@@ -110,7 +110,7 @@ SMODS.Booster({
     draw_hand = false,
     select_card = 'consumeables',
     group_key = 'ortalab_mythos_pack',
-    cost = 12,
+    cost = 8,
     weight = 0.1,
     ortalab_type = 'Mythos',
     particles = function(self)
