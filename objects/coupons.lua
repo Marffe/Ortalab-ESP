@@ -159,7 +159,7 @@ SMODS.Voucher({
 	unlocked = true,
 	discovered = false,
 	available = true,
-	config = {extra = {ante_gain = 1, dollars = 25, hand_size = 1}},
+	config = {extra = {ante_gain = 1, dollars = 15, hand_size = 1}},
 	redeem = function(self, card)
         G.GAME.win_ante = G.GAME.win_ante + card.ability.extra.ante_gain
         G.hand:change_size(card.ability.extra.hand_size)
