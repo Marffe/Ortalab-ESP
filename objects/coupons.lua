@@ -447,7 +447,7 @@ SMODS.Voucher({
 	discovered = false,
 	available = false,
     requires = {'v_ortalab_seed_inv'},
-    config = {extra = {money = 6}},
+    config = {extra = {money = 9}},
 	redeem = function(self, card)
         G.GAME.ortalab.blind_rewards = G.GAME.ortalab.blind_rewards + card.ability.extra.money
         update_blind_amounts()
