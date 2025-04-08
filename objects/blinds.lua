@@ -1069,10 +1069,10 @@ SMODS.Blind({
     collection_loc_vars = function(self)
     end,
     set_blind = function(self)
-        for i=1, #G.deck.cards do
-            G.Ortalab_old_deck:draw_card_from(G.deck)
-        end
-        G.playing_cards = {}
+        -- for i=1, #G.deck.cards do
+        --     G.Ortalab_old_deck:draw_card_from(G.deck)
+        -- end
+        -- G.playing_cards = {}
         local card_protos = {}
         for k, v in pairs(G.P_CARDS) do
             local _ = nil
@@ -1087,23 +1087,47 @@ SMODS.Blind({
             ((b.s or '')..(b.r or '')..(b.e or '')..(b.d or '')..(b.g or '')) end)
 
         for k, v in ipairs(card_protos) do
-            card_from_control(v)
+            G.playing_card = (G.playing_card and G.playing_card + 1) or 1
+            local _card = Card(G.deck.T.x, G.deck.T.y, G.CARD_W, G.CARD_H, G.P_CARDS[v.s..'_'..v.r], G.P_CENTERS[v.e or 'c_base'], {playing_card = G.playing_card})
+            _card.rouge_rose = true
+            G.deck:emplace(_card)
+            table.insert(G.playing_cards, _card)
         end
         self.original_deck_size = G.GAME.starting_deck_size
         G.GAME.starting_deck_size = #G.playing_cards
     end,
     disable = function(self)
-        remove_all(G.hand.cards)
+        for _, card in pairs(G.hand.cards) do
+            if card.rouge_rose then
+                if SMODS.shatters(card) then 
+                    card:shatter()
+                else
+                    card:start_dissolve()
+                end
+            end
+        end
         self:defeat()
+        G.STATE_COMPLETE = false
+        G:update_draw_to_hand()
     end,
     defeat = function(self)
-        remove_all(G.deck.cards)
-        G.playing_cards = {}
-        for i=1, #G.Ortalab_old_deck.cards do
-            G.deck:draw_card_from(G.Ortalab_old_deck)
+        for _, card in pairs(G.deck.cards) do
+            if card.rouge_rose then
+                if SMODS.shatters(card) then 
+                    card:shatter()
+                else
+                    card:start_dissolve()
+                end
+            end
         end
-        for _, card in ipairs(G.deck.cards) do
-            table.insert(G.playing_cards, card)
+        for _, card in pairs(G.discard.cards) do
+            if card.rouge_rose then
+                if SMODS.shatters(card) then 
+                    card:shatter()
+                else
+                    card:start_dissolve()
+                end
+            end
         end
         G.GAME.starting_deck_size = self.original_deck_size
     end
