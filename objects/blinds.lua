@@ -933,76 +933,80 @@ SMODS.Blind({
     end
 })
 
--- SMODS.Blind({
---     key = 'celadon_clubs',
---     atlas = 'ortalab_blinds',
---     pos = {x = 0, y = 23},
---     dollars = 8,
---     mult = 2,
---     boss = {min = 1, max = 10, showdown = true},
---     boss_colour = HEX('22857b'),
---     config = {extra = {options = {'Face', 'Even', 'Odd'}, current = 'Face'}},
---     loc_vars = function(self, info_queue, card)
---         if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'flare'} end
---         return {vars = {self.config.extra.current}}
---     end,
---     collection_loc_vars = function(self)
---         return {vars = {self.config.extra.current}}
---     end,
---     disable = function(self)
---         for _, card in pairs(G.playing_cards) do
---             card.celadon_disabled = false
---         end
---     end,
---     defeat = function(self)
---         for _, card in pairs(G.playing_cards) do
---             card.celadon_disabled = false
---         end
---     end,
---     drawn_to_hand = function(self)
---         if not self.prepped then
---             self.config.extra.current = pseudorandom_element(self.config.extra.options, pseudoseed('celadon_shuffle'))
---             attention_text({
---                 scale = 1, text = 'Disabling '..self.config.extra.current..' cards!', hold = 2, align = 'cm', offset = {x = 0,y = -2.7},major = G.play
---             })
---         end
---         for _, card in pairs(G.hand.cards) do
---             celadon_check(self, card)
---         end
---     end,
---     press_play = function(self)
---         self.prepped = false
---     end,
---     recalc_debuff = function(self, card, from_blind)
---         celadon_check(self, card)
---         return card.debuff
---     end
--- })
+SMODS.Blind({
+    key = 'celadon_clubs',
+    atlas = 'ortalab_blinds',
+    pos = {x = 0, y = 23},
+    dollars = 8,
+    mult = 2,
+    boss = {min = 1, max = 10, showdown = true},
+    boss_colour = HEX('22857b'),
+    config = {extra = {options = {'Face', 'Even', 'Odd'}, current = ''}},
+    loc_vars = function(self, info_queue, card)
+        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'flare'} end
+        return {vars = {}}
+    end,
+    disable = function(self)
+        for _, card in pairs(G.playing_cards) do
+            card.celadon = false
+        end
+    end,
+    defeat = function(self)
+        for _, card in pairs(G.playing_cards) do
+            card.celadon = false
+        end
+    end,
+    drawn_to_hand = function(self)
+        if not self.prepped then
+            self.config.extra.current = pseudorandom_element(self.config.extra.options, pseudoseed('celadon_shuffle'))
+            self.prepped = true
+            attention_text({
+                scale = 1, text = self.config.extra.current..' cards will not score!', hold = 2, align = 'cm', offset = {x = 0,y = -2.7},major = G.play
+            })
+        end
+        for _, card in pairs(G.playing_cards) do
+            celadon_check(self, card)
+        end
+    end,
+    press_play = function(self)
+        self.prepped = false
+    end,
+})
 
 SMODS.Shader({key = 'celadon', path = 'applied.fs'})
 
+
 function celadon_check(self, card)
-    card.celadon_disabled = false
+    card.celadon = false
     if card:is_face() then
         if self.config.extra.current == 'Face' then
-            card.celadon_disabled = true
+            card.celadon = true
+            card.debuff = true
         end
     elseif card.base.nominal % 2 == 0 then
         if self.config.extra.current == 'Even' then
-            card.celadon_disabled = true
+            card.celadon = true
+            card.debuff = true
         end
     else
         if self.config.extra.current == 'Odd' then
-            card.celadon_disabled = true
+            card.celadon = true
+            card.debuff = true
         end
     end
 end
 
-local highlight_card = CardArea.add_to_highlighted
-function CardArea:add_to_highlighted(card, silent)
-    if card.celadon_disabled then return end
-    highlight_card(self, card, silent)
-end
+SMODS.DrawStep {
+    key = 'celadon',
+    order = -1,
+    func = function(self)
+        if self.celadon then
+            self.children.center:draw_shader('ortalab_celadon', nil, self.ARGS.send_to_shader)
+        end
+    end,
+    conditions = { vortex = false, facing = 'front' },
+}
+
 
 SMODS.Blind({
     key = 'caramel_coin',

@@ -2914,9 +2914,8 @@ return {
 			['bl_ortalab_celadon_clubs'] = {
 				name = 'Celadon Clubs',
 				text = {
-					'Disable a type of card', 
-					'every hand',
-					'(Disabling #1# cards)'
+					'Set a type of card', 
+					'to not score each hand',
 				}
 			},
 			['bl_ortalab_caramel_coin'] = {
@@ -2935,8 +2934,8 @@ return {
 			['bl_ortalab_rouge_rose'] = {
 				name = 'Rouge Rose',
 				text = {
-					'Play with an', 
-					'unmodified deck'
+					'Shuffle a standard {C:attention}52{} card',
+					'deck into your deck'
 				}
 			},
 			['bl_ortalab_silver_sword'] = {

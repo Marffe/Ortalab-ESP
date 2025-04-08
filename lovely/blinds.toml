@@ -101,16 +101,13 @@ payload = '''ease_to = G.GAME.blind.config.blind.key == 'bl_ortalab_fork' and no
 
 [[patches]]
 [patches.pattern]
-target = "card.lua"
-pattern = '''if not self.config.center.discovered and (self.ability.consumeable or self.config.center.unlocked) and not self.config.center.demo and not self.bypass_discovery_center then'''
-position = "before"
+target = '=[SMODS _ "src/card_draw.lua"]'
+pattern = '''
+if self.debuff then
+'''
+position = "at"
 payload = '''
-if self.celadon_disabled and self.area == G.hand then
-    self.children.center:draw_shader('ortalab_celadon', nil, self.ARGS.send_to_shader)
-    if self.children.front then
-        self.children.front:draw_shader('ortalab_celadon', nil, self.ARGS.send_to_shader)
-    end
-end
+if self.debuff and not self.celadon then
 '''
 match_indent = true
 
