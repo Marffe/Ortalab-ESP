@@ -10,11 +10,11 @@ return {
 				"Toggle the display of additional tooltips",
 				"such as editions and seals"
 			},
-			['ortalab_config_placeholder'] = 'Toggle Demo Objects',
-			['ortalab_config_placeholder_desc'] = {
-				"Toggle the display of locked demo",
-				"objects in the collection",
-				"Requires restart"
+			['ortalab_config_ortalab_only'] = 'Toggle Ortalab Only',
+			['ortalab_config_ortalab_only_desc'] = {
+				'Toggles whether the Ortalab',
+				'stakes contain only Ortalab',
+				'content or not'
 			},
 			ortalab_config_loteria_skip = 'Loteria',
 			ortalab_config_loteria_skip_desc = {
@@ -2639,19 +2639,64 @@ return {
             },
 		},
 		['Stake'] = {
-			['stake_ortalab_diamond'] = {
+			['stake_ortalab_one'] = {
 				name = "Ortalab Stake",
 				text = {
-				"Play with only",
-				"{C:Ortalab}Ortalab{} content"
+				"Experience {C:Ortalab}Ortalab{} as intended",
+				"{C:inactive,s:0.7}You can enable other content in this mode in the {C:Ortalab,s:0.7}Ortalab{C:inactive,s:0.7} config"
 				}
 			},
-			['stake_ortalab_triangle'] = {
-				["name"] = 'Ortalab Stake II',
+			['stake_ortalab_two'] = {
+				["name"] = 'Ortalab Stake 2',
 				["text"] = {
-					"Required score scales",
-                    "faster for each {C:attention}Ante",
-                    "{s:0.8}Applies Ortalab Stake II"
+					"{C:attention}Blinds{} have less rewards",
+					"{s:0.8}Applies {C:Ortalab,s:0.8}Ortalab Stake"
+				}
+			},
+			['stake_ortalab_three'] = {
+				["name"] = 'Ortalab Stake 3',
+				["text"] = {
+					"{C:attention}+1{} Win Ante",
+					'{C:inactive,s:0.9}Required score scales faster for each {C:attention,s:0.9}Ante',
+					"{s:0.8}Applies {C:Ortalab,s:0.8}Ortalab Stake 2"
+				}
+			},
+			['stake_ortalab_four'] = {
+				["name"] = 'Ortalab Stake 4',
+				["text"] = {
+					"Played and discarded cards are {C:red}not reshuffled{}",
+					' after defeating the {C:attention}Small Blind{}',
+					"{s:0.8}Applies {C:Ortalab,s:0.8}Ortalab Stake 3"
+				}
+			},
+			['stake_ortalab_five'] = {
+				["name"] = 'Ortalab Stake 5',
+				["text"] = {
+					'Active {C:zodiac}Zodiacs{} lose {C:attention}1{} level',
+					'after defeating a {C:attention}Blind',
+					'{C:inactive,s:0.9}Required score scales faster for each {C:attention,s:0.9}Ante',
+					"{s:0.8}Applies {C:Ortalab,s:0.8}Ortalab Stake 4"
+				}
+			},
+			['stake_ortalab_six'] = {
+				["name"] = 'Ortalab Stake 6',
+				["text"] = {
+					'{C:attention}Jokers{} in the shop can be {C:mythos}cursed',
+					"{s:0.8}Applies {C:Ortalab,s:0.8}Ortalab Stake 5"
+				}
+			},
+			['stake_ortalab_seven'] = {
+				["name"] = 'Ortalab Stake 7',
+				["text"] = {
+					'{C:attention}Ante 5{} has a {C:dark_edition}Finisher Blind',
+					"{s:0.8}Applies {C:Ortalab,s:0.8}Ortalab Stake 6"
+				}
+			},
+			['stake_ortalab_eight'] = {
+				["name"] = 'Ortalab Stake 8',
+				["text"] = {
+					"{C:attention}Final Ante{} has {C:attention}3{C:dark_edition} Finisher Blinds",
+					"{s:0.8}Applies {C:Ortalab,s:0.8}Ortalab Stake 7"
 				}
 			}
 		},

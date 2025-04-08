@@ -13,7 +13,7 @@ SMODS.Atlas({
 })
 
 SMODS.Stake({
-    key = "diamond",
+    key = "one",
     applied_stakes = {},
     above_stake = 'gold',
     prefix_config = {above_stake = {false}},
@@ -23,27 +23,116 @@ SMODS.Stake({
     sticker_pos = {x = 0, y = 0},
     sticker_atlas = 'stickers',
     modifiers = function()
-        G.GAME.modifiers.ortalab_only = true
+        G.GAME.modifiers.ortalab_only = Ortalab.config.ortalab_only
+        G.GAME.ortalab.double_blind = true
         -- Modify vanilla shop rates
-        G.GAME.planet_rate = 0
-        G.GAME.tarot_rate = 0
-        G.GAME.loteria_rate = 4
-        G.GAME.zodiac_rate = 2.8
-        G.GAME.mythos_rate = 1.2
+        if Ortalab.config.ortalab_only then
+            G.GAME.planet_rate = 0
+            G.GAME.tarot_rate = 0
+            G.GAME.loteria_rate = 4
+            G.GAME.zodiac_rate = 2.8
+            G.GAME.mythos_rate = 1.2
+        end
     end,
 })
 
 SMODS.Stake({
-    key = "triangle",
-    applied_stakes = {'diamond'},
-    above_stake = 'diamond',
+    key = "two",
+    applied_stakes = {'one'},
+    above_stake = 'one',
     atlas = 'stakes',
     pos = {x = 1, y = 0},
     shiny = true,
     sticker_pos = {x = 1, y = 0},
     sticker_atlas = 'stickers',
     modifiers = function()
+        G.GAME.ortalab.blind_rewards = G.GAME.ortalab.blind_rewards - 1
+    end,
+})
+
+SMODS.Stake({
+    key = "three",
+    applied_stakes = {'two'},
+    above_stake = 'two',
+    atlas = 'stakes',
+    pos = {x = 2, y = 0},
+    shiny = true,
+    sticker_pos = {x = 2, y = 0},
+    sticker_atlas = 'stickers',
+    modifiers = function()
         G.GAME.modifiers.scaling = (G.GAME.modifiers.scaling or 1) + 1
+        G.GAME.win_ante = G.GAME.win_ante + 1
+    end,
+})
+
+SMODS.Stake({
+    key = "four",
+    applied_stakes = {'three'},
+    above_stake = 'three',
+    atlas = 'stakes',
+    pos = {x = 3, y = 0},
+    shiny = true,
+    sticker_pos = {x = 3, y = 0},
+    sticker_atlas = 'stickers',
+    modifiers = function()
+        G.GAME.ortalab.no_reshuffle = true
+    end,
+})
+
+SMODS.Stake({
+    key = "five",
+    applied_stakes = {'four'},
+    above_stake = 'four',
+    atlas = 'stakes',
+    pos = {x = 4, y = 0},
+    shiny = true,
+    sticker_pos = {x = 4, y = 0},
+    sticker_atlas = 'stickers',
+    modifiers = function()
+        G.GAME.ortalab.round_decay = 1
+        G.GAME.modifiers.scaling = (G.GAME.modifiers.scaling or 1) + 1
+    end,
+})
+
+SMODS.Stake({
+    key = "six",
+    applied_stakes = {'five'},
+    above_stake = 'five',
+    atlas = 'stakes',
+    pos = {x = 5, y = 0},
+    shiny = true,
+    sticker_pos = {x = 5, y = 0},
+    sticker_atlas = 'stickers',
+    modifiers = function()
+        G.GAME.ortalab.shop_curses = true
+    end,
+})
+
+SMODS.Stake({
+    key = "seven",
+    applied_stakes = {'six'},
+    above_stake = 'six',
+    atlas = 'stakes',
+    pos = {x = 6, y = 0},
+    shiny = true,
+    sticker_pos = {x = 6, y = 0},
+    sticker_atlas = 'stickers',
+    modifiers = function()
+        G.GAME.ortalab.ante_showdown = true
+    end,
+})
+
+SMODS.Stake({
+    key = "eight",
+    applied_stakes = {'seven'},
+    above_stake = 'seven',
+    atlas = 'stakes',
+    pos = {x = 7, y = 0},
+    shiny = true,
+    sticker_pos = {x = 7, y = 0},
+    sticker_atlas = 'stickers',
+    modifiers = function()
+        G.GAME.ortalab.finisher_ante = true
     end,
 })
 

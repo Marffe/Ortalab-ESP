@@ -20,7 +20,7 @@ end
 [[patches]]
 [patches.pattern]
 target = 'functions/common_events.lua'
-pattern = '''local _, boss = pseudorandom_element(eligible_bosses, pseudoseed('boss'))'''
+pattern = '''local min_use = 100'''
 position = 'before'
 match_indent = true
 payload = '''if G.GAME.modifiers.ortalab_only then
@@ -69,6 +69,92 @@ if _pool_size == 0 then
     end
 end
 '''
+
+# Stake 4 - send hand cards back to deck
+[[patches]]
+[patches.pattern]
+target = 'functions/state_events.lua'
+match_indent = true
+position = 'at'
+pattern = '''
+G.FUNCS.draw_from_hand_to_discard()
+'''
+payload = '''
+if G.GAME.blind:get_type() == 'Small' and G.GAME.ortalab.no_reshuffle then
+    G.FUNCS.draw_from_hand_to_deck()
+else
+    G.FUNCS.draw_from_hand_to_discard()
+end
+'''
+# Stake 4 - stop discarded hands returning to deck
+[[patches]]
+[patches.pattern]
+target = 'functions/state_events.lua'
+match_indent = true
+position = 'at'
+pattern = '''
+G.FUNCS.draw_from_discard_to_deck()
+'''
+payload = '''
+if G.GAME.blind:get_type() == 'Small' and G.GAME.ortalab.no_reshuffle then
+    -- stop reshuffling
+else
+    G.FUNCS.draw_from_discard_to_deck()
+end
+'''
+
+# Stake 6 - apply curse to shop jokers
+[[patches]]
+[patches.pattern]
+target = 'functions/UI_definitions.lua'
+match_indent = true
+position = 'after'
+pattern = '''
+local card = create_card(v.type, area, nil, nil, nil, nil, nil, 'sho')
+'''
+payload = '''
+if G.GAME.ortalab.shop_curses and v.type == 'Joker' then
+    if pseudorandom('ortalab_stake_curse') < 0.1 then
+        local curse = pseudorandom_element(Ortalab.Curses, pseudoseed('ortalab_stake_curse_gen'))
+        card:set_curse(curse.key, true, true)
+    end
+end
+'''
+
+# Stake 7 - allow showdown to spawn on Ante 5
+[[patches]]
+[patches.pattern]
+target = 'functions/common_events.lua'
+match_indent = true
+position = 'at'
+pattern = '''
+elseif not v.boss.showdown and (v.boss.min <= math.max(1, G.GAME.round_resets.ante) and ((math.max(1, G.GAME.round_resets.ante))%G.GAME.win_ante ~= 0 or G.GAME.round_resets.ante < 2)) then
+    eligible_bosses[k] = true
+elseif v.boss.showdown and (G.GAME.round_resets.ante)%G.GAME.win_ante == 0 and G.GAME.round_resets.ante >= 2 then
+    eligible_bosses[k] = true
+end
+'''
+payload = '''
+elseif not v.boss.showdown and not (G.GAME.ortalab.ante_showdown and G.GAME.round_resets.ante == 5) and (v.boss.min <= math.max(1, G.GAME.round_resets.ante) and ((math.max(1, G.GAME.round_resets.ante))%G.GAME.win_ante ~= 0 or G.GAME.round_resets.ante < 2)) then
+    eligible_bosses[k] = true
+elseif v.boss.showdown and ((G.GAME.round_resets.ante)%G.GAME.win_ante == 0 or (G.GAME.ortalab.ante_showdown and G.GAME.round_resets.ante == 5)) and G.GAME.round_resets.ante >= 2 then
+    eligible_bosses[k] = true
+end
+'''
+# Stake 7 - showdowns respect in_pool
+[[patches]]
+[patches.pattern]
+target = 'functions/common_events.lua'
+match_indent = true
+position = 'at'
+pattern = '''
+((G.GAME.round_resets.ante)%G.GAME.win_ante == 0 and G.GAME.round_resets.ante >= 2) ==
+'''
+payload = '''
+(((G.GAME.round_resets.ante)%G.GAME.win_ante == 0 and G.GAME.round_resets.ante >= 2) or (G.GAME.ortalab.ante_showdown and G.GAME.round_resets.ante == 5)) ==
+'''
+
+
 
 ## Patch SMODS get_pack
 # [[patches]]

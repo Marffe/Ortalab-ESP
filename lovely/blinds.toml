@@ -13,6 +13,11 @@ match_indent = true
 payload = '''
 G.GAME.round_resets.blind_choices.Small = get_new_small()
 G.GAME.round_resets.blind_choices.Big = get_new_big()
+if G.GAME.ortalab.alt_boss then G.GAME.ortalab.alt_boss = get_new_boss() end
+if G.GAME.ortalab.double_blind then
+    G.GAME.ortalab.alt_small = get_new_small(G.GAME.round_resets.blind_choices.Small)
+    G.GAME.ortalab.alt_big = get_new_big(G.GAME.round_resets.blind_choices.Big)
+end
 '''
 
 # Add Custom Small/Big Blinds
@@ -27,6 +32,11 @@ self.GAME.round_resets.blind_choices.Boss = get_new_boss()
 payload = '''
 self.GAME.round_resets.blind_choices.Small = get_new_small()
 self.GAME.round_resets.blind_choices.Big = get_new_big()
+if G.GAME.ortalab.alt_boss then G.GAME.ortalab.alt_boss = get_new_boss() end
+if G.GAME.ortalab.double_blind then
+    G.GAME.ortalab.alt_small = get_new_small(self.GAME.round_resets.blind_choices.Small)
+    G.GAME.ortalab.alt_big = get_new_big(self.GAME.round_resets.blind_choices.Big)
+end
 '''
 
 # Handle defeating custom small/big blinds

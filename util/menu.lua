@@ -26,7 +26,7 @@ SMODS.current_mod.config_tab = function()
         {n=G.UIT.R, config = {minh = 0.04, minw = 4, colour = G.C.L_BLACK}},
         {n=G.UIT.R, config = {align = 'cm'}, nodes = {
             {n=G.UIT.C, config={padding=0.2, align = 'cm'}, nodes={
-                EremelUtility.create_toggle({label = localize('ortalab_config_placeholder'), ref_table = Ortalab.config, ref_value = 'placeholders', info = localize('ortalab_config_placeholder_desc'), active_colour = Ortalab.badge_colour, left = true, callback = purge_collection}),
+                EremelUtility.create_toggle({label = localize('ortalab_config_ortalab_only'), ref_table = Ortalab.config, ref_value = 'ortalab_only', info = localize('ortalab_config_ortalab_only_desc'), active_colour = Ortalab.badge_colour, left = true}),
             }},
     
         }},

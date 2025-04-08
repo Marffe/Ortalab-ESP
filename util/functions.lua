@@ -78,6 +78,44 @@ function Game:init_game_object()
 	return ret
 end
 
+function Ortalab.reset_game_globals(new_run)
+    if new_run then return end
+    if G.GAME.ortalab.round_decay then
+        local zodiac_joker = SMODS.find_card('j_ortalab_prediction_dice')
+        for _, joker_card in pairs(zodiac_joker) do        
+            if pseudorandom(pseudoseed('loteria_check_keep')) > (joker_card.ability.extra.num*G.GAME.probabilities.normal) / joker_card.ability.extra.chance then
+                SMODS.calculate_effect({message = localize('ortalab_zodiac_no_decay')}, joker_card)
+                return
+            end
+        end
+        for _, zodiac in pairs(G.zodiacs) do
+            zodiac.config.extra.temp_level = math.max(0, zodiac.config.extra.temp_level - G.GAME.ortalab.round_decay)
+            if zodiac.config.extra.temp_level == 0 then
+                zodiac:remove_zodiac('')
+            else
+                G.E_MANAGER:add_event(Event({
+                    delay = 0.4,
+                    trigger = 'after',
+                    func = (function()
+                        attention_text({
+                            text = '-'..G.GAME.ortalab.round_decay,
+                            colour = G.C.WHITE,
+                            scale = 1, 
+                            hold = 1/G.SETTINGS.GAMESPEED,
+                            cover = zodiac.HUD_zodiac,
+                            cover_colour = G.ARGS.LOC_COLOURS.Zodiac,
+                            align = 'cm',
+                            })
+                        play_sound('generic1', 0.9 + math.random()*0.1, 0.8)
+                        play_sound('holo1', 1.2 + math.random()*0.1, 0.4)
+                        return true
+                    end)
+                }))
+            end
+        end
+    end
+end
+
 function modify_joker_slot_count(amount)
     G.CONTROLLER.locks.no_space = true
     G.jokers.config.card_limit = G.jokers.config.card_limit + amount
@@ -120,7 +158,10 @@ function Card:is_numbered(from_boss)
     end
 end
 
-function get_new_small()
+function get_new_small(current)
+    if G.GAME.ortalab.finisher_ante and G.GAME.round_resets.ante == G.GAME.win_ante then
+        return get_new_boss()
+    end
     G.GAME.perscribed_small = G.GAME.perscribed_small or {
     }
     if G.GAME.perscribed_small and G.GAME.perscribed_small[G.GAME.round_resets.ante] then 
@@ -133,6 +174,8 @@ function get_new_small()
     local eligible_bosses = {bl_small = true}
     for k, v in pairs(G.P_BLINDS) do
         if not v.small then
+            -- don't add
+        elseif k == current then
             -- don't add
         elseif v.in_pool and type(v.in_pool) == 'function' then
             local res, options = v:in_pool()
@@ -158,7 +201,10 @@ function get_new_small()
     return boss
 end
 
-function get_new_big()
+function get_new_big(current)
+    if G.GAME.ortalab.finisher_ante and G.GAME.round_resets.ante == G.GAME.win_ante then
+        return get_new_boss()
+    end
     G.GAME.perscribed_big = G.GAME.perscribed_big or {
     }
     if G.GAME.perscribed_big and G.GAME.perscribed_big[G.GAME.round_resets.ante] then 
@@ -171,6 +217,8 @@ function get_new_big()
     local eligible_bosses = {bl_big = true}
     for k, v in pairs(G.P_BLINDS) do
         if not v.big then
+            -- don't add
+        elseif k == current then
             -- don't add
         elseif v.in_pool and type(v.in_pool) == 'function' then
             local res, options = v:in_pool()
