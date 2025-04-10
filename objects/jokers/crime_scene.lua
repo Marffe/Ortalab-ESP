@@ -21,13 +21,13 @@ SMODS.Joker({
 })
 
 local CardDissolve = Card.start_dissolve
-function Card.start_dissolve(self)
+function Card:start_dissolve(dissolve_colours, silent, dissolve_time_fac, no_juice)
     local crime_scene = SMODS.find_card('j_ortalab_crime_scene')
 	if next(crime_scene) and self.ability.set == 'Joker' then
 		sendDebugMessage("test")
 		G.GAME.banned_keys[self.config.center_key] = true
         table.insert(crime_scene[1].ability.extra.banned_cards, self.config.center_key)
 	end
-	return CardDissolve(self)
+	return CardDissolve(self, dissolve_colours, silent, dissolve_time_fac, no_juice)
 end
 
