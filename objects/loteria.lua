@@ -842,7 +842,7 @@ SMODS.Consumable({
                         end
                         if i == 1 then
                             for key, _ in pairs(joker.T) do
-                                joker.T[key] = joker.T_ref[key]
+                                joker.T[key] = joker.original_T[key]
                             end
                         end
                         play_sound('generic1')
