@@ -9,18 +9,15 @@ SMODS.Joker({
 	blueprint_compat = false,
 	eternal_compat = true,
 	perishable_compat = true,
-	config = {},
+	config = {extra = {bonus_slots = 1}},
 	loc_vars = function(self, info_queue, card)
         if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'gappie'} end
-    end
-})
-
-local CardOpen_ref = Card.open
-function Card.open(self)
-	for _, _ in pairs(SMODS.find_card('j_ortalab_croupier')) do
-		if self.ability.set == "Booster" then
-			self.ability.extra = self.ability.extra + 1
-		end
+		return {vars = {card.ability.extra.bonus_slots}}
+    end,
+	add_to_deck = function(self, card, from_debuff)
+		change_shop_size(card.ability.extra.bonus_slots)
+	end,
+	remove_from_deck = function(self, card, from_debuff)
+		change_shop_size(-card.ability.extra.bonus_slots)
 	end
-	return CardOpen_ref(self)
-end
+})
