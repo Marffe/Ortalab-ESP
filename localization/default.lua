@@ -1903,6 +1903,15 @@ return {
 					'{C:attention}Redeem{} a random voucher'
 				}
 			},
+			tag_ortalab_recycle = {
+				name = 'Recycle Patch',
+				text = {
+					'Each {C:attention}Joker{} gains {C:money}$#1#', 
+					'sell value for each', 
+					'{C:attention}skipped{} Blind',
+					'{C:inactive,s:0.85}(Currently {C:money,s:0.85}$#2#{C:inactive,s:0.85})'
+				}
+			},
 			["tag_ortalab_common"] = {
 				["name"] = "Common Patch",
 				["text"] = {

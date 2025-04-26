@@ -516,9 +516,7 @@ SMODS.Tag({
     discovered = false,
     config = {type = 'immediate', vouchers = 1},
     loc_vars = function(self, info_queue, card)
-        if Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'kosze'} end
-        info_queue[#info_queue + 1] = G.P_CENTERS['p_ortalab_big_zodiac_1']
-        return {vars = {self.config.packs}}
+        if Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'no_demo'} end
     end,
     apply = function(self, tag, context)
         if context.type == tag.config.type then
@@ -557,7 +555,38 @@ SMODS.Tag({
                 end
                 return true
             end)
+            return true
         end
         
+    end
+})
+
+SMODS.Tag({
+    key = 'recycle',
+    atlas = 'patches',
+    pos = {x = 1, y = 0},
+    discovered = false,
+    min_ante = 2,
+    config = {type = 'immediate', sell_inc = 2},
+    loc_vars = function(self, info_queue, card)
+        if Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'kosze'} end
+        return {vars = {card.config.sell_inc, card.config.sell_inc * (G.GAME.skips + 1)}}
+    end,
+    apply = function(self, tag, context)
+        if context.type == tag.config.type then
+            tag:yep('+', G.C.MONEY,function() 
+                local inc_amount = tag.config.sell_inc * G.GAME.skips
+                for k=1, #G.jokers.cards + #G.consumeables.cards do
+                    local _card = G.jokers.cards[k] or G.consumeables.cards[k - #G.jokers.cards]
+                    if _card.config.center.set == 'Joker' then
+                        _card.ability.extra_value = _card.ability.extra_value + inc_amount
+                        _card:set_cost()
+                    end
+                end
+                return true
+            end)
+            tag.triggered = true
+            return true
+        end
     end
 })
