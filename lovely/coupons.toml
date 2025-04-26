@@ -266,3 +266,228 @@ G.GAME.round_resets.blind_choices.Boss = get_new_boss()
 payload = '''
 if G.GAME.ortalab.alt_boss then G.GAME.ortalab.alt_boss = get_new_boss() end
 '''
+
+# Tags in shop
+[[patches]]
+[patches.pattern]
+target = 'functions/UI_definitions.lua'
+match_indent = true
+position = 'before'
+pattern = '''
+for _, v in ipairs(rates) do
+'''
+payload = '''
+table.insert(rates, { type = 'Tag', val = G.GAME.ortalab.vouchers.tags_in_shop })
+'''
+# Adjust rates
+[[patches]]
+[patches.pattern]
+target = 'functions/UI_definitions.lua'
+match_indent = true
+position = 'before'
+pattern = '''
+local polled_rate = pseudorandom(pseudoseed('cdt'..G.GAME.round_resets.ante))*total_rate
+'''
+payload = '''
+total_rate = total_rate + G.GAME.ortalab.vouchers.tags_in_shop
+'''
+
+# comment
+[[patches]]
+[patches.pattern]
+target = 'functions/common_events.lua'
+match_indent = true
+position = 'at'
+pattern = '''
+center = G.P_CENTERS[center]
+'''
+payload = '''
+if _type == 'Tag' then
+    center = G.P_TAGS[center]
+    center.pixel_size = {w = 32, h = 32}
+else
+    center = G.P_CENTERS[center]
+end
+'''
+# Change sprite
+[[patches]]
+[patches.pattern]
+target = 'functions/common_events.lua'
+match_indent = true
+position = 'before'
+pattern = '''
+if card.ability.consumeable and not skip_materialize then card:start_materialize() end
+'''
+payload = '''
+if _type == 'Tag' then
+    card.tag = Tag(center.key)
+    card.ability = card.tag.ability
+    card.ability.set = 'Tag'
+    SMODS.merge_defaults(card.config, card.tag.config)
+    card.base_cost = 8
+    card:set_cost()
+    card.children.center = Sprite(0,0,0.8,0.8,G.ASSET_ATLAS[center.atlas or "Tags"], center.pos)
+    card.children.center.states.hover = card.states.hover
+    card.children.center.states.click = card.states.click
+    card.children.center.states.drag = card.states.drag
+    card.children.center.states.collide.can = false
+    card.children.center:set_role({major = card, role_type = 'Glued', draw_major = card})
+end
+'''
+# Change buy functionality
+[[patches]]
+[patches.pattern]
+target = 'functions/button_callbacks.lua'
+match_indent = true
+position = 'before'
+pattern = '''
+elseif e.config.id ~= 'buy_and_use' then
+'''
+payload = '''
+elseif c1.tag then
+    add_tag(c1.tag)
+    c1:remove()
+    for i = 1, #G.GAME.tags do
+        G.GAME.tags[i]:apply_to_run({type = 'immediate'})
+    end
+'''
+# Tooltip fix
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+match_indent = true
+position = 'at'
+pattern = '''
+self.ability_UIBox_table = self:generate_UIBox_ability_table()
+'''
+payload = '''
+self.ability_UIBox_table = self.tag and self.tag:get_uibox_table({}).ability_UIBox_table or self:generate_UIBox_ability_table()
+'''
+# Fix Loading
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+match_indent = true
+position = 'after'
+pattern = '''
+self.config.center = G.P_CENTERS[self.config.center_key]
+'''
+payload = '''
+if cardTable.tag then self.config.center = G.P_TAGS[cardTable.tag] end
+'''
+# Fix saving
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+match_indent = true
+position = 'before'
+pattern = '''
+seal = self.seal,
+'''
+payload = '''
+tag = self.tag and self.tag.key,
+'''
+# Sprite initialisation
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+match_indent = true
+position = 'after'
+pattern = '''
+local W = G.CARD_W
+'''
+payload = '''
+if cardTable.tag then
+    H = 0.8
+    W = 0.8
+end
+'''
+
+# Mythos in shop
+[[patches]]
+[patches.pattern]
+target = 'game.lua'
+match_indent = true
+position = 'before'
+pattern = '''
+if G.load_shop_booster then 
+'''
+payload = '''
+if G.load_shop_ortalab_mythos then 
+    nosave_shop = true
+    G.shop_ortalab_mythos:load(G.load_shop_ortalab_mythos)
+    for k, v in ipairs(G.shop_ortalab_mythos.cards) do
+        create_shop_card_ui(v)
+        v:start_materialize()
+    end
+    G.load_shop_ortalab_mythos = nil
+elseif G.GAME.ortalab.vouchers.mythos_shop_slot then
+    local card = Card(G.shop_ortalab_mythos.T.x + G.shop_ortalab_mythos.T.w/2,
+    G.shop_ortalab_mythos.T.y, G.CARD_W, G.CARD_H, G.P_CARDS.empty, G.P_CENTERS[pseudorandom_element(get_current_pool('Mythos'), pseudoseed('ortalab_mythos_shop'))], {bypass_discovery_center = true, bypass_discovery_ui = true})
+    create_shop_card_ui(card)
+    card:start_materialize()
+    G.shop_ortalab_mythos:emplace(card)
+end
+'''
+
+# Adjust shop areas
+[[patches]]
+[patches.pattern]
+target = 'functions/UI_definitions.lua'
+match_indent = true
+position = 'at'
+pattern = '''
+G.shop_vouchers = CardArea(
+    G.hand.T.x+0,
+    G.hand.T.y+G.ROOM.T.y + 9,
+    2.1*G.CARD_W,
+    1.05*G.CARD_H, 
+    {card_limit = 1, type = 'shop', highlight_limit = 1})
+
+G.shop_booster = CardArea(
+    G.hand.T.x+0,
+    G.hand.T.y+G.ROOM.T.y + 9,
+    2.4*G.CARD_W,
+    1.15*G.CARD_H, 
+    {card_limit = 2, type = 'shop', highlight_limit = 1, card_w = 1.27*G.CARD_W})
+'''
+payload = '''
+ G.shop_vouchers = CardArea(
+    G.hand.T.x+0,
+    G.hand.T.y+G.ROOM.T.y + 9,
+    G.GAME.ortalab.vouchers.mythos_shop_slot and 1.5*G.CARD_W or 2.1*G.CARD_W,
+    1.05*G.CARD_H, 
+    {card_limit = 1, type = 'shop', highlight_limit = 1})
+
+G.shop_ortalab_mythos = CardArea(
+    G.hand.T.x+0,
+    G.hand.T.y+G.ROOM.T.y + 9,
+    0.85*G.CARD_W,
+    1.05*G.CARD_H, 
+    {card_limit = 1, type = 'shop', highlight_limit = 1})
+
+G.shop_booster = CardArea(
+    G.hand.T.x+0,
+    G.hand.T.y+G.ROOM.T.y + 9,
+    G.GAME.ortalab.vouchers.mythos_shop_slot and 2.0*G.CARD_W or 2.4*G.CARD_W,
+    1.15*G.CARD_H, 
+    {card_limit = 2, type = 'shop', highlight_limit = 1, card_w = 1.22*G.CARD_W})
+'''
+# Add area to shop ui definition
+[[patches]]
+[patches.pattern]
+target = 'functions/UI_definitions.lua'
+match_indent = true
+position = 'before'
+pattern = '''
+{n=G.UIT.C, config={align = "cm", padding = 0.15, r=0.2, colour = G.C.L_BLACK, emboss = 0.05}, nodes={
+    {n=G.UIT.O, config={object = G.shop_booster}},
+}},
+'''
+payload = '''
+G.GAME.ortalab.vouchers.mythos_shop_slot and {n=G.UIT.C, config={align = "cm", padding = 0.15, r=0.2, colour = G.C.SET.Zodiac, emboss = 0.05}, nodes={
+    {n=G.UIT.C, config={align = "cm", padding = 0.2, r=0.2, colour = darken(G.C.SET.Mythos, 0.4), maxh = G.shop_ortalab_mythos.T.h+0.4}, nodes={
+        {n=G.UIT.O, config={object = G.shop_ortalab_mythos}},
+    }},
+}} or nil,
+'''

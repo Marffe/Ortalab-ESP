@@ -458,7 +458,7 @@ SMODS.Tag({
         if Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'kosze'} end
         if card.ability.zodiac_hands and G.ZODIACS[card.ability.zodiac_hands[1]] then
             return {vars = {
-                localize(G.ZODIACS[card.ability.zodiac_hands[1]].config.extra.hand_type, 'poker_hands'), card.config.extra.zodiacs
+                localize(G.ZODIACS[card.ability.zodiac_hands[1]].config.extra.hand_type, 'poker_hands'), card.config and card.config.extra and card.config.extra.zodiacs or card.ability.extra.zodiacs
             }}
         else
             return {vars = {'['..localize('k_poker_hand')..']', card.config.extra.zodiacs}}

@@ -14,7 +14,7 @@ SMODS.Edition({
     extra_cost = 4,
     apply_to_float = true,
     loc_vars = function(self, info_queue, card)
-        if Ortalab.config.artist_credits and (card or Ortalab.config.full_credits) then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'eremel', title = 'Shader'} end
+        if Ortalab.config.artist_credits and (not card.fake_card or Ortalab.config.full_credits) then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'eremel', title = 'Shader'} end
         return { vars = {self.config.chips, self.config.mult}}
     end,
     calculate = function(self, card, context)
@@ -38,7 +38,7 @@ SMODS.Edition({
     extra_cost = 4,
     apply_to_float = true,
     loc_vars = function(self, info_queue, card)
-        if Ortalab.config.artist_credits and (card or Ortalab.config.full_credits) then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'eremel', title = 'Shader'} end
+        if Ortalab.config.artist_credits and (not card.fake_card or Ortalab.config.full_credits) then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'eremel', title = 'Shader'} end
         return { vars = {self.config.p_dollars}, key = card and card.config and card.config.center.set == 'Joker' and 'e_ortalab_fluorescent_joker'}
     end,
     calculate = function(self, card, context)
@@ -62,7 +62,7 @@ SMODS.Edition({
     badge_colour = HEX("858585"),
     apply_to_float = true,
     loc_vars = function(self, info_queue, card)
-        if Ortalab.config.artist_credits and (card or Ortalab.config.full_credits) then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'eremel', title = 'Shader'} end
+        if Ortalab.config.artist_credits and (not card.fake_card or Ortalab.config.full_credits) then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'eremel', title = 'Shader'} end
         return { vars = { self.config.chips, self.config.mult, self.config.x_mult } }
     end,
     calculate = function(self, card, context)
@@ -88,7 +88,7 @@ SMODS.Edition({
     extra_cost = 4,
     apply_to_float = true,
     loc_vars = function(self, info_queue, card)
-        if Ortalab.config.artist_credits and (card or Ortalab.config.full_credits) then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'eremel', title = 'Shader'} end
+        if Ortalab.config.artist_credits and (not card.fake_card or Ortalab.config.full_credits) then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'eremel', title = 'Shader'} end
         return { vars = { self.config.extra.retriggers } }
     end,
     calculate = function(self, card, context)

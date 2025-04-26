@@ -86,7 +86,9 @@ return {
 			ortalab_joker_slot = ' Joker slot!',
 			ortalab_joker_slots = ' Joker slots!',
 			ortalab_hand_size_gain = '+1 hand size!',
-			ortalab_infected_safe = 'Safe!'
+			ortalab_infected_safe = 'Safe!',
+			ortalab_edition_plus = 'an edition',
+			k_tag = 'Tag',
         },
 		['labels'] = {
 			ortalab_greyscale = 'Greyscale',
@@ -479,8 +481,8 @@ return {
 			['j_ortalab_croupier'] = {
 				["name"] = "Croupier",
 				["text"] = {
-					"Booster packs contain",
-					"{C:attention}1{} additional card",
+					'{C:attention}+#1#{} card slot',
+					'available in shop'
 				}
 			},
 			j_ortalab_crowd_pleaser = {
@@ -664,11 +666,14 @@ return {
 			['j_ortalab_freezer'] = {
 				["name"] = "Freezer",
 				["text"] = {
-					'Gain {X:red,C:white}X#1#{} Mult for each',
-					'{C:attention}consumable{} you are holding',
-					'Consumables have a {C:green}#3# in #4#',
-					'chance to be consumed when used',
-					'{C:inactive,s:0.9}(Currently {s:0.9,X:red,C:white}X#2#{C:inactive,s:0.9})'
+					{
+						'Gain {X:red,C:white}X#1#{} Mult for each',
+						'{C:attention}consumable{} you are holding',
+						'{C:inactive,s:0.9}(Currently {s:0.9,X:red,C:white}X#2#{C:inactive,s:0.9})',
+					},{
+						'Consumables have a {C:green}#3# in #4#',
+						'chance to be consumed when used'
+					}
 				}
 			},
 			['j_ortalab_frowny_face'] = {
@@ -699,9 +704,9 @@ return {
 			j_ortalab_gloomy_gus = {
 				name = 'Gloomy Gus',
 				text = {
-					'{C:attention}+#1#{} hand size',
-					'Only {C:red}#2#{} cards can be',
-					'discarded at a time'
+					{'{C:attention}+#1#{} hand size',},
+					{'Only {C:red}#2#{} cards can be',
+					'discarded at a time'}
 				}
 			},
 			['j_ortalab_glum'] = {
@@ -738,8 +743,8 @@ return {
 			['j_ortalab_grave_digger'] = {
 				["name"] = "Grave Digger",
 				["text"] = {
-					'{C:attention}+#1#{} Joker slots',
-					'{X:attention,C:white}X#2#{} Blind amount'
+					{'{C:attention}+#1#{} Joker slots',},
+					{'{X:attention,C:white}X#2#{} Blind amount'}
 				}
 			},
 			['j_ortalab_head_honcho'] = {
@@ -780,9 +785,9 @@ return {
 			j_ortalab_hooligan = {
 				name = 'Hooligan',
 				text = {
-					'{X:attention,C:white}X#1#{} Boss Blind amount',
-					'{C:attention}Redeem{} a random {C:attention}voucher',
-					'when {C:attention}Boss Blind{} is defeated'
+					{'{X:attention,C:white}X#1#{} Boss Blind amount',},
+					{'{C:attention}Redeem{} a random {C:attention}voucher',
+					'when {C:attention}Boss Blind{} is defeated'}
 				}
 			},
 			['j_ortalab_hot_chocolate'] = {
@@ -1169,10 +1174,10 @@ return {
 			['j_ortalab_royal_gala'] = {
 				["name"] = "Royal Gala",
 				["text"] = {
-					"{C:white,X:blue}X#1#{} Chips",
-					"{C:green}#2# in #3#{} chance this",
+					{"{C:white,X:blue}X#1#{} Chips",},
+					{"{C:green}#2# in #3#{} chance this",
 					"card is destroyed",
-					"at end of round",
+					"at end of round",}
 				}
 			},
 			['j_ortalab_rusty'] = {
@@ -1195,11 +1200,11 @@ return {
 			['j_ortalab_sandstone'] = {
 				["name"] = "Sandstone Joker",
 				["text"] = {
-					"Played {C:attention}Sand Cards{}",
-					"do not lose Mult",
-					"Gains {X:mult,C:white}X#2#{} Mult when",
+					{"Played {C:attention}Sand Cards{}",
+					"do not lose Mult",},
+					{"Gains {X:mult,C:white}X#2#{} Mult when",
 					"a {C:attention}Sand Card{} is played",
-					"{C:inactive,s:0.9}(Currently {C:white,X:mult,s:0.9}X#1#{C:inactive,s:0.9})"
+					"{C:inactive,s:0.9}(Currently {C:white,X:mult,s:0.9}X#1#{C:inactive,s:0.9})"}
 				}
 			},
 			['j_ortalab_sane'] = {
@@ -1261,10 +1266,10 @@ return {
 			['j_ortalab_shrine'] = {
 				["name"] = "Shrine",
 				["text"] = {
-					"Create a {C:Mythos,E:1}Mythos Card{} if",
-					'played hand is a {C:dark_edition,E:1}Secret Hand',
-					'{C:Mythos,E:1}Mythos Cards{} curse {C:attention}#1#',
-					'extra card'
+					{"Create a {C:Mythos,E:1}Mythos Card{} if",
+					'played hand is a {C:dark_edition,E:1}Secret Hand',},
+					{'{C:Mythos,E:1}Mythos Cards{} curse {C:attention}#1#',
+					'extra card'}
 				}
 			},
 			['j_ortalab_skydiving'] = {
@@ -1380,12 +1385,12 @@ return {
 			j_ortalab_storm_6 = {
 				name = 'Storm 6',
 				text = {
-					'{C:red}-$#3#{} when {C:attention}Blind{} is',
+					{'{C:red}-$#3#{} when {C:attention}Blind{} is',
 					'selected if there is a {C:attention}9{}',
-					'in your {C:attention}full deck',
-					'{C:red}+#1#{} Mult for each', 
+					'in your {C:attention}full deck',},
+					{'{C:red}+#1#{} Mult for each', 
 					'{C:attention}6{} in your {C:attention}full deck',
-					'{C:inactive}(Currently {C:red}+#2#{C:inactive} Mult)'
+					'{C:inactive}(Currently {C:red}+#2#{C:inactive} Mult)'}
 				}
 			},
 			j_ortalab_street_rat = {
@@ -1434,10 +1439,10 @@ return {
 			['j_ortalab_taliaferro'] = {
 				["name"] = "Taliaferro",
 				["text"] = {
-					"{C:chips}+#1#{} Chips",
-					"{C:green}#2# in #3#{} chance this",
+					{"{C:chips}+#1#{} Chips",},
+					{"{C:green}#2# in #3#{} chance this",
 					"card is destroyed",
-					"at end of round",
+					"at end of round",}
 				}
 			},
 			['j_ortalab_triangle'] = {
@@ -1505,6 +1510,15 @@ return {
 					'{C:inactive}(Currently {C:red}+#2#{C:inactive} Mult)'
 				}
 			},
+		},
+		["Ortalab_Utility"] = {
+			["c_ortalab_edition_+"] = {
+				name = "Edition+",
+				text = {
+					"Add {C:dark_edition}#1#{} to",
+					"{C:attention}selected{} card"
+				}
+			}
 		},
         ["Loteria"] = {
             ["c_ortalab_lot_umbrella"] = {
@@ -1638,11 +1652,10 @@ return {
             ["c_ortalab_lot_flag"] = {
 				["name"] = "The Flag",
 				["text"] = {
-					"Increases the {C:attention}left-most",
-					"selected card's rank and",
-					"decrease the {C:attention}right-most",
-					"selected card's rank by",
-					"up to {C:attention}#2#"
+					{"Increases the {C:attention}left-most{} selected",
+					"card's rank by up to {C:attention}#2#",},
+					{"Decrease the {C:attention}right-most {}selected",
+					"card's rank by up to {C:attention}#2#"}
 				},
 			},
             ["c_ortalab_lot_dandy"] = {
@@ -1657,10 +1670,10 @@ return {
             ["c_ortalab_lot_bottle"] = {
 				["name"] = "The Bottle",
 				["text"] = {
-					"Destroy up to {C:attention}#1#",
-					"selected cards",
-					"Create {C:attention}#1# modified",
-					"cards in your hand"
+					{"Destroy up to {C:attention}#1#",
+					"selected cards",},
+					{"Create {C:attention}#1# modified",
+					"cards in your hand"}
 				},
 			},
             ["c_ortalab_lot_barrel"] = {
@@ -1684,8 +1697,8 @@ return {
 				["text"] = {
 					"Gain between {C:money}-$#1#",
                     "and {C:money}$#2#",
-					"{C:inactive}Doubled if played with",
-					"{C:inactive}$#2# or more"
+					"{C:inactive,s:0.8}Doubled if played with",
+					"{C:inactive,s:0.8}$#2# or more"
 				},
 			},
 			["c_ortalab_lot_boot"] = {
@@ -1787,28 +1800,28 @@ return {
 			["m_ortalab_sand"] = {
 				["name"] = "Sand Card",
 				["text"] = {
-					"{X:mult,C:white}X#1#{} Mult,",
-                    "loses {X:mult,C:white}X#2#{} Mult", 
+					{"{X:mult,C:white}X#1#{} Mult",},
+                    {"Loses {X:mult,C:white}X#2#{} Mult", 
 					"when held in hand",
-                    "{C:inactive,s:0.7}(Destroyed when played at {X:mult,C:white,s:0.7}X1{C:inactive,s:0.7} Mult)",
+                    "{C:inactive,s:0.7}(Destroyed when held at {X:mult,C:white,s:0.7}X1{C:inactive,s:0.7} Mult)",}
 				},
 			},
 			["m_ortalab_rusty"] = {
 				["name"] = "Rusty Card",
 				["text"] = {
-					"{X:mult,C:white}X#1#{} Mult",
-					"Gains {X:mult,C:white}X#2#{} Mult per",
-					"{C:attention}Rusty Card{} held in hand"
+					{"{X:mult,C:white}X#1#{} Mult",},
+					{"Gains {X:mult,C:white}X#2#{} Mult per",
+					"{C:attention}Rusty Card{} held in hand"}
 				},
 			},
 			["m_ortalab_recycled"] = {
 				["name"] = "Recycled Card",
 				["text"] = {
-					"{C:green}#1# in #2#{} chance",
+					{"{C:green}#1# in #2#{} chance",
 					"to not add {C:blue}+#7#{} Chips",
-					"and gain {C:red}+#3# Discard",
-					"{C:green}#4# in #5#{} chance",
-					"to not gain {C:attention}#6# Tag",
+					"and gain {C:red}+#3# Discard",},
+					{"{C:green}#4# in #5#{} chance",
+					"to not gain {C:attention}#6# Tag",}
 				},
 			},
 			["m_ortalab_bent"] = {
@@ -2207,6 +2220,34 @@ return {
 			},
 		},
 		['Voucher'] = {
+			v_ortalab_magic_trick_inv = {
+				name = 'Hex',
+				text = {
+					'{C:attention}Tags{} can appear', 
+					'in the shop'
+				}
+			},
+			v_ortalab_illusion_inv = {
+				name = 'Glamour',
+				text = {
+					'{C:dark_edition}Edition+{} cards can appear', 
+					'in the shop'
+				}
+			},
+			v_ortalab_crystal_inv = {
+				name = 'Fate\'s Coin',
+				text = {
+					'Add a {C:Mythos}Mythos{} card slot',
+					'to future shops'
+				}
+			},
+			v_ortalab_omen_inv = {
+				name = 'Arcane Archive',
+				text = {
+					'Booster packs have',
+					'{C:attention}#1#{} more card'
+				}
+			},
 			['v_ortalab_horoscope'] = {
 				["name"] = "Horoscope",
 				["text"] = {
@@ -2268,16 +2309,16 @@ return {
 			['v_ortalab_abacus'] = {
 				["name"] = "Abacus",
 				["text"] = {
-					"{C:attention}+#1#{} Win Ante",
-					"Gain {C:money}$#2#",
-					"{C:blue}+#3#{} hand size" 
+					{"{C:attention}+#1#{} Win Ante",},
+					{"Gain {C:money}$#2#",},
+					{"{C:blue}+#3#{} hand size" }
 				}
 			},
 			['v_ortalab_calculator'] = {
 				["name"] = "Calculator",
 				["text"] = {
-					"{C:attention}+#1#{} Win Ante",
-					"{C:attention}+#2#{} Joker slots", 
+					{"{C:attention}+#1#{} Win Ante",},
+					{"{C:attention}+#2#{} Joker slots", }
 				}
 			},
 			['v_ortalab_catalog'] = {

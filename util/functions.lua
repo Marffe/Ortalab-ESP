@@ -52,7 +52,9 @@ function Game:init_game_object()
             horoscope = 0,
             cantor = 0,
             tabla = 0,
-            leap_year = 0
+            leap_year = 0,
+            tags_in_shop = 0,
+            mythos_shop_slot = false
         },
         zodiacs = {
             reduction = 4,

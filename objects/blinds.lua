@@ -15,7 +15,7 @@ SMODS.Blind({
     loc_vars = function(self, info_queue, card)
         if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'coro'} end
     end,
-    mult = 0.5,
+    mult = 0.7,
     dollars = 2,
     small = {min = 1}
 })
@@ -28,8 +28,8 @@ SMODS.Blind({
     loc_vars = function(self, info_queue, card)
         if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'coro'} end
     end,
-    mult = 1.25,
-    dollars = 4,
+    mult = 1,
+    dollars = 3,
     small = {min = 1}
 })
 
@@ -41,9 +41,9 @@ SMODS.Blind({
     loc_vars = function(self, info_queue, card)
         if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'eremel'} end
     end,
-    mult = 1.4,
+    mult = 1.25,
     dollars = 4,
-    small = {min = 3}
+    small = {min = 1}
 })
 
 SMODS.Blind({
@@ -54,8 +54,8 @@ SMODS.Blind({
     loc_vars = function(self, info_queue, card)
         if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'eremel'} end
     end,
-    mult = 1.4,
-    dollars = 4,
+    mult = 1.15,
+    dollars = 3,
     big = {min = 1}
 })
 
@@ -67,8 +67,8 @@ SMODS.Blind({
     loc_vars = function(self, info_queue, card)
         if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'coro'} end
     end,
-    mult = 1.6,
-    dollars = 5,
+    mult = 1.5,
+    dollars = 4,
     big = {min = 1}
 })
 
@@ -80,9 +80,9 @@ SMODS.Blind({
     loc_vars = function(self, info_queue, card)
         if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'eremel'} end
     end,
-    mult = 1.8,
+    mult = 1.875,
     dollars = 5,
-    big = {min = 3}
+    big = {min = 1}
 })
 
 local blind_get_type = Blind.get_type

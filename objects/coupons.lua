@@ -491,6 +491,86 @@ SMODS.Voucher({
     end,
 })
 
+SMODS.Voucher({
+	key = "magic_trick_inv",
+	atlas = "coupons",
+	pos = {x = 4, y = 3},
+	cost = 10,
+	unlocked = true,
+	discovered = false,
+	available = true,
+	redeem = function(self, card)
+        G.GAME.ortalab.vouchers.tags_in_shop = 0.6
+    end,
+    loc_vars = function(self, info_queue, card)
+        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'no_demo'} end
+    end,
+})
+
+SMODS.Voucher({
+	key = "illusion_inv",
+	atlas = "coupons",
+	pos = {x = 5, y = 3},
+	cost = 10,
+	unlocked = true,
+	discovered = false,
+	available = false,
+    requires = {'v_ortalab_magic_trick_inv'},
+	redeem = function(self, card)
+        G.GAME.ortalab_utility_rate = 0.4
+    end,
+    loc_vars = function(self, info_queue, card)
+        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'no_demo'} end
+        info_queue[#info_queue+1] = G.P_CENTERS['c_ortalab_edition_+']
+    end,
+})
+
+SMODS.Voucher({
+	key = "crystal_inv",
+	atlas = "coupons",
+	pos = {x = 4, y = 2},
+	cost = 10,
+	unlocked = true,
+	discovered = false,
+	available = true,
+	redeem = function(self, card)
+        G.GAME.ortalab.vouchers.mythos_shop_slot = true
+        G:update_shop()
+    end,
+    loc_vars = function(self, info_queue, card)
+        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'no_demo'} end
+    end,
+})
+
+SMODS.Voucher({
+	key = "omen_inv",
+	atlas = "coupons",
+	pos = {x = 5, y = 2},
+	cost = 10,
+	unlocked = true,
+	discovered = false,
+	available = false,
+    requires = {'v_ortalab_crystal_inv'},
+    config = {extra = {bonus_slots = 1}},
+	redeem = function(self, card)
+        G.GAME.ortalab.vouchers.booster_pack_bonus = card.ability.extra.bonus_slots
+    end,
+    loc_vars = function(self, info_queue, card)
+        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'no_demo'} end
+        return {vars = {card.ability.extra.bonus_slots}}
+    end,
+})
+
+local CardOpen_ref = Card.open
+function Card.open(self)
+	if G.GAME.ortalab.vouchers.booster_pack_bonus then
+		if self.ability.set == "Booster" then
+			self.ability.extra = self.ability.extra + G.GAME.ortalab.vouchers.booster_pack_bonus
+		end
+	end
+	return CardOpen_ref(self)
+end
+
 local skip_blind = G.FUNCS.skip_blind
 G.FUNCS.skip_blind = function(e)
     if G.GAME.ortalab.vouchers.reroll_on_skip then
@@ -604,4 +684,99 @@ G.FUNCS.skip_blind = function(e)
         end
     end
     skip_blind(e)
+end
+
+SMODS.Atlas({
+    key = 'temp',
+    path = 'temp.png',
+    px = 71,
+    py = 95
+})
+
+SMODS.ConsumableType({
+    key = "Ortalab_Utility",
+    primary_colour = HEX("666666"),
+    secondary_colour = HEX("666666"),
+    loc_txt = {
+        name = "Loteria",
+        collection = "Loteria Cards",
+    },
+    collection_rows = {2, 1},
+    -- no_collection = true,
+    shop_rate = 0,
+    default = 'c_ortalab_edition_+'
+})
+
+SMODS.Consumable({
+    key = 'edition_+',
+    set = 'Ortalab_Utility',
+    atlas = 'temp',
+    pos = {x=0, y=0},
+    discovered = false,
+    pixel_size = {h = 73},
+    config = {extra = {edition = nil, selected = 1}},
+    loc_vars = function(self, info_queue, card)
+        if not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'no_demo'} end
+        info_queue[#info_queue+1] = G.P_CENTERS[card.ability.extra.edition]
+        return {vars = {card.ability.extra.edition and localize({type = 'name_text', key = card.ability.extra.edition, set = 'Edition'}) or localize('ortalab_edition_plus')}}
+    end,
+    set_ability = function(self, card, from_debuff)
+        local editions = {}
+        for _, v in ipairs(G.P_CENTER_POOLS.Edition) do
+            if v.shader then 
+                table.insert(editions, v.key)
+            end
+        end
+        card.ability.extra.edition = pseudorandom_element(editions, pseudoseed('edition+'))
+        card:set_cost()
+        card.base_cost = 6 + 2*G.P_CENTERS[card.ability.extra.edition].extra_cost
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.2,
+            func = function()
+                play_sound(G.P_CENTERS[card.ability.extra.edition].sound.sound, G.P_CENTERS[card.ability.extra.edition].sound.per, G.P_CENTERS[card.ability.extra.edition].sound.vol)
+                card:juice_up(1, 0.5)                
+                return true
+            end
+        }))
+       
+    end,
+    can_use = function(self, card)
+        return (#G.hand.highlighted + #G.jokers.highlighted) == card.ability.extra.selected
+    end,
+    use = function(self, card, area, copier)
+        local selected = G.hand.highlighted[1] or G.jokers.highlighted[1]
+        selected:set_edition(card.ability.extra.edition, false, false, true)
+    end,
+    set_card_type_badge = function(self, card, badges)
+        badges = {}
+    end,
+    cost = 6
+})
+
+SMODS.DrawStep({
+    key = 'edition+',
+    order = 10,
+    func = function(self)
+        if self.config.center.key == 'c_ortalab_edition_+' then
+            self.children.center:draw_shader(G.P_CENTERS[self.ability.extra.edition].shader, nil, self.ARGS.send_to_shader)
+        end
+    end,
+    conditions = { vortex = false, facing = 'front' },
+})
+
+local buy_space = G.FUNCS.check_for_buy_space
+G.FUNCS.check_for_buy_space = function(card)
+    if card.tag then
+        return true
+    end
+    return buy_space(card)
+end
+
+local add_to_deck = Card.add_to_deck
+function Card:add_to_deck(from_debuff)
+    if self.tag then
+        return
+    end
+    add_to_deck(self, from_debuff)
 end
