@@ -508,3 +508,56 @@ SMODS.Tag({
         end
     end
 })
+
+SMODS.Tag({
+    key = 'stock',
+    atlas = 'patches',
+    pos = {x = 3, y = 4},
+    discovered = false,
+    config = {type = 'immediate', vouchers = 1},
+    loc_vars = function(self, info_queue, card)
+        if Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'kosze'} end
+        info_queue[#info_queue + 1] = G.P_CENTERS['p_ortalab_big_zodiac_1']
+        return {vars = {self.config.packs}}
+    end,
+    apply = function(self, tag, context)
+        if context.type == tag.config.type then
+            tag:yep('+', G.C.GREEN,function()
+                for i=1, tag.config.vouchers do
+                    local _pool = get_current_pool('Voucher')
+                    local voucher = pseudorandom_element(_pool, pseudoseed('ortalab_stock_patch'))
+                    local it = 1
+                    while voucher == 'UNAVAILABLE' do
+                        it = it + 1
+                        voucher = pseudorandom_element(_pool, pseudoseed('ortalab_stock_patch_resample'..it))
+                    end
+
+                    G.E_MANAGER:add_event(Event({
+                        trigger = 'after',
+                        delay = 0.5,
+                        func = function()
+                            local voucher_card = SMODS.create_card({area = G.play, key = voucher})
+                            voucher_card:start_materialize()
+                            voucher_card.cost = 0
+                            G.play:emplace(voucher_card)
+                            delay(0.8)
+                            voucher_card:redeem()
+                            
+                            G.E_MANAGER:add_event(Event({
+                                trigger = 'after',
+                                delay = 0.5,
+                                func = function()
+                                    voucher_card:start_dissolve()                
+                                    return true
+                                end
+                            }))
+                            return true
+                        end
+                    }))
+                end
+                return true
+            end)
+        end
+        
+    end
+})

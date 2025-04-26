@@ -1897,6 +1897,12 @@ return {
 			},
 		},
 		["Tag"] = {
+			tag_ortalab_stock = {
+				name = 'Stock Patch',
+				text = {
+					'{C:attention}Redeem{} a random voucher'
+				}
+			},
 			["tag_ortalab_common"] = {
 				["name"] = "Common Patch",
 				["text"] = {
