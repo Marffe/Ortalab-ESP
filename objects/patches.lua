@@ -712,3 +712,35 @@ SMODS.Tag({
         end 
     end
 })
+
+SMODS.Tag({
+    key = 'hand',
+    atlas = 'patches',
+    pos = {x = 2, y = 0},
+    discovered = false,
+    config = {type = 'immediate', hands = 4},
+    loc_vars = function(self, info_queue, card)
+        if Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'no_demo'} end
+        info_queue[#info_queue+1] = G.P_CENTERS.c_ortalab_lot_hand
+        return {vars = {card.config.hands}}
+    end,
+    apply = function(self, tag, context)
+        if context.type == tag.config.type then
+            tag:yep('+', G.C.GREEN,function()
+                for i=1, tag.config.hands do
+                    G.E_MANAGER:add_event(Event({
+                        trigger = 'after',
+                        delay = 0.7,
+                        func = function()
+                            local card = SMODS.add_card({key = 'c_ortalab_lot_hand', area = G.consumeables, skip_materialize = true})
+                            card:start_materialize({G.C.SET.Loteria}) 
+                            return true
+                        end
+                    }))
+                end
+                return true
+            end)
+            return true
+        end 
+    end
+})

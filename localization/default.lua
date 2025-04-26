@@ -1935,6 +1935,14 @@ return {
 					'with random {C:attention}Jokers'
 				}
 			},
+			tag_ortalab_hand = {
+				name = 'Gambler\'s Patch',
+				text = {
+					'Obtain {C:attention}#1#{} copies of', 
+					'{C:Loteria}The Hand',
+					'{C:inactive,s:0.7}(Does not need space)'
+				}
+			},
 			["tag_ortalab_common"] = {
 				["name"] = "Common Patch",
 				["text"] = {
