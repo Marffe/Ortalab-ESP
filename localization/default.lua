@@ -1912,6 +1912,14 @@ return {
 					'{C:inactive,s:0.85}(Currently {C:money,s:0.85}$#2#{C:inactive,s:0.85})'
 				}
 			},
+			tag_ortalab_mythical = {
+				name = 'Mythical Patch',
+				text = {
+					"Add {C:attention}#1#{} free {C:Mythos}Giga", 
+					"{C:Mythos}Mythos Packs{}",
+					"to the next shop"
+                }
+			},
 			["tag_ortalab_common"] = {
 				["name"] = "Common Patch",
 				["text"] = {

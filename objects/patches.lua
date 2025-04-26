@@ -589,3 +589,34 @@ SMODS.Tag({
         end
     end
 })
+
+SMODS.Tag({
+    key = 'mythical',
+    atlas = 'patches',
+    pos = {x = 4, y = 3},
+    discovered = false,
+    min_ante = 3,
+    config = {type = 'shop_final_pass', packs = 2},
+    loc_vars = function(self, info_queue, card)
+        if Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'kosze'} end
+        info_queue[#info_queue + 1] = G.P_CENTERS['p_ortalab_big_mythos']
+        return {vars = {self.config.packs}}
+    end,
+    apply = function(self, tag, context)
+        if context.type == self.config.type then
+            tag:yep('+', G.C.GREEN,function()
+                for i=1, tag.config.packs do
+                    local pack = Card(G.shop_booster.T.x + G.shop_booster.T.w/2,
+                    G.shop_booster.T.y, G.CARD_W*1.27, G.CARD_H*1.27, G.P_CARDS.empty, G.P_CENTERS['p_ortalab_big_mythos'], {bypass_discovery_center = true, bypass_discovery_ui = true})
+                    create_shop_card_ui(pack, 'Booster', G.shop_booster)
+                    pack.ability.booster_pos = #G.shop_booster.cards + 1
+                    pack.ability.couponed = true
+                    pack:start_materialize()
+                    G.shop_booster:emplace(pack)
+                    pack:set_cost()
+                end
+                return true
+            end)
+        end 
+    end
+})
