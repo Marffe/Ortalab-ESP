@@ -11,7 +11,7 @@ local small_boosters = {keys = {'small_mythos_1', 'small_mythos_2'}, info = {
     atlas = 'mythos_booster',
     config = {choose = 1, extra = 2},
     loc_vars = function(self, info_queue, card)
-        if Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'kosze'} end
+        if Ortalab.config.artist_credits and not card.fake_card then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'kosze'} end
         return {vars = {card and card.ability.choose or self.config.choose, (card and card.ability.extra or self.config.extra)}}
     end,
     ease_background_colour = function(self)
@@ -61,7 +61,7 @@ SMODS.Booster({
     pos = {x = 2, y = 0},
     config = {choose = 1, extra = 4},
     loc_vars = function(self, info_queue, card)
-        if Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'kosze'} end
+        if Ortalab.config.artist_credits and not card.fake_card then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'kosze'} end
         return {vars = {card and card.ability.choose or self.config.choose, (card and card.ability.extra or self.config.extra)}}
     end,
     ease_background_colour = function(self)
@@ -100,7 +100,7 @@ SMODS.Booster({
     pos = {x = 3, y = 0},
     config = {choose = 2, extra = 4},
     loc_vars = function(self, info_queue, card)
-        if Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'kosze'} end
+        if Ortalab.config.artist_credits and not card.fake_card then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'kosze'} end
         return {vars = {card and card.ability.choose or self.config.choose, (card and card.ability.extra or self.config.extra)}}
     end,
     ease_background_colour = function(self)

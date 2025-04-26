@@ -339,7 +339,7 @@ SMODS.Consumable({
     discovered = false,
     config = {extra = {zodiac = 'zodiac_ortalab_aries'}},
     loc_vars = function(self, info_queue, card)
-        if Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'parchment'} end
+        if Ortalab.config.artist_credits and not card.fake_card then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'parchment'} end
         info_queue[#info_queue + 1] = {generate_ui = zodiac_tooltip, key = self.config.extra.zodiac}
         return {vars = {localize(G.ZODIACS[self.config.extra.zodiac].config.extra.hand_type, 'poker_hands')}}
     end,
@@ -393,7 +393,7 @@ SMODS.Consumable({
     discovered = false,
     config = {extra = {zodiac = 'zodiac_ortalab_taurus'}},
     loc_vars = function(self, info_queue, card)
-        if Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'parchment'} end
+        if Ortalab.config.artist_credits and not card.fake_card then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'parchment'} end
         info_queue[#info_queue + 1] = {generate_ui = zodiac_tooltip, key = self.config.extra.zodiac}
         return {vars = {localize(G.ZODIACS[self.config.extra.zodiac].config.extra.hand_type, 'poker_hands')}}
     end,
@@ -444,7 +444,7 @@ SMODS.Consumable({
     discovered = false,
     config = {extra = {zodiac = 'zodiac_ortalab_gemini'}},
     loc_vars = function(self, info_queue, card)
-        if Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'parchment'} end
+        if Ortalab.config.artist_credits and not card.fake_card then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'parchment'} end
         info_queue[#info_queue + 1] = {generate_ui = zodiac_tooltip, key = self.config.extra.zodiac}
         return {vars = {localize(G.ZODIACS[self.config.extra.zodiac].config.extra.hand_type, 'poker_hands')}}
     end,
@@ -496,7 +496,7 @@ SMODS.Consumable({
     discovered = false,
     config = {extra = {zodiac = 'zodiac_ortalab_cancer'}},
     loc_vars = function(self, info_queue, card)
-        if Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'parchment'}; info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'salad'} end
+        if Ortalab.config.artist_credits and not card.fake_card then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'parchment'}; info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'salad'} end
         info_queue[#info_queue + 1] = {generate_ui = zodiac_tooltip, key = self.config.extra.zodiac}
         return {vars = {localize(G.ZODIACS[self.config.extra.zodiac].config.extra.hand_type, 'poker_hands')}}
     end,
@@ -560,7 +560,7 @@ SMODS.Consumable({
     discovered = false,
     config = {extra = {zodiac = 'zodiac_ortalab_leo'}},
     loc_vars = function(self, info_queue, card)
-        if Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'parchment'} end
+        if Ortalab.config.artist_credits and not card.fake_card then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'parchment'} end
         info_queue[#info_queue + 1] = {generate_ui = zodiac_tooltip, key = self.config.extra.zodiac}
         return {vars = {localize(G.ZODIACS[self.config.extra.zodiac].config.extra.hand_type, 'poker_hands')}}
     end,
@@ -617,7 +617,7 @@ SMODS.Consumable({
     discovered = false,
     config = {extra = {zodiac = 'zodiac_ortalab_virgo'}},
     loc_vars = function(self, info_queue, card)
-        if Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'parchment'} end
+        if Ortalab.config.artist_credits and not card.fake_card then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'parchment'} end
         info_queue[#info_queue + 1] = {generate_ui = zodiac_tooltip, key = self.config.extra.zodiac}
         return {vars = {localize(G.ZODIACS[self.config.extra.zodiac].config.extra.hand_type, 'poker_hands')}}
     end,
@@ -675,7 +675,7 @@ SMODS.Consumable({
     discovered = false,
     config = {extra = {zodiac = 'zodiac_ortalab_libra'}},
     loc_vars = function(self, info_queue, card)
-        if Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'parchment'} end
+        if Ortalab.config.artist_credits and not card.fake_card then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'parchment'} end
         info_queue[#info_queue + 1] = {generate_ui = zodiac_tooltip, key = self.config.extra.zodiac}
         return {vars = {localize(G.ZODIACS[self.config.extra.zodiac].config.extra.hand_type, 'poker_hands')}}
     end,
@@ -733,7 +733,7 @@ SMODS.Consumable({
     discovered = false,
     config = {extra = {zodiac = 'zodiac_ortalab_scorpio'}},
     loc_vars = function(self, info_queue, card)
-        if Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'parchment'} end
+        if Ortalab.config.artist_credits and not card.fake_card then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'parchment'} end
         info_queue[#info_queue + 1] = {generate_ui = zodiac_tooltip, key = self.config.extra.zodiac}
         return {vars = {localize(G.ZODIACS[self.config.extra.zodiac].config.extra.hand_type, 'poker_hands')}}
     end,
@@ -805,7 +805,7 @@ SMODS.Consumable({
     discovered = false,
     config = {extra = {zodiac = 'zodiac_ortalab_sag'}},
     loc_vars = function(self, info_queue, card)
-        if Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'parchment'} end
+        if Ortalab.config.artist_credits and not card.fake_card then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'parchment'} end
         info_queue[#info_queue + 1] = {generate_ui = zodiac_tooltip, key = self.config.extra.zodiac}
         return {vars = {localize(G.ZODIACS[self.config.extra.zodiac].config.extra.hand_type, 'poker_hands')}}
     end,
@@ -874,7 +874,7 @@ SMODS.Consumable({
     discovered = false,
     config = {extra = {zodiac = 'zodiac_ortalab_capr'}},
     loc_vars = function(self, info_queue, card)
-        if Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'parchment'} end
+        if Ortalab.config.artist_credits and not card.fake_card then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'parchment'} end
         info_queue[#info_queue + 1] = {generate_ui = zodiac_tooltip, key = self.config.extra.zodiac}
         return {vars = {localize(G.ZODIACS[self.config.extra.zodiac].config.extra.hand_type, 'poker_hands')}}
     end,
@@ -923,7 +923,7 @@ SMODS.Consumable({
     discovered = false,
     config = {extra = {zodiac = 'zodiac_ortalab_aquarius'}},
     loc_vars = function(self, info_queue, card)
-        if Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'parchment'} end
+        if Ortalab.config.artist_credits and not card.fake_card then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'parchment'} end
         info_queue[#info_queue + 1] = {generate_ui = zodiac_tooltip, key = self.config.extra.zodiac}
         return {vars = {localize(G.ZODIACS[self.config.extra.zodiac].config.extra.hand_type, 'poker_hands')}}
     end,
@@ -976,7 +976,7 @@ SMODS.Consumable({
     discovered = false,
     config = {extra = {zodiac = 'zodiac_ortalab_pisces'}},
     loc_vars = function(self, info_queue, card)
-        if Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'parchment'} end
+        if Ortalab.config.artist_credits and not card.fake_card then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'parchment'} end
         info_queue[#info_queue + 1] = {generate_ui = zodiac_tooltip, key = self.config.extra.zodiac}
         return {vars = {localize(G.ZODIACS[self.config.extra.zodiac].config.extra.hand_type, 'poker_hands')}}
     end,

@@ -40,7 +40,7 @@ SMODS.Consumable({
     discovered = false,
     config = {extra = {sets = {'Loteria', 'Zodiac'}}},
     loc_vars = function(self, info_queue, card)
-        if Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'parchment'} end
+        if Ortalab.config.artist_credits and not card.fake_card then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'parchment'} end
     end,
     can_use = function(self, card)
         if G.GAME.Ortalab and G.STATE ~= G.STATES.HAND_PLAYED and G.STATE ~= G.STATES.DRAW_TO_HAND and G.STATE ~= G.STATES.PLAY_TAROT or any_state then
@@ -82,7 +82,7 @@ SMODS.Consumable({
     config = {extra = {key = 'm_ortalab_recycled', amount = 3}},
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS[self.config.extra.key]
-        if Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'kosze'} end
+        if Ortalab.config.artist_credits and not card.fake_card then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'kosze'} end
         return {vars = {card.ability.extra.amount + (G.GAME and G.GAME.ortalab.vouchers.tabla)}}
     end,
     can_use = function(self, card)
@@ -105,7 +105,7 @@ SMODS.Consumable({
     discovered = false,
     config = {extra = {type = 'Zodiac', amount = 2}},
     loc_vars = function(self, info_queue, card)
-        if Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'kosze'} end
+        if Ortalab.config.artist_credits and not card.fake_card then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'kosze'} end
         return {vars = {card.ability.extra.amount + (G.GAME and G.GAME.ortalab.vouchers.tabla)}}
     end,
     can_use = function(self, card)
@@ -129,7 +129,7 @@ SMODS.Consumable({
     config = {extra = {key = 'm_ortalab_bent', amount = 3}},
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS[self.config.extra.key]
-        if Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'parchment'} end
+        if Ortalab.config.artist_credits and not card.fake_card then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'parchment'} end
         return {vars = {card.ability.extra.amount + (G.GAME and G.GAME.ortalab.vouchers.tabla)}}
     end,
     can_use = function(self, card)
@@ -152,7 +152,7 @@ SMODS.Consumable({
     discovered = false,
     config = {extra = {type = 'Loteria', amount = 2}},
     loc_vars = function(self, info_queue, card)
-        if Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'parchment'} end
+        if Ortalab.config.artist_credits and not card.fake_card then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'parchment'} end
         return {vars = {card and (card.ability.extra.amount + (G.GAME and G.GAME.ortalab.vouchers.tabla)) or self.config.extra.amount}}
     end,
     can_use = function(self, card)
@@ -176,7 +176,7 @@ SMODS.Consumable({
     config = {extra = {key = 'm_ortalab_post', amount = 3}},
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS[self.config.extra.key]
-        if Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'parchment'} end
+        if Ortalab.config.artist_credits and not card.fake_card then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'parchment'} end
         return {vars = {card.ability.extra.amount + (G.GAME and G.GAME.ortalab.vouchers.tabla)}}
     end,
     can_use = function(self, card)
@@ -200,7 +200,7 @@ SMODS.Consumable({
     config = {extra = {key = 'm_ortalab_index', amount = 2}},
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS[self.config.extra.key]
-        if Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'parchment'} end
+        if Ortalab.config.artist_credits and not card.fake_card then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'parchment'} end
         return {vars = {card.ability.extra.amount + (G.GAME and G.GAME.ortalab.vouchers.tabla)}}
     end,
     can_use = function(self, card)
@@ -224,7 +224,7 @@ SMODS.Consumable({
     config = {extra = {key = 'm_ortalab_rusty', amount = 3}},
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS[self.config.extra.key]
-        if Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'parchment'} end
+        if Ortalab.config.artist_credits and not card.fake_card then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'parchment'} end
         return {vars = {card.ability.extra.amount + (G.GAME and G.GAME.ortalab.vouchers.tabla)}}
     end,
     can_use = function(self, card)
@@ -248,7 +248,7 @@ SMODS.Consumable({
     config = {extra = {key = 'm_ortalab_sand', amount = 2}},
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS[self.config.extra.key]
-        if Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'kosze'} end
+        if Ortalab.config.artist_credits and not card.fake_card then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'kosze'} end
         return {vars = {card.ability.extra.amount + (G.GAME and G.GAME.ortalab.vouchers.tabla)}}
     end,
     can_use = function(self, card)
@@ -271,7 +271,7 @@ SMODS.Consumable({
     discovered = false,
     config = {extra = {min = -3, max = 20}},
     loc_vars = function(self, info_queue, card)
-        if Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'kosze'} end
+        if Ortalab.config.artist_credits and not card.fake_card then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'kosze'} end
         return {vars = {math.abs(card.ability.extra.min), card.ability.extra.max}}
     end,
     can_use = function (self, card)
@@ -296,7 +296,7 @@ SMODS.Consumable({
     discovered = false,
     config = {extra = {chance = 4, amount = 1}},
     loc_vars = function(self, info_queue, card)
-        if Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'parchment'} end
+        if Ortalab.config.artist_credits and not card.fake_card then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'parchment'} end
         return {vars = {math.max(G.GAME.probabilities.normal, 1), card.ability.extra.chance / math.min(G.GAME.probabilities.normal, 1)}}
     end,
     can_use = function(self, card)
@@ -358,7 +358,7 @@ SMODS.Consumable({
     discovered = false,
     config = {extra = {selected = 2, rank_change = 2}},
     loc_vars = function(self, info_queue, card)
-        if Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'parchment'} end
+        if Ortalab.config.artist_credits and not card.fake_card then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'parchment'} end
         return {vars = {card.ability.extra.selected + (G.GAME and G.GAME.ortalab.vouchers.tabla), card.ability.extra.rank_change}}
     end,
     can_use = function(self, card)
@@ -405,7 +405,7 @@ SMODS.Consumable({
     discovered = false,
     config = {extra = {amount = 2, selected = 2}},
     loc_vars = function(self, info_queue, card)
-        if Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'parchment'} end
+        if Ortalab.config.artist_credits and not card.fake_card then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'parchment'} end
         return {vars = {card.ability.extra.amount + (G.GAME and G.GAME.ortalab.vouchers.tabla)}}
     end,
     can_use = function(self, card)
@@ -480,7 +480,7 @@ SMODS.Consumable({
     discovered = false,
     config = {extra ={selected = 2}},
     loc_vars = function(self, info_queue, card)
-        if Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'parchment'} end
+        if Ortalab.config.artist_credits and not card.fake_card then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'parchment'} end
     end,
     can_use = function(self, card)
         if G.STATE ~= G.STATES.HAND_PLAYED and G.STATE ~= G.STATES.DRAW_TO_HAND and G.STATE ~= G.STATES.PLAY_TAROT or any_state then
@@ -589,7 +589,7 @@ SMODS.Consumable({
     discovered = false,
     config = {extra = {money = 1, value = 2, amount = 3}},
     loc_vars = function(self, info_queue, card)
-        if Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'parchment'} end
+        if Ortalab.config.artist_credits and not card.fake_card then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'parchment'} end
         return {vars = {card.ability.extra.money, card.ability.extra.value, card.ability.extra.amount + (G.GAME and G.GAME.ortalab.vouchers.tabla)        }}
     end,
     can_use = function(self, card)
@@ -675,7 +675,7 @@ SMODS.Consumable({
     config = {extra = {key = 'm_ortalab_iou', amount = 2}},
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS[self.config.extra.key]
-        if Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'kosze'} end
+        if Ortalab.config.artist_credits and not card.fake_card then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'kosze'} end
         return {vars = {card.ability.extra.amount + (G.GAME and G.GAME.ortalab.vouchers.tabla)}}
     end,
     can_use = function(self, card)
@@ -699,7 +699,7 @@ SMODS.Consumable({
     config = {extra = {key = 'm_ortalab_ore', amount = 2}},
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS[self.config.extra.key]
-        if Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'parchment'} end
+        if Ortalab.config.artist_credits and not card.fake_card then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'parchment'} end
         return {vars = {card.ability.extra.amount + (G.GAME and G.GAME.ortalab.vouchers.tabla)}}
     end,
     can_use = function(self, card)
@@ -722,7 +722,7 @@ SMODS.Consumable({
     discovered = false,
     config = {extra = {selected = 3, suit = 'Diamonds'}},
     loc_vars = function(self, info_queue, card)
-        if Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'parchment'} end
+        if Ortalab.config.artist_credits and not card.fake_card then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'parchment'} end
         return {vars = {card.ability.extra.selected + (G.GAME and G.GAME.ortalab.vouchers.tabla), localize(card.ability.extra.suit, 'suits_plural'),
             colours = {G.C.SUITS[card.ability.extra.suit]}}}
     end,
@@ -746,7 +746,7 @@ SMODS.Consumable({
     discovered = false,
     config = {extra = {selected = 3, suit = 'Clubs'}},
     loc_vars = function(self, info_queue, card)
-        if Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'parchment'} end
+        if Ortalab.config.artist_credits and not card.fake_card then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'parchment'} end
         return {vars = {card.ability.extra.selected + (G.GAME and G.GAME.ortalab.vouchers.tabla), localize(card.ability.extra.suit, 'suits_plural'),
         colours = {G.C.SUITS[card.ability.extra.suit]}}}
     end,
@@ -770,7 +770,7 @@ SMODS.Consumable({
     discovered = false,
     config = {extra = {selected = 3, suit = 'Hearts'}},
     loc_vars = function(self, info_queue, card)
-        if Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'parchment'} end
+        if Ortalab.config.artist_credits and not card.fake_card then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'parchment'} end
         return {vars = {card.ability.extra.selected + (G.GAME and G.GAME.ortalab.vouchers.tabla), localize(card.ability.extra.suit, 'suits_plural'),
         colours = {G.C.SUITS[card.ability.extra.suit]}}}
     end,
@@ -794,7 +794,7 @@ SMODS.Consumable({
     discovered = false,
     config = {extra = {selected = 1}},
     loc_vars = function(self, info_queue, card)
-        if Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'parchment'} end
+        if Ortalab.config.artist_credits and not card.fake_card then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'parchment'} end
         return {vars = {card.ability.extra.selected}}
     end,
     can_use = function(self, card)
@@ -884,7 +884,7 @@ SMODS.Consumable({
     discovered = false,
     config = {extra = {selected = 3, suit = 'Spades'}},
     loc_vars = function(self, info_queue, card)
-        if Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'parchment'} end
+        if Ortalab.config.artist_credits and not card.fake_card then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'parchment'} end
         return {vars = {card.ability.extra.selected + (G.GAME and G.GAME.ortalab.vouchers.tabla), localize(card.ability.extra.suit, 'suits_plural'),
         colours = {G.C.SUITS[card.ability.extra.suit]}}}
     end,
