@@ -620,3 +620,55 @@ SMODS.Tag({
         end 
     end
 })
+
+SMODS.Tag({
+    key = 'immolate',
+    atlas = 'patches',
+    pos = {x = 4, y = 4},
+    discovered = false,
+    config = {type = 'immediate', cards = 5, dollars = 20},
+    loc_vars = function(self, info_queue, card)
+        if Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'no_demo'} end
+        return {vars = {card.config.cards, card.config.dollars}}
+    end,
+    apply = function(self, tag, context)
+        if context.type == self.config.type then
+            tag:yep('+', G.C.GREEN,function()
+                local destroyed = {}
+                local start_point = pseudorandom(pseudoseed('ortalab_immolate_patch'), 1, #G.deck.cards)
+                for i=1, tag.config.cards do
+                    destroyed[i] = G.deck.cards[((start_point + i) % #G.deck.cards)+1]
+                    draw_card(G.deck, G.play, nil, nil, nil, destroyed[i])
+                end
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'after',
+                    delay = 0.7,
+                    func = function()
+                        attention_text({
+                            scale = 1.4, text = '+$'..tag.config.dollars, hold = 1, align = 'cm', offset = {x = 0,y = -2.7},major = G.play,backdrop_colour = G.C.MONEY
+                        })
+                        return true
+                    end
+                }))
+                ease_dollars(tag.config.dollars)
+                for i=1, #destroyed do
+                    G.E_MANAGER:add_event(Event({
+                        trigger = 'after',
+                        delay = 0.4,
+                        func = function() 
+                            local card = destroyed[i]
+                            if SMODS.shatters(card) then
+                                card:shatter()
+                            else
+                                card:start_dissolve(nil, i == #destroyed)
+                        end
+                        return true 
+                    end }))
+                end
+                SMODS.calculate_context({ remove_playing_cards = true, removed = destroyed })
+                return true
+            end)
+            return true
+        end 
+    end
+})

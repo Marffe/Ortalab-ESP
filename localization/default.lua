@@ -1920,6 +1920,14 @@ return {
 					"to the next shop"
                 }
 			},
+			tag_ortalab_immolate = {
+				name = 'Immolate Patch',
+				text = {
+					'{C:red}Destroy{C:attention} #1#{} random',
+					'cards from your deck',
+					'Gain {C:money}$#2#'
+				}
+			},
 			["tag_ortalab_common"] = {
 				["name"] = "Common Patch",
 				["text"] = {
