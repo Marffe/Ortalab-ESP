@@ -1928,6 +1928,13 @@ return {
 					'Gain {C:money}$#2#'
 				}
 			},
+			tag_ortalab_joker_slot = {
+				name = 'Pocket Patch',
+				text = {
+					'Fill your {C:attention}consumable{} slots',
+					'with random {C:attention}Jokers'
+				}
+			},
 			["tag_ortalab_common"] = {
 				["name"] = "Common Patch",
 				["text"] = {

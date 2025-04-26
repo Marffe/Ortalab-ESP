@@ -672,3 +672,43 @@ SMODS.Tag({
         end 
     end
 })
+
+SMODS.Tag({
+    key = 'joker_slot',
+    atlas = 'patches',
+    pos = {x = 1, y = 1},
+    discovered = false,
+    config = {type = 'immediate'},
+    loc_vars = function(self, info_queue, card)
+        if Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'no_demo'} end
+    end,
+    apply = function(self, tag, context)
+        if context.type == tag.config.type then
+            tag:yep('+', G.C.GREEN,function()
+                local to_fill = G.consumeables.config.card_limit - #G.consumeables.cards
+                local pool = get_current_pool('Joker')
+                local final_pool = {}
+                for _, v in ipairs(pool) do
+                    if v ~= 'UNAVAILABLE' then
+                        table.insert(final_pool, v)
+                    end
+                end
+                for i=1, to_fill do
+                    G.E_MANAGER:add_event(Event({
+                        trigger = 'after',
+                        delay = 0.5,
+                        func = function()
+                            local key, index = pseudorandom_element(final_pool, pseudoseed('ortalab_joker_slot_patch'))
+                            final_pool[index] = nil
+                            local card = SMODS.add_card({key = key, area = G.consumeables})
+                            card:start_materialize() 
+                            return true
+                        end
+                    }))
+                end
+                return true
+            end)
+            return true
+        end 
+    end
+})
