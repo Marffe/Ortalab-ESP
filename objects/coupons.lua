@@ -702,7 +702,7 @@ SMODS.ConsumableType({
         collection = "Loteria Cards",
     },
     collection_rows = {2, 1},
-    -- no_collection = true,
+    no_collection = true,
     shop_rate = 0,
     default = 'c_ortalab_edition_+'
 })
