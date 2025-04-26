@@ -292,7 +292,7 @@ payload = '''
 total_rate = total_rate + G.GAME.ortalab.vouchers.tags_in_shop
 '''
 
-# comment
+# create_card Tag compat
 [[patches]]
 [patches.pattern]
 target = 'functions/common_events.lua'
@@ -309,6 +309,23 @@ else
     center = G.P_CENTERS[center]
 end
 '''
+[[patches]]
+[patches.pattern]
+target = 'functions/common_events.lua'
+match_indent = true
+position = 'at'
+pattern = '''
+center = G.P_CENTERS[forced_key]
+'''
+payload = '''
+if _type == 'Tag' then
+    center = G.P_TAGS[forced_key]
+    center.pixel_size = {w = 32, h = 32}
+else
+    center = G.P_CENTERS[forced_key]
+end
+'''
+
 # Change sprite
 [[patches]]
 [patches.pattern]

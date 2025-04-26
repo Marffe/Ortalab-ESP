@@ -744,3 +744,59 @@ SMODS.Tag({
         end 
     end
 })
+
+SMODS.Tag({
+    key = '777',
+    atlas = 'patches',
+    pos = {x = 4, y = 1},
+    discovered = false,
+    config = {type = 'immediate', tags = 3},
+    loc_vars = function(self, info_queue, card)
+        if Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'no_demo'} end
+        return {vars = {card.config.tags}}
+    end,
+    apply = function(self, tag, context)
+        if context.type == tag.config.type then
+            tag:yep('+', G.C.GREEN,function()
+                local pool = get_current_pool('Tag')
+                local final_pool = {}
+                for _, v in ipairs(pool) do
+                    if v ~= 'UNAVAILABLE' and v ~= 'tag_ortalab_777' then
+                        table.insert(final_pool, v)
+                    end
+                end
+                local selected = {}
+                local cards = {}
+                for i=1, tag.config.tags do
+                    G.E_MANAGER:add_event(Event({
+                        trigger = 'after',
+                        delay = 1.8,
+                        func = function()
+                            local tag, index = pseudorandom_element(final_pool, pseudoseed('ortalab_tag_patch'))
+                            final_pool[index] = nil
+                            table.insert(selected, tag)
+                            cards[i] = SMODS.add_card({set = 'Tag', key = tag, area = G.play, skip_materialize = true})
+                            cards[i]:start_materialize({G.C.SET.Mythos})
+                            SMODS.calculate_effect({message = localize({type = 'name_text', set = 'Tag', key = tag}), instant = true, delay = 1.5}, cards[i])
+                            return true
+                        end
+                    }))
+                end
+                delay(1.5)
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'after',
+                    delay = 0.7,
+                    func = function()
+                        for i=1, tag.config.tags do
+                            cards[i]:start_dissolve()
+                            add_tag(Tag(selected[i]))               
+                        end
+                        return true
+                    end
+                    }))
+                return true
+            end)
+            return true
+        end 
+    end
+})

@@ -1943,6 +1943,12 @@ return {
 					'{C:inactive,s:0.7}(Does not need space)'
 				}
 			},
+			tag_ortalab_777 = {
+				name = 'Multi-Patch',
+				text = {
+					'Obtain {C:attention}#1#{} random tags'
+				}
+			},
 			["tag_ortalab_common"] = {
 				["name"] = "Common Patch",
 				["text"] = {
