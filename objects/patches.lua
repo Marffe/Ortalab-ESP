@@ -669,6 +669,7 @@ SMODS.Tag({
     atlas = 'patches',
     pos = {x = 2, y = 0},
     discovered = false,
+    min_ante = 2,
     config = {type = 'immediate', hands = 4},
     loc_vars = function(self, info_queue, card)
         if Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'no_demo'} end
@@ -757,13 +758,14 @@ SMODS.Tag({
     atlas = 'patches',
     pos = {x = 3, y = 1},
     discovered = false,
+    min_ante = 2,
     config = {type = 'ortalab_hand_played'},
     loc_vars = function(self, info_queue, card)
         if Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'no_demo'} end
     end,
     apply = function(self, tag, context)
         if context.type == tag.config.type then
-            tag:yep('+', G.C.RED ,function() 
+            tag:yep('+', G.C.GREEN ,function() 
                 return true
             end)
             local cards = {}
@@ -787,6 +789,58 @@ SMODS.Tag({
                 }))
             end
             playing_card_joker_effects(cards)
+            tag.triggered = true
+        end
+    end
+})
+
+SMODS.Tag({
+    key = 'singularity',
+    atlas = 'patches',
+    pos = {x = 2, y = 1},
+    discovered = false,
+    min_ante = 2,
+    config = {type = 'ortalab_first_hand'},
+    loc_vars = function(self, info_queue, card)
+        if Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'no_demo'} end
+    end,
+    apply = function(self, tag, context)
+        if context.type == tag.config.type then
+            tag:yep('+', G.C.GREEN ,function() 
+                return true
+            end)
+            local new_rank = Ortalab.rank_from_deck()
+            for i=1, #G.hand.cards do
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'after',
+                    delay = 0.2,
+                    func = function()
+                        G.hand.cards[i]:flip()   
+                        SMODS.change_base(G.hand.cards[i], nil, new_rank)             
+                        return true
+                    end
+                }))
+            end
+            for i=1, #G.hand.cards do
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'after',
+                    delay = 0.4,
+                    func = function()
+                        G.hand.cards[i]:juice_up()                
+                        return true
+                    end
+                }))
+            end
+            for i=1, #G.hand.cards do
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'after',
+                    delay = 0.2,
+                    func = function()
+                        G.hand.cards[i]:flip()                
+                        return true
+                    end
+                }))
+            end
             tag.triggered = true
         end
     end

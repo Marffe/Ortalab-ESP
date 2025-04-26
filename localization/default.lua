@@ -1957,6 +1957,14 @@ return {
 					'your deck'
 				}
 			},
+			tag_ortalab_singularity = {
+				name = 'Singularity Patch',
+				text = {
+					'Convert all cards in the {C:attention}first hand',
+					'of the next round to',
+					'a {C:attention}single rank'
+				}
+			},
 			["tag_ortalab_common"] = {
 				["name"] = "Common Patch",
 				["text"] = {

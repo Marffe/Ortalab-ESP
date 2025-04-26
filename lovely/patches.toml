@@ -146,3 +146,24 @@ for k, v in ipairs(G.GAME.tags) do
     v:apply_to_run({type = 'ortalab_hand_played'})
 end
 '''
+
+# First hand drawn
+[[patches]]
+[patches.pattern]
+target = 'game.lua'
+match_indent = true
+position = 'after'
+pattern = '''
+-- removed first hand drawn context
+'''
+payload = '''
+G.E_MANAGER:add_event(Event({
+    trigger = 'immediate',
+    func = function()
+        for k, v in ipairs(G.GAME.tags) do
+            v:apply_to_run({type = 'ortalab_first_hand'})
+        end
+        return true
+    end
+}))
+'''
