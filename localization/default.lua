@@ -105,7 +105,7 @@ return {
 		["Ortalab Artist"] = {
 			['no_demo'] = {
 				['text'] = {
-					'Coming soon...',
+					'Temporary art'
 				}
 			},
 			['shinku'] = {
@@ -1947,6 +1947,14 @@ return {
 				name = 'Multi-Patch',
 				text = {
 					'Obtain {C:attention}#1#{} random tags'
+				}
+			},
+			tag_ortalab_phantom = {
+				name = 'Phantom Patch',
+				text = {
+					'Add a {C:attention}copy{} of your',
+					'{C:attention}next played hand{} to',
+					'your deck'
 				}
 			},
 			["tag_ortalab_common"] = {

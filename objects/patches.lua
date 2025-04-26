@@ -196,27 +196,6 @@ SMODS.Tag({
     end
 })
 
--- SMODS.Tag({
---     key = 'recycle',
---     atlas = 'patches',
---     pos = {x = 1, y = 0},
---     discovered = false,
--- })
-
--- SMODS.Tag({
---     key = 'dfour',
---     atlas = 'patches',
---     pos = {x = 2, y = 0},
---     discovered = false,
--- })
-
--- SMODS.Tag({
---     key = 'bargain',
---     atlas = 'patches',
---     pos = {x = 3, y = 0},
---     discovered = false,
--- })
-
 SMODS.Tag({
     key = 'minion',
     atlas = 'patches',
@@ -267,34 +246,6 @@ SMODS.Tag({
         end
     end
 })
-
--- SMODS.Tag({
---     key = 'extraordinary',
---     atlas = 'patches',
---     pos = {x = 1, y = 1},
---     discovered = false,
--- })
-
--- SMODS.Tag({
---     key = 'charm',
---     atlas = 'patches',
---     pos = {x = 2, y = 1},
---     discovered = false,
--- })
-
--- SMODS.Tag({
---     key = 'buffoon',
---     atlas = 'patches',
---     pos = {x = 3, y = 1},
---     discovered = false,
--- })
-
--- SMODS.Tag({
---     key = 'jackpot',
---     atlas = 'patches',
---     pos = {x = 4, y = 1},
---     discovered = false,
--- })
 
 SMODS.Tag({
     key = 'soul',
@@ -798,5 +749,45 @@ SMODS.Tag({
             end)
             return true
         end 
+    end
+})
+
+SMODS.Tag({
+    key = 'phantom',
+    atlas = 'patches',
+    pos = {x = 3, y = 1},
+    discovered = false,
+    config = {type = 'ortalab_hand_played'},
+    loc_vars = function(self, info_queue, card)
+        if Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'no_demo'} end
+    end,
+    apply = function(self, tag, context)
+        if context.type == tag.config.type then
+            tag:yep('+', G.C.RED ,function() 
+                return true
+            end)
+            local cards = {}
+            for i=1, #G.play.cards do
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'after',
+                    delay = 0.5,
+                    func = function()                
+                        G.playing_card = (G.playing_card and G.playing_card + 1) or 1
+                        local _card = copy_card(G.play.cards[i], nil, nil, G.playing_card)
+                        G.play.cards[i]:juice_up()
+                        table.insert(cards, _card)
+                        _card:add_to_deck()
+                        G.deck.config.card_limit = G.deck.config.card_limit + 1
+                        table.insert(G.playing_cards, _card)
+                        G.deck:emplace(_card)
+                        _card.states.visible = nil
+                        _card:start_materialize({G.C.SET.Mythos})
+                        return true
+                    end
+                }))
+            end
+            playing_card_joker_effects(cards)
+            tag.triggered = true
+        end
     end
 })
