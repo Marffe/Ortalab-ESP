@@ -2451,55 +2451,55 @@ return {
 				}
 			},
 			v_ortalab_edition_1 = {
-				name = 'Hone Inverse',
+				name = 'Pulse Wave',
 				text = {
 					'{C:dark_edition}Editions{} on {C:attention}Jokers',
 					'trigger {C:attention}#1#{} extra time'
 				}
 			},
 			v_ortalab_edition_2 = {
-				name = 'Glow Up Inverse',
+				name = 'Energy Surge',
 				text = {
 					'{C:dark_edition}Editions{} on {C:attention}Jokers',
 					'trigger {C:attention}#1#{} extra times'
 				}
 			},
 			v_ortalab_grabber_inv = {
-				name = 'Grabber Inverse',
+				name = 'Windfall',
 				text = {
 					'Permanently gain {C:blue}+#1#{} hands',
 					'and {C:red}#2#{} discard per round'
 				}
 			},
 			v_ortalab_nacho_inv = {
-				name = 'Nacho Inverse',
+				name = 'Dividend',
 				text = {
 					'Earn an extra {C:money}$#1#{}', 
 					'per remaining hand'
 				}
 			},
 			v_ortalab_wasteful_inv = {
-				name = 'Wasteful Inverse',
+				name = 'Stockpile',
 				text = {
 					'Permanently gain {C:red}+#2#{} discards',
 					'and {C:blue}#1#{} hand per round'
 				}
 			},
 			v_ortalab_recyclo_inv = {
-				name = 'Recyclomancy Inverse',
+				name = 'Reservoir',
 				text = {
 					'{C:attention}+#1#{} {C:red}discard{} size'
 				}
 			},
 			v_ortalab_seed_inv = {
-				name = 'Seed Tree Inverse',
+				name = 'Wyrm\'s Gift',
 				text = {
 					'{C:attention}Blinds{} rewards are',
 					'increased by {C:money}$#1#'
 				}
 			},
 			v_ortalab_tree_inv = {
-				name = 'Money Tree Inverse',
+				name = 'Dragon\'s Hoard',
 				text = {
 					'{C:attention}Blinds{} rewards are',
 					'increased by {C:money}$#1#'
@@ -2768,63 +2768,63 @@ return {
 		},
 		['Stake'] = {
 			['stake_ortalab_one'] = {
-				name = "Ortalab Stake",
+				name = "Quartz Stake",
 				text = {
 				"Experience {C:Ortalab}Ortalab{} as intended",
 				"{C:inactive,s:0.7}You can enable other content in this mode in the {C:Ortalab,s:0.7}Ortalab{C:inactive,s:0.7} config"
 				}
 			},
 			['stake_ortalab_two'] = {
-				["name"] = 'Ortalab Stake 2',
+				["name"] = 'Topaz Stake',
 				["text"] = {
 					"{C:attention}Blinds{} have less rewards",
-					"{s:0.8}Applies {C:Ortalab,s:0.8}Ortalab Stake"
+					"{s:0.8}Applies {C:Ortalab,s:0.8}Quartz Stake"
 				}
 			},
 			['stake_ortalab_three'] = {
-				["name"] = 'Ortalab Stake 3',
+				["name"] = 'Amethyst Stake',
 				["text"] = {
 					"{C:attention}+1{} Win Ante",
 					'{C:inactive,s:0.9}Required score scales faster for each {C:attention,s:0.9}Ante',
-					"{s:0.8}Applies {C:Ortalab,s:0.8}Ortalab Stake 2"
+					"{s:0.8}Applies {C:Ortalab,s:0.8}Topaz Stake"
 				}
 			},
 			['stake_ortalab_four'] = {
-				["name"] = 'Ortalab Stake 4',
+				["name"] = 'Sapphire Stake',
 				["text"] = {
 					"Played and discarded cards are {C:red}not reshuffled{}",
 					' after defeating the {C:attention}Small Blind{}',
-					"{s:0.8}Applies {C:Ortalab,s:0.8}Ortalab Stake 3"
+					"{s:0.8}Applies {C:Ortalab,s:0.8}Amethyst Stake"
 				}
 			},
 			['stake_ortalab_five'] = {
-				["name"] = 'Ortalab Stake 5',
+				["name"] = 'Emerald Stake',
 				["text"] = {
 					'Active {C:zodiac}Zodiacs{} lose {C:attention}1{} level',
 					'after defeating a {C:attention}Blind',
 					'{C:inactive,s:0.9}Required score scales faster for each {C:attention,s:0.9}Ante',
-					"{s:0.8}Applies {C:Ortalab,s:0.8}Ortalab Stake 4"
+					"{s:0.8}Applies {C:Ortalab,s:0.8}Sapphire Stake"
 				}
 			},
 			['stake_ortalab_six'] = {
-				["name"] = 'Ortalab Stake 6',
+				["name"] = 'Ruby Stake',
 				["text"] = {
 					'{C:attention}Jokers{} in the shop can be {C:mythos}cursed',
-					"{s:0.8}Applies {C:Ortalab,s:0.8}Ortalab Stake 5"
+					"{s:0.8}Applies {C:Ortalab,s:0.8}Emerald Stake"
 				}
 			},
 			['stake_ortalab_seven'] = {
-				["name"] = 'Ortalab Stake 7',
+				["name"] = 'Dimaond Stake',
 				["text"] = {
 					'{C:attention}Ante 5{} has a {C:dark_edition}Finisher Blind',
-					"{s:0.8}Applies {C:Ortalab,s:0.8}Ortalab Stake 6"
+					"{s:0.8}Applies {C:Ortalab,s:0.8}Ruby Stake"
 				}
 			},
 			['stake_ortalab_eight'] = {
-				["name"] = 'Ortalab Stake 8',
+				["name"] = 'Obsidian Stake',
 				["text"] = {
 					"{C:attention}Final Ante{} has {C:attention}3{C:dark_edition} Finisher Blinds",
-					"{s:0.8}Applies {C:Ortalab,s:0.8}Ortalab Stake 7"
+					"{s:0.8}Applies {C:Ortalab,s:0.8}Diamond Stake"
 				}
 			}
 		},
