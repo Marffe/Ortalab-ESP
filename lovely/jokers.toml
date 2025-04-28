@@ -308,8 +308,10 @@ local function next_ranks(key, start)
 '''
 payload = '''
 local pairs_count = 0
-for _, v in pairs(ranks) do
-    if #v > 1 then pairs_count = pairs_count + (#v - 1) end
+if next(SMODS.find_card('j_ortalab_scenic')) then
+    for _, v in pairs(ranks) do
+        if #v > 1 then pairs_count = pairs_count + (#v - 1) end
+    end
 end
 '''
 # Scenic Route
