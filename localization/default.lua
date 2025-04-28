@@ -89,6 +89,8 @@ return {
 			ortalab_infected_safe = 'Safe!',
 			ortalab_edition_plus = 'an edition',
 			k_tag = 'Tag',
+			ortalab_chisel = 'Chiselled!',
+			ortalab_statue = 'Statue!',
         },
 		['labels'] = {
 			ortalab_greyscale = 'Greyscale',
@@ -2288,6 +2290,23 @@ return {
 			},
 		},
 		['Voucher'] = {
+			v_ortalab_chisel = {
+				name = 'Chisel',
+				text = {
+					'When {C:attention}Blind{} is selected,',
+					'{C:attention}#1#{} random cards in your',
+					'deck become {C:attention}Wild{} and',
+					'{C:attention}Index{} cards'
+				}
+			},
+			v_ortalab_statue = {
+				name = 'Statue',
+				text = {
+					'The right-most card held',
+					'in hand acts as if',
+					'it was {C:attention}played'
+				}
+			},
 			v_ortalab_magic_trick_inv = {
 				name = 'Hex',
 				text = {

@@ -508,3 +508,20 @@ G.GAME.ortalab.vouchers.mythos_shop_slot and {n=G.UIT.C, config={align = "cm", p
     }},
 }} or nil,
 '''
+
+# Statue
+[[patches]]
+[patches.pattern]
+target = 'functions/state_events.lua'
+match_indent = true
+position = 'after'
+pattern = '''
+-- TARGET: adding to hand effects
+'''
+payload = '''
+if next(SMODS.find_card('v_ortalab_statue')) then
+    table.insert(final_scoring_hand, G.hand.cards[#G.hand.cards])
+    table.insert(Ortalab.polydactyly.cards, G.hand.cards[#G.hand.cards])
+    SMODS.calculate_effect({message = localize('ortalab_statue')}, G.vouchers.cards[1])
+end
+'''

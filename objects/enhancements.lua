@@ -97,12 +97,17 @@ SMODS.Enhancement({
         if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'luna'} end
     end,
     set_sprites = function(self, card, front)
-        if card.ability and card.ability.extra and type(card.ability.extra) == 'table' and card.ability.extra.index_state then 
-            if card.ability.extra.index_state == 'MID' then card.children.center:set_sprite_pos({x = 2, y = 0}) 
-            elseif card.ability.extra.index_state == 'UP' then card.children.center:set_sprite_pos({x = 1, y = 2}) 
-            elseif card.ability.extra.index_state == 'DOWN' then card.children.center:set_sprite_pos({x = 0, y = 2}) end
+        if card.ability and card.ability.extra and type(card.ability.extra) == 'table' and card.ability.index_state then 
+            if card.ability.index_state == 'MID' then card.children.center:set_sprite_pos({x = 2, y = 0}) 
+            elseif card.ability.index_state == 'UP' then card.children.center:set_sprite_pos({x = 1, y = 2}) 
+            elseif card.ability.index_state == 'DOWN' then card.children.center:set_sprite_pos({x = 0, y = 2}) end
         end
     end,
+    set_ability = function(self, card, from_debuff)
+        if not from_debuff then
+            card.ability.index_state = 'MID'
+        end
+    end
 })
 
 SMODS.Enhancement({
@@ -312,14 +317,14 @@ SMODS.Enhancement({
 local card_highlight = Card.highlight
 function Card:highlight(highlighted)
     card_highlight(self, highlighted)
-    if highlighted and self.config.center_key == 'm_ortalab_index' and self.area == G.hand and #G.hand.highlighted == 1 and not G.booster_pack then
+    if highlighted and SMODS.has_enhancement(self, 'm_ortalab_index') and self.area == G.hand and #G.hand.highlighted == 1 and not G.booster_pack then
         self.children.use_button = UIBox{
             definition = G.UIDEF.use_index_buttons(self), 
             config = {align = 'cl', offset = {x=0.5, y=0}, parent = self, id = 'ortalab_index'}
         }
     elseif self.area and #self.area.highlighted > 0 and not G.booster_pack then
         for _, card in ipairs(self.area.highlighted) do
-            if card.config.center_key == 'm_ortalab_index' then
+            if SMODS.has_enhancement(self, 'm_ortalab_index') then
                 card.children.use_button = #self.area.highlighted == 1 and UIBox{
                     definition = G.UIDEF.use_index_buttons(card), 
                     config = {align = 'cl', offset = {x=0.5, y=0}, parent = card}
@@ -328,7 +333,7 @@ function Card:highlight(highlighted)
         end
         -- self.children.use_button = nil
     end
-    if highlighted and self.children.use_button and self.children.use_button.config.id == 'ortalab_index' and self.config.center_key ~= 'm_ortalab_index' then
+    if highlighted and self.children.use_button and self.children.use_button.config.id == 'ortalab_index' and not SMODS.has_enhancement(self, 'm_ortalab_index') then
         self.children.use_button:remove()
     end
 end
@@ -373,7 +378,7 @@ function G.UIDEF.use_index_buttons(card)
   end
 
 G.FUNCS.index_card_increase = function(e)
-    if e.config.ref_table.ability.extra and type(e.config.ref_table.ability.extra) == 'table' and e.config.ref_table.ability.extra.index_state ~= 'UP' then 
+    if e.config.ref_table.ability.index_state ~= 'UP' then 
         e.config.colour = G.C.RED
         e.config.button = 'increase_index'
     else
@@ -385,17 +390,18 @@ end
 G.FUNCS.increase_index = function(e, mute, nosave)
     e.config.button = nil
     local card = e.config.ref_table
+    card.ability.extra = card.ability.extra or {index_state == 'MID'}
     local area = card.area
     local change = 1
-    if card.ability.extra.index_state == 'DOWN' then change = 2 end
-    card.ability.extra.index_state = 'UP'
-    card.children.center:set_sprite_pos({x = 1, y = 2})
+    if card.ability.index_state == 'DOWN' then change = 2 end
+    card.ability.index_state = 'UP'
+    if not card.ability.chiselled or card.config.center_key == 'm_ortalab_index' then card.children.center:set_sprite_pos({x = 1, y = 2}) end
     card.base.id = card.base.id + change
     SMODS.change_base(card, nil, get_rank_suffix(card)) 
 end
 
 G.FUNCS.index_card_mid = function(e)
-    if e.config.ref_table.ability.extra and type(e.config.ref_table.ability.extra) == 'table' and e.config.ref_table.ability.extra.index_state ~= 'MID' then 
+    if e.config.ref_table.ability.index_state ~= 'MID' then 
         e.config.colour = G.C.RED
         e.config.button = 'mid_index'
     else
@@ -409,15 +415,15 @@ G.FUNCS.mid_index = function(e, mute, nosave)
     local card = e.config.ref_table
     local area = card.area
     local change = 1
-    if card.ability.extra.index_state == 'UP' then change = -1 end
-    card.ability.extra.index_state = 'MID'
-    card.children.center:set_sprite_pos({x = 2, y = 0})
+    if card.ability.index_state == 'UP' then change = -1 end
+    card.ability.index_state = 'MID'
+    if not card.ability.chiselled or card.config.center_key == 'm_ortalab_index' then card.children.center:set_sprite_pos({x = 2, y = 0}) end
     card.base.id = card.base.id + change
     SMODS.change_base(card, nil, get_rank_suffix(card)) 
 end
 
 G.FUNCS.index_card_decrease = function(e)
-    if e.config.ref_table.ability.extra and type(e.config.ref_table.ability.extra) == 'table' and e.config.ref_table.ability.extra.index_state ~= 'DOWN' then 
+    if e.config.ref_table.ability.index_state ~= 'DOWN' then 
         e.config.colour = G.C.RED
         e.config.button = 'decrease_index'
     else
@@ -431,9 +437,9 @@ G.FUNCS.decrease_index = function(e, mute, nosave)
     local card = e.config.ref_table
     local area = card.area
     local change = 1
-    if card.ability.extra.index_state == 'UP' then change = 2 end
-    card.ability.extra.index_state = 'DOWN'
-    card.children.center:set_sprite_pos({x = 0, y = 2}) 
+    if card.ability.index_state == 'UP' then change = 2 end
+    card.ability.index_state = 'DOWN'
+    if not card.ability.chiselled or card.config.center_key == 'm_ortalab_index' then card.children.center:set_sprite_pos({x = 0, y = 2}) end
     card.base.id = card.base.id - change
     SMODS.change_base(card, nil, get_rank_suffix(card))
 end

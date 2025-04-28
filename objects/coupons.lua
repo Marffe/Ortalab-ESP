@@ -571,6 +571,98 @@ function Card.open(self)
 	return CardOpen_ref(self)
 end
 
+SMODS.Voucher({
+	key = "chisel",
+	atlas = "coupons",
+	pos = {x = 4, y = 1},
+	cost = 10,
+	unlocked = true,
+	discovered = false,
+	available = true,
+    config = {extra = {change = 5}},
+	calculate = function(self, card, context)
+        if context.setting_blind then
+            for i=1, card.ability.extra.change do
+                local _card = pseudorandom_element(G.playing_cards, pseudoseed('ortalab_chisel'))
+                while _card.ability.chiselled do
+                    _card = pseudorandom_element(G.playing_cards, pseudoseed('ortalab_chisel_reroll'))
+                end
+                _card.ability.chiselled = true
+                _card.ability.extra = _card.ability.extra or {}
+                _card.ability.index_state = 'MID'
+            end
+        end
+        if context.check_enhancement and context.other_card.ability.chiselled then
+            return {
+                m_wild = true,
+                m_ortalab_index = true
+            }
+        end
+        if context.end_of_round and context.main_eval then
+            for _, _card in pairs(G.playing_cards) do
+                if _card.ability.chiselled then _card.ability.chiselled = nil end
+                if not SMODS.has_enhancement(_card, 'm_ortalab_index') and _card.ability.extra then
+                    _card.ability.index_state = nil
+                end
+            end
+        end
+        if context.hand_drawn then
+            for _, _card in pairs(context.hand_drawn) do
+                if _card.ability.chiselled then
+                    SMODS.calculate_effect({message = localize('ortalab_chisel')}, _card)
+                end
+            end
+        end
+    end,
+    loc_vars = function(self, info_queue, card)
+        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'no_demo'} end
+        info_queue[#info_queue+1] = G.P_CENTERS.m_wild
+        info_queue[#info_queue+1] = G.P_CENTERS.m_ortalab_index
+        return {vars = {card.ability.extra.change}}
+    end,
+})
+
+SMODS.Voucher({
+	key = "statue",
+	atlas = "coupons",
+	pos = {x = 5, y = 1},
+	cost = 10,
+	unlocked = true,
+	discovered = false,
+	available = false,
+    requires = {'v_ortalab_chisel'},
+    config = {extra = {bonus_slots = 1}},
+	redeem = function(self, card)
+        G.GAME.ortalab.vouchers.booster_pack_bonus = card.ability.extra.bonus_slots
+    end,
+    loc_vars = function(self, info_queue, card)
+        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'no_demo'} end
+        return {vars = {card.ability.extra.bonus_slots}}
+    end,
+})
+
+SMODS.Atlas({
+    key = 'chisel',
+    path = 'chisel.png',
+    px = 71,
+    py = 95
+})
+
+SMODS.DrawStep {
+    key = 'chisel',
+    order = 35,
+    func = function(self)
+        if self.ability.chiselled then
+            if not Ortalab.chisel_sprite then Ortalab.chisel_sprite = Sprite(0, 0, G.CARD_W, G.CARD_H, G.ASSET_ATLAS['ortalab_chisel'], {x=0, y=0}) end
+            Ortalab.chisel_sprite.role.draw_major = self
+            Ortalab.chisel_sprite:draw_shader('dissolve', nil, nil, nil, self.children.center)
+            Ortalab.chisel_sprite:draw_shader('ortalab_mythos', nil, nil, nil, self.children.center)
+        end
+    end,
+    conditions = { vortex = false, facing = 'front' },
+}
+
+
 local skip_blind = G.FUNCS.skip_blind
 G.FUNCS.skip_blind = function(e)
     if G.GAME.ortalab.vouchers.reroll_on_skip then
