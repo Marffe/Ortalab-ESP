@@ -204,10 +204,50 @@ local ortalab_poly_jokers = SMODS.find_card('j_ortalab_polydactyly')
 if next(ortalab_poly_jokers) and (next(poker_hands['Straight']) or next(poker_hands['Flush'])) then
     for i=1, ortalab_poly_jokers[1].ability.extra.cards do
         table.insert(final_scoring_hand, G.hand.cards[i])
+        table.insert(Ortalab.polydactyly.cards, G.hand.cards[i])
     end
     SMODS.calculate_effect({message = localize('ortalab_polydactyly')}, ortalab_poly_jokers[1])
 end
 '''
+# Polydactyly compat
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/utils.lua"]'
+match_indent = true
+position = 'before'
+pattern = '''
+t[#t+1] = G.hand
+'''
+payload = '''
+t[#t+1] = Ortalab.polydactyly
+'''
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/utils.lua"]'
+match_indent = true
+position = 'before'
+pattern = '''
+local in_scoring = scoring_hand and SMODS.in_scoring(card, context.scoring_hand)
+--add cards played to list
+'''
+payload = '''
+if context.cardarea == Ortalab.polydactyly then scoring_hand = context.scoring_hand end
+'''
+# Unhighlight poly cards
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/utils.lua"]'
+match_indent = true
+position = 'before'
+pattern = '''
+-- context.destroying_card calculations
+'''
+payload = '''
+if context.cardarea == Ortalab.polydactyly then
+    highlight_card(card,(1-0.999)/(3-0.998),'down')
+end
+'''
+
 
 # Stonehenge
 [[patches]]
