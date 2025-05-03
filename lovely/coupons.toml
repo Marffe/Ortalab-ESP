@@ -525,3 +525,20 @@ if next(SMODS.find_card('v_ortalab_statue')) then
     SMODS.calculate_effect({message = localize('ortalab_statue')}, G.vouchers.cards[1])
 end
 '''
+
+# Chisel tooltip
+[[patches]]
+[patches.pattern]
+target = 'functions/common_events.lua'
+match_indent = true
+position = 'before'
+pattern = '''
+if main_end then 
+'''
+payload = '''
+if card and card.ability and card.ability.chiselled then
+    info_queue[#info_queue+1] = {set = 'Other', key = 'ortalab_chiselled'}
+end
+
+
+'''

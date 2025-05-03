@@ -2295,7 +2295,7 @@ return {
 				text = {
 					'When {C:attention}Blind{} is selected,',
 					'{C:attention}#1#{} random cards in your',
-					'deck become {C:attention}Wild{} and',
+					'deck act as {C:attention}Wild{} and',
 					'{C:attention}Index{} cards'
 				}
 			},
@@ -2589,6 +2589,13 @@ return {
             },
 		},
 		['Other'] = {
+			ortalab_chiselled = {
+				name = "Chiselled",
+				text = {
+					'Acts as {C:attention}Wild{}',
+					'and {C:attention}Index{} cards'
+				}
+			},
 			['p_ortalab_small_loteria_1'] = {
                 name = "Chalupa Pack",
                 text = {
