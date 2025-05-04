@@ -971,6 +971,13 @@ SMODS.Blind({
     press_play = function(self)
         self.prepped = false
     end,
+    calculate = function(self, card, context)
+        if context.modify_scoring_hand and context.other_card.celadon then
+            return {
+                remove_from_hand = true
+            }
+        end
+    end
 })
 
 SMODS.Shader({key = 'celadon', path = 'applied.fs'})
@@ -981,17 +988,14 @@ function celadon_check(self, card)
     if card:is_face() then
         if self.config.extra.current == 'Face' then
             card.celadon = true
-            card.debuff = true
         end
     elseif card.base.nominal % 2 == 0 then
         if self.config.extra.current == 'Even' then
             card.celadon = true
-            card.debuff = true
         end
     else
         if self.config.extra.current == 'Odd' then
             card.celadon = true
-            card.debuff = true
         end
     end
 end
