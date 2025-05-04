@@ -254,3 +254,12 @@ function Card:open()
         card_open(self)
     end
 end
+
+-- Override get_next_tag_key to disable skipping the final ante blinds
+local get_next_tag_key_ortalab_ref = get_next_tag_key
+function get_next_tag_key(append)
+    if G.GAME.ortalab.finisher_ante and G.GAME.round_resets.ante == G.GAME.win_ante then
+        return nil
+    end
+    return get_next_tag_key_ortalab_ref(append)
+end

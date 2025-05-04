@@ -154,6 +154,18 @@ payload = '''
 (((G.GAME.round_resets.ante)%G.GAME.win_ante == 0 and G.GAME.round_resets.ante >= 2) or (G.GAME.ortalab.ante_showdown and G.GAME.round_resets.ante == 5)) ==
 '''
 
+# Stake 8 - don't win after first blind
+[[patches]]
+[patches.pattern]
+target = 'functions/state_events.lua'
+match_indent = true
+position = 'at'
+pattern = '''
+if G.GAME.round_resets.ante == G.GAME.win_ante and G.GAME.blind:get_type() == 'Boss' then
+'''
+payload = '''
+if G.GAME.round_resets.ante == G.GAME.win_ante and G.GAME.blind:get_type() == 'Boss' and G.GAME.round_resets.blind_states.Boss == 'Defeated' then
+'''
 
 
 ## Patch SMODS get_pack

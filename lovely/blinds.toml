@@ -39,19 +39,6 @@ if G.GAME.ortalab.double_blind then
 end
 '''
 
-# Handle defeating custom small/big blinds
-[[patches]]
-[patches.pattern]
-target = 'functions/state_events.lua'
-pattern = "G.GAME.round_resets.blind_states.Big = 'Defeated'"
-position = 'after'
-match_indent = true
-payload = '''
-elseif G.GAME.round_resets.blind.small then
-    G.GAME.round_resets.blind_states.Small = 'Defeated'
-elseif G.GAME.round_resets.blind.big then
-    G.GAME.round_resets.blind_states.Big = 'Defeated'
-'''
 # Handle setting new blinds
 [[patches]]
 [patches.pattern]
@@ -75,7 +62,7 @@ pattern = '''
 if G.GAME.round_resets.blind == G.P_BLINDS.bl_small then
 '''
 payload = '''
-if G.GAME.round_resets.blind == G.P_BLINDS.bl_small or G.GAME.round_resets.blind.small then
+if G.GAME.round_resets.blind_states.Small == 'Current' then
 '''
 [[patches]]
 [patches.pattern]
@@ -86,9 +73,8 @@ pattern = '''
 elseif G.GAME.round_resets.blind == G.P_BLINDS.bl_big then
 '''
 payload = '''
-elseif G.GAME.round_resets.blind == G.P_BLINDS.bl_big or G.GAME.round_resets.blind.big then
+elseif G.GAME.round_resets.blind_states.Big == 'Current' then
 '''
-
 
 
 [[patches]]
