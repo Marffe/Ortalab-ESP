@@ -54,7 +54,58 @@ function info_tip_from_rows(desc_nodes, name)
     end
 end
 
-
+local card_h_popup_ortalab = G.UIDEF.card_h_popup
+function G.UIDEF.card_h_popup(card)
+    local ret_val = card_h_popup_ortalab(card)
+    local obj = card.config.center
+    if obj and obj.artist_credits then
+        local artists = {n=G.UIT.R, config = {align = 'tm'}, nodes = {
+            {n=G.UIT.T, config={
+              text = "Art by ",
+              shadow = true,
+              colour = G.C.UI.BACKGROUND_WHITE,
+              scale = 0.27}}
+        }}
+        local total_artists = #obj.artist_credits
+        for i, artist in ipairs(obj.artist_credits) do
+            if total_artists > 1 and i > 1 then
+                if i == total_artists then
+                    table.insert(artists.nodes,
+                        {n=G.UIT.T, config={
+                        text = ' and ',
+                        shadow = true,
+                        colour = G.C.WHITE,
+                        scale = 0.27}}
+                    )
+                else
+                    table.insert(artists.nodes,
+                        {n=G.UIT.T, config={
+                        text = ', ',
+                        shadow = true,
+                        colour = G.C.WHITE,
+                        scale = 0.27}}
+                    )
+                end
+            end
+            table.insert(artists.nodes,
+                {n=G.UIT.O, config={
+                    object = DynaText({string = localize{type = 'raw_descriptions', set = 'Ortalab Artist', key = artist},
+                    colours = {G.ARGS.LOC_COLOURS[artist]},
+                    bump = true,
+                    silent = true,
+                    pop_in = 0,
+                    pop_in_rate = 4,
+                    shadow = true,
+                    y_offset = -0.6,
+                    scale =  0.27
+                    })
+                }}
+            )
+        end
+        table.insert(ret_val.nodes[1].nodes[1].nodes[1].nodes, artists)
+    end
+    return ret_val
+end
 
 
 -- G.ARGS.LOC_COLOURS['zodiac'] = HEX('9D3B35')
