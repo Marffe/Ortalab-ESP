@@ -12,7 +12,6 @@ SMODS.Joker({
 	config = {extra = {chips = 30, suit = 'Clubs'}},
     artist_credits = {'golddisco', 'flare'},
 	loc_vars = function(self, info_queue, card)
-		info_queue[#info_queue+1] = G.P_CENTERS['j_ortalab_freezer']
         return {vars = {card.ability.extra.chips, localize(card.ability.extra.suit, 'suits_singular')}}
     end,
     calculate = function(self, card, context)
