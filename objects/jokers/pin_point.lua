@@ -9,10 +9,7 @@ SMODS.Joker({
 	blueprint_compat = true,
 	eternal_compat = true,
 	perishable_compat = true,
-	config = {},
-    loc_vars = function(self, info_queue, card)
-        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'gappie'} end
-    end,
+	artist_credits = {'gappie'},
 	calculate = function(self, card, context)
         if context.end_of_round and not context.repetition and not context.individual and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
             if G.GAME.last_hand_played then

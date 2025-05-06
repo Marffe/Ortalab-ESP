@@ -10,11 +10,7 @@ SMODS.Joker({
 	eternal_compat = true,
 	perishable_compat = true,
 	yes_pool_flag = 'shady_trading_redeemed',
-	config = {},
-	loc_vars = function(self, info_queue, card)
-        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'flare'} end
-        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'salad'} end
-    end,
+	artist_credits = {'flare','salad'},
 })
 
 local CardSet_cost = Card.set_cost --Oculstist Logic

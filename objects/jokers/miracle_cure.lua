@@ -10,10 +10,7 @@ SMODS.Joker({
 	eternal_compat = true,
 	perishable_compat = true,
 	config = {extra = {repetitions = 1}},
-	loc_vars = function(self, info_queue, card)
-        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'gappie'} end
-        -- return {vars = {card.ability.extra.chips, localize(card.ability.extra.suit, 'suits_singular')}}
-    end,
+    artist_credits = {'gappie'},
     calculate = function(self, card, context)
         if context.before then
             for _, playing_card in pairs(context.scoring_hand) do

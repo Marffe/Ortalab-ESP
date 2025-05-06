@@ -11,6 +11,7 @@ SMODS.Joker({
 	perishable_compat = true,
 	yes_pool_flag = 'shady_trading_redeemed',
 	config = {extra = {money = 2, spectral_type_sold = {}}},
+    artist_credits = {'flowwey'},
 	calc_dollar_bonus = function(self, card)
         local count = 0
         for _,_ in pairs(card.ability.extra.spectral_type_sold) do
@@ -19,7 +20,6 @@ SMODS.Joker({
 		return card.ability.extra.money*count
 	end,
 	loc_vars = function(self, info_queue, card)
-        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'flowwey'} end
         local count = 0
         for _,_ in pairs(card.ability.extra.spectral_type_sold) do
             count = count + 1

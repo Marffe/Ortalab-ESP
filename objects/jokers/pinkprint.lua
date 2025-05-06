@@ -10,8 +10,8 @@ SMODS.Joker({
     eternal_compat = true,
     perishable_compat = false,
     config = {extra = {}},
+    artist_credits = {'crimson'},
     loc_vars = function(self, info_queue, card)
-        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'crimson'} end
         if card.ability.extra.last_joker then
             local vars = {}
             if card.ability.extra.last_joker_table.config.center.loc_vars then

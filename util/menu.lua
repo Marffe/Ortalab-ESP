@@ -2,10 +2,10 @@ SMODS.current_mod.config_tab = function()
     return {n = G.UIT.ROOT, config = {r = 0.1, minw = 4, align = "tm", colour = G.C.BLACK}, nodes = {
         {n=G.UIT.R, config = {align = 'cm'}, nodes={
             {n=G.UIT.C, config = {padding = 0.2, align = 'cm'}, nodes = {
-                EremelUtility.create_toggle({label = localize('ortalab_config_artists'), ref_table = Ortalab.config, ref_value = 'artist_credits', info = localize('ortalab_config_artists_desc'), active_colour = Ortalab.badge_colour, left = true, callback = artist_toggle}),
+                create_option_cycle({label = localize('ortalab_config_artists_pos'), current_option = Ortalab.config.credit_pos , options = localize('ortalab_config_artists_pos_options'), ref_table = Ortalab.config, ref_value = 'credit_pos', info = localize('ortalab_config_artists_pos_desc'), colour = Ortalab.badge_colour, w = 3.7*0.65/(5/6), h=0.8*0.65/(5/6), text_scale=0.5*0.65/(5/6), scale=5/6, no_pips = true, opt_callback = 'cycle_update'}),
             }},
             {n=G.UIT.C, config = {padding = 0.2, align = 'cm'}, nodes = {
-                EremelUtility.create_toggle({label = localize('ortalab_config_full'), ref_table = Ortalab.config, ref_value = 'full_credits', info = localize('ortalab_config_full_desc'), active_colour = Ortalab.badge_colour, left = true, callback = full_toggle}),
+                EremelUtility.create_toggle({label = localize('ortalab_config_reduced'), ref_table = Ortalab.config, ref_value = 'reduced_mod_badge', info = localize('ortalab_config_reduced_desc'), active_colour = Ortalab.badge_colour, left = true}),
             }}
         }},
         {n=G.UIT.R, config = {minh = 0.04, minw = 4, colour = G.C.L_BLACK}},
@@ -93,6 +93,12 @@ function menu_refresh()
     G.title_top.cards[1]:set_edition(Ortalab.config.menu_toggle and 'e_negative' or nil, true, true)
 end
 
+G.FUNCS.cycle_update = function(args)
+    args = args or {}
+    if args.cycle_config and args.cycle_config.ref_table and args.cycle_config.ref_value then
+        args.cycle_config.ref_table[args.cycle_config.ref_value] = args.to_key
+    end
+end
 
 function artist_toggle()
     if not Ortalab.config.artist_credits and Ortalab.config.full_credits then

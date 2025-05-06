@@ -17,10 +17,7 @@ SMODS.Joker({
 	eternal_compat = true,
 	perishable_compat = true,
     config = {extra = {dt = 0}},
-	loc_vars = function(self, info_queue, card)
-        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'crimson'} end
-        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'eremel', title = localize('ortalab_effects')} end
-    end,
+    artist_credits = {'crimson','eremel'},
     set_sprites = function(self, card, front)
         if not card.config.center.discovered then return end
         card.children.center.atlas = {

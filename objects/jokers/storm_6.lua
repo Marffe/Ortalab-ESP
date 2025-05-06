@@ -10,8 +10,8 @@ SMODS.Joker({
     eternal_compat = true,
     perishable_compat = true,
     config = {extra = {mult = 4, dollars = 2}},
+    artist_credits = {'kosze'},
     loc_vars = function(self, info_queue, card)
-        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'kosze'} end
         local sixes = 0
         if G.playing_cards then    
             for _, card in pairs(G.playing_cards) do

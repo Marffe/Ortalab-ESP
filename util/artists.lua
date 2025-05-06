@@ -57,40 +57,123 @@ end
 local card_h_popup_ortalab = G.UIDEF.card_h_popup
 function G.UIDEF.card_h_popup(card)
     local ret_val = card_h_popup_ortalab(card)
-    local obj = card.config.center
-    if obj and obj.artist_credits then
-        local artists = {n=G.UIT.R, config = {align = 'tm'}, nodes = {
+    local AUT = card.ability_UIBox_table
+    local obj = card.config.center or (card.config.tag and G.P_TAGS[card.config.tag.key])
+    if AUT.mythos then
+        table.insert(ret_val.nodes[1].nodes[1].nodes[1].nodes, #ret_val.nodes[1].nodes[1].nodes[1].nodes, desc_from_rows(AUT.mythos))
+    end
+    if obj and obj.mod and obj.mod.id == 'ortalab' and Ortalab.config.reduced_mod_badge then
+        local badge = {n=G.UIT.R, config = {align = 'tm'}, nodes = {
             {n=G.UIT.T, config={
-              text = "Art by ",
+              text = "Added by ",
               shadow = true,
               colour = G.C.UI.BACKGROUND_WHITE,
-              scale = 0.27}}
+              scale = 0.27}},
+              {n=G.UIT.O, config={
+                object = DynaText({string = localize('ortalab'),
+                colours = {G.ARGS.LOC_COLOURS.Ortalab},
+                bump = true,
+                silent = true,
+                pop_in = 0,
+                pop_in_rate = 4,
+                shadow = true,
+                y_offset = -0.6,
+                scale =  0.27
+                })
+            }}
         }}
-        local total_artists = #obj.artist_credits
-        for i, artist in ipairs(obj.artist_credits) do
-            if total_artists > 1 and i > 1 then
-                if i == total_artists then
-                    table.insert(artists.nodes,
-                        {n=G.UIT.T, config={
-                        text = ' and ',
-                        shadow = true,
-                        colour = G.C.WHITE,
-                        scale = 0.27}}
-                    )
-                else
-                    table.insert(artists.nodes,
-                        {n=G.UIT.T, config={
-                        text = ', ',
-                        shadow = true,
-                        colour = G.C.WHITE,
-                        scale = 0.27}}
-                    )
-                end
+        table.insert(ret_val.nodes[1].nodes[1].nodes[1].nodes, badge)
+    end
+    if obj and obj.artist_credits and Ortalab.config.credit_pos == 1 then
+        table.insert(ret_val.nodes[1].nodes[1].nodes[1].nodes, artist_node(obj.artist_credits, "Art by "))
+    end
+    if card.edition and G.P_CENTERS[card.edition.key].artist_credits and Ortalab.config.credit_pos == 1 then
+        table.insert(ret_val.nodes[1].nodes[1].nodes[1].nodes, artist_node(G.P_CENTERS[card.edition.key].artist_credits, 'Shader by '))
+    end
+    if card.curse and Ortalab.Curses[card.curse].artist_credits and Ortalab.config.credit_pos == 1 then
+        table.insert(ret_val.nodes[1].nodes[1].nodes[1].nodes, artist_node(Ortalab.Curses[card.curse].artist_credits, 'Curse art by '))
+    end
+    
+    return ret_val
+end
+
+local create_mod_badges_ortalab = SMODS.create_mod_badges
+function SMODS.create_mod_badges(obj, badges)
+    if not SMODS.config.no_mod_badges and obj and obj.mod and obj.mod.display_name and not obj.no_mod_badges then
+        if obj.mod.id == 'ortalab' and Ortalab.config.reduced_mod_badge then return end
+        create_mod_badges_ortalab(obj, badges)
+    end
+end
+
+function artist_node(artists, first_string)
+    local artist_node = {n=G.UIT.R, config = {align = 'tm'}, nodes = {
+        {n=G.UIT.T, config={
+            text = first_string,
+            shadow = true,
+            colour = G.C.UI.BACKGROUND_WHITE,
+            scale = 0.27}}
+    }}
+    local total_artists = #artists
+    for i, artist in ipairs(artists) do
+        if total_artists > 1 and i > 1 then
+            if i == total_artists then
+                table.insert(artist_node.nodes,
+                    {n=G.UIT.T, config={
+                    text = ' and ',
+                    shadow = true,
+                    colour = G.C.WHITE,
+                    scale = 0.27}}
+                )
+            else
+                table.insert(artist_node.nodes,
+                    {n=G.UIT.T, config={
+                    text = ', ',
+                    shadow = true,
+                    colour = G.C.WHITE,
+                    scale = 0.27}}
+                )
             end
-            table.insert(artists.nodes,
-                {n=G.UIT.O, config={
-                    object = DynaText({string = localize{type = 'raw_descriptions', set = 'Ortalab Artist', key = artist},
-                    colours = {G.ARGS.LOC_COLOURS[artist]},
+        end
+        table.insert(artist_node.nodes,
+            {n=G.UIT.O, config={
+                object = DynaText({string = localize{type = 'raw_descriptions', set = 'Ortalab Artist', key = artist},
+                colours = {G.ARGS.LOC_COLOURS[artist] or G.C.WHITE},
+                bump = true,
+                silent = true,
+                pop_in = 0,
+                pop_in_rate = 4,
+                shadow = true,
+                y_offset = -0.6,
+                scale =  0.27
+                })
+            }}
+        )
+    end
+    return artist_node
+end
+
+local old_blind_popup = create_UIBox_blind_popup
+function create_UIBox_blind_popup(blind, discovered, vars)
+    local popup = old_blind_popup(blind, discovered, vars)
+    popup.config.colour = darken(G.C.BLACK, 0.1)
+    popup.config.align = 'cm'
+    if blind.mod then
+        local badges = {}
+        
+        SMODS.create_mod_badges(blind, badges)
+        for i=1, #badges do
+            table.insert(popup.nodes, badges[i])
+        end
+        if blind.mod.id == 'ortalab' and Ortalab.config.reduced_mod_badge then
+            local badge = {n=G.UIT.R, config = {align = 'tm'}, nodes = {
+                {n=G.UIT.T, config={
+                  text = "Added by ",
+                  shadow = true,
+                  colour = G.C.UI.BACKGROUND_WHITE,
+                  scale = 0.27}},
+                  {n=G.UIT.O, config={
+                    object = DynaText({string = localize('ortalab'),
+                    colours = {G.ARGS.LOC_COLOURS.Ortalab},
                     bump = true,
                     silent = true,
                     pop_in = 0,
@@ -100,14 +183,14 @@ function G.UIDEF.card_h_popup(card)
                     scale =  0.27
                     })
                 }}
-            )
+            }}
+            table.insert(popup.nodes, badge)
         end
-        table.insert(ret_val.nodes[1].nodes[1].nodes[1].nodes, artists)
     end
-    return ret_val
-end
-
-
--- G.ARGS.LOC_COLOURS['zodiac'] = HEX('9D3B35')
--- G.ARGS.LOC_COLOURS['cryptid'] = HEX('704F72')
-
+    popup = {n=G.UIT.R, config={colour=lighten(G.C.JOKER_GREY, 0.5), align='cm', padding=0.05, emboss=0.07, r=0.12}, nodes = {
+        {n=G.UIT.R, config={align = "cm", padding = 0.07, r = 0.1, colour = adjust_alpha(darken(G.C.BLACK, 0.1), 0.8)}, nodes=
+            popup.nodes
+        }}
+    }
+    return popup
+  end 

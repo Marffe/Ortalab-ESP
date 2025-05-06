@@ -10,9 +10,7 @@ SMODS.Joker({
 	blueprint_compat = true,
 	eternal_compat = true,
 	perishable_compat = true,
-    loc_vars = function(self, info_queue, card)
-        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'flare'} end
-    end,
+    artist_credits = {'flare'},
 	calculate = function (self, card, context)
         if context.joker_main and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
             local has_10 = false
@@ -25,7 +23,7 @@ SMODS.Joker({
                     trigger = 'before',
                     delay = 0.0,
                     func = (function()
-                            local card = create_card('Zodiac',G.consumeables, nil, nil, nil, nil, pseudorandom_element(zodiac_pool(), pseudoseed('ortalab_bowling_ball')), 'bowling_ball')
+                            local card = create_card('Zodiac',G.consumeables, nil, nil, nil, nil, nil, 'bowling_ball')
                             card:add_to_deck()
                             G.consumeables:emplace(card)
                             G.GAME.consumeable_buffer = G.GAME.consumeable_buffer - 1

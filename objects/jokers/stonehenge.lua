@@ -9,11 +9,7 @@ SMODS.Joker({
 	blueprint_compat = true,
 	eternal_compat = true,
 	perishable_compat = true,
-	config = {extra = {}},
-	loc_vars = function(self, info_queue, card)
-        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'eremel'} end
-		return {vars = {}}
-	end,
+	artist_credits = {'eremel'},
     calculate_most_played = function(self)
         local _handname, _played, _order = 'High Card', -1, 100
         for k, v in pairs(G.GAME.hands) do

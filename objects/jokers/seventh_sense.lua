@@ -10,8 +10,8 @@ SMODS.Joker({
     eternal_compat = true,
     perishable_compat = true,
     config = {extra = {rank = nil, primed = nil}},
+    artist_credits = {'no_demo'},
     loc_vars = function(self, info_queue, card)
-        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'no_demo'} end
         return {vars = {card.ability.extra.rank and localize(card.ability.extra.rank, 'ranks') or localize('ortalab_rank')}}
     end,
     calculate = function(self, card, context)
@@ -20,16 +20,6 @@ SMODS.Joker({
         end
         if context.destroying_card and card.ability.extra.primed then
             card.ability.extra.primed = nil
-            -- G.E_MANAGER:add_event(Event({
-            --     trigger = 'after',
-            --     delay = 0.7,
-            --     func = function()
-            --         card:juice_up()
-            --         SMODS.add_card({set = 'Mythos', area = G.consumeables})
-
-            --         return true
-            --     end
-            -- }))
             G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
             local mythos
             local old_colours = {

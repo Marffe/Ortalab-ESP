@@ -328,705 +328,7 @@ function Game:start_run(args)
     start(self, args)
     self.GAME.zodiacs_activated = {}
 end
--- ZODIAC CODE BELOW
 
-SMODS.Consumable({
-    key = 'zod_aries',
-    set = 'Zodiac',
-    atlas = 'zodiac_cards',
-    cost = 4,
-    pos = {x=0, y=0},
-    discovered = false,
-    config = {extra = {zodiac = 'zodiac_ortalab_aries'}},
-    loc_vars = function(self, info_queue, card)
-        if Ortalab.config.artist_credits and not card.fake_card then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'parchment'} end
-        info_queue[#info_queue + 1] = {generate_ui = zodiac_tooltip, key = self.config.extra.zodiac}
-        return {vars = {localize(G.ZODIACS[self.config.extra.zodiac].config.extra.hand_type, 'poker_hands')}}
-    end,
-    can_use = function(self, card)
-        return true
-    end,
-    use = function(self, card, area, copier)
-        use_zodiac(card)
-    end
-})
-
-Ortalab.Zodiac{
-    key = 'aries',
-    pos = {x=2, y=0},
-    colour = HEX('b64646'),
-    config = {extra = {temp_level = 4, hand_type = 'Four of a Kind', count = 2}},
-    loc_vars = function(self, info_queue, card)
-        local zodiac = card or self
-        local temp_level = (not zodiac.voucher_check and G.GAME.ortalab.zodiacs.temp_level_mod or 1) * zodiac.config.extra.temp_level
-        return {vars = {temp_level, localize(zodiac.config.extra.hand_type, 'poker_hands'), zodiac.config.extra.count}}
-    end,
-    pre_trigger = function(self, zodiac, context)
-        zodiac.config.extra.destroyed = 0
-        local ranks = {}
-        for _, card in pairs(context.scoring_hand) do
-            ranks[card.base.value] = (ranks[card.base.value] or 0) + 1
-        end
-        for rank, count in pairs(ranks) do
-            if count == 4 then zodiac.config.extra.four_oak_rank = rank end
-        end
-        return context.mult, context.chips
-    end,
-    destroy = function(self, zodiac, context)
-        if zodiac.config.extra.destroyed == zodiac.config.extra.count then
-            return false
-        else
-            if context.other_card.base.value ~= zodiac.config.extra.four_oak_rank then
-                zodiac.config.extra.destroyed = zodiac.config.extra.destroyed + 1
-                return true
-            end
-        end
-    end
-}
-
-SMODS.Consumable({
-    key = 'zod_taurus',
-    set = 'Zodiac',
-    atlas = 'zodiac_cards',
-    cost = 4,
-    pos = {x=1, y=0},
-    discovered = false,
-    config = {extra = {zodiac = 'zodiac_ortalab_taurus'}},
-    loc_vars = function(self, info_queue, card)
-        if Ortalab.config.artist_credits and not card.fake_card then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'parchment'} end
-        info_queue[#info_queue + 1] = {generate_ui = zodiac_tooltip, key = self.config.extra.zodiac}
-        return {vars = {localize(G.ZODIACS[self.config.extra.zodiac].config.extra.hand_type, 'poker_hands')}}
-    end,
-    can_use = function(self, card)
-        return true
-    end,
-    use = function(self, card, area, copier)
-        use_zodiac(card)
-    end
-})
-
-Ortalab.Zodiac{
-    key = 'taurus',
-    pos = {x=3, y=0},
-    colour = HEX('cb703d'),
-    config = {extra = {temp_level = 4, hand_type = 'Three of a Kind', amount = 3}},
-    loc_vars = function(self, info_queue, card)
-        local zodiac = card or self
-        if not card then info_queue[#info_queue + 1] = G.P_CENTERS['m_ortalab_rusty'] end
-        local temp_level = (not zodiac.voucher_check and G.GAME.ortalab.zodiacs.temp_level_mod or 1) * zodiac.config.extra.temp_level
-        return {vars = {temp_level, localize(zodiac.config.extra.hand_type, 'poker_hands'), zodiac.config.extra.amount}}
-    end,
-    pre_trigger = function(self, zodiac, context)
-        for i=1, zodiac.config.extra.amount do
-            if G.hand.cards[i] then
-                G.hand.cards[i]:set_ability(G.P_CENTERS['m_ortalab_rusty'], nil, true)
-                G.E_MANAGER:add_event(Event({
-                    trigger = 'before', delay = 0.2, func = function()
-                        zodiac:juice_up()
-                        G.hand.cards[i]:juice_up()
-                        return true
-                    end}))
-            end
-        end
-        zodiac_reduce_level(zodiac)
-        return context.mult, context.chips
-    end
-}
-
-
-
-SMODS.Consumable({
-    key = 'zod_gemini',
-    set = 'Zodiac',
-    atlas = 'zodiac_cards',
-    cost = 4,
-    pos = {x=2, y=0},
-    discovered = false,
-    config = {extra = {zodiac = 'zodiac_ortalab_gemini'}},
-    loc_vars = function(self, info_queue, card)
-        if Ortalab.config.artist_credits and not card.fake_card then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'parchment'} end
-        info_queue[#info_queue + 1] = {generate_ui = zodiac_tooltip, key = self.config.extra.zodiac}
-        return {vars = {localize(G.ZODIACS[self.config.extra.zodiac].config.extra.hand_type, 'poker_hands')}}
-    end,
-    can_use = function(self, card)
-        return true
-    end,
-    use = function(self, card, area, copier)
-        use_zodiac(card)
-    end
-})
-
-Ortalab.Zodiac{
-    key = 'gemini',
-    pos = {x=4, y=0},
-    colour = HEX('d9c270'),
-    config = {extra = {temp_level = 4, hand_type = 'Pair'}},
-    loc_vars = function(self, info_queue, card)
-        local zodiac = card or self
-        local temp_level = (not zodiac.voucher_check and G.GAME.ortalab.zodiacs.temp_level_mod or 1) * zodiac.config.extra.temp_level
-        return {vars = {temp_level, localize(zodiac.config.extra.hand_type, 'poker_hands')}}
-    end,
-    pre_trigger = function(self, zodiac, context)
-        local effects = {'m_ortalab_post', 'm_ortalab_bent'}
-        for i=1, 2 do
-            if context.scoring_hand[i].config.center.set ~= 'Enhanced' then
-                context.scoring_hand[i]:set_ability(G.P_CENTERS[effects[i]], nil, true)
-                local name = context.scoring_hand[i].ability.effect
-                context.scoring_hand[i].ability.effect = nil
-                G.E_MANAGER:add_event(Event({
-                    trigger = 'before', delay = 0.2, func = function()
-                        zodiac:juice_up()
-                        context.scoring_hand[i].ability.effect = name
-                        context.scoring_hand[i]:juice_up()
-                        return true
-                    end}))
-            end
-        end
-        zodiac_reduce_level(zodiac)
-        return context.mult, context.chips
-    end
-}
-
-SMODS.Consumable({
-    key = 'zod_cancer',
-    set = 'Zodiac',
-    atlas = 'zodiac_cards',
-    cost = 4,
-    pos = {x=3, y=0},
-    discovered = false,
-    config = {extra = {zodiac = 'zodiac_ortalab_cancer'}},
-    loc_vars = function(self, info_queue, card)
-        if Ortalab.config.artist_credits and not card.fake_card then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'parchment'}; info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'salad'} end
-        info_queue[#info_queue + 1] = {generate_ui = zodiac_tooltip, key = self.config.extra.zodiac}
-        return {vars = {localize(G.ZODIACS[self.config.extra.zodiac].config.extra.hand_type, 'poker_hands')}}
-    end,
-    can_use = function(self, card)
-        return true
-    end,
-    use = function(self, card, area, copier)
-        use_zodiac(card)
-    end
-})
-
-Ortalab.Zodiac{
-    key = 'cancer',
-    pos = {x=5, y=0},
-    colour = HEX('878879'),
-    config = {extra = {temp_level = 4, hand_type = 'Flush House'}},
-    loc_vars = function(self, info_queue, card)
-        local zodiac = card or self
-        local temp_level = (not zodiac.voucher_check and G.GAME.ortalab.zodiacs.temp_level_mod or 1) * zodiac.config.extra.temp_level
-        return {vars = {temp_level, localize(zodiac.config.extra.hand_type, 'poker_hands')}}
-    end,
-    pre_trigger = function(self, zodiac, context)
-        local suits_in_flush = {}
-        local new_suit = context.scoring_hand[1].base.suit
-        local ranks_in_flush = {}
-        local rank1, rank2
-        for _, card in pairs(context.scoring_hand) do
-            suits_in_flush[card.base.suit] = suits_in_flush[card.base.suit] and suits_in_flush[card.base.suit] + 1 or 1
-            ranks_in_flush[card.base.value] = ranks_in_flush[card.base.value] and ranks_in_flush[card.base.value] + 1 or 1
-            if suits_in_flush[card.base.suit] > suits_in_flush[new_suit] then new_suit = card.base.suit end
-        end
-        for rank, amount in pairs(ranks_in_flush) do
-            if amount == 3 then rank1 = rank elseif amount == 2 then rank2 = rank end
-        end
-        for i, card in ipairs(G.hand.cards) do
-            local new_rank = SMODS.Ranks[i % 2 == 0 and rank1 or rank2]
-            Ortalab.change_suit_no_anim(card, new_suit)
-            card.base.id = new_rank.id
-            card.base.nominal = new_rank.nominal or 0
-            card.base.face_nominal = new_rank.face_nominal or 0
-            G.E_MANAGER:add_event(Event({
-                trigger = 'before', delay = 0.2, func = function()
-                    zodiac:juice_up()
-                    SMODS.change_base(card, new_suit, i % 2 == 0 and rank1 or rank2)
-                    if card.ability.set ~= 'Enhanced' then card:set_ability(G.P_CENTERS[SMODS.poll_enhancement({guaranteed = true, key = 'zodiac_cancer'})]) end
-                    card:juice_up()
-                    return true
-                end}))
-        end
-        zodiac_reduce_level(zodiac)
-        return context.mult, context.chips
-    end
-}
-
-SMODS.Consumable({
-    key = 'zod_leo',
-    set = 'Zodiac',
-    atlas = 'zodiac_cards',
-    cost = 4,
-    pos = {x=0, y=1},
-    discovered = false,
-    config = {extra = {zodiac = 'zodiac_ortalab_leo'}},
-    loc_vars = function(self, info_queue, card)
-        if Ortalab.config.artist_credits and not card.fake_card then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'parchment'} end
-        info_queue[#info_queue + 1] = {generate_ui = zodiac_tooltip, key = self.config.extra.zodiac}
-        return {vars = {localize(G.ZODIACS[self.config.extra.zodiac].config.extra.hand_type, 'poker_hands')}}
-    end,
-    can_use = function(self, card)
-        return true
-    end,
-    use = function(self, card, area, copier)
-        use_zodiac(card)
-    end
-})
-
-Ortalab.Zodiac{
-    key = 'leo',
-    pos = {x=0, y=1},
-    colour = HEX('8fb85c'),
-    config = {extra = {temp_level = 4, effects = 3, hand_type = 'Flush Five'}},
-    loc_vars = function(self, info_queue, card)
-        local zodiac = card or self
-        local temp_level = (not zodiac.voucher_check and G.GAME.ortalab.zodiacs.temp_level_mod or 1) * zodiac.config.extra.temp_level
-        return {vars = {temp_level, localize(zodiac.config.extra.hand_type, 'poker_hands'), zodiac.config.extra.effects}}
-    end,
-    pre_trigger = function(self, zodiac, context)
-        for i=1, zodiac.config.extra.effects do
-            if G.hand.cards[i] then
-                Ortalab.change_suit_no_anim(G.hand.cards[i], context.scoring_hand[3].base.suit)
-                G.hand.cards[i].base.id = context.scoring_hand[3].base.id
-                G.hand.cards[i].base.nominal = context.scoring_hand[3].base.nominal
-                G.hand.cards[i].base.face_nominal = context.scoring_hand[3].base.face_nominal
-                G.hand.cards[i].delay_edition = G.hand.cards[i].edition and G.hand.cards[i].edition.key or true
-                G.hand.cards[i]:set_edition(context.scoring_hand[3].edition and context.scoring_hand[3].edition.key, false, true)
-                G.hand.cards[i]:set_ability(G.P_CENTERS[context.scoring_hand[3].config.center_key], nil, true)
-                G.E_MANAGER:add_event(Event({
-                    func = function()
-                        copy_card(context.scoring_hand[3], G.hand.cards[i], nil, nil, true)
-                        G.hand.cards[i].delay_edition = nil
-                        G.hand.cards[i]:juice_up()
-                        context.scoring_hand[3]:juice_up()
-                        return true
-                        end
-                }))
-            end
-        end        
-        zodiac_reduce_level(zodiac)
-        return context.mult, context.chips
-    end
-}
-
-SMODS.Consumable({
-    key = 'zod_virgo',
-    set = 'Zodiac',
-    atlas = 'zodiac_cards',
-    cost = 4,
-    pos = {x=1, y=1},
-    discovered = false,
-    config = {extra = {zodiac = 'zodiac_ortalab_virgo'}},
-    loc_vars = function(self, info_queue, card)
-        if Ortalab.config.artist_credits and not card.fake_card then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'parchment'} end
-        info_queue[#info_queue + 1] = {generate_ui = zodiac_tooltip, key = self.config.extra.zodiac}
-        return {vars = {localize(G.ZODIACS[self.config.extra.zodiac].config.extra.hand_type, 'poker_hands')}}
-    end,
-    can_use = function(self, card)
-        return true
-    end,
-    use = function(self, card, area, copier)
-        use_zodiac(card)
-    end
-})
-
-Ortalab.Zodiac{
-    key = 'virgo',
-    pos = {x=1, y=1},
-    colour = HEX('299847'),
-    config = {extra = {temp_level = 4, hand_type = 'Five of a Kind'}},
-    loc_vars = function(self, info_queue, card)
-        local zodiac = card or self
-        local temp_level = (not zodiac.voucher_check and G.GAME.ortalab.zodiacs.temp_level_mod or 1) * zodiac.config.extra.temp_level
-        return {vars = {temp_level, localize(zodiac.config.extra.hand_type, 'poker_hands'), 3}}
-    end,
-    pre_trigger = function(self, zodiac, context)
-        G.E_MANAGER:add_event(Event({
-            func = function()
-                local cards = {}
-                for i=2, #context.scoring_hand-1 do
-                    G.playing_card = (G.playing_card and G.playing_card + 1) or 1
-                    local _card = copy_card(context.scoring_hand[i], nil, nil, G.playing_card)
-                    table.insert(cards, _card)
-                end
-                for i, _card in ipairs(cards) do
-                    _card:add_to_deck()
-                    G.deck.config.card_limit = G.deck.config.card_limit + 1
-                    table.insert(G.playing_cards, _card)
-                    G.deck:emplace(_card)
-                    context.scoring_hand[i+1]:juice_up()
-                    _card:juice_up()
-                end
-                playing_card_joker_effects(cards)
-                G.deck:shuffle('zodiac_virgo')
-                return true
-            end
-        }))
-        zodiac_reduce_level(zodiac)
-        return context.mult, context.chips
-    end
-}
-
-SMODS.Consumable({
-    key = 'zod_libra',
-    set = 'Zodiac',
-    atlas = 'zodiac_cards',
-    cost = 4,
-    pos = {x=2, y=1},
-    discovered = false,
-    config = {extra = {zodiac = 'zodiac_ortalab_libra'}},
-    loc_vars = function(self, info_queue, card)
-        if Ortalab.config.artist_credits and not card.fake_card then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'parchment'} end
-        info_queue[#info_queue + 1] = {generate_ui = zodiac_tooltip, key = self.config.extra.zodiac}
-        return {vars = {localize(G.ZODIACS[self.config.extra.zodiac].config.extra.hand_type, 'poker_hands')}}
-    end,
-    can_use = function(self, card)
-        return true
-    end,
-    use = function(self, card, area, copier)
-        use_zodiac(card)
-    end
-})
-
-Ortalab.Zodiac{
-    key = 'libra',
-    pos = {x=2, y=1},
-    colour = HEX('32a18c'),
-    config = {extra = {temp_level = 4, hand_type = 'Full House', convert = 1}},
-    loc_vars = function(self, info_queue, card)
-        local zodiac = card or self
-        local temp_level = (not zodiac.voucher_check and G.GAME.ortalab.zodiacs.temp_level_mod or 1) * zodiac.config.extra.temp_level
-        return {vars = {temp_level, localize(zodiac.config.extra.hand_type, 'poker_hands'), zodiac.config.extra.convert}}
-    end,
-    pre_trigger = function(self, zodiac, context)
-        for i=1, math.min(zodiac.config.extra.convert, #G.hand.cards) do
-            if G.hand.cards[i] then
-                G.hand.cards[i].base.suit = context.scoring_hand[2].base.suit
-                G.hand.cards[i].base.id = context.scoring_hand[2].base.id
-                G.hand.cards[i].base.nominal = context.scoring_hand[2].base.nominal
-                G.hand.cards[i].base.face_nominal = context.scoring_hand[2].base.face_nominal
-                G.hand.cards[i].delay_edition = context.scoring_hand[2].edition and context.scoring_hand[2].edition.key or true
-                G.hand.cards[i]:set_edition(context.scoring_hand[2].edition and context.scoring_hand[2].edition.key, false, true)
-                G.hand.cards[i]:set_ability(G.P_CENTERS[context.scoring_hand[2].config.center_key], nil, true)
-                G.E_MANAGER:add_event(Event({
-                    func = function()
-                        local _card = copy_card(context.scoring_hand[2], G.hand.cards[i], nil, nil, true)
-                        G.hand.cards[i].delay_edition = nil
-                        _card:juice_up()
-                        context.scoring_hand[2]:juice_up()
-                        return true
-                    end
-                }))
-            end
-        end
-        zodiac_reduce_level(zodiac)
-
-        return context.mult, context.chips
-    end
-}
-
-SMODS.Consumable({
-    key = 'zod_scorpio',
-    set = 'Zodiac',
-    atlas = 'zodiac_cards',
-    cost = 4,
-    pos = {x=3, y=1},
-    discovered = false,
-    config = {extra = {zodiac = 'zodiac_ortalab_scorpio'}},
-    loc_vars = function(self, info_queue, card)
-        if Ortalab.config.artist_credits and not card.fake_card then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'parchment'} end
-        info_queue[#info_queue + 1] = {generate_ui = zodiac_tooltip, key = self.config.extra.zodiac}
-        return {vars = {localize(G.ZODIACS[self.config.extra.zodiac].config.extra.hand_type, 'poker_hands')}}
-    end,
-    can_use = function(self, card)
-        return true
-    end,
-    use = function(self, card, area, copier)
-        use_zodiac(card)
-    end
-})
-
-Ortalab.Zodiac{
-    key = 'scorpio',
-    pos = {x=0, y=0},
-    colour = HEX('669ac0'),
-    config = {extra = {temp_level = 4, hand_type = 'High Card', amount = 2}},
-    loc_vars = function(self, info_queue, card)
-        local zodiac = card or self
-        local temp_level = (not zodiac.voucher_check and G.GAME.ortalab.zodiacs.temp_level_mod or 1) * zodiac.config.extra.temp_level
-        return {vars = {temp_level, localize(zodiac.config.extra.hand_type, 'poker_hands'), zodiac.config.extra.amount}}
-    end,
-    pre_trigger = function(self, zodiac, context)
-        local amount = 1
-        local modifiers = {'m_stone', 'm_ortalab_ore'}
-        for _, card in pairs(context.full_hand) do
-            if table.contains(context.scoring_hand, card) or amount == zodiac.config.extra.amount + 1 then
-                -- do nothing
-            else
-                local change = modifiers[amount]
-                card.add_to_scoring = function()
-                    G.E_MANAGER:add_event(Event({
-                        trigger = 'after',
-                        delay = 0.5,
-                        func = function()
-                            zodiac:juice_up()
-                            card:juice_up()
-                            card.config.center.replace_base_card = true                
-                            card.becoming_no_rank = nil
-                            return true
-                        end
-                    }))
-                    card:set_ability(G.P_CENTERS[change], nil, true)
-                    local name = card.ability.effect
-                    card.becoming_no_rank = true
-                    card.config.center.replace_base_card = nil
-                end
-                
-                amount = amount + 1
-            end
-        end
-        zodiac_reduce_level(zodiac)
-        return context.mult, context.chips, true
-    end
-}
-
--- Hook to allow cards that become no rank to score properly
-local chip_bonus = Card.get_chip_bonus
-function Card:get_chip_bonus()
-    if self.becoming_no_rank then return self.ability.bonus + (self.ability.perma_bonus or 0) end
-    return chip_bonus(self)
-end
-
-SMODS.Consumable({
-    key = 'zod_sag',
-    set = 'Zodiac',
-    atlas = 'zodiac_cards',
-    cost = 4,
-    pos = {x=0, y=2},
-    discovered = false,
-    config = {extra = {zodiac = 'zodiac_ortalab_sag'}},
-    loc_vars = function(self, info_queue, card)
-        if Ortalab.config.artist_credits and not card.fake_card then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'parchment'} end
-        info_queue[#info_queue + 1] = {generate_ui = zodiac_tooltip, key = self.config.extra.zodiac}
-        return {vars = {localize(G.ZODIACS[self.config.extra.zodiac].config.extra.hand_type, 'poker_hands')}}
-    end,
-    can_use = function(self, card)
-        return true
-    end,
-    use = function(self, card, area, copier)
-        use_zodiac(card)
-    end
-})
-
-Ortalab.Zodiac{
-    key = 'sag',
-    pos = {x=3, y=1},
-    colour = HEX('4c3ba2'),
-    config = {extra = {temp_level = 4, hand_type = 'Flush'}},
-    loc_vars = function(self, info_queue, card)
-        local zodiac = card or self
-        local temp_level = (not zodiac.voucher_check and G.GAME.ortalab.zodiacs.temp_level_mod or 1) * zodiac.config.extra.temp_level
-        return {vars = {temp_level, localize(zodiac.config.extra.hand_type, 'poker_hands')}}
-    end,
-    pre_trigger = function(self, zodiac, context)
-        local suits_in_flush = {}
-        local new_suit = context.scoring_hand[1].base.suit
-        for _, card in pairs(context.scoring_hand) do
-            suits_in_flush[card.base.suit] = suits_in_flush[card.base.suit] and suits_in_flush[card.base.suit] + 1 or 1
-            if suits_in_flush[card.base.suit] > suits_in_flush[new_suit] then new_suit = card.base.suit end
-        end
-        for _, card in pairs(G.hand.cards) do
-            if not card.base.suit ~= new_suit then
-                Ortalab.change_suit_no_anim(card, new_suit)
-                card.base.suit = new_suit
-                G.E_MANAGER:add_event(Event({
-                    trigger = 'before', delay = 0.2, func = function()
-                        zodiac:juice_up()
-                        SMODS.change_base(card, new_suit)
-                        card:juice_up()
-                        return true
-                    end}))
-            end
-        end
-        zodiac_reduce_level(zodiac)
-        
-        return context.mult, context.chips
-    end
-}
-
-function Ortalab.change_suit_no_anim(card, suit)
-    local change = suit and card.base.suit ~= suit
-    card.base.suit = suit
-    if change and not Ortalab.harp_usage then
-        local scaling_joker = SMODS.find_card('j_ortalab_mill')
-        for _, card in pairs(scaling_joker) do        
-            card.ability.extra.xmult = card.ability.extra.xmult + card.ability.extra.gain
-            card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize{type = 'variable', key = 'a_xmult', vars = {card.ability.extra.xmult}}})
-        end
-    end
-end
-
-SMODS.Consumable({
-    key = 'zod_capr',
-    set = 'Zodiac',
-    atlas = 'zodiac_cards',
-    cost = 4,
-    pos = {x=1, y=2},
-    discovered = false,
-    config = {extra = {zodiac = 'zodiac_ortalab_capr'}},
-    loc_vars = function(self, info_queue, card)
-        if Ortalab.config.artist_credits and not card.fake_card then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'parchment'} end
-        info_queue[#info_queue + 1] = {generate_ui = zodiac_tooltip, key = self.config.extra.zodiac}
-        return {vars = {localize(G.ZODIACS[self.config.extra.zodiac].config.extra.hand_type, 'poker_hands')}}
-    end,
-    can_use = function(self, card)
-        return true
-    end,
-    use = function(self, card, area, copier)
-        use_zodiac(card)
-    end
-})
-
-Ortalab.Zodiac{
-    key = 'capr',
-    pos = {x=4, y=1},
-    colour = HEX('8058b6'),
-    config = {extra = {temp_level = 4, hand_type = 'Straight', amount = 2}},
-    loc_vars = function(self, info_queue, card)
-        if not card then info_queue[#info_queue + 1] = G.P_CENTERS['m_ortalab_index'] end
-        local zodiac = card or self
-        local temp_level = (not zodiac.voucher_check and G.GAME.ortalab.zodiacs.temp_level_mod or 1) * zodiac.config.extra.temp_level
-        return {vars = {temp_level, localize(zodiac.config.extra.hand_type, 'poker_hands'), zodiac.config.extra.amount}}
-    end,
-    pre_trigger = function(self, zodiac, context)
-        for i=1, zodiac.config.extra.amount do
-            if G.hand.cards[i] then
-                G.E_MANAGER:add_event(Event({
-                    trigger = 'before', delay = 0.2, func = function()
-                        zodiac:juice_up()
-                        G.hand.cards[i]:set_ability(G.P_CENTERS['m_ortalab_index'])
-                        G.hand.cards[i]:juice_up()
-                        return true
-                    end}))
-            end
-        end
-        zodiac_reduce_level(zodiac)
-        return context.mult, context.chips
-    end
-}
-
-SMODS.Consumable({
-    key = 'zod_aquarius',
-    set = 'Zodiac',
-    atlas = 'zodiac_cards',
-    cost = 4,
-    pos = {x=2, y=2},
-    discovered = false,
-    config = {extra = {zodiac = 'zodiac_ortalab_aquarius'}},
-    loc_vars = function(self, info_queue, card)
-        if Ortalab.config.artist_credits and not card.fake_card then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'parchment'} end
-        info_queue[#info_queue + 1] = {generate_ui = zodiac_tooltip, key = self.config.extra.zodiac}
-        return {vars = {localize(G.ZODIACS[self.config.extra.zodiac].config.extra.hand_type, 'poker_hands')}}
-    end,
-    can_use = function(self, card)
-        return true
-    end,
-    use = function(self, card, area, copier)
-        use_zodiac(card)
-    end
-})
-
-Ortalab.Zodiac{
-    key = 'aquarius',
-    pos = {x=1, y=0},
-    config = {extra = {temp_level = 4, hand_type = 'Two Pair'}},
-    colour = HEX('b05ab4'),
-    loc_vars = function(self, info_queue, card)
-        local zodiac = card or self
-        local temp_level = (not zodiac.voucher_check and G.GAME.ortalab.zodiacs.temp_level_mod or 1) * zodiac.config.extra.temp_level
-        return {vars = {temp_level, localize(zodiac.config.extra.hand_type, 'poker_hands')}}
-    end,
-    pre_trigger = function(self, zodiac, context)
-        G.E_MANAGER:add_event(Event({
-            func = function()
-                G.playing_card = (G.playing_card and G.playing_card + 1) or 1
-                local _card = copy_card(context.scoring_hand[2], nil, nil, G.playing_card)
-                _card:add_to_deck()
-                G.deck.config.card_limit = G.deck.config.card_limit + 1
-                table.insert(G.playing_cards, _card)
-                G.deck:emplace(_card)
-                G.deck:shuffle('zodiac_aquarius')
-                context.scoring_hand[2]:juice_up()
-                _card:juice_up()
-
-                playing_card_joker_effects({_card})
-                return true
-            end
-        }))
-        zodiac_reduce_level(zodiac)
-        return context.mult, context.chips
-    end
-}
-
-SMODS.Consumable({
-    key = 'zod_pisces',
-    set = 'Zodiac',
-    atlas = 'zodiac_cards',
-    cost = 4,
-    pos = {x=3, y=2},
-    discovered = false,
-    config = {extra = {zodiac = 'zodiac_ortalab_pisces'}},
-    loc_vars = function(self, info_queue, card)
-        if Ortalab.config.artist_credits and not card.fake_card then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'parchment'} end
-        info_queue[#info_queue + 1] = {generate_ui = zodiac_tooltip, key = self.config.extra.zodiac}
-        return {vars = {localize(G.ZODIACS[self.config.extra.zodiac].config.extra.hand_type, 'poker_hands')}}
-    end,
-    can_use = function(self, card)
-        return true
-    end,
-    use = function(self, card, area, copier)
-        use_zodiac(card)
-    end
-})
-
-Ortalab.Zodiac{
-    key = 'pisces',
-    pos = {x=5, y=1},
-    colour = HEX('ae347f'),
-    config = {extra = {temp_level = 4, hand_type = 'Straight Flush'}},
-    loc_vars = function(self, info_queue, card)
-        local zodiac = card or self
-        local temp_level = (not zodiac.voucher_check and G.GAME.ortalab.zodiacs.temp_level_mod or 1) * zodiac.config.extra.temp_level
-        return {vars = {temp_level, localize(zodiac.config.extra.hand_type, 'poker_hands')}}
-    end,
-    pre_trigger = function(self, zodiac, context)
-        local suits_in_flush = {}
-        local new_suit = context.scoring_hand[1].base.suit
-        for _, card in pairs(context.scoring_hand) do
-            suits_in_flush[card.base.suit] = suits_in_flush[card.base.suit] and suits_in_flush[card.base.suit] + 1 or 1
-            if suits_in_flush[card.base.suit] > suits_in_flush[new_suit] then new_suit = card.base.suit end
-        end
-        for _, card in pairs(G.hand.cards) do
-            if not card.base.suit ~= new_suit then
-                Ortalab.change_suit_no_anim(card, new_suit)
-                if not card.edition then
-                    local new_edition = poll_edition('zodiac_pisces', nil, false, true)
-                    card.delay_edition = true
-                    card:set_edition(new_edition, false, true)
-                end
-                G.E_MANAGER:add_event(Event({
-                    trigger = 'before', delay = 0.2, func = function()
-                        zodiac:juice_up()
-                        SMODS.change_base(card, new_suit)
-                        card.delay_edition = false
-                        card:juice_up()
-                        return true
-                    end}))
-            end
-        end
-        zodiac_reduce_level(zodiac)
-        return context.mult, context.chips
-    end
-}
 
 function zodiac_reduce_level(zodiac)
     local zodiac_joker = SMODS.find_card('j_ortalab_prediction_dice')
@@ -1104,3 +406,684 @@ function CardArea:align_cards()
     if not self.children then self.children = {} end
     align_ref(self)
 end
+
+------------------------
+-- ZODIAC DEFINITIONS --
+------------------------
+
+SMODS.Consumable({
+    key = 'zod_aries',
+    set = 'Zodiac',
+    atlas = 'zodiac_cards',
+    cost = 4,
+    pos = {x=0, y=0},
+    discovered = false,
+    config = {extra = {zodiac = 'zodiac_ortalab_aries'}},
+    artist_credits = {'parchment'},
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = {generate_ui = zodiac_tooltip, key = self.config.extra.zodiac}
+        return {vars = {localize(G.ZODIACS[self.config.extra.zodiac].config.extra.hand_type, 'poker_hands')}}
+    end,
+    can_use = function(self, card)
+        return true
+    end,
+    use = function(self, card, area, copier)
+        use_zodiac(card)
+    end
+})
+
+Ortalab.Zodiac{
+    key = 'aries',
+    pos = {x=2, y=0},
+    colour = HEX('b64646'),
+    config = {extra = {temp_level = 4, hand_type = 'Four of a Kind', count = 2}},
+    loc_vars = function(self, info_queue, card)
+        local zodiac = card or self
+        local temp_level = (not zodiac.voucher_check and G.GAME.ortalab.zodiacs.temp_level_mod or 1) * zodiac.config.extra.temp_level
+        return {vars = {temp_level, localize(zodiac.config.extra.hand_type, 'poker_hands'), zodiac.config.extra.count}}
+    end,
+    pre_trigger = function(self, zodiac, context)
+        zodiac.config.extra.destroyed = 0
+        local ranks = {}
+        for _, card in pairs(context.scoring_hand) do
+            ranks[card.base.value] = (ranks[card.base.value] or 0) + 1
+        end
+        for rank, count in pairs(ranks) do
+            if count == 4 then zodiac.config.extra.four_oak_rank = rank end
+        end
+        return context.mult, context.chips
+    end,
+    destroy = function(self, zodiac, context)
+        if zodiac.config.extra.destroyed == zodiac.config.extra.count then
+            return false
+        else
+            if context.other_card.base.value ~= zodiac.config.extra.four_oak_rank then
+                zodiac.config.extra.destroyed = zodiac.config.extra.destroyed + 1
+                return true
+            end
+        end
+    end
+}
+
+SMODS.Consumable({
+    key = 'zod_taurus',
+    set = 'Zodiac',
+    atlas = 'zodiac_cards',
+    cost = 4,
+    pos = {x=1, y=0},
+    discovered = false,
+    config = {extra = {zodiac = 'zodiac_ortalab_taurus'}},
+    artist_credits = {'parchment'},
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = {generate_ui = zodiac_tooltip, key = self.config.extra.zodiac}
+        return {vars = {localize(G.ZODIACS[self.config.extra.zodiac].config.extra.hand_type, 'poker_hands')}}
+    end,
+    can_use = function(self, card)
+        return true
+    end,
+    use = function(self, card, area, copier)
+        use_zodiac(card)
+    end
+})
+
+Ortalab.Zodiac{
+    key = 'taurus',
+    pos = {x=3, y=0},
+    colour = HEX('cb703d'),
+    config = {extra = {temp_level = 4, hand_type = 'Three of a Kind', amount = 3}},
+    loc_vars = function(self, info_queue, card)
+        local zodiac = card or self
+        if not card then info_queue[#info_queue + 1] = G.P_CENTERS['m_ortalab_rusty'] end
+        local temp_level = (not zodiac.voucher_check and G.GAME.ortalab.zodiacs.temp_level_mod or 1) * zodiac.config.extra.temp_level
+        return {vars = {temp_level, localize(zodiac.config.extra.hand_type, 'poker_hands'), zodiac.config.extra.amount}}
+    end,
+    pre_trigger = function(self, zodiac, context)
+        for i=1, zodiac.config.extra.amount do
+            if G.hand.cards[i] then
+                G.hand.cards[i]:set_ability(G.P_CENTERS['m_ortalab_rusty'], nil, true)
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'before', delay = 0.2, func = function()
+                        zodiac:juice_up()
+                        G.hand.cards[i]:juice_up()
+                        return true
+                    end}))
+            end
+        end
+        zodiac_reduce_level(zodiac)
+        return context.mult, context.chips
+    end
+}
+
+SMODS.Consumable({
+    key = 'zod_gemini',
+    set = 'Zodiac',
+    atlas = 'zodiac_cards',
+    cost = 4,
+    pos = {x=2, y=0},
+    discovered = false,
+    config = {extra = {zodiac = 'zodiac_ortalab_gemini'}},
+    artist_credits = {'parchment'},
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = {generate_ui = zodiac_tooltip, key = self.config.extra.zodiac}
+        return {vars = {localize(G.ZODIACS[self.config.extra.zodiac].config.extra.hand_type, 'poker_hands')}}
+    end,
+    can_use = function(self, card)
+        return true
+    end,
+    use = function(self, card, area, copier)
+        use_zodiac(card)
+    end
+})
+
+Ortalab.Zodiac{
+    key = 'gemini',
+    pos = {x=4, y=0},
+    colour = HEX('d9c270'),
+    config = {extra = {temp_level = 4, hand_type = 'Pair'}},
+    loc_vars = function(self, info_queue, card)
+        local zodiac = card or self
+        local temp_level = (not zodiac.voucher_check and G.GAME.ortalab.zodiacs.temp_level_mod or 1) * zodiac.config.extra.temp_level
+        return {vars = {temp_level, localize(zodiac.config.extra.hand_type, 'poker_hands')}}
+    end,
+    pre_trigger = function(self, zodiac, context)
+        local effects = {'m_ortalab_post', 'm_ortalab_bent'}
+        for i=1, 2 do
+            if context.scoring_hand[i].config.center.set ~= 'Enhanced' then
+                context.scoring_hand[i]:set_ability(G.P_CENTERS[effects[i]], nil, true)
+                local name = context.scoring_hand[i].ability.effect
+                context.scoring_hand[i].ability.effect = nil
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'before', delay = 0.2, func = function()
+                        zodiac:juice_up()
+                        context.scoring_hand[i].ability.effect = name
+                        context.scoring_hand[i]:juice_up()
+                        return true
+                    end}))
+            end
+        end
+        zodiac_reduce_level(zodiac)
+        return context.mult, context.chips
+    end
+}
+
+SMODS.Consumable({
+    key = 'zod_cancer',
+    set = 'Zodiac',
+    atlas = 'zodiac_cards',
+    cost = 4,
+    pos = {x=3, y=0},
+    discovered = false,
+    config = {extra = {zodiac = 'zodiac_ortalab_cancer'}},
+    artist_credits = {'parchment','salad'},
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = {generate_ui = zodiac_tooltip, key = self.config.extra.zodiac}
+        return {vars = {localize(G.ZODIACS[self.config.extra.zodiac].config.extra.hand_type, 'poker_hands')}}
+    end,
+    can_use = function(self, card)
+        return true
+    end,
+    use = function(self, card, area, copier)
+        use_zodiac(card)
+    end
+})
+
+Ortalab.Zodiac{
+    key = 'cancer',
+    pos = {x=5, y=0},
+    colour = HEX('878879'),
+    config = {extra = {temp_level = 4, hand_type = 'Flush House'}},
+    loc_vars = function(self, info_queue, card)
+        local zodiac = card or self
+        local temp_level = (not zodiac.voucher_check and G.GAME.ortalab.zodiacs.temp_level_mod or 1) * zodiac.config.extra.temp_level
+        return {vars = {temp_level, localize(zodiac.config.extra.hand_type, 'poker_hands')}}
+    end,
+    pre_trigger = function(self, zodiac, context)
+        local suits_in_flush = {}
+        local new_suit = context.scoring_hand[1].base.suit
+        local ranks_in_flush = {}
+        local rank1, rank2
+        for _, card in pairs(context.scoring_hand) do
+            suits_in_flush[card.base.suit] = suits_in_flush[card.base.suit] and suits_in_flush[card.base.suit] + 1 or 1
+            ranks_in_flush[card.base.value] = ranks_in_flush[card.base.value] and ranks_in_flush[card.base.value] + 1 or 1
+            if suits_in_flush[card.base.suit] > suits_in_flush[new_suit] then new_suit = card.base.suit end
+        end
+        for rank, amount in pairs(ranks_in_flush) do
+            if amount == 3 then rank1 = rank elseif amount == 2 then rank2 = rank end
+        end
+        for i, card in ipairs(G.hand.cards) do
+            local new_rank = SMODS.Ranks[i % 2 == 0 and rank1 or rank2]
+            Ortalab.change_suit_no_anim(card, new_suit)
+            card.base.id = new_rank.id
+            card.base.nominal = new_rank.nominal or 0
+            card.base.face_nominal = new_rank.face_nominal or 0
+            G.E_MANAGER:add_event(Event({
+                trigger = 'before', delay = 0.2, func = function()
+                    zodiac:juice_up()
+                    SMODS.change_base(card, new_suit, i % 2 == 0 and rank1 or rank2)
+                    if card.ability.set ~= 'Enhanced' then card:set_ability(G.P_CENTERS[SMODS.poll_enhancement({guaranteed = true, key = 'zodiac_cancer'})]) end
+                    card:juice_up()
+                    return true
+                end}))
+        end
+        zodiac_reduce_level(zodiac)
+        return context.mult, context.chips
+    end
+}
+
+SMODS.Consumable({
+    key = 'zod_leo',
+    set = 'Zodiac',
+    atlas = 'zodiac_cards',
+    cost = 4,
+    pos = {x=0, y=1},
+    discovered = false,
+    config = {extra = {zodiac = 'zodiac_ortalab_leo'}},
+    artist_credits = {'parchment'},
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = {generate_ui = zodiac_tooltip, key = self.config.extra.zodiac}
+        return {vars = {localize(G.ZODIACS[self.config.extra.zodiac].config.extra.hand_type, 'poker_hands')}}
+    end,
+    can_use = function(self, card)
+        return true
+    end,
+    use = function(self, card, area, copier)
+        use_zodiac(card)
+    end
+})
+
+Ortalab.Zodiac{
+    key = 'leo',
+    pos = {x=0, y=1},
+    colour = HEX('8fb85c'),
+    config = {extra = {temp_level = 4, effects = 3, hand_type = 'Flush Five'}},
+    loc_vars = function(self, info_queue, card)
+        local zodiac = card or self
+        local temp_level = (not zodiac.voucher_check and G.GAME.ortalab.zodiacs.temp_level_mod or 1) * zodiac.config.extra.temp_level
+        return {vars = {temp_level, localize(zodiac.config.extra.hand_type, 'poker_hands'), zodiac.config.extra.effects}}
+    end,
+    pre_trigger = function(self, zodiac, context)
+        for i=1, zodiac.config.extra.effects do
+            if G.hand.cards[i] then
+                Ortalab.change_suit_no_anim(G.hand.cards[i], context.scoring_hand[3].base.suit)
+                G.hand.cards[i].base.id = context.scoring_hand[3].base.id
+                G.hand.cards[i].base.nominal = context.scoring_hand[3].base.nominal
+                G.hand.cards[i].base.face_nominal = context.scoring_hand[3].base.face_nominal
+                G.hand.cards[i].delay_edition = G.hand.cards[i].edition and G.hand.cards[i].edition.key or true
+                G.hand.cards[i]:set_edition(context.scoring_hand[3].edition and context.scoring_hand[3].edition.key, false, true)
+                G.hand.cards[i]:set_ability(G.P_CENTERS[context.scoring_hand[3].config.center_key], nil, true)
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        copy_card(context.scoring_hand[3], G.hand.cards[i], nil, nil, true)
+                        G.hand.cards[i].delay_edition = nil
+                        G.hand.cards[i]:juice_up()
+                        context.scoring_hand[3]:juice_up()
+                        return true
+                        end
+                }))
+            end
+        end        
+        zodiac_reduce_level(zodiac)
+        return context.mult, context.chips
+    end
+}
+
+SMODS.Consumable({
+    key = 'zod_virgo',
+    set = 'Zodiac',
+    atlas = 'zodiac_cards',
+    cost = 4,
+    pos = {x=1, y=1},
+    discovered = false,
+    config = {extra = {zodiac = 'zodiac_ortalab_virgo'}},
+    artist_credits = {'parchment'},
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = {generate_ui = zodiac_tooltip, key = self.config.extra.zodiac}
+        return {vars = {localize(G.ZODIACS[self.config.extra.zodiac].config.extra.hand_type, 'poker_hands')}}
+    end,
+    can_use = function(self, card)
+        return true
+    end,
+    use = function(self, card, area, copier)
+        use_zodiac(card)
+    end
+})
+
+Ortalab.Zodiac{
+    key = 'virgo',
+    pos = {x=1, y=1},
+    colour = HEX('299847'),
+    config = {extra = {temp_level = 4, hand_type = 'Five of a Kind'}},
+    loc_vars = function(self, info_queue, card)
+        local zodiac = card or self
+        local temp_level = (not zodiac.voucher_check and G.GAME.ortalab.zodiacs.temp_level_mod or 1) * zodiac.config.extra.temp_level
+        return {vars = {temp_level, localize(zodiac.config.extra.hand_type, 'poker_hands'), 3}}
+    end,
+    pre_trigger = function(self, zodiac, context)
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                local cards = {}
+                for i=2, #context.scoring_hand-1 do
+                    G.playing_card = (G.playing_card and G.playing_card + 1) or 1
+                    local _card = copy_card(context.scoring_hand[i], nil, nil, G.playing_card)
+                    table.insert(cards, _card)
+                end
+                for i, _card in ipairs(cards) do
+                    _card:add_to_deck()
+                    G.deck.config.card_limit = G.deck.config.card_limit + 1
+                    table.insert(G.playing_cards, _card)
+                    G.deck:emplace(_card)
+                    context.scoring_hand[i+1]:juice_up()
+                    _card:juice_up()
+                end
+                playing_card_joker_effects(cards)
+                G.deck:shuffle('zodiac_virgo')
+                return true
+            end
+        }))
+        zodiac_reduce_level(zodiac)
+        return context.mult, context.chips
+    end
+}
+
+SMODS.Consumable({
+    key = 'zod_libra',
+    set = 'Zodiac',
+    atlas = 'zodiac_cards',
+    cost = 4,
+    pos = {x=2, y=1},
+    discovered = false,
+    config = {extra = {zodiac = 'zodiac_ortalab_libra'}},
+    artist_credits = {'parchment'},
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = {generate_ui = zodiac_tooltip, key = self.config.extra.zodiac}
+        return {vars = {localize(G.ZODIACS[self.config.extra.zodiac].config.extra.hand_type, 'poker_hands')}}
+    end,
+    can_use = function(self, card)
+        return true
+    end,
+    use = function(self, card, area, copier)
+        use_zodiac(card)
+    end
+})
+
+Ortalab.Zodiac{
+    key = 'libra',
+    pos = {x=2, y=1},
+    colour = HEX('32a18c'),
+    config = {extra = {temp_level = 4, hand_type = 'Full House', convert = 1}},
+    loc_vars = function(self, info_queue, card)
+        local zodiac = card or self
+        local temp_level = (not zodiac.voucher_check and G.GAME.ortalab.zodiacs.temp_level_mod or 1) * zodiac.config.extra.temp_level
+        return {vars = {temp_level, localize(zodiac.config.extra.hand_type, 'poker_hands'), zodiac.config.extra.convert}}
+    end,
+    pre_trigger = function(self, zodiac, context)
+        for i=1, math.min(zodiac.config.extra.convert, #G.hand.cards) do
+            if G.hand.cards[i] then
+                G.hand.cards[i].base.suit = context.scoring_hand[2].base.suit
+                G.hand.cards[i].base.id = context.scoring_hand[2].base.id
+                G.hand.cards[i].base.nominal = context.scoring_hand[2].base.nominal
+                G.hand.cards[i].base.face_nominal = context.scoring_hand[2].base.face_nominal
+                G.hand.cards[i].delay_edition = context.scoring_hand[2].edition and context.scoring_hand[2].edition.key or true
+                G.hand.cards[i]:set_edition(context.scoring_hand[2].edition and context.scoring_hand[2].edition.key, false, true)
+                G.hand.cards[i]:set_ability(G.P_CENTERS[context.scoring_hand[2].config.center_key], nil, true)
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        local _card = copy_card(context.scoring_hand[2], G.hand.cards[i], nil, nil, true)
+                        G.hand.cards[i].delay_edition = nil
+                        _card:juice_up()
+                        context.scoring_hand[2]:juice_up()
+                        return true
+                    end
+                }))
+            end
+        end
+        zodiac_reduce_level(zodiac)
+
+        return context.mult, context.chips
+    end
+}
+
+SMODS.Consumable({
+    key = 'zod_scorpio',
+    set = 'Zodiac',
+    atlas = 'zodiac_cards',
+    cost = 4,
+    pos = {x=3, y=1},
+    discovered = false,
+    config = {extra = {zodiac = 'zodiac_ortalab_scorpio'}},
+    artist_credits = {'parchment'},
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = {generate_ui = zodiac_tooltip, key = self.config.extra.zodiac}
+        return {vars = {localize(G.ZODIACS[self.config.extra.zodiac].config.extra.hand_type, 'poker_hands')}}
+    end,
+    can_use = function(self, card)
+        return true
+    end,
+    use = function(self, card, area, copier)
+        use_zodiac(card)
+    end
+})
+
+Ortalab.Zodiac{
+    key = 'scorpio',
+    pos = {x=0, y=0},
+    colour = HEX('669ac0'),
+    config = {extra = {temp_level = 4, hand_type = 'High Card', amount = 2}},
+    loc_vars = function(self, info_queue, card)
+        local zodiac = card or self
+        local temp_level = (not zodiac.voucher_check and G.GAME.ortalab.zodiacs.temp_level_mod or 1) * zodiac.config.extra.temp_level
+        return {vars = {temp_level, localize(zodiac.config.extra.hand_type, 'poker_hands'), zodiac.config.extra.amount}}
+    end,
+    pre_trigger = function(self, zodiac, context)
+        local amount = 1
+        local modifiers = {'m_stone', 'm_ortalab_ore'}
+        for _, card in pairs(context.full_hand) do
+            if table.contains(context.scoring_hand, card) or amount == zodiac.config.extra.amount + 1 then
+                -- do nothing
+            else
+                local change = modifiers[amount]
+                card.add_to_scoring = function()
+                    G.E_MANAGER:add_event(Event({
+                        trigger = 'after',
+                        delay = 0.5,
+                        func = function()
+                            zodiac:juice_up()
+                            card:juice_up()
+                            card.config.center.replace_base_card = true                
+                            card.becoming_no_rank = nil
+                            return true
+                        end
+                    }))
+                    card:set_ability(G.P_CENTERS[change], nil, true)
+                    local name = card.ability.effect
+                    card.becoming_no_rank = true
+                    card.config.center.replace_base_card = nil
+                end
+                
+                amount = amount + 1
+            end
+        end
+        zodiac_reduce_level(zodiac)
+        return context.mult, context.chips, true
+    end
+}
+
+SMODS.Consumable({
+    key = 'zod_sag',
+    set = 'Zodiac',
+    atlas = 'zodiac_cards',
+    cost = 4,
+    pos = {x=0, y=2},
+    discovered = false,
+    config = {extra = {zodiac = 'zodiac_ortalab_sag'}},
+    artist_credits = {'parchment'},
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = {generate_ui = zodiac_tooltip, key = self.config.extra.zodiac}
+        return {vars = {localize(G.ZODIACS[self.config.extra.zodiac].config.extra.hand_type, 'poker_hands')}}
+    end,
+    can_use = function(self, card)
+        return true
+    end,
+    use = function(self, card, area, copier)
+        use_zodiac(card)
+    end
+})
+
+Ortalab.Zodiac{
+    key = 'sag',
+    pos = {x=3, y=1},
+    colour = HEX('4c3ba2'),
+    config = {extra = {temp_level = 4, hand_type = 'Flush'}},
+    loc_vars = function(self, info_queue, card)
+        local zodiac = card or self
+        local temp_level = (not zodiac.voucher_check and G.GAME.ortalab.zodiacs.temp_level_mod or 1) * zodiac.config.extra.temp_level
+        return {vars = {temp_level, localize(zodiac.config.extra.hand_type, 'poker_hands')}}
+    end,
+    pre_trigger = function(self, zodiac, context)
+        local suits_in_flush = {}
+        local new_suit = context.scoring_hand[1].base.suit
+        for _, card in pairs(context.scoring_hand) do
+            suits_in_flush[card.base.suit] = suits_in_flush[card.base.suit] and suits_in_flush[card.base.suit] + 1 or 1
+            if suits_in_flush[card.base.suit] > suits_in_flush[new_suit] then new_suit = card.base.suit end
+        end
+        for _, card in pairs(G.hand.cards) do
+            if not card.base.suit ~= new_suit then
+                Ortalab.change_suit_no_anim(card, new_suit)
+                card.base.suit = new_suit
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'before', delay = 0.2, func = function()
+                        zodiac:juice_up()
+                        SMODS.change_base(card, new_suit)
+                        card:juice_up()
+                        return true
+                    end}))
+            end
+        end
+        zodiac_reduce_level(zodiac)
+        
+        return context.mult, context.chips
+    end
+}
+
+SMODS.Consumable({
+    key = 'zod_capr',
+    set = 'Zodiac',
+    atlas = 'zodiac_cards',
+    cost = 4,
+    pos = {x=1, y=2},
+    discovered = false,
+    config = {extra = {zodiac = 'zodiac_ortalab_capr'}},
+    artist_credits = {'parchment'},
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = {generate_ui = zodiac_tooltip, key = self.config.extra.zodiac}
+        return {vars = {localize(G.ZODIACS[self.config.extra.zodiac].config.extra.hand_type, 'poker_hands')}}
+    end,
+    can_use = function(self, card)
+        return true
+    end,
+    use = function(self, card, area, copier)
+        use_zodiac(card)
+    end
+})
+
+Ortalab.Zodiac{
+    key = 'capr',
+    pos = {x=4, y=1},
+    colour = HEX('8058b6'),
+    config = {extra = {temp_level = 4, hand_type = 'Straight', amount = 2}},
+    loc_vars = function(self, info_queue, card)
+        if not card then info_queue[#info_queue + 1] = G.P_CENTERS['m_ortalab_index'] end
+        local zodiac = card or self
+        local temp_level = (not zodiac.voucher_check and G.GAME.ortalab.zodiacs.temp_level_mod or 1) * zodiac.config.extra.temp_level
+        return {vars = {temp_level, localize(zodiac.config.extra.hand_type, 'poker_hands'), zodiac.config.extra.amount}}
+    end,
+    pre_trigger = function(self, zodiac, context)
+        for i=1, zodiac.config.extra.amount do
+            if G.hand.cards[i] then
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'before', delay = 0.2, func = function()
+                        zodiac:juice_up()
+                        G.hand.cards[i]:set_ability(G.P_CENTERS['m_ortalab_index'])
+                        G.hand.cards[i]:juice_up()
+                        return true
+                    end}))
+            end
+        end
+        zodiac_reduce_level(zodiac)
+        return context.mult, context.chips
+    end
+}
+
+SMODS.Consumable({
+    key = 'zod_aquarius',
+    set = 'Zodiac',
+    atlas = 'zodiac_cards',
+    cost = 4,
+    pos = {x=2, y=2},
+    discovered = false,
+    config = {extra = {zodiac = 'zodiac_ortalab_aquarius'}},
+    artist_credits = {'parchment'},
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = {generate_ui = zodiac_tooltip, key = self.config.extra.zodiac}
+        return {vars = {localize(G.ZODIACS[self.config.extra.zodiac].config.extra.hand_type, 'poker_hands')}}
+    end,
+    can_use = function(self, card)
+        return true
+    end,
+    use = function(self, card, area, copier)
+        use_zodiac(card)
+    end
+})
+
+Ortalab.Zodiac{
+    key = 'aquarius',
+    pos = {x=1, y=0},
+    config = {extra = {temp_level = 4, hand_type = 'Two Pair'}},
+    colour = HEX('b05ab4'),
+    loc_vars = function(self, info_queue, card)
+        local zodiac = card or self
+        local temp_level = (not zodiac.voucher_check and G.GAME.ortalab.zodiacs.temp_level_mod or 1) * zodiac.config.extra.temp_level
+        return {vars = {temp_level, localize(zodiac.config.extra.hand_type, 'poker_hands')}}
+    end,
+    pre_trigger = function(self, zodiac, context)
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                G.playing_card = (G.playing_card and G.playing_card + 1) or 1
+                local _card = copy_card(context.scoring_hand[2], nil, nil, G.playing_card)
+                _card:add_to_deck()
+                G.deck.config.card_limit = G.deck.config.card_limit + 1
+                table.insert(G.playing_cards, _card)
+                G.deck:emplace(_card)
+                G.deck:shuffle('zodiac_aquarius')
+                context.scoring_hand[2]:juice_up()
+                _card:juice_up()
+
+                playing_card_joker_effects({_card})
+                return true
+            end
+        }))
+        zodiac_reduce_level(zodiac)
+        return context.mult, context.chips
+    end
+}
+
+SMODS.Consumable({
+    key = 'zod_pisces',
+    set = 'Zodiac',
+    atlas = 'zodiac_cards',
+    cost = 4,
+    pos = {x=3, y=2},
+    discovered = false,
+    config = {extra = {zodiac = 'zodiac_ortalab_pisces'}},
+    artist_credits = {'parchment'},
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = {generate_ui = zodiac_tooltip, key = self.config.extra.zodiac}
+        return {vars = {localize(G.ZODIACS[self.config.extra.zodiac].config.extra.hand_type, 'poker_hands')}}
+    end,
+    can_use = function(self, card)
+        return true
+    end,
+    use = function(self, card, area, copier)
+        use_zodiac(card)
+    end
+})
+
+Ortalab.Zodiac{
+    key = 'pisces',
+    pos = {x=5, y=1},
+    colour = HEX('ae347f'),
+    config = {extra = {temp_level = 4, hand_type = 'Straight Flush'}},
+    loc_vars = function(self, info_queue, card)
+        local zodiac = card or self
+        local temp_level = (not zodiac.voucher_check and G.GAME.ortalab.zodiacs.temp_level_mod or 1) * zodiac.config.extra.temp_level
+        return {vars = {temp_level, localize(zodiac.config.extra.hand_type, 'poker_hands')}}
+    end,
+    pre_trigger = function(self, zodiac, context)
+        local suits_in_flush = {}
+        local new_suit = context.scoring_hand[1].base.suit
+        for _, card in pairs(context.scoring_hand) do
+            suits_in_flush[card.base.suit] = suits_in_flush[card.base.suit] and suits_in_flush[card.base.suit] + 1 or 1
+            if suits_in_flush[card.base.suit] > suits_in_flush[new_suit] then new_suit = card.base.suit end
+        end
+        for _, card in pairs(G.hand.cards) do
+            if not card.base.suit ~= new_suit then
+                Ortalab.change_suit_no_anim(card, new_suit)
+                if not card.edition then
+                    local new_edition = poll_edition('zodiac_pisces', nil, false, true)
+                    card.delay_edition = true
+                    card:set_edition(new_edition, false, true)
+                end
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'before', delay = 0.2, func = function()
+                        zodiac:juice_up()
+                        SMODS.change_base(card, new_suit)
+                        card.delay_edition = false
+                        card:juice_up()
+                        return true
+                    end}))
+            end
+        end
+        zodiac_reduce_level(zodiac)
+        return context.mult, context.chips
+    end
+}

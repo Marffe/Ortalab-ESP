@@ -10,8 +10,8 @@ SMODS.Joker({
 	eternal_compat = true,
 	perishable_compat = true,
 	config = {extra = {slots = 2, target = 18}},
+    artist_credits = {'alex'},
     loc_vars = function(self, info_queue, card)
-        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'alex'} end
         if G.GAME.consumeable_usage_total and G.GAME.consumeable_usage_total.all >= card.ability.extra.target then
             return {key = 'j_ortalab_forklift_granted', vars = {card.ability.extra.slots, card.ability.extra.target}}
         else

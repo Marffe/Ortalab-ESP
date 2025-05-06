@@ -12,9 +12,7 @@ SMODS.Blind({
     atlas = 'ortalab_blinds',
     pos = {x=0, y=33},
     boss_colour = HEX('00b99f'),
-    loc_vars = function(self, info_queue, card)
-        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'coro'} end
-    end,
+    artist_credits = {'coro'},
     mult = 0.7,
     dollars = 2,
     small = {min = 1}
@@ -25,9 +23,7 @@ SMODS.Blind({
     atlas = 'ortalab_blinds',
     pos = {x=0, y=28},
     boss_colour = HEX('27b955'),
-    loc_vars = function(self, info_queue, card)
-        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'coro'} end
-    end,
+    artist_credits = {'coro'},
     mult = 1,
     dollars = 3,
     small = {min = 1}
@@ -38,9 +34,7 @@ SMODS.Blind({
     atlas = 'ortalab_blinds',
     pos = {x=0, y=30},
     boss_colour = HEX('71ba27'),
-    loc_vars = function(self, info_queue, card)
-        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'eremel'} end
-    end,
+    artist_credits = {'eremel'},
     mult = 1.25,
     dollars = 4,
     small = {min = 1}
@@ -51,9 +45,7 @@ SMODS.Blind({
     atlas = 'ortalab_blinds',
     pos = {x=0, y=31},
     boss_colour = HEX('b94a00'),
-    loc_vars = function(self, info_queue, card)
-        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'eremel'} end
-    end,
+    artist_credits = {'eremel'},
     mult = 1.15,
     dollars = 3,
     big = {min = 1}
@@ -64,9 +56,7 @@ SMODS.Blind({
     atlas = 'ortalab_blinds',
     pos = {x=0, y=29},
     boss_colour = HEX('c73a38'),
-    loc_vars = function(self, info_queue, card)
-        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'coro'} end
-    end,
+    artist_credits = {'eremel'},
     mult = 1.5,
     dollars = 4,
     big = {min = 1}
@@ -77,9 +67,7 @@ SMODS.Blind({
     atlas = 'ortalab_blinds',
     pos = {x=0, y=32},
     boss_colour = HEX('b92aff'),
-    loc_vars = function(self, info_queue, card)
-        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'eremel'} end
-    end,
+    artist_credits = {'eremel'},
     mult = 1.875,
     dollars = 5,
     big = {min = 1}
@@ -101,8 +89,8 @@ SMODS.Blind({
     boss = {min = 1, max = 10},
     boss_colour = HEX('5186A8'),
     config = {extra = {hand_size = 1, hands_removed = 0}},
+    artist_credits = {'flare'},
     loc_vars = function(self, info_queue, card)
-        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'flare'} end
         return {vars = {self.config.extra.hand_size}}
     end,
     collection_loc_vars = function(self)
@@ -146,8 +134,8 @@ SMODS.Blind({
     boss = {min = 1, max = 10},
     boss_colour = HEX('AE718E'),
     config = {extra = {cap = 0.5}},
+    artist_credits = {'flare'},
     loc_vars = function(self, info_queue, card)
-        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'flare'} end
         return {vars = {self.config.extra.cap*100}}
     end,
     collection_loc_vars = function(self)
@@ -170,8 +158,8 @@ SMODS.Blind({
     boss = {min = 1, max = 10},
     boss_colour = HEX('A9A295'),
     config = {extra = {frequency = 5}},
+    artist_credits = {'flare'},
     loc_vars = function(self, info_queue, card)
-        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'flare'} end
         return {vars = {math.max(G.GAME.probabilities.normal, 1), self.config.extra.frequency / math.min(G.GAME.probabilities.normal, 1)}}
     end,
     collection_loc_vars = function(self)
@@ -211,9 +199,7 @@ SMODS.Blind({
     mult = 2,
     boss = {min = 3, max = 10},
     boss_colour = HEX('6a3847'),
-    loc_vars = function(self, info_queue, card)
-        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'flare'} end
-    end,
+    artist_credits = {'flare'},
     after_scoring = function(self)
         for k, v in ipairs(G.play.cards) do
             if v.ability.set == 'Enhanced' then 
@@ -236,8 +222,8 @@ SMODS.Blind({
     boss = {min = 3, max = 10},
     boss_colour = HEX('A84024'),
     config = {extra = {suit = 'Clubs'}},
+    artist_credits = {'flare'},
     loc_vars = function(self, info_queue, card)
-        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'flare'} end
         return {vars = {self.config.extra.suit}}
     end,
     collection_loc_vars = function(self)
@@ -266,9 +252,7 @@ SMODS.Blind({
     boss = {min = 1, max = 10},
     boss_colour = HEX('3e85bd'),
     config = {extra = {discard_amount = 0}},
-    loc_vars = function(self, info_queue, card)
-        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'flare'} end
-    end,
+    artist_credits = {'flare'},
     set_blind = function(self)
         self.config.extra.discard_amount = G.GAME.round_scores.cards_discarded.amt
     end,
@@ -298,9 +282,7 @@ SMODS.Blind({
     mult = 2,
     boss = {min = 1, max = 10},
     boss_colour = HEX('50bf7c'),
-    loc_vars = function(self, info_queue, card)
-        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'flare'} end
-    end,
+    artist_credits = {'flare'},
     debuff_hand = function(self, cards, hand, handname, check)
         local _,_,_,scoring_hand,_ = G.FUNCS.get_poker_hand_info(cards)
         local always_scores_count = 0
@@ -320,8 +302,8 @@ SMODS.Blind({
     boss = {min = 3, max = 10},
     boss_colour = HEX('efc03c'),
     config = {extra = {suit = 'Spades'}},
+    artist_credits = {'flare'},
     loc_vars = function(self, info_queue, card)
-        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'flare'} end
         return {vars = {self.config.extra.suit}}
     end,
     collection_loc_vars = function(self)
@@ -349,9 +331,7 @@ SMODS.Blind({
     mult = 2,
     boss = {min = 1, max = 10},
     boss_colour = HEX('5c6e31'),
-    loc_vars = function(self, info_queue, card)
-        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'flare'} end
-    end,
+    artist_credits = {'flare'},
 })
 
 SMODS.Blind({
@@ -363,8 +343,8 @@ SMODS.Blind({
     boss = {min = 3, max = 10},
     boss_colour = HEX('b9cb92'),
     config = {extra = {suit = 'Diamonds'}},
+    artist_credits = {'flare'},
     loc_vars = function(self, info_queue, card)
-        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'flare'} end
         return {vars = {self.config.extra.suit}}
     end,
     collection_loc_vars = function(self)
@@ -393,8 +373,8 @@ SMODS.Blind({
     boss = {min = 3, max = 10},
     boss_colour = HEX('e56a2f'),
     config = {extra = {hand_size = 1}},
+    artist_credits = {'flare'},
     loc_vars = function(self, info_queue, card)
-        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'flare'} end
         return {vars = {self.config.extra.hand_size}}
     end,
     collection_loc_vars = function(self)
@@ -420,8 +400,8 @@ SMODS.Blind({
     boss = {min = 1, max = 10},
     boss_colour = HEX('4b71e4'),
     config = {extra = {triggered = false}},
+    artist_credits = {'flare'},
     loc_vars = function(self, info_queue, card)
-        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'flare'} end
         if self.triggered then
             return {vars = {localize(self.config.extra.hand_type, 'poker_hands')}}
         else
@@ -482,9 +462,7 @@ SMODS.Blind({
     boss = {min = 1, max = 10},
     boss_colour = HEX('7e6752'),
     config = {extra = {ranks = {}}},
-    loc_vars = function(self, info_queue, card)
-        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'flare'} end
-    end,
+    artist_credits = {'flare'},
     modify_hand = function(self, cards, poker_hands, handname, mult, hand_chips)
         local _,_,_,scoring_hand,_ = G.FUNCS.get_poker_hand_info(cards)
         for _, card in pairs(scoring_hand) do
@@ -527,8 +505,8 @@ SMODS.Blind({
     boss = {min = 1, max = 10},
     boss_colour = HEX('6865f3'),
     config = {extra = {ranks = {}, debuff_count = 4}},
+    artist_credits = {'flare'},
     loc_vars = function(self, info_queue, card)
-        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'flare'} end
         if self.triggered then
             local ranks = {}
             for k, v in pairs(self.config.extra.ranks) do
@@ -603,8 +581,8 @@ SMODS.Blind({
     boss = {min = 1, max = 10},
     boss_colour = HEX('439a4f'),
     config = {extra = {hand_size = 2, actions = 2, action_count = 2}},
+    artist_credits = {'flare'},
     loc_vars = function(self, info_queue, card)
-        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'flare'} end
         return {vars = {self.config.extra.hand_size, self.config.extra.actions}}
     end,
     collection_loc_vars = function(self)
@@ -629,9 +607,7 @@ SMODS.Blind({
     mult = 2,
     boss = {min = 1, max = 10},
     boss_colour = HEX('575757'),
-    loc_vars = function(self, info_queue, card)
-        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'flare'} end
-    end,
+    artist_credits = {'flare'},
     stay_flipped = function(self, area, card)
         if not card.ability.played_this_ante and area == G.hand then return true end
     end,
@@ -655,9 +631,7 @@ SMODS.Blind({
     mult = 2,
     boss = {min = 1, max = 10},
     boss_colour = HEX('c6e0eb'),
-    loc_vars = function(self, info_queue, card)
-        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'flare'} end
-    end,
+    artist_credits = {'flare'},
     modify_hand = function(self, cards, poker_hands, text, mult, hand_chips)
         local text,_,_,_,_ = G.FUNCS.get_poker_hand_info(cards)
         ease_dollars(-G.GAME.hands[text].level)
@@ -674,8 +648,8 @@ SMODS.Blind({
     boss = {min = 3, max = 10},
     boss_colour = HEX('709284'),
     config = {extra = {suit = 'Hearts'}},
+    artist_credits = {'flare'},
     loc_vars = function(self, info_queue, card)
-        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'flare'} end
         return {vars = {self.config.extra.suit}}
     end,
     collection_loc_vars = function(self)
@@ -704,8 +678,8 @@ SMODS.Blind({
     boss = {min = 1, max = 10},
     boss_colour = HEX('b95c96'),
     config = {extra = {change = 1}},
+    artist_credits = {'flare'},
     loc_vars = function(self, info_queue, card)
-        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'flare'} end
         return {vars = {self.config.extra.change}}
     end,
     collection_loc_vars = function(self)
@@ -734,8 +708,8 @@ SMODS.Blind({
     boss = {min = 1, max = 10},
     boss_colour = HEX('b95b08'),
     config = {extra = {ranks = {}, flipped = 5}},
+    artist_credits = {'flare'},
     loc_vars = function(self, info_queue, card)
-        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'flare'} end
         if self.triggered then
             local ranks = {}
             for k, v in pairs(self.config.extra.ranks) do
@@ -796,8 +770,8 @@ SMODS.Blind({
     boss = {min = 1, max = 10},
     boss_colour = HEX('ac9db4'),
     config = {extra = {reset = 5, hand_type = nil}},
+    artist_credits = {'flare'},
     loc_vars = function(self, info_queue, card)
-        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'flare'} end
         if self.config.extra.hand_type then
             return {vars = {localize(self.config.extra.hand_type, 'poker_hands'), self.config.extra.reset}}
         else
@@ -841,9 +815,7 @@ SMODS.Blind({
     boss = {min = 1, max = 10},
     boss_colour = HEX('8a59a5'),
     config = {extra = {triggered = false}},
-    loc_vars = function(self, info_queue, card)
-        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'flare'} end
-    end,
+    artist_credits = {'flare'},
     drawn_to_hand = function(self)
         if not self.config.extra.triggered then
             for _, card in pairs(G.hand.cards) do
@@ -876,12 +848,10 @@ SMODS.Blind({
     mult = 0.75,
     boss = {min = 3, max = 7},
     boss_colour = HEX('b52d2d'),
+    artist_credits = {'flare'},
     in_pool = function(self)
         if G.GAME.round_resets.ante > 8 or G.GAME.round_resets.ante < 3 then return false end
         return true
-    end,
-    loc_vars = function(self, info_queue, card)
-        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'flare'} end
     end,
     update_score = function(self, args)
         local min = math.min(args.chips, args.mult)
@@ -942,10 +912,7 @@ SMODS.Blind({
     boss = {min = 1, max = 10, showdown = true},
     boss_colour = HEX('22857b'),
     config = {extra = {options = {'Face', 'Even', 'Odd'}, current = ''}},
-    loc_vars = function(self, info_queue, card)
-        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'flare'} end
-        return {vars = {}}
-    end,
+    artist_credits = {'flare'},
     disable = function(self)
         for _, card in pairs(G.playing_cards) do
             card.celadon = false
@@ -1021,8 +988,8 @@ SMODS.Blind({
     boss = {min = 1, max = 10, showdown = true},
     boss_colour = HEX('c77a32'),
     config = {extra = {hand_size = 3}},
+    artist_credits = {'flare'},
     loc_vars = function(self, info_queue, card)
-        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'flare'} end
         return {vars = {self.config.extra.hand_size}}
     end,
     collection_loc_vars = function(self)
@@ -1048,8 +1015,8 @@ SMODS.Blind({
     boss = {min = 1, max = 10, showdown = true},
     boss_colour = HEX('fdca57'),
     config = {extra = {chance = 2}},
+    artist_credits = {'flare'},
     loc_vars = function(self, info_queue, card)
-        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'flare'} end
         return {vars = {math.max(G.GAME.probabilities.normal, 1), self.config.extra.chance / math.min(G.GAME.probabilities.normal, 1)}}
     end,
     collection_loc_vars = function(self)
@@ -1071,9 +1038,7 @@ SMODS.Blind({
     mult = 2,
     boss = {min = 1, max = 10, showdown = true},
     boss_colour = HEX('a85476'),
-    loc_vars = function(self, info_queue, card)
-        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'flare'} end
-    end,
+    artist_credits = {'flare'},
     collection_loc_vars = function(self)
     end,
     set_blind = function(self)
@@ -1151,8 +1116,8 @@ SMODS.Blind({
     boss = {min = 1, max = 10, showdown = true},
     boss_colour = HEX('9bafcf'),
     config = {extra = {hands = 1}},
+    artist_credits = {'flare'},
     loc_vars = function(self, info_queue, card)
-        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'flare'} end
         return {vars = {self.config.extra.hands}}
     end,
     collection_loc_vars = function(self)

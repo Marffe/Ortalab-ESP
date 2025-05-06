@@ -257,3 +257,22 @@ function end_round()
     G.hand:change_size(-1 * G.GAME.ortalab.hand_size)
     G.GAME.ortalab.hand_size = 0
 end
+
+-- Hook to allow cards that become no rank to score properly
+local chip_bonus = Card.get_chip_bonus
+function Card:get_chip_bonus()
+    if self.becoming_no_rank then return self.ability.bonus + (self.ability.perma_bonus or 0) end
+    return chip_bonus(self)
+end
+
+function Ortalab.change_suit_no_anim(card, suit)
+    local change = suit and card.base.suit ~= suit
+    card.base.suit = suit
+    if change and not Ortalab.harp_usage then
+        local scaling_joker = SMODS.find_card('j_ortalab_mill')
+        for _, card in pairs(scaling_joker) do        
+            card.ability.extra.xmult = card.ability.extra.xmult + card.ability.extra.gain
+            card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize{type = 'variable', key = 'a_xmult', vars = {card.ability.extra.xmult}}})
+        end
+    end
+end

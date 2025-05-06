@@ -10,9 +10,7 @@ SMODS.Joker({
 	eternal_compat = true,
 	perishable_compat = true,
 	config = {extra = 1},
-	loc_vars = function(self, info_queue, card)
-        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'flare'} end
-    end,
+    artist_credits = {'flare'},
     calculate = function(self, card, context) --Dawn Logic
         if context.first_hand_drawn then
             if not context.blueprint then

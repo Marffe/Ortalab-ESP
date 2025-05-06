@@ -41,14 +41,3 @@ if self.ability.set == 'Mythos' then
     self.children.floating_sprite:draw_shader('ortalab_mythos', nil, nil, nil, self.children.center, scale_mod, rotate_mod)
 end
 '''
-
-## Mythos Tooltip Fix
-[[patches]]
-[patches.pattern]
-target = 'functions/UI_definitions.lua'
-pattern = '''desc_from_rows(AUT.main),'''
-position = 'after'
-match_indent = true
-payload = '''
-AUT.mythos and desc_from_rows(AUT.mythos) or nil,
-'''

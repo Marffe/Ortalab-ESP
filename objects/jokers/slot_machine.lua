@@ -9,9 +9,7 @@ SMODS.Joker({
 	blueprint_compat = true,
 	eternal_compat = true,
 	perishable_compat = true,
-	loc_vars = function(self, info_queue, card)
-        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'flare'} end
-    end,
+    artist_credits = {'flare'},
     calculate = function(self, card, context) --Slot Machine Logic
         if context.joker_main then
             local total_lucky_7s = 0

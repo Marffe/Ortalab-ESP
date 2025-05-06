@@ -1,14 +1,20 @@
 return {
 	["misc"] = {
 		["dictionary"] = {
-			['ortalab_config_artists'] = 'Artist Credits',
-			['ortalab_config_artists_desc'] = {
-				"Toggle the display of artist credit tooltips"
+			['ortalab_config_artists_pos'] = 'Artist Credits',
+			['ortalab_config_artists_pos_desc'] = {
+				"Control the positioning",
+				"of artist credits"
 			},
-			['ortalab_config_full'] = 'Full Credits',
-			['ortalab_config_full_desc'] = {
-				"Toggle the display of additional tooltips",
-				"such as editions and seals"
+			['ortalab_config_artists_pos_options'] = {
+				"Main Tooltip",    
+                "Info Queue",
+				"None"
+			},
+			['ortalab_config_reduced'] = 'Smaller Mod Badge',
+			['ortalab_config_reduced_desc'] = {
+				"Toggle the mod identifier to be",
+				"smaller in size"
 			},
 			['ortalab_config_ortalab_only'] = 'Toggle Ortalab Only',
 			['ortalab_config_ortalab_only_desc'] = {
@@ -91,6 +97,7 @@ return {
 			k_tag = 'Tag',
 			ortalab_chisel = 'Chiselled!',
 			ortalab_statue = 'Statue!',
+			ortalab = 'Ortalab'
         },
 		['labels'] = {
 			ortalab_greyscale = 'Greyscale',

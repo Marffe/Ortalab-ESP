@@ -10,8 +10,8 @@ SMODS.Joker({
 	eternal_compat = true,
 	perishable_compat = true,
 	config = {extra = {xmult = 1.75, suit = 'Hearts', chance = 1, denom = 2}},
+	artist_credits = {'gappie'},
 	loc_vars = function(self, info_queue, card)
-        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'gappie'} end
         return {vars = {card.ability.extra.xmult, localize(card.ability.extra.suit, 'suits_singular'), math.max(G.GAME.probabilities.normal, 1) * card.ability.extra.chance, card.ability.extra.denom / math.min(G.GAME.probabilities.normal, 1), colours = {G.C.SUITS[card.ability.extra.suit]}}}
     end,
     calculate = function(self, card, context)

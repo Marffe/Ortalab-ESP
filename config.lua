@@ -1,7 +1,7 @@
 return {
     initial_setup_demo_3 = false,
-	full_credits = false,
-    artist_credits = true,
+	reduced_mod_badge = false,
+    credit_pos = 1,
     placeholders = true,
     enhancement_skip = false,
     loteria_skip = false,

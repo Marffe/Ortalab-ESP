@@ -10,8 +10,8 @@ SMODS.Joker({
     eternal_compat = true,
     perishable_compat = true,
     config = {extra = {hands = {}, amount = 3}},
+    artist_credits = {'no_demo'},
     loc_vars = function(self, info_queue, card)
-        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'no_demo'} end
         return {vars = {card.ability.extra.amount, not card.ability.extra.hands.triggered and table.size(card.ability.extra.hands) .. '/' .. card.ability.extra.amount or localize('ortalab_crowd_pleaser_success'), localize(G.GAME.current_round.most_played_poker_hand, 'poker_hands')}}
     end,
     calculate = function(self, card, context)

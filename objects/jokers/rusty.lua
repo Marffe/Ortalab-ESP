@@ -11,8 +11,8 @@ SMODS.Joker({
 	perishable_compat = true,
     enhancement_gate = 'm_ortalab_rusty',
 	config = {extra = {xmult = 1, gain = 0.2}},
+    artist_credits = {'gappie'},
 	loc_vars = function(self, info_queue, card)
-        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'gappie'} end
         info_queue[#info_queue + 1] = G.P_CENTERS['m_ortalab_rusty']
         local count = G.playing_cards and calculate_rusty_amount() or 0
         return {vars = {card.ability.extra.xmult + (card.ability.extra.gain * count), card.ability.extra.gain}}

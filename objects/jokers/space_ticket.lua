@@ -11,9 +11,7 @@ SMODS.Joker({
     eternal_compat = true,
     perishable_compat = true,
     config = {extra = {level = 1}},
-    loc_vars = function(self, info_queue, card)
-        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'kosze'} end
-    end,
+    artist_credits = {'kosze'},
     calculate = function(self, card, context)
         if context.after and context.main_eval then
             card.ability.extra.cosmic_check = false

@@ -10,8 +10,8 @@ SMODS.Joker({
 	eternal_compat = true,
 	perishable_compat = true,
     config = {extra = {duped_cards = 2, joker_triggered = false}},
+    artist_credits = {'golddisco'},
 	loc_vars = function(self, info_queue, card)
-        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'golddisco'} end
         return {vars = {card.ability.extra.duped_cards}}
     end,
     calculate = function(self, card, context) --Virus Logic

@@ -11,9 +11,8 @@ SMODS.Tag({
     pos = {x = 2, y = 2},
     discovered = false,
     config = {type = 'ortalab_shop_add', extra = {amount = 2}},
+    artist_credits = {'5381','kosze'},
     loc_vars = function(self, info_queue, card)
-        if Ortalab.config.artist_credits and not card.fake_card then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = '5381'} end
-        if Ortalab.config.artist_credits and not card.fake_card then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'kosze'} end
         return {vars = {card.config.extra.amount}}
     end,
     apply = function(self, tag, context)
@@ -47,8 +46,8 @@ SMODS.Tag({
     pos = {x = 4, y = 2},
     discovered = false,
     config = {type = 'store_joker_modify', edition = 'e_ortalab_anaglyphic'},
+    artist_credits = {'kosze'},
     loc_vars = function(self, info_queue, card)
-        if Ortalab.config.artist_credits and not card.fake_card then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'kosze'} end
         info_queue[#info_queue+1] = G.P_CENTERS[self.config.edition]
     end,
     apply = function(self, tag, context)
@@ -73,9 +72,9 @@ SMODS.Tag({
     atlas = 'patches',
     pos = {x = 0, y = 3},
     discovered = false,
+    artist_credits = {'kosze'},
     config = {type = 'store_joker_modify', edition = 'e_ortalab_fluorescent'},
     loc_vars = function(self, info_queue, card)
-        if Ortalab.config.artist_credits and not card.fake_card then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'kosze'} end
         info_queue[#info_queue+1] = G.P_CENTERS[self.config.edition]
     end,
     apply = function(self, tag, context)
@@ -101,9 +100,8 @@ SMODS.Tag({
     pos = {x = 1, y = 3},
     discovered = false,
     config = {type = 'store_joker_modify', edition = 'e_ortalab_greyscale'},
+    artist_credits = {'coro','kosze'},
     loc_vars = function(self, info_queue, card)
-        if Ortalab.config.artist_credits and not card.fake_card then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'coro'} end
-        if Ortalab.config.artist_credits and not card.fake_card then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'kosze'} end
         info_queue[#info_queue+1] = G.P_CENTERS[self.config.edition]
     end,
     apply = function(self, tag, context)
@@ -129,8 +127,8 @@ SMODS.Tag({
     pos = {x = 3, y = 2},
     discovered = false,
     config = {type = 'store_joker_modify', edition = 'e_ortalab_overexposed'},
+    artist_credits = {'kosze'},
     loc_vars = function(self, info_queue, card)
-        if Ortalab.config.artist_credits and not card.fake_card then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'kosze'} end
         info_queue[#info_queue+1] = G.P_CENTERS[self.config.edition]
     end,
     apply = function(self, tag, context)
@@ -162,9 +160,8 @@ SMODS.Tag({
         return false
     end,
     config = {type = 'immediate'},
+    artist_credits = {'flare','kosze'},
     loc_vars = function(self, info_queue, card)
-        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'flare'} end
-        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'kosze'} end
         return {vars = {G.GAME.last_selected_tag and localize({type = 'name_text', set = 'Tag', key = G.GAME.last_selected_tag.key}) or localize('ortalab_no_tag')}}
     end,
     apply = function(self, tag, context)
@@ -202,10 +199,7 @@ SMODS.Tag({
     pos = {x = 4, y = 0},
     discovered = false,
     config = {type = 'round_start_bonus', modifier = 0.5},
-    loc_vars = function(self, info_queue, card)
-        if Ortalab.config.artist_credits and not card.fake_card then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'gappie'} end
-        if Ortalab.config.artist_credits and not card.fake_card then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'kosze'} end
-    end,
+    artist_credits = {'gappie','kosze'},
     apply = function(self, tag, context)
         if context.type == self.config.type then
             if G.GAME.blind:get_type() == 'Boss' then return end
@@ -231,8 +225,8 @@ SMODS.Tag({
     pos = {x = 0, y = 1},
     discovered = false,
     config = {type = 'round_start_bonus', discards = 3, hands = 3},
+    artist_credits = {'gappie'},
     loc_vars = function(self, info_queue, card)
-        if Ortalab.config.artist_credits and not card.fake_card then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'gappie'} end
         return {vars = {self.config.discards, self.config.hands}}
     end,
     apply = function(self, tag, context)
@@ -255,6 +249,7 @@ SMODS.Tag({
     discovered = false,
     min_ante = 3,
     config = {type = 'store_joker_create'},
+    artist_credits = {'kosze'},
     in_pool = function(self)
         local chance = pseudoseed('ortalab_soul_patch')
         if chance < 0.25 then
@@ -263,7 +258,6 @@ SMODS.Tag({
         return false
     end,
     loc_vars = function(self, info_queue, card)
-        if Ortalab.config.artist_credits and not card.fake_card then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'kosze'} end
         return {vars = {self.config.cost}}
     end,
     apply = function(self, tag, context)
@@ -290,8 +284,8 @@ SMODS.Tag({
     discovered = false,
     min_ante = 2,
     config = {type = 'immediate', dollars = 3},
+    artist_credits = {'kosze'},
     loc_vars = function(self, info_queue, card)
-        if Ortalab.config.artist_credits and not card.fake_card then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'kosze'} end
         return {vars = {self.config.dollars, (G.GAME.blinds_defeated or 0)*self.config.dollars}}
     end,
     apply = function(self, tag, context)
@@ -314,8 +308,8 @@ SMODS.Tag({
     discovered = false,
     min_ante = 2,
     config = {type = 'immediate', dollars = 1},
+    artist_credits = {'kosze'},
     loc_vars = function(self, info_queue, card)
-        if Ortalab.config.artist_credits and not card.fake_card then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'kosze'} end
         return {vars = {self.config.dollars, (G.GAME.unused_hands or 0)*self.config.dollars}}
     end,
     apply = function(self, tag, context)
@@ -336,8 +330,8 @@ SMODS.Tag({
     pos = {x = 2, y = 4},
     discovered = false,
     config = {type = 'shop_final_pass', packs = 2},
+    artist_credits = {'kosze'},
     loc_vars = function(self, info_queue, card)
-        if Ortalab.config.artist_credits and not card.fake_card then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'kosze'} end
         info_queue[#info_queue + 1] = G.P_CENTERS['p_ortalab_big_loteria_1']
         return {vars = {self.config.packs}}
     end,
@@ -366,8 +360,8 @@ SMODS.Tag({
     pos = {x = 2, y = 3},
     discovered = false,
     config = {type = 'shop_final_pass', packs = 2},
+    artist_credits = {'kosze'},
     loc_vars = function(self, info_queue, card)
-        if Ortalab.config.artist_credits and not card.fake_card then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'kosze'} end
         info_queue[#info_queue + 1] = G.P_CENTERS['p_ortalab_mid_zodiac_1']
         return {vars = {self.config.packs}}
     end,
@@ -404,8 +398,8 @@ SMODS.Tag({
     pos = {x = 1, y = 4},
     discovered = false,
     config = {type = 'round_start_bonus', extra = {zodiacs = 3}},
+    artist_credits = {'kosze'},
     loc_vars = function(self, info_queue, card)
-        if Ortalab.config.artist_credits and not card.fake_card then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'kosze'} end
         if card.ability.zodiac_hands and G.ZODIACS[card.ability.zodiac_hands[1]] then
             return {vars = {
                 localize(G.ZODIACS[card.ability.zodiac_hands[1]].config.extra.hand_type, 'poker_hands'), card.config and card.config.extra and card.config.extra.zodiacs or card.ability.extra.zodiacs
@@ -465,9 +459,7 @@ SMODS.Tag({
     pos = {x = 3, y = 4},
     discovered = false,
     config = {type = 'immediate', vouchers = 1},
-    loc_vars = function(self, info_queue, card)
-        if Ortalab.config.artist_credits and not card.fake_card then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'no_demo'} end
-    end,
+    artist_credits = {'no_demo'},
     apply = function(self, tag, context)
         if context.type == tag.config.type then
             tag:yep('+', G.C.GREEN,function()
@@ -518,8 +510,8 @@ SMODS.Tag({
     discovered = false,
     min_ante = 2,
     config = {type = 'immediate', sell_inc = 2},
+    artist_credits = {'kosze'},
     loc_vars = function(self, info_queue, card)
-        if Ortalab.config.artist_credits and not card.fake_card then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'kosze'} end
         return {vars = {card.config.sell_inc, card.config.sell_inc * (G.GAME.skips + 1)}}
     end,
     apply = function(self, tag, context)
@@ -548,8 +540,8 @@ SMODS.Tag({
     discovered = false,
     min_ante = 3,
     config = {type = 'shop_final_pass', packs = 2},
+    artist_credits = {'kosze'},
     loc_vars = function(self, info_queue, card)
-        if Ortalab.config.artist_credits and not card.fake_card then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'kosze'} end
         info_queue[#info_queue + 1] = G.P_CENTERS['p_ortalab_big_mythos']
         return {vars = {self.config.packs}}
     end,
@@ -578,8 +570,8 @@ SMODS.Tag({
     pos = {x = 4, y = 4},
     discovered = false,
     config = {type = 'immediate', cards = 5, dollars = 20},
+    artist_credits = {'no_demo'},
     loc_vars = function(self, info_queue, card)
-        if Ortalab.config.artist_credits and not card.fake_card then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'no_demo'} end
         return {vars = {card.config.cards, card.config.dollars}}
     end,
     apply = function(self, tag, context)
@@ -630,9 +622,7 @@ SMODS.Tag({
     pos = {x = 1, y = 1},
     discovered = false,
     config = {type = 'immediate'},
-    loc_vars = function(self, info_queue, card)
-        if Ortalab.config.artist_credits and not card.fake_card then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'no_demo'} end
-    end,
+    artist_credits = {'hat','kosze'},
     apply = function(self, tag, context)
         if context.type == tag.config.type then
             tag:yep('+', G.C.GREEN,function()
@@ -671,8 +661,8 @@ SMODS.Tag({
     discovered = false,
     min_ante = 2,
     config = {type = 'immediate', hands = 4},
+    artist_credits = {'hat','kosze'},
     loc_vars = function(self, info_queue, card)
-        if Ortalab.config.artist_credits and not card.fake_card then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'no_demo'} end
         info_queue[#info_queue+1] = G.P_CENTERS.c_ortalab_lot_hand
         return {vars = {card.config.hands}}
     end,
@@ -703,8 +693,8 @@ SMODS.Tag({
     pos = {x = 4, y = 1},
     discovered = false,
     config = {type = 'immediate', tags = 3},
+    artist_credits = {'5381','kosze'},
     loc_vars = function(self, info_queue, card)
-        if Ortalab.config.artist_credits and not card.fake_card then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'no_demo'} end
         return {vars = {card.config.tags}}
     end,
     apply = function(self, tag, context)
@@ -760,9 +750,7 @@ SMODS.Tag({
     discovered = false,
     min_ante = 2,
     config = {type = 'ortalab_hand_played'},
-    loc_vars = function(self, info_queue, card)
-        if Ortalab.config.artist_credits and not card.fake_card then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'no_demo'} end
-    end,
+    artist_credits = {'hat','kosze'},
     apply = function(self, tag, context)
         if context.type == tag.config.type then
             tag:yep('+', G.C.GREEN ,function() 
@@ -801,9 +789,7 @@ SMODS.Tag({
     discovered = false,
     min_ante = 2,
     config = {type = 'ortalab_first_hand'},
-    loc_vars = function(self, info_queue, card)
-        if Ortalab.config.artist_credits and not card.fake_card then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'no_demo'} end
-    end,
+    artist_credits = {'no_demo'},
     apply = function(self, tag, context)
         if context.type == tag.config.type then
             tag:yep('+', G.C.GREEN ,function() 

@@ -10,15 +10,12 @@ SMODS.Joker({
 	eternal_compat = true,
 	perishable_compat = false,
 	config = {extra = {dollars = 1, dollars_add = 1}},
+    artist_credits = {'flare','gappie'},
     enhancement_gate = 'm_ortalab_iou',
 	calc_dollar_bonus = function(self, card)
 		return card.ability.extra.dollars
 	end,
     loc_vars = function(self, info_queue, card)
-        if card and not card.fake_card and Ortalab.config.artist_credits then
-            info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'flare'}
-            info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'gappie'}
-        end
         info_queue[#info_queue+1] = G.P_CENTERS.m_ortalab_iou
         return {vars = {card.ability.extra.dollars, card.ability.extra.dollars_add}}
     end,

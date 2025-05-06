@@ -10,8 +10,8 @@ SMODS.Joker({
     eternal_compat = true,
     perishable_compat = false,
     config = {extra = {mult = 0, gain = 2}},
+    artist_credits = {'no_demo'},
     loc_vars = function(self, info_queue, card)
-        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'no_demo'} end
         return {vars = {card.ability.extra.gain, card.ability.extra.mult, localize(card.ability.extra.suit, 'suits_singular'), localize(card.ability.extra.rank..'', 'ranks'), colours = {G.C.SUITS[card.ability.extra.suit]}}}
     end,
     set_ability = function(self, card, initial, delay_sprites)

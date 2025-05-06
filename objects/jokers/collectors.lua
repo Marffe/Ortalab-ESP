@@ -10,9 +10,7 @@ SMODS.Joker({
     eternal_compat = true,
     perishable_compat = true,
     config = {extra = {}},
-    loc_vars = function(self, info_queue, card)
-        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'tevi'} end
-    end,
+    artist_credits = {'tevi'},
     draw = function(self, card, layer)
         card.children.center:draw_shader('voucher',nil, card.ARGS.send_to_shader)
     end,

@@ -10,9 +10,9 @@ SMODS.Joker({
 	eternal_compat = true,
 	perishable_compat = true,
 	config = {extra = {chips = 30, suit = 'Clubs'}},
+    artist_credits = {'golddisco', 'flare'},
 	loc_vars = function(self, info_queue, card)
-        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'golddisco'} end
-        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'flare'} end
+		info_queue[#info_queue+1] = G.P_CENTERS['j_ortalab_freezer']
         return {vars = {card.ability.extra.chips, localize(card.ability.extra.suit, 'suits_singular')}}
     end,
     calculate = function(self, card, context)

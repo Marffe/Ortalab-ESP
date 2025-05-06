@@ -14,11 +14,11 @@ SMODS.Voucher({
 	discovered = false,
 	available = true,
 	config = {extra = {booster_gain = 1}},
+    artist_credits = {'flare'},
 	redeem = function(self, card)
         SMODS.change_booster_limit(card.ability.extra.booster_gain)
     end,
     loc_vars = function(self, info_queue, card)
-        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'flare'} end
         return {vars = {card.ability.extra.booster_gain}}
     end,
 })
@@ -33,11 +33,11 @@ SMODS.Voucher({
 	available = false,
     requires = {'v_ortalab_catalog'},
 	config = {extra = {voucher_gain = 1}},
+    artist_credits = {'flare'},
 	redeem = function(self, card)
         SMODS.change_voucher_limit(card.ability.extra.voucher_gain)
     end,
     loc_vars = function(self, info_queue, card)
-        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'flare'} end
         return {vars = {card.ability.extra.voucher_gain}}
     end,
 })
@@ -50,11 +50,7 @@ SMODS.Voucher({
 	unlocked = true,
 	discovered = false,
 	available = true,
-	redeem = function(self, card)
-    end,
-    loc_vars = function(self, info_queue, card)
-        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'flare'} end
-    end,
+    artist_credits = {'flare'},
 })
 
 SMODS.Voucher({
@@ -66,9 +62,7 @@ SMODS.Voucher({
 	discovered = false,
 	available = false,
     requires = {'v_ortalab_home_delivery'},
-    loc_vars = function(self, info_queue, card)
-        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'flare'} end
-    end,
+    artist_credits = {'flare'},
 })
 
 SMODS.Voucher({
@@ -80,6 +74,7 @@ SMODS.Voucher({
 	unlocked = true,
 	discovered = false,
 	available = true,
+    artist_credits = {'flare'},
 	redeem = function(self, card)
         G.E_MANAGER:add_event(Event({func = function()
             SMODS.change_free_rerolls(card.ability.extra.free_rerolls)
@@ -87,7 +82,6 @@ SMODS.Voucher({
         end }))
     end,
     loc_vars = function(self, info_queue, card)
-        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'flare'} end
         return {vars = {card.ability.extra.free_rerolls}}
     end,
 })
@@ -102,6 +96,7 @@ SMODS.Voucher({
 	available = false,
 	requires = {'v_ortalab_window_shopping'},
 	config = {extra = {free_rerolls = 2}},
+    artist_credits = {'flare'},
 	redeem = function(self, card)
         G.E_MANAGER:add_event(Event({func = function()
             SMODS.change_free_rerolls(card.ability.extra.free_rerolls)
@@ -109,7 +104,6 @@ SMODS.Voucher({
         end }))
     end,
     loc_vars = function(self, info_queue, card)
-        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'flare'} end
         return {vars = {card.ability.extra.free_rerolls}}
     end,
 })
@@ -123,8 +117,8 @@ SMODS.Voucher({
 	discovered = false,
 	available = true,
     config = {extra = {extra_choices = 1}},
+    artist_credits = {'gappie'},
     loc_vars = function(self, info_queue, card)
-        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'gappie'} end
         return {vars = {card.ability.extra.extra_choices}}
     end,
     redeem = function(self, voucher)
@@ -142,11 +136,11 @@ SMODS.Voucher({
 	available = true,
     config = {extra = {xmult = 1.1, per = 4}},
     requires = {'v_ortalab_horoscope'},
+    artist_credits = {'gappie'},
 	redeem = function(self, card)
         G.GAME.natal_sign_rate = card.ability.extra.xmult
     end,
     loc_vars = function(self, info_queue, card)
-        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'gappie'} end
         return {vars = {card.ability.extra.xmult, card.ability.extra.per}}
     end,
 })
@@ -160,13 +154,13 @@ SMODS.Voucher({
 	discovered = false,
 	available = true,
 	config = {extra = {ante_gain = 1, dollars = 15, hand_size = 1}},
+    artist_credits = {'gappie'},
 	redeem = function(self, card)
         G.GAME.win_ante = G.GAME.win_ante + card.ability.extra.ante_gain
         G.hand:change_size(card.ability.extra.hand_size)
         ease_dollars(card.ability.extra.dollars)
     end,
     loc_vars = function(self, info_queue, card)
-        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'gappie'} end
         return {vars = {card.ability.extra.ante_gain, card.ability.extra.dollars, card.ability.extra.hand_size}}
     end,
 })
@@ -181,53 +175,15 @@ SMODS.Voucher({
 	available = false,
     requires = {'v_ortalab_abacus'},
 	config = {extra = {ante_gain = 1, joker_slots = 1}},
+    artist_credits = {'gappie'},
 	redeem = function(self, card)
         G.GAME.win_ante = G.GAME.win_ante + card.ability.extra.ante_gain
         modify_joker_slot_count(card.ability.extra.joker_slots)
     end,
     loc_vars = function(self, info_queue, card)
-        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'gappie'} end
         return {vars = {card.ability.extra.ante_gain, card.ability.extra.joker_slots}}
     end,
 })
-
--- SMODS.Voucher({
--- 	key = "shady_trading",
--- 	atlas = "coupons",
--- 	pos = {x = 0, y = 1},
--- 	cost = 10,
--- 	unlocked = true,
--- 	discovered = false,
--- 	available = true,
--- 	redeem = function(self, card)
---         if G.GAME.spectral_rate < 2 then
---             G.GAME.spectral_rate = 2
---         end
---         G.GAME.pool_flags.shady_trading_redeemed = true
---     end,
---     loc_vars = function(self, info_queue, card)
---         if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'flare'} end
---     end,
--- })
-
--- SMODS.Voucher({
--- 	key = "illegal_imports",
--- 	atlas = "coupons",
--- 	pos = {x = 1, y = 1},
--- 	cost = 10,
--- 	unlocked = true,
--- 	discovered = false,
--- 	available = false,
--- 	requires = {'v_ortalab_shady_trading'},
---     config = {extra = {rate = 2}},
--- 	redeem = function(self, card)
---         G.GAME.spectral_rate = G.GAME.spectral_rate * card.ability.extra.rate
---     end,
---     loc_vars = function(self, info_queue, card)
---         if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'flare'} end
---         return {vars = {card.ability.extra.rate}}
---     end,
--- })
 
 SMODS.Voucher({
 	key = "cantor",
@@ -238,11 +194,11 @@ SMODS.Voucher({
 	discovered = false,
 	available = true,
     config = {extra = {bonus_cards = 1}},
+    artist_credits = {'crimson'},
 	redeem = function(self, voucher)
         G.GAME.ortalab.vouchers.cantor = voucher.ability.extra.bonus_cards
     end,
     loc_vars = function(self, info_queue, card)
-        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'crimson'} end
         return {vars = {card.ability.extra.bonus_cards}}
     end,
 })
@@ -255,13 +211,13 @@ SMODS.Voucher({
 	unlocked = true,
 	discovered = false,
 	available = true,
-    config = {extra = {bonus_cards = 1}},
     requires = {'v_ortalab_cantor'},
+    config = {extra = {bonus_cards = 1}},
+    artist_credits = {'crimson'},
 	redeem = function(self, card)
         G.GAME.ortalab.vouchers.tabla = card.ability.extra.bonus_cards
     end,
     loc_vars = function(self, info_queue, card)
-        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'crimson'} end
         return {vars = {card.ability.extra.bonus_cards}}
     end,
 })
@@ -275,11 +231,11 @@ SMODS.Voucher({
 	discovered = false,
 	available = true,
     config = {extra = {gain = 2}},
+    artist_credits = {'gappie'},
 	redeem = function(self, card)
         G.GAME.ortalab.vouchers.leap_year = card.ability.extra.gain
     end,
     loc_vars = function(self, info_queue, card)
-        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'gappie'} end
         return {vars = {card.ability.extra.gain}}
     end,
 })
@@ -292,13 +248,13 @@ SMODS.Voucher({
 	unlocked = true,
 	discovered = false,
 	available = true,
-    config = {extra = {level_decrease_mod = 2}},
     requires = {'v_ortalab_leap_year'},
+    config = {extra = {level_decrease_mod = 2}},
+    artist_credits = {'gappie'},
 	redeem = function(self, card)
         G.GAME.ortalab.zodiacs.reduction = G.GAME.ortalab.zodiacs.reduction / card.ability.extra.level_decrease_mod
     end,
     loc_vars = function(self, info_queue, card)
-        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'gappie'} end
         return {vars = {card.ability.extra.level_decrease_mod}}
     end,
 })
@@ -312,10 +268,8 @@ SMODS.Voucher({
 	discovered = false,
 	available = true,
     config = {extra = {edition_reps = 1}},
-	redeem = function(self, card)
-    end,
+    artist_credits = {'no_demo'},
     loc_vars = function(self, info_queue, card)
-        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'no_demo'} end
         return {vars = {card.ability.extra.edition_reps}}
     end,
 })
@@ -330,10 +284,8 @@ SMODS.Voucher({
 	available = false,
     requires = {'v_ortalab_edition_1'},
     config = {extra = {edition_reps = 2}},
-	redeem = function(self, card)
-    end,
+    artist_credits = {'no_demo'},
     loc_vars = function(self, info_queue, card)
-        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'no_demo'} end
         return {vars = {card.ability.extra.edition_reps}}
     end,
 })
@@ -347,6 +299,7 @@ SMODS.Voucher({
 	discovered = false,
 	available = true,
     config = {extra = {hands = 2, discards = -1}},
+    artist_credits = {'no_demo'},
 	redeem = function(self, card)
         G.GAME.round_resets.hands = G.GAME.round_resets.hands + card.ability.extra.hands
         ease_hands_played(card.ability.extra.hands)
@@ -354,7 +307,6 @@ SMODS.Voucher({
         ease_discard(card.ability.extra.discards)
     end,
     loc_vars = function(self, info_queue, card)
-        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'no_demo'} end
         return {vars = {card.ability.extra.hands, card.ability.extra.discards}}
     end,
 })
@@ -369,11 +321,11 @@ SMODS.Voucher({
 	available = false,
     requires = {'v_ortalab_grabber_inv'},
     config = {extra = {extra_dollars = 1}},
+    artist_credits = {'no_demo'},
 	redeem = function(self, card)
         G.GAME.modifiers.money_per_hand = (G.GAME.modifiers.money_per_hand or 1) + card.ability.extra.extra_dollars
     end,
     loc_vars = function(self, info_queue, card)
-        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'no_demo'} end
         return {vars = {card.ability.extra.extra_dollars}}
     end,
 })
@@ -387,6 +339,7 @@ SMODS.Voucher({
 	discovered = false,
 	available = true,
     config = {extra = {hands = -1, discards = 2}},
+    artist_credits = {'no_demo'},
 	redeem = function(self, card)
         G.GAME.round_resets.hands = G.GAME.round_resets.hands + card.ability.extra.hands
         ease_hands_played(card.ability.extra.hands)
@@ -394,7 +347,6 @@ SMODS.Voucher({
         ease_discard(card.ability.extra.discards)
     end,
     loc_vars = function(self, info_queue, card)
-        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'no_demo'} end
         return {vars = {card.ability.extra.hands, card.ability.extra.discards}}
     end,
 })
@@ -409,12 +361,12 @@ SMODS.Voucher({
 	available = false,
     requires = {'v_ortalab_grabber_inv'},
     config = {extra = {discard_size = 2}},
+    artist_credits = {'no_demo'},
 	redeem = function(self, card)
         G.GAME.ortalab.extra_discard_size = G.GAME.ortalab.extra_discard_size + card.ability.extra.discard_size
         G.hand.config.highlighted_limit = G.hand.config.highlighted_limit + card.ability.extra.discard_size
     end,
     loc_vars = function(self, info_queue, card)
-        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'no_demo'} end
         return {vars = {card.ability.extra.discard_size}}
     end,
 })
@@ -428,12 +380,12 @@ SMODS.Voucher({
 	discovered = false,
 	available = true,
     config = {extra = {money = 3}},
+    artist_credits = {'no_demo'},
 	redeem = function(self, card)
         G.GAME.ortalab.blind_rewards = G.GAME.ortalab.blind_rewards + card.ability.extra.money
         update_blind_amounts()
     end,
     loc_vars = function(self, info_queue, card)
-        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'no_demo'} end
         return {vars = {card.ability.extra.money}}
     end,
 })
@@ -448,12 +400,12 @@ SMODS.Voucher({
 	available = false,
     requires = {'v_ortalab_seed_inv'},
     config = {extra = {money = 9}},
+    artist_credits = {'no_demo'},
 	redeem = function(self, card)
         G.GAME.ortalab.blind_rewards = G.GAME.ortalab.blind_rewards + card.ability.extra.money
         update_blind_amounts()
     end,
     loc_vars = function(self, info_queue, card)
-        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'no_demo'} end
         return {vars = {card.ability.extra.money}}
     end,
 })
@@ -466,11 +418,9 @@ SMODS.Voucher({
 	unlocked = true,
 	discovered = false,
 	available = true,
+    artist_credits = {'no_demo'},
 	redeem = function(self, card)
         G.GAME.ortalab.vouchers.reroll_on_skip = true
-    end,
-    loc_vars = function(self, info_queue, card)
-        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'no_demo'} end
     end,
 })
 
@@ -483,11 +433,9 @@ SMODS.Voucher({
 	discovered = false,
 	available = false,
     requires = {'v_ortalab_shared_winnings'},
+    artist_credits = {'no_demo'},
 	redeem = function(self, card)
         G.GAME.ortalab.alt_boss = get_new_boss()
-    end,
-    loc_vars = function(self, info_queue, card)
-        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'no_demo'} end
     end,
 })
 
@@ -499,11 +447,9 @@ SMODS.Voucher({
 	unlocked = true,
 	discovered = false,
 	available = true,
+    artist_credits = {'no_demo'},
 	redeem = function(self, card)
         G.GAME.ortalab.vouchers.tags_in_shop = 0.6
-    end,
-    loc_vars = function(self, info_queue, card)
-        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'no_demo'} end
     end,
 })
 
@@ -516,11 +462,11 @@ SMODS.Voucher({
 	discovered = false,
 	available = false,
     requires = {'v_ortalab_magic_trick_inv'},
+    artist_credits = {'no_demo'},
 	redeem = function(self, card)
         G.GAME.ortalab_utility_rate = 0.4
     end,
     loc_vars = function(self, info_queue, card)
-        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'no_demo'} end
         info_queue[#info_queue+1] = G.P_CENTERS['c_ortalab_edition_+']
     end,
 })
@@ -533,12 +479,10 @@ SMODS.Voucher({
 	unlocked = true,
 	discovered = false,
 	available = true,
+    artist_credits = {'no_demo'},
 	redeem = function(self, card)
         G.GAME.ortalab.vouchers.mythos_shop_slot = true
         G:update_shop()
-    end,
-    loc_vars = function(self, info_queue, card)
-        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'no_demo'} end
     end,
 })
 
@@ -552,11 +496,11 @@ SMODS.Voucher({
 	available = false,
     requires = {'v_ortalab_crystal_inv'},
     config = {extra = {bonus_slots = 1}},
+    artist_credits = {'no_demo'},
 	redeem = function(self, card)
         G.GAME.ortalab.vouchers.booster_pack_bonus = card.ability.extra.bonus_slots
     end,
     loc_vars = function(self, info_queue, card)
-        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'no_demo'} end
         return {vars = {card.ability.extra.bonus_slots}}
     end,
 })
@@ -580,6 +524,7 @@ SMODS.Voucher({
 	discovered = false,
 	available = true,
     config = {extra = {change = 5}},
+    artist_credits = {'gappie'},
 	calculate = function(self, card, context)
         if context.setting_blind then
             for i=1, card.ability.extra.change do
@@ -615,7 +560,6 @@ SMODS.Voucher({
         end
     end,
     loc_vars = function(self, info_queue, card)
-        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'gappie'} end
         info_queue[#info_queue+1] = G.P_CENTERS.m_wild
         info_queue[#info_queue+1] = G.P_CENTERS.m_ortalab_index
         return {vars = {card.ability.extra.change}}
@@ -632,11 +576,11 @@ SMODS.Voucher({
 	available = false,
     requires = {'v_ortalab_chisel'},
     config = {extra = {bonus_slots = 1}},
+    artist_credits = {'gappie'},
 	redeem = function(self, card)
         G.GAME.ortalab.vouchers.booster_pack_bonus = card.ability.extra.bonus_slots
     end,
     loc_vars = function(self, info_queue, card)
-        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'gappie'} end
         return {vars = {card.ability.extra.bonus_slots}}
     end,
 })
@@ -807,8 +751,8 @@ SMODS.Consumable({
     discovered = false,
     pixel_size = {h = 73},
     config = {extra = {edition = nil, selected = 1}},
+    artist_credits = {'eremel'},
     loc_vars = function(self, info_queue, card)
-        if not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'no_demo'} end
         info_queue[#info_queue+1] = G.P_CENTERS[card.ability.extra.edition]
         return {vars = {card.ability.extra.edition and localize({type = 'name_text', key = card.ability.extra.edition, set = 'Edition'}) or localize('ortalab_edition_plus')}}
     end,

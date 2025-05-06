@@ -59,8 +59,8 @@ SMODS.Consumable({
     pos = {x=0, y=0},
     discovered = false,
     config = {extra = {select = 1, curse = 'ortalab_infected', method = 'c_ortalab_one_selected',}},
+    artist_credits = {'gappie'},
     loc_vars = function(self, info_queue, card)
-        if Ortalab.config.artist_credits and not card.fake_card then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'gappie'} end
         info_queue[#info_queue + 1] = {set = 'Curse', key = card.ability.extra.curse}
         local _handname, _played, _order = 'High Card', -1, 100
         for k, v in pairs(G.GAME.hands) do
@@ -131,8 +131,8 @@ SMODS.Consumable({
     pos = {x=1, y=0},
     discovered = false,
     config = {extra = {select = 4, inc = 2, curse = 'ortalab_all_curses', method = 'c_ortalab_mult_random', slots = 1, perish_count = 3}},
+    artist_credits = {'gappie'},
     loc_vars = function(self, info_queue, card)
-        if Ortalab.config.artist_credits and not card.fake_card then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'gappie'} end
         return {vars = {card.ability.extra.slots, card.ability.extra.perish_count + G.GAME.ortalab.mythos.tree_of_life_count}}
     end,
     can_use = function(self, card)
@@ -234,8 +234,8 @@ SMODS.Consumable({
     pos = {x=2, y=0},
     discovered = false,
     config = {extra = {select = 2, curse = 'ortalab_possessed', method = 'c_ortalab_mult_random_deck', cards = 3}},
+    artist_credits = {'gappie'},
     loc_vars = function(self, info_queue, card)
-        if Ortalab.config.artist_credits and not card.fake_card then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'gappie'} end
         return {vars = {card.ability.extra.cards}}
     end,
     can_use = function(self, card)
@@ -305,8 +305,8 @@ SMODS.Consumable({
     pos = {x=3, y=0},
     discovered = false,
     config = {extra = {select = 6, curse = 'ortalab_all_curses', method = 'c_ortalab_mult_random', choose = 1, copies = 4}},
+    artist_credits = {'gappie'},
     loc_vars = function(self, info_queue, card)
-        if Ortalab.config.artist_credits and not card.fake_card then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'gappie'} end
         return {vars = {card.ability.extra.copies}}
     end,
     can_use = function(self, card)
@@ -387,8 +387,8 @@ SMODS.Consumable({
     pos = {x=4, y=0},
     discovered = false,
     config = {extra = {select = 2, curse = 'ortalab_infected', method = 'c_ortalab_mult_random_deck', cards = 1}},
+    artist_credits = {'gappie'},
     loc_vars = function(self, info_queue, card)
-        if Ortalab.config.artist_credits and not card.fake_card then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'gappie'} end
     end,
     can_use = function(self, card)
         if #G.hand.highlighted == card.ability.extra.cards then
@@ -444,9 +444,7 @@ SMODS.Consumable({
     pos = {x=0, y=3},
     discovered = false,
     config = {extra = {select = 3, curse = 'ortalab_restrained', method = 'c_ortalab_mult_random'}},
-    loc_vars = function(self, info_queue, card)
-        if Ortalab.config.artist_credits and not card.fake_card then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'gappie'} end
-    end,
+    artist_credits = {'gappie'},
     can_use = function(self, card)
         local uncursed_cards = 0
         for _, card in pairs(G.hand.cards) do
@@ -533,8 +531,8 @@ SMODS.Consumable({
     pos = {x=0, y=1},
     discovered = false,
     config = {extra = {select = 1, curse = 'ortalab_infected', method = 'c_ortalab_one_selected', cards = 3}},
+    artist_credits = {'eremel'},
     loc_vars = function(self, info_queue, card)
-        if Ortalab.config.artist_credits and not card.fake_card then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'eremel'} end
         return {vars = {card.ability.extra.cards}}
     end,
     can_use = function(self, card)
@@ -600,8 +598,8 @@ SMODS.Consumable({
     pos = {x=4, y=2},
     discovered = false,
     config = {extra = {select = 1, curse = 'ortalab_restrained', method = 'c_ortalab_one_selected', cards = 3, rank = 7}},
+    artist_credits = {'kosze'},
     loc_vars = function(self, info_queue, card)
-        if Ortalab.config.artist_credits and not card.fake_card then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'kosze'} end
         return {vars = {card.ability.extra.cards, card.ability.extra.rank}}
     end,
     can_use = function(self, card)
@@ -659,8 +657,8 @@ SMODS.Consumable({
     pos = {x=1, y=2},
     discovered = false,
     config = {extra = {select = 1, curse = 'ortalab_corroded', method = 'c_ortalab_one_selected', cards = 3, rank = 'A'}},
+    artist_credits = {'kosze'},
     loc_vars = function(self, info_queue, card)
-        if Ortalab.config.artist_credits and not card.fake_card then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'kosze'} end
         return {vars = {card.ability.extra.cards}}
     end,
     can_use = function(self, card)
@@ -718,8 +716,8 @@ SMODS.Consumable({
     pos = {x=3, y=2},
     discovered = false,
     config = {extra = {select = 1, money_gain = 2, curse = 'ortalab_corroded', method = 'c_ortalab_mult_random_joker'}},
+    artist_credits = {'gappie'},
     loc_vars = function(self, info_queue, card)
-        if Ortalab.config.artist_credits and not card.fake_card then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'gappie'} end
         local total_value = 0
         if G.jokers then
             for k=1, #G.jokers.cards + #G.consumeables.cards do
@@ -813,9 +811,7 @@ SMODS.Consumable({
     pos = {x=3, y=1},
     discovered = false,
     config = {extra = {select = 1, curse = 'ortalab_possessed', method = 'c_ortalab_mult_random_joker'}},
-    loc_vars = function(self, info_queue, card)
-        if Ortalab.config.artist_credits and not card.fake_card then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'gappie'} end
-    end,
+    artist_credits = {'gappie'},
     can_use = function(self, card)
         local uncursed = 0
         local i = 1
@@ -884,8 +880,8 @@ SMODS.Consumable({
     pos = {x=2, y=1},
     discovered = false,
     config = {extra = {select = 2, curse = 'ortalab_corroded', method = 'c_ortalab_mult_random_deck', cards = 4}},
+    artist_credits = {'gappie'},
     loc_vars = function(self, info_queue, card)
-        if Ortalab.config.artist_credits and not card.fake_card then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'gappie'} end
         return {vars = {card.ability.extra.cards}}
     end,
     can_use = function(self, card)
@@ -956,9 +952,7 @@ SMODS.Consumable({
     pos = {x=1, y=1},
     discovered = false,
     config = {extra = {select = 1, curse = 'ortalab_restrained', method = 'c_ortalab_mult_random_joker', cards = 1}},
-    loc_vars = function(self, info_queue, card)
-        if Ortalab.config.artist_credits and not card.fake_card then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'gappie'} end
-    end,
+    artist_credits = {'gappie'},
     can_use = function(self, card)
         if #G.jokers.highlighted > 0 and #G.jokers.highlighted <= card.ability.extra.cards then
             local uncursed = 0
@@ -1016,8 +1010,8 @@ SMODS.Consumable({
     pos = {x=2, y=2},
     discovered = false,
     config = {extra = {select = 4, curse = 'ortalab_corroded', method = 'c_ortalab_mult_random', hands = 1}},
+    artist_credits = {'kosze'},
     loc_vars = function(self, info_queue, card)
-        if Ortalab.config.artist_credits and not card.fake_card then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'kosze'} end
         return {vars = {card.ability.extra.hands}}
     end,
     can_use = function(self, card)
@@ -1086,8 +1080,8 @@ SMODS.Consumable({
     pos = {x=0, y=2},
     discovered = false,
     config = {extra = {select = 2, curse = 'ortalab_possessed', method = 'c_ortalab_mult_random', handsize = 1}},
+    artist_credits = {'gappie'},
     loc_vars = function(self, info_queue, card)
-        if Ortalab.config.artist_credits and not card.fake_card then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'gappie'} end
         return {vars = {card.ability.extra.handsize}}
     end,
     can_use = function(self, card)
@@ -1156,9 +1150,7 @@ SMODS.Consumable({
     pos = {x=4, y=1},
     discovered = false,
     config = {extra = {select = 1, curse = 'ortalab_infected', method = 'c_ortalab_mult_random_joker', cards = 1}},
-    loc_vars = function(self, info_queue, card)
-        if Ortalab.config.artist_credits and not card.fake_card then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'gappie'} end
-    end,
+    artist_credits = {'gappie'},
     can_use = function(self, card)
         if #G.jokers.highlighted > 0 and #G.jokers.highlighted <= card.ability.extra.cards then
             local uncursed = 0
@@ -1212,8 +1204,8 @@ SMODS.Consumable({
     soul_pos = {x=2, y=3},
     discovered = false,
     config = {extra = {select = 2, curse = 'ortalab_corroded', method = 'c_ortalab_mult_random_deck', cards = 4}},
+    artist_credits = {'gappie'},
     loc_vars = function(self, info_queue, card)
-        if Ortalab.config.artist_credits and not card.fake_card then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'gappie'} end
         return {vars = {card.ability.extra.cards}}
     end,
     can_use = function(self, card)
@@ -1232,8 +1224,8 @@ SMODS.Consumable({
     pos = {x=3, y=3},
     discovered = false,
     config = {extra = {select = 2, curse = 'ortalab_corroded', method = 'c_ortalab_mult_random_deck', cards = 4}},
+    artist_credits = {'gappie'},
     loc_vars = function(self, info_queue, card)
-        if Ortalab.config.artist_credits and not card.fake_card then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'gappie'} end
         return {vars = {card.ability.extra.cards}}
     end,
     can_use = function(self, card)
