@@ -149,6 +149,16 @@ return {
 					"notmario",
 				}
 			},
+			joey = {
+				text = {
+					'Joey!!!'
+				}
+			},
+			rowan = {
+				text = {
+					'BoiRowan'
+				}
+			},
 			['eremel'] = {
 				["text"] = {
 					"Eremel_",

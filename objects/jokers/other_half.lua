@@ -10,7 +10,8 @@ SMODS.Joker({
     eternal_compat = true,
     perishable_compat = true,
     config = {extra = {chips = 75, cards = 3}},
-    artist_credits = {'no_demo'},
+    artist_credits = {'crimson'},
+    pixel_size = {h = 55},
     loc_vars = function(self, info_queue, card)
         return {vars = {card.ability.extra.chips, card.ability.extra.cards}}
     end,

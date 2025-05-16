@@ -268,7 +268,7 @@ SMODS.Voucher({
 	discovered = false,
 	available = true,
     config = {extra = {edition_reps = 1}},
-    artist_credits = {'no_demo'},
+    artist_credits = {'joey'},
     loc_vars = function(self, info_queue, card)
         return {vars = {card.ability.extra.edition_reps}}
     end,
@@ -284,7 +284,7 @@ SMODS.Voucher({
 	available = false,
     requires = {'v_ortalab_edition_1'},
     config = {extra = {edition_reps = 2}},
-    artist_credits = {'no_demo'},
+    artist_credits = {'joey'},
     loc_vars = function(self, info_queue, card)
         return {vars = {card.ability.extra.edition_reps}}
     end,
@@ -462,7 +462,7 @@ SMODS.Voucher({
 	discovered = false,
 	available = false,
     requires = {'v_ortalab_magic_trick_inv'},
-    artist_credits = {'no_demo'},
+    artist_credits = {'crimson'},
 	redeem = function(self, card)
         G.GAME.ortalab_utility_rate = 0.4
     end,
