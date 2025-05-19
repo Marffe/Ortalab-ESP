@@ -740,23 +740,32 @@ SMODS.Consumable({
     end,
     use = function(self, card, area, copier)
         -- Curse random joker
-        local select = true
-        while select do
-            local p_card = pseudorandom_element(G.jokers.cards, pseudoseed('ortalab_gnome'))
-            if not p_card.curse then 
-                G.E_MANAGER:add_event(Event({
-                    trigger = 'after',
-                    delay = 0.7,
-                    func = function()                
-                        p_card:set_curse(card.ability.extra.curse, false, true)
-                        p_card:juice_up()
-                        play_sound('tarot1')
-                        card:juice_up(0.3, 0.5)
-                        return true
+         for i=1, card.ability.extra.select + G.GAME.ortalab.mythos.extra_select do
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                delay = 0.5,
+                func = function()
+                    local select = true
+                    while select do
+                        local p_card = pseudorandom_element(G.jokers.cards, pseudoseed('ortalab_gnome'))
+                        if not p_card.curse then 
+                            G.E_MANAGER:add_event(Event({
+                                trigger = 'after',
+                                delay = 0.7,
+                                func = function()                
+                                    p_card:set_curse(card.ability.extra.curse, false, true)
+                                    p_card:juice_up()
+                                    play_sound('tarot1')
+                                    card:juice_up(0.3, 0.5)
+                                    return true
+                                end
+                            }))
+                            select = false
+                        end
                     end
-                }))
-                select = false
-            end
+                    return true
+                end
+            }))
         end
 
         -- unhighlight card
@@ -823,23 +832,32 @@ SMODS.Consumable({
     end,
     use = function(self, card, area, copier)
         -- Curse random joker
-        local select = true
-        while select do
-            local p_card = pseudorandom_element(G.jokers.cards, pseudoseed('ortalab_crawler'))
-            if not p_card.curse then 
-                G.E_MANAGER:add_event(Event({
-                    trigger = 'after',
-                    delay = 0.7,
-                    func = function()                
-                        p_card:set_curse(card.ability.extra.curse, false, true)
-                        p_card:juice_up()
-                        play_sound('tarot1')
-                        card:juice_up(0.3, 0.5)
-                        return true
+         for i=1, card.ability.extra.select + G.GAME.ortalab.mythos.extra_select do
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                delay = 0.5,
+                func = function()
+                    local select = true
+                    while select do
+                        local p_card = pseudorandom_element(G.jokers.cards, pseudoseed('ortalab_crawler'))
+                        if not p_card.curse then 
+                            G.E_MANAGER:add_event(Event({
+                                trigger = 'after',
+                                delay = 0.7,
+                                func = function()                
+                                    p_card:set_curse(card.ability.extra.curse, false, true)
+                                    p_card:juice_up()
+                                    play_sound('tarot1')
+                                    card:juice_up(0.3, 0.5)
+                                    return true
+                                end
+                            }))
+                            select = false
+                        end
                     end
-                }))
-                select = false
-            end
+                    return true
+                end
+            }))
         end
         -- unhighlight card
         G.E_MANAGER:add_event(Event({
@@ -966,24 +984,34 @@ SMODS.Consumable({
     end,
     use = function(self, card, area, copier)
         -- Curse random joker
-        local select = true
-        while select do
-            local p_card = pseudorandom_element(G.jokers.cards, pseudoseed('ortalab_wendigo'))
-            if not p_card.curse then 
-                G.E_MANAGER:add_event(Event({
-                    trigger = 'after',
-                    delay = 0.7,
-                    func = function()                
-                        p_card:set_curse(card.ability.extra.curse, false, true)
-                        p_card:juice_up()
-                        play_sound('tarot1')
-                        card:juice_up(0.3, 0.5)
-                        return true
+        for i=1, card.ability.extra.select + G.GAME.ortalab.mythos.extra_select do
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                delay = 0.5,
+                func = function()
+                    local select = true
+                    while select do
+                        local p_card = pseudorandom_element(G.jokers.cards, pseudoseed('ortalab_wendigo'))
+                        if not p_card.curse then 
+                            G.E_MANAGER:add_event(Event({
+                                trigger = 'after',
+                                delay = 0.7,
+                                func = function()                
+                                    p_card:set_curse(card.ability.extra.curse, false, true)
+                                    p_card:juice_up()
+                                    play_sound('tarot1')
+                                    card:juice_up(0.3, 0.5)
+                                    return true
+                                end
+                            }))
+                            select = false
+                        end
                     end
-                }))
-                select = false
-            end
+                    return true
+                end
+            }))
         end
+        
 
         -- Edition on joker
         local edition = poll_edition('ortalab_crawler_edition',nil,false,true,{'e_ortalab_greyscale','e_ortalab_overexposed'})
@@ -1164,23 +1192,32 @@ SMODS.Consumable({
     end,
     use = function(self, card, area, copier)
         -- Curse random joker
-        local select = true
-        while select do
-            local p_card = pseudorandom_element(G.jokers.cards, pseudoseed('ortalab_anubis'))
-            if not p_card.curse then 
-                G.E_MANAGER:add_event(Event({
-                    trigger = 'after',
-                    delay = 0.7,
-                    func = function()                
-                        p_card:set_curse(card.ability.extra.curse, false, true)
-                        p_card:juice_up()
-                        play_sound('tarot1')
-                        card:juice_up(0.3, 0.5)
-                        return true
+         for i=1, card.ability.extra.select + G.GAME.ortalab.mythos.extra_select do
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                delay = 0.5,
+                func = function()
+                    local select = true
+                    while select do
+                        local p_card = pseudorandom_element(G.jokers.cards, pseudoseed('ortalab_anubis'))
+                        if not p_card.curse then 
+                            G.E_MANAGER:add_event(Event({
+                                trigger = 'after',
+                                delay = 0.7,
+                                func = function()                
+                                    p_card:set_curse(card.ability.extra.curse, false, true)
+                                    p_card:juice_up()
+                                    play_sound('tarot1')
+                                    card:juice_up(0.3, 0.5)
+                                    return true
+                                end
+                            }))
+                            select = false
+                        end
                     end
-                }))
-                select = false
-            end
+                    return true
+                end
+            }))
         end
 
         -- Move joker
