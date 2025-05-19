@@ -1065,7 +1065,7 @@ SMODS.Consumable({
                 ease_discard(card.ability.extra.hands)
                 G.GAME.round_resets.discards = G.GAME.round_resets.discards + card.ability.extra.hands  
                 G.GAME.ortalab.mythos.jackalope_count = G.GAME.ortalab.mythos.jackalope_count + 1             
-                SMODS.calculate_effect({message = localize('ortalab_cardist'), colour = G.C.BLUE}, card) 
+                SMODS.calculate_effect({message = localize('ortalab_jackalope'), colour = G.C.RED}, card) 
                 return true
             end
         }))
