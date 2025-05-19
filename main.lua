@@ -1,4 +1,7 @@
 Ortalab = SMODS.current_mod
+
+
+local load_order = {'jokers', 'enhancements', 'editions', 'loteria', 'zodiac', 'patches', 'decks', 'coupons', 'stakes', 'blinds', 'curses', 'mythos'}
 Ortalab.load_table = {
     jokers = true,
     enhancements = true,
@@ -13,12 +16,16 @@ Ortalab.load_table = {
     curses = true,
     mythos = true
 }
+
+
 loc_colour('red')
 G.ARGS.LOC_COLOURS['Ortalab'] = HEX('990000')
 G.ARGS.LOC_COLOURS.Ort_menu_colourA = HEX('686868')
 G.ARGS.LOC_COLOURS.Ort_menu_colourB = HEX('C9013C')
-for k, v in pairs(Ortalab.load_table) do
-    if v then assert(SMODS.load_file('objects/'..k..'.lua'))() end
+
+
+for _, k in ipairs(load_order) do
+    if Ortalab.load_table[k] then assert(SMODS.load_file('objects/'..k..'.lua'))() end
 end
 assert(SMODS.load_file('objects/loteria_boosters.lua'))() -- load boosters
 assert(SMODS.load_file('objects/zodiac_boosters.lua'))() -- load boosters

@@ -86,38 +86,42 @@ payload = '''
 if G.zodiacs then
     zodiac_effect = nil
     zodiac_current = nil
-    for _, zodiac in pairs(G.zodiacs) do
-        if zodiac.config.extra.hand_type == text then
-            zodiac_effect = G.ZODIACS[zodiac.key]
-            zodiac_current = zodiac
-            G.GAME.ortalab.zodiacs.activated[zodiac.key] = true
-
-            if G.GAME.selected_back.effect.center.key == 'b_ortalab_eclipse' then
-                SMODS.calculate_effect({level_up = true}, G.deck.cards[1])
-            end
-
-            -- Update Stargazing Jokers
-            local stargazings = SMODS.find_card('j_ortalab_stargazing')
-            for _, stargazing_card in pairs(stargazings) do
-                stargazing_card.ability.extra.xmult = stargazing_card.ability.extra.xmult + stargazing_card.ability.extra.gain
-                card_eval_status_text(stargazing_card, 'extra', nil, nil, nil, {message = localize{type='variable',key='a_xmult',vars={stargazing_card.ability.extra.gain}}, colour = G.C.RED})
-            end
-
-            for i=1, zodiac_current.config.extra.temp_level do
-                G.GAME.ortalab.temp_levels = G.GAME.ortalab.temp_levels + 1
-                    update_hand_text({sound = 'button', volume = 0.7, pitch = 0.9, delay = 0}, {level=number_format(G.GAME.hands[text].level)..'+'..G.GAME.ortalab.temp_levels})
-                    mult = mod_mult(mult+G.GAME.hands[text].l_mult)
-                    update_hand_text({delay = 0}, {mult = mult})
-                    hand_chips = mod_chips(hand_chips+G.GAME.hands[text].l_chips)
-                    update_hand_text({delay = 0}, {chips = hand_chips})
-                if not Ortalab.config.zodiac_skip then
-                    delay(0.3)
-                end
-            end
+    if G.zodiacs['zodiac_ortalab_ophiuchus'] then
+        zodiac_current = G.zodiacs['zodiac_ortalab_ophiuchus']
+        zodiac_effect = G.ZODIACS['zodiac_ortalab_ophiuchus']
+    else
+        local zodiac_key = zodiac_from_hand(text)
+        if G.zodiacs[zodiac_key] then
+            zodiac_current = G.zodiacs[zodiac_key]
+            zodiac_effect = G.ZODIACS[zodiac_key]
         end
     end
+    if zodiac_current then
+        G.GAME.ortalab.zodiacs.activated[zodiac_current.key] = true
 
-    if zodiac_effect then
+        if G.GAME.selected_back.effect.center.key == 'b_ortalab_eclipse' then
+            SMODS.calculate_effect({level_up = true}, G.deck.cards[1])
+        end
+
+        -- Update Stargazing Jokers
+        local stargazings = SMODS.find_card('j_ortalab_stargazing')
+        for _, stargazing_card in pairs(stargazings) do
+            stargazing_card.ability.extra.xmult = stargazing_card.ability.extra.xmult + stargazing_card.ability.extra.gain
+            SMODS.calculate_effect({message = localize{type='variable',key='a_xmult',vars={stargazing_card.ability.extra.gain}}, colour = G.C.RED}, stargazing_card)
+        end
+
+        for i=1, zodiac_current.config.extra.temp_level do
+            G.GAME.ortalab.temp_levels = G.GAME.ortalab.temp_levels + 1
+                update_hand_text({sound = 'button', volume = 0.7, pitch = 0.9, delay = 0}, {level=number_format(G.GAME.hands[text].level)..'+'..G.GAME.ortalab.temp_levels})
+                mult = mod_mult(mult+G.GAME.hands[text].l_mult)
+                update_hand_text({delay = 0}, {mult = mult})
+                hand_chips = mod_chips(hand_chips+G.GAME.hands[text].l_chips)
+                update_hand_text({delay = 0}, {chips = hand_chips})
+            if not Ortalab.config.zodiac_skip then
+                delay(0.3)
+            end
+        end
+    
         zodiac_text(localize({set='Tag',key=zodiac_current.key,type='name_text'})..localize('ortalab_zodiac_active'), zodiac_current.key)
         if zodiac_effect.pre_trigger and type(zodiac_effect.pre_trigger) == 'function' then
             local triggered = false

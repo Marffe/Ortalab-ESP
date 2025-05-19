@@ -114,7 +114,7 @@ if other.curse then
 end
 '''
 
-##  Curse calculation
+## Curse calculation on playing cards
 [[patches]]
 [patches.pattern]
 target = 'functions/common_events.lua'
@@ -122,13 +122,14 @@ pattern = '''if card.seal then'''
 position = 'before'
 match_indent = true
 payload = '''
-if card.curse then
+if card.curse and not card.curse_removed then
     local curses = card:calculate_curse(context)
     if curses then
         ret.curses = curses
     end
 end
 '''
+## Curse calculation on jokers
 [[patches]]
 [patches.pattern]
 target = 'functions/common_events.lua'
@@ -136,13 +137,26 @@ pattern = '''if card.seal and not card.ability.extra_enhancement then'''
 position = 'before'
 match_indent = true
 payload = '''
-if card.curse and not card.ability.extra_enhancement then
+if card.curse and not card.curse_removed and not card.ability.extra_enhancement then
     local curses = card:calculate_curse(context)
     if curses then
         ret.curses = curses
     end
 end
 '''
+# Add curse calculation to calc keys
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/utils.lua"]'
+match_indent = true
+position = 'before'
+pattern = '''
+for _, k in ipairs(SMODS.Sticker.obj_buffer) do
+'''
+payload = '''
+SMODS.calculate_effect_table_key(effect_table, 'curses', card, ret)
+'''
+
 
 
 # Possessed
@@ -185,7 +199,7 @@ payload = '''
 for _, card in ipairs(scoring_hand) do
     if card.curse == 'ortalab_infected' then
         G.E_MANAGER:add_event(Event({func = function() card.ability.no_score = true; card.ability.no_score_shader = true; return true; end}))
-        card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize({set = 'Curse', type = 'name_text', key = 'ortalab_infected'})..'!', colour = Ortalab.Curses.ortalab_infected.badge_colour})
+        SMODS.calculate_effect({message = localize({set = 'Curse', type = 'name_text', key = 'ortalab_infected'})..'!', colour = Ortalab.Curses.ortalab_infected.badge_colour}, card)
     end
 end
 '''

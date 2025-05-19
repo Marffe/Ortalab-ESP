@@ -37,7 +37,7 @@ SMODS.ConsumableType({
     },
     collection_rows = {5, 4},
     shop_rate = 0,
-    default = 'c_ortalab_zod_aries'
+    default = 'c_ortalab_zod_aries',
 })
 
 SMODS.DrawStep {
@@ -1213,7 +1213,13 @@ SMODS.Consumable({
     end,
     use = function(self, card, area, copier)
         sendDebugMessage("Not yet implemented")
-    end
+    end,
+    in_pool = function(self, args)
+        if pseudorandom('ortalab_corpus_spawn') < 0.3 then
+            return true
+        end
+        return false
+    end,
 })
 
 SMODS.Consumable({
@@ -1223,7 +1229,7 @@ SMODS.Consumable({
     cost = 6,
     pos = {x=3, y=3},
     discovered = false,
-    config = {extra = {select = 2, curse = 'ortalab_corroded', method = 'c_ortalab_mult_random_deck', cards = 4}},
+    config = {extra = {select = 2, curse = 'ortalab_corroded', method = 'c_ortalab_mult_random_deck', cards = 4, zodiac = 'zodiac_ortalab_ophiuchus'}},
     artist_credits = {'gappie'},
     loc_vars = function(self, info_queue, card)
         return {vars = {card.ability.extra.cards}}
@@ -1232,9 +1238,38 @@ SMODS.Consumable({
         return true
     end,
     use = function(self, card, area, copier)
-        sendDebugMessage("Not yet implemented")
-    end
+        use_zodiac(card)
+    end,
+    in_pool = function(self, args)
+        if pseudorandom('ortalab_ophiuchus_spawn') < 0.3 then
+            return true
+        end
+        return false
+    end,
 })
+
+Ortalab.Zodiac{
+    key = 'ophiuchus',
+    pos = {x=0, y=2},
+    colour = HEX('57405f'),
+    config = {extra = {temp_level = 4, hand_type = 'Any'}},
+    loc_vars = function(self, info_queue, card)
+        local zodiac = card or self
+        local temp_level = (not zodiac.voucher_check and G.GAME.ortalab.zodiacs.temp_level_mod or 1) * zodiac.config.extra.temp_level
+        return {vars = {temp_level, localize(zodiac.config.extra.hand_type, 'poker_hands'), zodiac.config.extra.amount}}
+    end,
+    pre_trigger = function(self, zodiac, context)
+        for i=1, #context.scoring_hand do
+            if context.scoring_hand[i].curse then
+                SMODS.calculate_effect({message = 'Cleansed!', colour = G.C.FILTER}, context.scoring_hand[i]) 
+                context.scoring_hand[i]:set_curse(nil, nil, nil, nil, nil, true)
+            end
+        end
+        zodiac_reduce_level(zodiac)
+        return context.mult, context.chips
+    end
+}
+
 
 local gcui = generate_card_ui
 function generate_card_ui(_c, full_UI_table, specific_vars, card_type, badges, hide_desc, main_start, main_end, card)

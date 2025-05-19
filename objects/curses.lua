@@ -163,7 +163,7 @@ G.FUNCS.your_collection_curse_page = function(args)
 	end
 end
 
-function Card:set_curse(_curse, silent, immediate, spread, message)
+function Card:set_curse(_curse, silent, immediate, spread, message, delay)
     if self.ability.forced_selection == 'ortalab_possessed' then self.ability.forced_selection = nil end
     if _curse then
         self.ability.curse = {}
@@ -212,8 +212,21 @@ function Card:set_curse(_curse, silent, immediate, spread, message)
             }))
         end
     else
-        self.curse = nil
+        if delay then
+            self.curse_removed = true
+            G.E_MANAGER:add_event(Event({
+                trigger = 'immediate',
+                func = function()
+                    self.curse = nil   
+                    self.curse_removed = nil    
+                    return true
+                end
+            }))
+        else
+            self.curse = nil
+        end
     end
+   
     self:set_cost()
 end
 
@@ -431,13 +444,21 @@ Ortalab.Curse({
     end
 })
 
-local score = SMODS.score_card
-function SMODS.score_card(card, context)
-    if card.curse == 'ortalab_infected' then
-        return
+local calc_card = Card.can_calculate
+function Card:can_calculate(ignore_debuff, ignore_sliced)
+    if self.ability.set ~= 'Joker' and self.curse == 'ortalab_infected' and not self.curse_removed then
+        return false
     end
-    score(card, context)
+    return calc_card(self, ignore_debuff, ignore_sliced)
 end
+
+-- local score = SMODS.score_card
+-- function SMODS.score_card(card, context)
+--     if card.curse == 'ortalab_infected' and not card.curse_removed then
+--         return
+--     end
+--     score(card, context)
+-- end
 
 local dfdtd = G.FUNCS.draw_from_discard_to_deck
 G.FUNCS.draw_from_discard_to_deck = function(e)

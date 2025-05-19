@@ -2201,6 +2201,14 @@ return {
 					'and give them a random {C:dark_edition}Edition'
                 }
             },
+			zodiac_ortalab_ophiuchus = {
+				name = 'Ophiuchus',
+				text = {
+					'{C:attention}+#1#{} levels to next hand', 
+					'Remove {C:attention}curses{} from all',
+					'scoring cards of the next hand'
+				}
+			},
 		},
 		["Back"] = {
 			['b_ortalab_orange'] = {
