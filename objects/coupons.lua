@@ -260,7 +260,7 @@ SMODS.Voucher({
 })
 
 SMODS.Voucher({
-	key = "edition_1",
+	key = "pulse_wave",
 	atlas = "coupons",
 	pos = {x = 0, y = 1},
 	cost = 10,
@@ -275,14 +275,14 @@ SMODS.Voucher({
 })
 
 SMODS.Voucher({
-	key = "edition_2",
+	key = "energy_surge",
 	atlas = "coupons",
 	pos = {x = 1, y = 1},
 	cost = 10,
 	unlocked = true,
 	discovered = false,
 	available = false,
-    requires = {'v_ortalab_edition_1'},
+    requires = {'v_ortalab_pulse_wave'},
     config = {extra = {edition_reps = 2}},
     artist_credits = {'joey'},
     loc_vars = function(self, info_queue, card)
@@ -291,7 +291,7 @@ SMODS.Voucher({
 })
 
 SMODS.Voucher({
-	key = "grabber_inv",
+	key = "one_mans_trash",
 	atlas = "coupons",
 	pos = {x = 6, y = 2},
 	cost = 10,
@@ -299,7 +299,7 @@ SMODS.Voucher({
 	discovered = false,
 	available = true,
     config = {extra = {hands = 2, discards = -1}},
-    artist_credits = {'no_demo'},
+    artist_credits = {'joey'},
 	redeem = function(self, card)
         G.GAME.round_resets.hands = G.GAME.round_resets.hands + card.ability.extra.hands
         ease_hands_played(card.ability.extra.hands)
@@ -312,16 +312,16 @@ SMODS.Voucher({
 })
 
 SMODS.Voucher({
-	key = "nacho_inv",
+	key = "anothers_treasure",
 	atlas = "coupons",
 	pos = {x = 7, y = 2},
 	cost = 10,
 	unlocked = true,
 	discovered = false,
 	available = false,
-    requires = {'v_ortalab_grabber_inv'},
+    requires = {'v_ortalab_one_mans_trash'},
     config = {extra = {extra_dollars = 1}},
-    artist_credits = {'no_demo'},
+    artist_credits = {'joey'},
 	redeem = function(self, card)
         G.GAME.modifiers.money_per_hand = (G.GAME.modifiers.money_per_hand or 1) + card.ability.extra.extra_dollars
     end,
@@ -440,28 +440,28 @@ SMODS.Voucher({
 })
 
 SMODS.Voucher({
-	key = "magic_trick_inv",
+	key = "hex",
 	atlas = "coupons",
 	pos = {x = 4, y = 3},
 	cost = 10,
 	unlocked = true,
 	discovered = false,
 	available = true,
-    artist_credits = {'no_demo'},
+    artist_credits = {'chvsau'},
 	redeem = function(self, card)
         G.GAME.ortalab.vouchers.tags_in_shop = 0.6
     end,
 })
 
 SMODS.Voucher({
-	key = "illusion_inv",
+	key = "glamour",
 	atlas = "coupons",
 	pos = {x = 5, y = 3},
 	cost = 10,
 	unlocked = true,
 	discovered = false,
 	available = false,
-    requires = {'v_ortalab_magic_trick_inv'},
+    requires = {'v_ortalab_hex'},
     artist_credits = {'crimson'},
 	redeem = function(self, card)
         G.GAME.ortalab_utility_rate = 0.4
@@ -495,6 +495,24 @@ SMODS.Voucher({
 	discovered = false,
 	available = false,
     requires = {'v_ortalab_crystal_inv'},
+    artist_credits = {'no_demo'},
+	redeem = function(self, card)
+        if Ortalab.config.ortalab_only then
+            G.GAME.mythos_rate = 1.2
+        else
+            G.GAME.mythos_rate = 0.6
+        end
+    end,
+})
+
+SMODS.Voucher({
+	key = "blank_inv",
+	atlas = "coupons",
+	pos = {x = 6, y = 0},
+	cost = 10,
+	unlocked = true,
+	discovered = false,
+	available = false,
     config = {extra = {bonus_slots = 1}},
     artist_credits = {'no_demo'},
 	redeem = function(self, card)
@@ -505,6 +523,31 @@ SMODS.Voucher({
     end,
 })
 
+SMODS.Voucher({
+	key = "anti_inv",
+	atlas = "coupons",
+	pos = {x = 7, y = 0},
+	cost = 10,
+	unlocked = true,
+	discovered = false,
+	available = false,
+    requires = {'v_ortalab_blank_inv'},
+    config = {extra = {active = true}},
+    artist_credits = {'no_demo'},
+    redeem = function(self, card)
+        if next(G.shop_booster.cards) then
+            for _, booster in pairs(G.shop_booster.cards) do
+                create_shop_card_ui(booster)
+            end
+        end
+    end,
+	calculate = function(self, card, context)
+        if context.starting_shop then
+            card.ability.extra.active = true
+        end
+    end,
+})
+
 local CardOpen_ref = Card.open
 function Card.open(self)
 	if G.GAME.ortalab.vouchers.booster_pack_bonus then
@@ -512,6 +555,14 @@ function Card.open(self)
 			self.ability.extra = self.ability.extra + G.GAME.ortalab.vouchers.booster_pack_bonus
 		end
 	end
+    local free_pack = SMODS.find_card('v_ortalab_anti_inv')
+    if next(free_pack) and free_pack[1].ability.extra.active and self.cost > 0 then
+        free_pack[1].ability.extra.active = false
+        self.cost = 0
+        for _, booster in pairs(G.shop_booster.cards) do
+            create_shop_card_ui(booster)
+        end
+    end
 	return CardOpen_ref(self)
 end
 

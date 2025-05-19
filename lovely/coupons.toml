@@ -542,3 +542,64 @@ end
 
 
 '''
+
+# Free booster
+[[patches]]
+[patches.pattern]
+target = 'functions/UI_definitions.lua'
+match_indent = true
+position = 'after'
+pattern = '''
+local t1 = {
+              n=G.UIT.ROOT, config = {minw = 0.6, align = 'tm', colour = darken(G.C.BLACK, 0.2), shadow = true, r = 0.05, padding = 0.05, minh = 1}, nodes={
+                  {n=G.UIT.R, config={align = "cm", colour = lighten(G.C.BLACK, 0.1), r = 0.1, minw = 1, minh = 0.55, emboss = 0.05, padding = 0.03}, nodes={
+                    {n=G.UIT.O, config={object = DynaText({string = {{prefix = localize('$'), ref_table = card, ref_value = 'cost'}}, colours = {G.C.MONEY},shadow = true, silent = true, bump = true, pop_in = 0, scale = 0.5})}},
+                  }}
+              }}
+'''
+payload = '''
+local free_pack = SMODS.find_card('v_ortalab_anti_inv')
+if card.ability.set == 'Booster' and card.cost > 0 and next(free_pack) and free_pack[1].ability.extra.active then
+    t1 = {
+        n=G.UIT.ROOT, config = {minw = 0.6, align = 'tm', colour = darken(G.C.BLACK, 0.2), shadow = true, r = 0.05, padding = 0.05, minh = 1}, nodes={
+            {n=G.UIT.C, config={align = "cm", colour = lighten(G.C.BLACK, 0.1), r = 0.1, minw = 1, minh = 0.55, emboss = 0.05, padding = 0.03}, nodes={
+            {n=G.UIT.R, config={align='cm'}, nodes={
+                {n=G.UIT.O, config={object = DynaText({string = {{string='Free'}}, colours = {G.C.MONEY},shadow = true, silent = true, bump = true, pop_in = 0, scale = 0.5})}},
+            
+                {n=G.UIT.T, config={text = ' (', scale = 0.3, colour = G.C.MONEY}},
+                {n=G.UIT.O, config={object = DynaText({string = {{prefix = localize('$'), ref_table = card, ref_value = 'cost'}}, colours = {G.C.MONEY},shadow = true, silent = true, bump = true, pop_in = 0, scale = 0.3})}},
+                {n=G.UIT.T, config={text = ')', scale = 0.3, colour = G.C.MONEY}},
+            }} 
+            }},
+        }
+    }
+end
+'''
+
+# Position free cost
+[[patches]]
+[patches.pattern]
+target = 'functions/UI_definitions.lua'
+match_indent = true
+position = 'at'
+pattern = '''
+offset = {x=0,y=1.5},
+'''
+payload = '''
+offset = (card.ability.set == 'Booster' and card.cost > 0 and next(free_pack) and free_pack[1].ability.extra.active and {x=0,y=3} or {x=0,y=1.5}),
+'''
+
+
+# Can open free packs
+[[patches]]
+[patches.pattern]
+target = 'functions/button_callbacks.lua'
+match_indent = true
+position = 'at'
+pattern = '''
+if (e.config.ref_table.cost) > 0 and (e.config.ref_table.cost > G.GAME.dollars - G.GAME.bankrupt_at) then
+'''
+payload = '''
+local free_packs = SMODS.find_card('v_ortalab_anti_inv')
+if not (next(free_packs) and free_packs[1].ability.extra.active) and (e.config.ref_table.cost) > 0 and (e.config.ref_table.cost > G.GAME.dollars - G.GAME.bankrupt_at) then
+'''

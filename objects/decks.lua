@@ -92,29 +92,32 @@ SMODS.Back({
         -- info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'shai'}
         return {vars = {self.config.hand_level}}
     end,
+    apply = function(self)
+        G.GAME.ortalab.zodiacs.reduction = 2
+    end
 })
 
-local use_consum = Card.use_consumeable
-function Card:use_consumeable(area, copier)
-    use_consum(self, area, copier)
-    if G.GAME.selected_back.effect.center.key == 'b_ortalab_eclipse' then
-        if self.config.center.set == 'Zodiac' then
-            local hand_type = G.ZODIACS[self.config.center.config.extra.zodiac].config.extra.hand_type
-            update_hand_text({sound = 'button', volume = 0.7, pitch = 0.8, delay = 0.3}, {handname=localize(hand_type, 'poker_hands'),chips = G.GAME.hands[hand_type].chips, mult = G.GAME.hands[hand_type].mult, level=G.GAME.hands[hand_type].level})
-            level_up_hand(self, hand_type, false, G.GAME.selected_back.effect.center.config.hand_level)
-            update_hand_text({sound = 'button', volume = 0.7, pitch = 1.1, delay = 0}, {mult = 0, chips = 0, handname = '', level = ''})
-        elseif self.config.center.set == 'Planet' then
-            local _poker_hands = {}
-            for k, v in pairs(G.GAME.hands) do
-                if v.visible then _poker_hands[#_poker_hands+1] = k end
-            end
-            local hand_type = pseudorandom_element(_poker_hands, pseudoseed('eclipse_delevel'))
-            update_hand_text({sound = 'button', volume = 0.7, pitch = 0.8, delay = 0.3}, {handname=localize(hand_type, 'poker_hands'),chips = G.GAME.hands[hand_type].chips, mult = G.GAME.hands[hand_type].mult, level=G.GAME.hands[hand_type].level})
-            level_up_hand(self, hand_type, false, -1 * G.GAME.selected_back.effect.center.config.hand_level)
-            update_hand_text({sound = 'button', volume = 0.7, pitch = 1.1, delay = 0}, {mult = 0, chips = 0, handname = '', level = ''})
-        end
-    end
-end
+-- local use_consum = Card.use_consumeable
+-- function Card:use_consumeable(area, copier)
+--     use_consum(self, area, copier)
+--     if G.GAME.selected_back.effect.center.key == 'b_ortalab_eclipse' then
+--         if self.config.center.set == 'Zodiac' then
+--             local hand_type = G.ZODIACS[self.config.center.config.extra.zodiac].config.extra.hand_type
+--             update_hand_text({sound = 'button', volume = 0.7, pitch = 0.8, delay = 0.3}, {handname=localize(hand_type, 'poker_hands'),chips = G.GAME.hands[hand_type].chips, mult = G.GAME.hands[hand_type].mult, level=G.GAME.hands[hand_type].level})
+--             level_up_hand(self, hand_type, false, G.GAME.selected_back.effect.center.config.hand_level)
+--             update_hand_text({sound = 'button', volume = 0.7, pitch = 1.1, delay = 0}, {mult = 0, chips = 0, handname = '', level = ''})
+--         elseif self.config.center.set == 'Planet' then
+--             local _poker_hands = {}
+--             for k, v in pairs(G.GAME.hands) do
+--                 if v.visible then _poker_hands[#_poker_hands+1] = k end
+--             end
+--             local hand_type = pseudorandom_element(_poker_hands, pseudoseed('eclipse_delevel'))
+--             update_hand_text({sound = 'button', volume = 0.7, pitch = 0.8, delay = 0.3}, {handname=localize(hand_type, 'poker_hands'),chips = G.GAME.hands[hand_type].chips, mult = G.GAME.hands[hand_type].mult, level=G.GAME.hands[hand_type].level})
+--             level_up_hand(self, hand_type, false, -1 * G.GAME.selected_back.effect.center.config.hand_level)
+--             update_hand_text({sound = 'button', volume = 0.7, pitch = 1.1, delay = 0}, {mult = 0, chips = 0, handname = '', level = ''})
+--         end
+--     end
+-- end
 
 SMODS.Back({
     key = "royal", 

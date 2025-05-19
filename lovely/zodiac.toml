@@ -92,6 +92,10 @@ if G.zodiacs then
             zodiac_current = zodiac
             G.GAME.ortalab.zodiacs.activated[zodiac.key] = true
 
+            if G.GAME.selected_back.effect.center.key == 'b_ortalab_eclipse' then
+                SMODS.calculate_effect({level_up = true}, G.deck.cards[1])
+            end
+
             -- Update Stargazing Jokers
             local stargazings = SMODS.find_card('j_ortalab_stargazing')
             for _, stargazing_card in pairs(stargazings) do

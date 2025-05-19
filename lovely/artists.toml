@@ -14,7 +14,6 @@ local cols
 '''
 payload = '''
 if obj and obj.artist_credits and Ortalab.config.credit_pos == 2 then
-    print('add info queue')
     for _, artist in ipairs(obj.artist_credits) do
         info_boxes[#info_boxes+1] =
             {n=G.UIT.R, config={align = "cm"}, nodes={

@@ -15,8 +15,9 @@ G.ARGS.LOC_COLOURS['logan'] = HEX('ffff00')
 G.ARGS.LOC_COLOURS['parchment'] = HEX('74293f')
 G.ARGS.LOC_COLOURS['shinku'] = HEX('e36774')
 G.ARGS.LOC_COLOURS['shai'] = HEX('fe0052')
-G.ARGS.LOC_COLOURS['joey'] = HEX('ff80ed')
-G.ARGS.LOC_COLOURS['rowan'] = HEX('ff80ed')
+G.ARGS.LOC_COLOURS['joey'] = HEX('2fe041')
+G.ARGS.LOC_COLOURS['rowan'] = HEX('36013F')
+G.ARGS.LOC_COLOURS['chvsau'] = HEX('008080')
 
 function ortalab_artist_tooltip(_c, info_queue, card, desc_nodes, specific_vars, full_UI_table)
     localize{type = 'descriptions', set = 'Ortalab Artist', key = _c.key, nodes = desc_nodes, vars = specific_vars or _c.vars}

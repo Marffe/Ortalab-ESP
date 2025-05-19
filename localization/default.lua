@@ -151,12 +151,17 @@ return {
 			},
 			joey = {
 				text = {
-					'Joey!!!'
+					'Joey'
+				}
+			},
+			chvsau = {
+				text = {
+					'chvsau '
 				}
 			},
 			rowan = {
 				text = {
-					'BoiRowan'
+					'RowanBoi'
 				}
 			},
 			['eremel'] = {
@@ -2244,9 +2249,9 @@ return {
 				["name"] = "Eclipse Deck",
 				["text"] = {
 					'{C:attention}+#1#{} hand level when a',
-					'{C:Zodiac}Zodiac{} card is used',
-					'{C:attention}-#1#{} level to a random hand',
-					'when a {C:planet}Planet{} card is used'
+					'{C:Zodiac}Zodiac{} is activated',
+					'{C:Zodiac}Zodiac effects{} decay',
+					'{C:attention}2{} times slower'
 				}
 			},
 			['b_ortalab_royal'] = {
@@ -2324,14 +2329,14 @@ return {
 					'it was {C:attention}played'
 				}
 			},
-			v_ortalab_magic_trick_inv = {
+			v_ortalab_hex = {
 				name = 'Hex',
 				text = {
 					'{C:attention}Tags{} can appear', 
 					'in the shop'
 				}
 			},
-			v_ortalab_illusion_inv = {
+			v_ortalab_glamour = {
 				name = 'Glamour',
 				text = {
 					'{C:dark_edition}Edition+{} cards can appear', 
@@ -2348,8 +2353,23 @@ return {
 			v_ortalab_omen_inv = {
 				name = 'Arcane Archive',
 				text = {
+					'{C:Mythos}Mythos Cards{} can', 
+					'appear in the main shop'
+				}
+			},
+			v_ortalab_blank_inv = {
+				name = 'TBD',
+				text = {
 					'Booster packs have',
 					'{C:attention}#1#{} more card'
+				}
+			},
+			v_ortalab_anti_inv = {
+				name = 'TBD',
+				text = {
+					'The {C:attention}first{} Booster pack',
+					'you buy in each shop',
+					'is free'
 				}
 			},
 			['v_ortalab_horoscope'] = {
@@ -2422,7 +2442,7 @@ return {
 				["name"] = "Calculator",
 				["text"] = {
 					{"{C:attention}+#1#{} Win Ante",},
-					{"{C:attention}+#2#{} Joker slots", }
+					{"{C:attention}+#2#{} Joker Slot", }
 				}
 			},
 			['v_ortalab_catalog'] = {
@@ -2467,29 +2487,29 @@ return {
 					"from skipping {C:attention}Blinds"
 				}
 			},
-			v_ortalab_edition_1 = {
+			v_ortalab_pulse_wave = {
 				name = 'Pulse Wave',
 				text = {
 					'{C:dark_edition}Editions{} on {C:attention}Jokers',
 					'trigger {C:attention}#1#{} extra time'
 				}
 			},
-			v_ortalab_edition_2 = {
+			v_ortalab_energy_surge = {
 				name = 'Energy Surge',
 				text = {
 					'{C:dark_edition}Editions{} on {C:attention}Jokers',
 					'trigger {C:attention}#1#{} extra times'
 				}
 			},
-			v_ortalab_grabber_inv = {
-				name = 'Windfall',
+			v_ortalab_one_mans_trash = {
+				name = 'One Man\'s Trash',
 				text = {
 					'Permanently gain {C:blue}+#1#{} hands',
 					'and {C:red}#2#{} discard per round'
 				}
 			},
-			v_ortalab_nacho_inv = {
-				name = 'Dividend',
+			v_ortalab_anothers_treasure = {
+				name = 'Another\'s Treasure',
 				text = {
 					'Earn an extra {C:money}$#1#{}', 
 					'per remaining hand'
@@ -2511,14 +2531,14 @@ return {
 			v_ortalab_seed_inv = {
 				name = 'Wyrm\'s Gift',
 				text = {
-					'{C:attention}Blinds{} rewards are',
+					'{C:attention}Blind{} rewards are',
 					'increased by {C:money}$#1#'
 				}
 			},
 			v_ortalab_tree_inv = {
 				name = 'Dragon\'s Hoard',
 				text = {
-					'{C:attention}Blinds{} rewards are',
+					'{C:attention}Blind{} rewards are',
 					'increased by {C:money}$#1#'
 				}
 			},
