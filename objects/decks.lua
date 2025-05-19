@@ -120,6 +120,20 @@ SMODS.Back({
 -- end
 
 SMODS.Back({
+    key = "sacred", 
+    atlas = "decks",
+    pos = {x = 2, y = 1}, 
+    config = {vouchers = {'v_ortalab_fates_coin'}, extra = {select_reduction = 1}}, 
+    artist_credits = {'kosze'},
+    loc_vars = function(self, info_queue, card)
+        return {vars = {self.config.extra.select_reduction, localize({type = 'name_text', set = 'Voucher', key = self.config.vouchers[1]})}}
+    end,
+    apply = function(self)
+        G.GAME.ortalab.mythos.extra_select = -self.config.extra.select_reduction
+    end
+})
+
+SMODS.Back({
     key = "royal", 
     atlas = "decks",
     pos = {x = 3, y = 1}, 

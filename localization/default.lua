@@ -80,6 +80,7 @@ return {
 			ortalab_zodiac_add = '+1 Zodiac',
 			ortalab_loteria_add = '+1 Loteria',
 			ortalab_cardist = '+1 Hand!',
+			ortalab_jackalope = '+1 Discard!',
 			ortalab_forklift = '+2 slots',
 			ortalab_forklift_loss = '-2 slots',
 			ortalab_zodiac_upgraded = ' upgraded!',
@@ -2252,6 +2253,14 @@ return {
 					'{C:Zodiac}Zodiac{} is activated',
 					'{C:Zodiac}Zodiac effects{} decay',
 					'{C:attention}2{} times slower'
+				}
+			},
+			b_ortalab_sacred = {
+				name = 'Sacred Deck',
+				text = {
+					'{C:Mythos,E:1}Mythos Cards{} curse {C:attention}1{} fewer',
+					'cards',
+					'Start with {C:attention,T:v_ortalab_fates_coin}Fate\'s Coin'
 				}
 			},
 			['b_ortalab_royal'] = {
