@@ -2343,14 +2343,14 @@ return {
 					'in the shop'
 				}
 			},
-			v_ortalab_crystal_inv = {
+			v_ortalab_fates_coin = {
 				name = 'Fate\'s Coin',
 				text = {
 					'Add a {C:Mythos}Mythos{} card slot',
 					'to future shops'
 				}
 			},
-			v_ortalab_omen_inv = {
+			v_ortalab_arcane_archive = {
 				name = 'Arcane Archive',
 				text = {
 					'{C:Mythos}Mythos Cards{} can', 

@@ -472,7 +472,7 @@ SMODS.Voucher({
 })
 
 SMODS.Voucher({
-	key = "crystal_inv",
+	key = "fates_coin",
 	atlas = "coupons",
 	pos = {x = 4, y = 2},
 	cost = 10,
@@ -487,14 +487,14 @@ SMODS.Voucher({
 })
 
 SMODS.Voucher({
-	key = "omen_inv",
+	key = "arcane_archive",
 	atlas = "coupons",
 	pos = {x = 5, y = 2},
 	cost = 10,
 	unlocked = true,
 	discovered = false,
 	available = false,
-    requires = {'v_ortalab_crystal_inv'},
+    requires = {'v_ortalab_fates_coin'},
     artist_credits = {'no_demo'},
 	redeem = function(self, card)
         if Ortalab.config.ortalab_only then
