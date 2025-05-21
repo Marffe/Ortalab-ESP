@@ -167,6 +167,20 @@ payload = '''
 if G.GAME.round_resets.ante == G.GAME.win_ante and G.GAME.blind:get_type() == 'Boss' and G.GAME.round_resets.blind_states.Boss == 'Defeated' then
 '''
 
+# Don't increase ante after first blind
+[[patches]]
+[patches.pattern]
+target = 'functions/state_events.lua'
+match_indent = true
+position = 'at'
+pattern = '''
+if G.GAME.blind:get_type() == 'Boss' then
+'''
+payload = '''
+if G.GAME.blind:get_type() == 'Boss' and G.GAME.round_resets.blind_states.Boss == 'Defeated' then
+'''
+
+
 
 ## Patch SMODS get_pack
 # [[patches]]
