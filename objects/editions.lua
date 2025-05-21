@@ -11,7 +11,7 @@ SMODS.Edition({
     config = { chips = 20, mult = 6 },
     in_shop = true,
     weight = 20,
-    extra_cost = 4,
+    extra_cost = 2,
     apply_to_float = true,
     artist_credits = {'eremel'},
     loc_vars = function(self, info_queue, card)
@@ -59,7 +59,7 @@ SMODS.Edition({
     config = {swap = true},
     in_shop = true,
     weight = 8,
-    extra_cost = 6,
+    extra_cost = 3,
     badge_colour = HEX("858585"),
     artist_credits = {'eremel'},
     apply_to_float = true,
@@ -86,7 +86,7 @@ SMODS.Edition({
     config = { extra = {retriggers = 1 }},
     in_shop = true,
     weight = 3,
-    extra_cost = 4,
+    extra_cost = 5,
     apply_to_float = true,
     artist_credits = {'eremel'},
     loc_vars = function(self, info_queue, card)

@@ -808,15 +808,9 @@ SMODS.Consumable({
         return {vars = {card.ability.extra.edition and localize({type = 'name_text', key = card.ability.extra.edition, set = 'Edition'}) or localize('ortalab_edition_plus')}}
     end,
     set_ability = function(self, card, from_debuff)
-        local editions = {}
-        for _, v in ipairs(G.P_CENTER_POOLS.Edition) do
-            if v.shader then 
-                table.insert(editions, v.key)
-            end
-        end
-        card.ability.extra.edition = pseudorandom_element(editions, pseudoseed('edition+'))
+        card.ability.extra.edition = poll_edition('ortalab_edition_+',nil,nil,true)
         card:set_cost()
-        card.base_cost = 6 + 2*G.P_CENTERS[card.ability.extra.edition].extra_cost
+        card.base_cost = 5 + 3*G.P_CENTERS[card.ability.extra.edition].extra_cost
         G.E_MANAGER:add_event(Event({
             trigger = 'after',
             delay = 0.2,
