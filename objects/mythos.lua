@@ -632,7 +632,7 @@ SMODS.Consumable({
                     local _suit = pseudorandom_element(SMODS.Suits, pseudoseed('ortalab_abaia_suit')).card_key
                 
                     local enhancement = SMODS.poll_enhancement({guaranteed = true, key = 'ortalab_abaia', no_replace = true})
-                    local new_card = create_playing_card({front = G.P_CARDS[_suit..'_'.._rank], center = G.P_CENTERS[enhancement]}, G.hand, nil, i ~= 1, {G.C.SET.Mythos, darken(G.C.SET.Mythos, 0.5), G.C.RED, darken(G.C.SET.Mythos, 0.2), G.ARGS.LOC_COLOURS['mythos_alt']})
+                    local new_card = create_playing_card({front = G.P_CARDS[_suit..'_7'], center = G.P_CENTERS[enhancement]}, G.hand, nil, i ~= 1, {G.C.SET.Mythos, darken(G.C.SET.Mythos, 0.5), G.C.RED, darken(G.C.SET.Mythos, 0.2), G.ARGS.LOC_COLOURS['mythos_alt']})
                     new_card:set_edition(poll_edition('ortalab_abaia_edition', nil, false, true), true)
                     new_card:add_to_deck()
                     G.deck.config.card_limit = G.deck.config.card_limit + 1
@@ -691,7 +691,7 @@ SMODS.Consumable({
                     local _suit = pseudorandom_element(SMODS.Suits, pseudoseed('ortalab_jormungand_suit')).card_key
                 
                     local enhancement = SMODS.poll_enhancement({guaranteed = true, key = 'ortalab_jormungand', no_replace = true})
-                    local new_card = create_playing_card({front = G.P_CARDS[_suit..'_'.._rank], center = G.P_CENTERS[enhancement]}, G.hand, nil, i ~= 1, {G.C.SET.Mythos, darken(G.C.SET.Mythos, 0.5), G.C.RED, darken(G.C.SET.Mythos, 0.2), G.ARGS.LOC_COLOURS['mythos_alt']})
+                    local new_card = create_playing_card({front = G.P_CARDS[_suit..'_A'], center = G.P_CENTERS[enhancement]}, G.hand, nil, i ~= 1, {G.C.SET.Mythos, darken(G.C.SET.Mythos, 0.5), G.C.RED, darken(G.C.SET.Mythos, 0.2), G.ARGS.LOC_COLOURS['mythos_alt']})
                     new_card:set_edition(poll_edition('ortalab_jormungand_edition', nil, false, true), true)
                     new_card:add_to_deck()
                     G.deck.config.card_limit = G.deck.config.card_limit + 1
