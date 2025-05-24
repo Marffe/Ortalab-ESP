@@ -17,7 +17,7 @@ SMODS.Joker({
     calculate = function(self, card, context)
         if context.setting_blind then
             local to_eternal = G.jokers.cards[#G.jokers.cards]
-            if not to_eternal.ability[card.ability.extra.sticker] and to_eternal ~= card then
+            if not to_eternal.ability[card.ability.extra.sticker] then
                 
                 return {
                     message = 'Attached!',
