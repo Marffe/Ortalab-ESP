@@ -584,6 +584,7 @@ SMODS.Tag({
     atlas = 'patches',
     pos = {x = 4, y = 4},
     discovered = false,
+    min_ante = 2,
     config = {type = 'immediate', cards = 5, dollars = 20},
     artist_credits = {'no_demo'},
     loc_vars = function(self, info_queue, card)
@@ -722,6 +723,7 @@ SMODS.Tag({
     atlas = 'patches',
     pos = {x = 4, y = 1},
     discovered = false,
+    min_ante = 2,
     config = {type = 'immediate', tags = 3},
     artist_credits = {'5381','kosze'},
     loc_vars = function(self, info_queue, card)
@@ -730,6 +732,10 @@ SMODS.Tag({
     apply = function(self, tag, context)
         if context.type == tag.config.type then
             tag:yep('+', G.C.GREEN,function()
+                if G.blind_select and not G.blind_select.alignment.offset.py then
+                    G.blind_select.alignment.offset.py = G.blind_select.alignment.offset.y
+                    G.blind_select.alignment.offset.y = G.ROOM.T.y + 39
+                end
                 local pool = get_current_pool('Tag')
                 local final_pool = {}
                 for _, v in ipairs(pool) do
@@ -766,6 +772,17 @@ SMODS.Tag({
                         return true
                     end
                     }))
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'after',
+                    delay = 0.5,
+                    func = function()
+                        if G.blind_select then
+                            G.blind_select.alignment.offset.y = G.blind_select.alignment.offset.py
+                            G.blind_select.alignment.offset.py = nil
+                        end                  
+                        return true
+                    end
+                }))
                 return true
             end)
             return true
