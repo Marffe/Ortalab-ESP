@@ -605,7 +605,7 @@ SMODS.Blind({
     pos = {x = 0, y = 15},
     dollars = 5,
     mult = 2,
-    boss = {min = 1, max = 10},
+    boss = {min = 2, max = 10},
     boss_colour = HEX('575757'),
     artist_credits = {'flare'},
     config = {played_ranks = {}},
