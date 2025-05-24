@@ -168,6 +168,11 @@ return {
 					'RowanBoi'
 				}
 			},
+			cejai = {
+				text = {
+					"sagaciousCejai"
+				}
+			},
 			['eremel'] = {
 				["text"] = {
 					"Eremel_",

@@ -479,7 +479,7 @@ SMODS.Voucher({
 	unlocked = true,
 	discovered = false,
 	available = true,
-    artist_credits = {'no_demo'},
+    artist_credits = {'chvsau'},
 	redeem = function(self, card)
         G.GAME.ortalab.vouchers.mythos_shop_slot = true
         G:update_shop()

@@ -10,7 +10,7 @@ SMODS.Joker({
     eternal_compat = true,
     perishable_compat = true,
     config = {extra = {rank = nil, primed = nil}},
-    artist_credits = {'no_demo'},
+    artist_credits = {'cejai'},
     loc_vars = function(self, info_queue, card)
         return {vars = {card.ability.extra.rank and localize(card.ability.extra.rank, 'ranks') or localize('ortalab_rank')}}
     end,
