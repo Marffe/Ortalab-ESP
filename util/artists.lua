@@ -57,9 +57,9 @@ function info_tip_from_rows(desc_nodes, name)
     end
 end
 
-local card_h_popup_ortalab = G.UIDEF.card_h_popup
+local ortalab_card_h_popup_ortalab = G.UIDEF.card_h_popup
 function G.UIDEF.card_h_popup(card)
-    local ret_val = card_h_popup_ortalab(card)
+    local ret_val = ortalab_card_h_popup_ortalab(card)
     local AUT = card.ability_UIBox_table
     local obj = card.config.center or (card.config.tag and G.P_TAGS[card.config.tag.key])
     if AUT.mythos then
@@ -100,11 +100,11 @@ function G.UIDEF.card_h_popup(card)
     return ret_val
 end
 
-local create_mod_badges_ortalab = SMODS.create_mod_badges
+local ortalab_create_mod_badges_ortalab = SMODS.create_mod_badges
 function SMODS.create_mod_badges(obj, badges)
     if not SMODS.config.no_mod_badges and obj and obj.mod and obj.mod.display_name and not obj.no_mod_badges then
         if obj.mod.id == 'ortalab' and Ortalab.config.reduced_mod_badge then return end
-        create_mod_badges_ortalab(obj, badges)
+        ortalab_create_mod_badges_ortalab(obj, badges)
     end
 end
 
@@ -155,9 +155,9 @@ function artist_node(artists, first_string)
     return artist_node
 end
 
-local old_blind_popup = create_UIBox_blind_popup
+local ortalab_old_blind_popup = create_UIBox_blind_popup
 function create_UIBox_blind_popup(blind, discovered, vars)
-    local popup = old_blind_popup(blind, discovered, vars)
+    local popup = ortalab_old_blind_popup(blind, discovered, vars)
     popup.config.colour = darken(G.C.BLACK, 0.1)
     popup.config.align = 'cm'
     if blind.mod then
@@ -197,3 +197,40 @@ function create_UIBox_blind_popup(blind, discovered, vars)
     }
     return popup
   end 
+
+local ortalab_blind_choice_uibox = create_UIBox_blind_choice
+function create_UIBox_blind_choice(type, run_info)
+    local box = ortalab_blind_choice_uibox(type, run_info)
+    local blind = G.P_BLINDS[G.GAME.round_resets.blind_choices[type]]
+    if blind.mod then
+        local badges = {}
+        
+        SMODS.create_mod_badges(blind, badges)
+        for i=1, #badges do
+            table.insert(box.nodes[1].nodes[2].nodes, badges[i])
+        end
+        if blind.mod.id == 'ortalab' and Ortalab.config.reduced_mod_badge then
+            local badge = {n=G.UIT.R, config = {align = 'tm'}, nodes = {
+                {n=G.UIT.T, config={
+                  text = "Added by ",
+                  shadow = true,
+                  colour = G.C.UI.BACKGROUND_WHITE,
+                  scale = 0.27}},
+                  {n=G.UIT.O, config={
+                    object = DynaText({string = localize('ortalab'),
+                    colours = {G.ARGS.LOC_COLOURS.Ortalab},
+                    bump = true,
+                    silent = true,
+                    pop_in = 0,
+                    pop_in_rate = 4,
+                    shadow = true,
+                    y_offset = -0.6,
+                    scale =  0.27
+                    })
+                }}
+            }}
+            table.insert(box.nodes[1].nodes[2].nodes, badge)
+        end
+    end
+    return box
+end

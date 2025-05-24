@@ -22,7 +22,7 @@ SMODS.Joker({
             if context.end_of_round and not context.individual and not context.repetition then
                 if G.GAME.blind.boss then
                     if card.ability.extra.money - card.ability.extra.money_loss <= 0 then
-                        Ortalab.remove_joker(card)
+                        SMODS.destroy_cards(card)
                         return {
                             message = localize('ortalab_empty'),
                             colour = G.C.RED

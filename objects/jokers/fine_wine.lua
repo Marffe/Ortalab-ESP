@@ -25,7 +25,7 @@ SMODS.Joker({
             end
             if context.end_of_round and not context.individual and not context.repetition then
                 if pseudorandom('fine_wine') < G.GAME.probabilities.normal/card.ability.extra.odds then
-                    Ortalab.remove_joker(card)
+                    SMODS.destroy_cards(card)
                     return {
                         message = localize('k_drank_ex')
                     }

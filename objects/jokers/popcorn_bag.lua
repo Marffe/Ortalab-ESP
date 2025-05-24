@@ -17,7 +17,7 @@ SMODS.Joker({
     calculate = function(self, card, context) --Popcorn Bag Logic
         if not context.blueprint and context.end_of_round and not context.individual and not context.repetition then
             if card.ability.extra.a_mult + card.ability.extra.a_mult_add > card.ability.extra.cap then
-                Ortalab.remove_joker(card)
+                SMODS.destroy_cards(card)
                 return {
                     message = localize('ortalab_explode'),
                     colour = G.C.RED

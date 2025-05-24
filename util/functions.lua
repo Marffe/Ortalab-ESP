@@ -1,3 +1,6 @@
+-- This file contains util functions that are used throughout the mod
+
+--- Returns whether a table contains a specific value
 function table.contains(table, element)
 	for _, value in pairs(table) do
 		if value == element then
@@ -7,6 +10,7 @@ function table.contains(table, element)
 	return false
 end
 
+-- Returns the size of any table
 function table.size(table)
     local size = 0
     for _,_ in pairs(table) do
@@ -15,6 +19,7 @@ function table.size(table)
     return size
 end
 
+-- Find a single rank that is contained within the current deck
 function Ortalab.rank_from_deck(seed)
 	local ranks = {}
 	local seed = seed or 'ortalab_rank_from_deck'
@@ -24,6 +29,7 @@ function Ortalab.rank_from_deck(seed)
 	return pseudorandom_element(ranks, pseudoseed(seed))
 end
 
+-- Count the number of cursed cards currently in the deck
 function Ortalab.curses_in_deck()
     local count = 0
     for _, card in pairs(G.playing_cards) do
@@ -32,12 +38,14 @@ function Ortalab.curses_in_deck()
     return count
 end
 
+-- Check whether a table of cards contains a certain
 function Ortalab.hand_contains_rank(hand, rank)
     for _, card in ipairs(hand) do
         if card.base.value == rank then return true end
     end
 end
 
+-- Initialise the game object and all necessary values for Ortalab
 local igo = Game.init_game_object
 function Game:init_game_object()
     local ret = igo(self)
@@ -80,8 +88,13 @@ function Game:init_game_object()
 	return ret
 end
 
-function Ortalab.reset_game_globals(new_run)
-    if new_run then return end
+-- Function called at the end of each round
+function Ortalab.reset_game_globals(first_pass)
+    if first_pass then
+		G.GAME.current_round["spectral_type_sold"] = {}
+		G.GAME.current_round["ortalab_free_rerolls"] = 0
+        return
+	end
     if G.GAME.ortalab.round_decay then
         local zodiac_joker = SMODS.find_card('j_ortalab_prediction_dice')
         for _, joker_card in pairs(zodiac_joker) do        
@@ -118,6 +131,7 @@ function Ortalab.reset_game_globals(new_run)
     end
 end
 
+-- Function modify the amount of joker slots with an animation
 function modify_joker_slot_count(amount)
     G.CONTROLLER.locks.no_space = true
     G.jokers.config.card_limit = G.jokers.config.card_limit + amount
@@ -146,10 +160,12 @@ function modify_joker_slot_count(amount)
     }))
 end
 
+-- Talisman compat jank
 to_big = to_big or function(x, y)
     return x
 end
 
+-- Check whether a card is a numbered card
 function Card:is_numbered(from_boss)
     if self.debuff and not from_boss then return end
     local id = self:get_id()
@@ -160,6 +176,7 @@ function Card:is_numbered(from_boss)
     end
 end
 
+-- Get a new small blind
 function get_new_small(current)
     if G.GAME.ortalab.finisher_ante and G.GAME.round_resets.ante == G.GAME.win_ante then
         return get_new_boss()
@@ -203,6 +220,7 @@ function get_new_small(current)
     return boss
 end
 
+-- Get a new big blind
 function get_new_big(current)
     if G.GAME.ortalab.finisher_ante and G.GAME.round_resets.ante == G.GAME.win_ante then
         return get_new_boss()
@@ -246,18 +264,6 @@ function get_new_big(current)
     return boss
 end
 
-function Ortalab.change_hand_size(amount)
-    G.GAME.ortalab.hand_size = G.GAME.ortalab.hand_size + amount
-    G.hand:change_size(amount)
-end
-
-local end_round_ref = end_round
-function end_round()
-    end_round_ref()
-    G.hand:change_size(-1 * G.GAME.ortalab.hand_size)
-    G.GAME.ortalab.hand_size = 0
-end
-
 -- Hook to allow cards that become no rank to score properly
 local chip_bonus = Card.get_chip_bonus
 function Card:get_chip_bonus()
@@ -265,6 +271,7 @@ function Card:get_chip_bonus()
     return chip_bonus(self)
 end
 
+-- Util function to allow cards to change suit for calculations but animation properly
 function Ortalab.change_suit_no_anim(card, suit)
     local change = suit and card.base.suit ~= suit
     card.base.suit = suit
@@ -272,7 +279,7 @@ function Ortalab.change_suit_no_anim(card, suit)
         local scaling_joker = SMODS.find_card('j_ortalab_mill')
         for _, card in pairs(scaling_joker) do        
             card.ability.extra.xmult = card.ability.extra.xmult + card.ability.extra.gain
-            card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize{type = 'variable', key = 'a_xmult', vars = {card.ability.extra.xmult}}})
+            SMODS.calculate_effect({message = localize{type = 'variable', key = 'a_xmult', vars = {card.ability.extra.xmult}}}, card)
         end
     end
 end

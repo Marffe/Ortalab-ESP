@@ -28,7 +28,7 @@ SMODS.Joker({
         end
         if context.after and not context.blueprint then
             if card.ability.extra.limit == card.ability.extra.chips then
-                Ortalab.remove_joker(card)
+                SMODS.destroy_cards(card)
                 return {
                     message = localize('k_eaten_ex'),
                 }

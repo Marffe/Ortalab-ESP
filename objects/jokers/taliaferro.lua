@@ -18,7 +18,7 @@ SMODS.Joker({
     calculate = function(self, card, context) --Taliaferro Logic NOTE: MUST ADD POOL FLAGS
         if context.end_of_round and not context.blueprint and not context.repetition and not context.individual then
             if pseudorandom('taliaferro') < G.GAME.probabilities.normal/card.ability.extra.odds then
-                Ortalab.remove_joker(card)
+                SMODS.destroy_cards(card)
                 G.GAME.pool_flags.taliaferro_extinct = true
                 return {
                     message = localize('k_extinct_ex')

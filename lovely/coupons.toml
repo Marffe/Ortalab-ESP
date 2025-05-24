@@ -219,7 +219,7 @@ local alt_button
 if type == 'Boss' and G.GAME.ortalab.alt_boss then
     local alt_blind = G.P_BLINDS[G.GAME.ortalab.alt_boss]
     local alt_blind_name = localize{type = 'name_text', key = alt_blind.key, set = 'Blind'}
-    local alt_blind_col = alt_blind.boss_colour
+    local alt_blind_col = get_blind_main_colour(G.GAME.ortalab.alt_boss)
     alt_button = {n=G.UIT.R, config={align = "cm", r = 0.1, outline = 1, outline_colour = alt_blind_col, colour = darken(alt_blind_col, 0.6), maxw = 2.4, emboss = 0.1, padding = 0.07, line_emboss = 0.8, button = 'swap_blind', type = type}, nodes={
             {n=G.UIT.O, config={object = DynaText({string = alt_blind_name, colours = {G.C.UI.TEXT_INACTIVE}, shadow = not disabled, float = false, y_offset = -4, scale = 0.35, maxw =2.2})}},
         }}
@@ -227,14 +227,14 @@ elseif G.GAME.ortalab.double_blind then
     if type == 'Small' then
         local alt_small = G.P_BLINDS[G.GAME.ortalab.alt_small]
         local alt_small_name = localize{type = 'name_text', key = alt_small.key, set = 'Blind'}
-        local alt_small_col = (G.GAME.round_resets.blind_states[type] == 'Defeated' or G.GAME.round_resets.blind_states[type] == 'Skipped') and G.C.BLACK or alt_small.boss_colour
+        local alt_small_col = (G.GAME.round_resets.blind_states[type] == 'Defeated' or G.GAME.round_resets.blind_states[type] == 'Skipped') and G.C.BLACK or get_blind_main_colour(G.GAME.ortalab.alt_small)
         alt_button = {n=G.UIT.R, config={align = "cm", r = 0.1, outline = 1, outline_colour = alt_small_col, colour = darken(alt_small_col, 0.6), maxw = 2.4, emboss = 0.1, padding = 0.07, line_emboss = 0.8, button = 'swap_blind', type = type}, nodes={
                 {n=G.UIT.O, config={object = DynaText({string = alt_small_name, colours = {G.C.UI.TEXT_INACTIVE}, shadow = not disabled, float = false, y_offset = -4, scale = 0.35, maxw =2.2})}},
             }}
     elseif type == 'Big' then
         local alt_small = G.P_BLINDS[G.GAME.ortalab.alt_big]
         local alt_small_name = localize{type = 'name_text', key = alt_small.key, set = 'Blind'}
-        local alt_small_col = (G.GAME.round_resets.blind_states[type] == 'Defeated' or G.GAME.round_resets.blind_states[type] == 'Skipped') and G.C.BLACK or alt_small.boss_colour
+        local alt_small_col = (G.GAME.round_resets.blind_states[type] == 'Defeated' or G.GAME.round_resets.blind_states[type] == 'Skipped') and G.C.BLACK or get_blind_main_colour(G.GAME.ortalab.alt_big)
         alt_button = {n=G.UIT.R, config={align = "cm", r = 0.1, outline = 1, outline_colour = alt_small_col, colour = darken(alt_small_col, 0.6), maxw = 2.4, emboss = 0.1, padding = 0.07, line_emboss = 0.8, button = 'swap_blind', type = type}, nodes={
                 {n=G.UIT.O, config={object = DynaText({string = alt_small_name, colours = {G.C.UI.TEXT_INACTIVE}, shadow = not disabled, float = false, y_offset = -4, scale = 0.35, maxw =2.2})}},
             }}

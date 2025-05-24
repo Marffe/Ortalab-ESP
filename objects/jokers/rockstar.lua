@@ -16,8 +16,15 @@ SMODS.Joker({
     end,
     calculate = function(self, card, context)
         if context.setting_blind then
-            Ortalab.change_hand_size(-card.ability.extra.hand_size)
+            G.hand:change_size(-card.ability.extra.hand_size)
+            G.GAME.ortalab.hand_size = G.GAME.ortalab.hand_size + card.ability.extra.hand_size
             ease_hands_played(card.ability.extra.hands)
+            return nil, true
+        end
+        if context.end_of_round and context.main_eval then
+            G.hand:change_size(G.GAME.ortalab.hand_size)
+            G.GAME.ortalab.hand_size = 0
+            return nil, true
         end
     end
 })

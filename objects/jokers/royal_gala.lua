@@ -18,7 +18,7 @@ SMODS.Joker({
     calculate = function(self, card, context) --Royal Gala Logic
         if context.end_of_round and not context.blueprint and not context.repetition and not context.individual then
             if pseudorandom('royalgala') < G.GAME.probabilities.normal/card.ability.extra.odds then
-                Ortalab.remove_joker(card)
+                SMODS.destroy_cards(card)
                 return {
                     message = localize('k_extinct_ex')
                 }
