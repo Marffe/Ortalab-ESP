@@ -164,7 +164,7 @@ pattern = '''
 if G.GAME.round_resets.ante == G.GAME.win_ante and G.GAME.blind:get_type() == 'Boss' then
 '''
 payload = '''
-if G.GAME.round_resets.ante == G.GAME.win_ante and G.GAME.blind:get_type() == 'Boss' and G.GAME.round_resets.blind_states.Boss == 'Defeated' then
+if G.GAME.round_resets.ante == G.GAME.win_ante and G.GAME.blind:get_type() == 'Boss' and G.GAME.round_resets.blind_states.Boss == 'Current' then
 '''
 
 # Don't increase ante after first blind
@@ -177,7 +177,7 @@ pattern = '''
 if G.GAME.blind:get_type() == 'Boss' then
 '''
 payload = '''
-if G.GAME.blind:get_type() == 'Boss' and G.GAME.round_resets.blind_states.Boss == 'Defeated' then
+if G.GAME.blind:get_type() == 'Boss' and G.GAME.round_resets.blind_states.Boss == 'Current' then
 '''
 
 
