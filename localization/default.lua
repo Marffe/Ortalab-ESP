@@ -805,7 +805,7 @@ return {
 					'Gain {C:white,X:red}X#1#{} Mult for', 
 					'each scored {C:attention}#3#',
 					'this round',
-					'{C:inactive}Currently {C:white,X:red}X#2#{C:inactive} Mult)'
+					'{C:inactive}(Currently {C:white,X:red}X#2#{C:inactive} Mult)'
 				}
 			},
 			['j_ortalab_honest'] = {
@@ -1083,7 +1083,7 @@ return {
 				text = {
 					'Gain {C:white,X:red}X#1#{} Mult for each',
 					'{C:money}$1{} of sell value of all',
-					'other {C:attention}Jokers{} and {C:attention}consumables',
+					'{C:attention}Jokers{} with {C:dark_edition}Editions',
 					'{C:inactive}(Currently {X:red,C:white}X#2#{C:inactive} Mult)'
 				}
 			},

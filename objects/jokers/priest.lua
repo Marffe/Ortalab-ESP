@@ -16,7 +16,7 @@ SMODS.Joker({
         if G.jokers then
             for i=1, #G.jokers.cards + #G.consumeables.cards do
                 local _card = G.jokers.cards[i] or G.consumeables.cards[i - #G.jokers.cards]
-                if _card ~= card then
+                if _card.edition and _card.ability.set == 'Joker' then
                     current_xmult = current_xmult + (_card.sell_cost * card.ability.extra.gain)
                 end
             end
@@ -28,7 +28,7 @@ SMODS.Joker({
             local current_xmult = 1
             for i=1, #G.jokers.cards + #G.consumeables.cards do
                 local _card = G.jokers.cards[i] or G.consumeables.cards[i - #G.jokers.cards]
-                if _card ~= card then
+                if _card.edition and _card.ability.set == 'Joker' then
                     current_xmult = current_xmult + (_card.sell_cost * card.ability.extra.gain)
                 end
             end
