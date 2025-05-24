@@ -3033,7 +3033,7 @@ return {
 			['bl_ortalab_hearth'] = {
 				name = 'The Hearth',
 				text = {
-					'Cards not played this',
+					'Ranks not played this',
 					'Ante are drawn',
 					'face down'
 				}

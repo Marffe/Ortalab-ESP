@@ -608,8 +608,16 @@ SMODS.Blind({
     boss = {min = 1, max = 10},
     boss_colour = HEX('575757'),
     artist_credits = {'flare'},
+    config = {played_ranks = {}},
+    set_blind = function(self)
+        for _,card in pairs(G.playing_cards) do
+            if card.ability.played_this_ante then
+                self.config.played_ranks[card.base.id] = true
+            end
+        end
+    end,
     stay_flipped = function(self, area, card)
-        if not card.ability.played_this_ante and area == G.hand then return true end
+        if not self.config.played_ranks[card.base.id] and area == G.hand then return true end
     end,
     disable = function(self)
         for i = 1, #G.hand.cards do
