@@ -401,6 +401,7 @@ SMODS.Tag({
     artist_credits = {'kosze'},
     loc_vars = function(self, info_queue, card)
         if card.ability.zodiac_hands and G.ZODIACS[card.ability.zodiac_hands[1]] then
+            info_queue[#info_queue+1] = {generate_ui = zodiac_tooltip, key = card.ability.zodiac_hands[1]}
             return {vars = {
                 localize(G.ZODIACS[card.ability.zodiac_hands[1]].config.extra.hand_type, 'poker_hands'), card.config and card.config.extra and card.config.extra.zodiacs or card.ability.extra.zodiacs
             }}
@@ -471,7 +472,10 @@ SMODS.Tag({
                         it = it + 1
                         voucher = pseudorandom_element(_pool, pseudoseed('ortalab_stock_patch_resample'..it))
                     end
-
+                    if G.blind_select and not G.blind_select.alignment.offset.py then
+                        G.blind_select.alignment.offset.py = G.blind_select.alignment.offset.y
+                        G.blind_select.alignment.offset.y = G.ROOM.T.y + 39
+                    end
                     G.E_MANAGER:add_event(Event({
                         trigger = 'after',
                         delay = 0.5,
@@ -487,7 +491,18 @@ SMODS.Tag({
                                 trigger = 'after',
                                 delay = 0.5,
                                 func = function()
-                                    voucher_card:start_dissolve()                
+                                    voucher_card:start_dissolve()              
+                                    return true
+                                end
+                            }))
+                            G.E_MANAGER:add_event(Event({
+                                trigger = 'after',
+                                delay = 0.5,
+                                func = function()
+                                    if G.blind_select then
+                                        G.blind_select.alignment.offset.y = G.blind_select.alignment.offset.py
+                                        G.blind_select.alignment.offset.py = nil
+                                    end                  
                                     return true
                                 end
                             }))
@@ -577,6 +592,10 @@ SMODS.Tag({
     apply = function(self, tag, context)
         if context.type == self.config.type then
             tag:yep('+', G.C.GREEN,function()
+                if G.blind_select and not G.blind_select.alignment.offset.py then
+                    G.blind_select.alignment.offset.py = G.blind_select.alignment.offset.y
+                    G.blind_select.alignment.offset.y = G.ROOM.T.y + 39
+                end
                 local destroyed = {}
                 local start_point = pseudorandom(pseudoseed('ortalab_immolate_patch'), 1, #G.deck.cards)
                 for i=1, tag.config.cards do
@@ -609,6 +628,17 @@ SMODS.Tag({
                     end }))
                 end
                 SMODS.calculate_context({ remove_playing_cards = true, removed = destroyed })
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'after',
+                    delay = 0.5,
+                    func = function()
+                        if G.blind_select then
+                            G.blind_select.alignment.offset.y = G.blind_select.alignment.offset.py
+                            G.blind_select.alignment.offset.py = nil
+                        end                  
+                        return true
+                    end
+                }))
                 return true
             end)
             return true

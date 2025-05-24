@@ -1,5 +1,8 @@
 return {
 	["misc"] = {
+		poker_hands = {
+			Any = "Hand"
+		},
 		["dictionary"] = {
 			['ortalab_config_artists_pos'] = 'Artist Credits',
 			['ortalab_config_artists_pos_desc'] = {
@@ -796,6 +799,7 @@ return {
 				text = {
 					'Gain {C:white,X:red}X#1#{} Mult for', 
 					'each scored {C:attention}#3#',
+					'this round',
 					'{C:inactive}Currently {C:white,X:red}X#2#{C:inactive} Mult)'
 				}
 			},
@@ -3265,9 +3269,9 @@ return {
 			c_ortalab_tree_of_life = {
 				name = 'Tree of Life',
 				text = {
-					'Apply {C:attention}Perishable{} to', 
-					'#2# random {C:attention}Jokers',
-					'{C:dark_edition}+#1#{} Joker slot'
+					{'{C:dark_edition}+#1#{} Joker slot',},
+					{'Apply {C:attention}Perishable{} to', 
+					'#2# random {C:attention}Jokers',}
 				},
 			},
 			c_ortalab_pandora = {

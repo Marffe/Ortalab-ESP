@@ -1269,6 +1269,7 @@ SMODS.Consumable({
     config = {extra = {select = 2, curse = 'ortalab_corroded', method = 'c_ortalab_mult_random_deck', cards = 4, zodiac = 'zodiac_ortalab_ophiuchus'}},
     artist_credits = {'gappie'},
     loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue+1] = {generate_ui = zodiac_tooltip, key = self.config.extra.zodiac}
         return {vars = {card.ability.extra.cards}}
     end,
     can_use = function(self, card)
