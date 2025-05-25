@@ -130,11 +130,9 @@ target = '=[SMODS _ "src/utils.lua"]'
 match_indent = true
 position = 'after'
 pattern = '''
-if key ~= 'smods' then
-    if type(effect) == 'table' then
-        local calc = SMODS.calculate_effect(effect, effect.scored_card or card, key == 'edition')
-        for k,v in pairs(calc) do ret[k] = v end
-    end
+if key ~= 'smods' and type(effect) == 'table' then
+    local calc = SMODS.calculate_effect(effect, effect.scored_card or card, key == 'edition')
+    for k, v in pairs(calc) do ret[k] = v end
 end
 '''
 payload = '''
