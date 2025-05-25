@@ -1595,8 +1595,8 @@ return {
 				["name"] = "The Tree",
 				["text"] = {
 					"Turn {C:attention}#1#{} selected",
-                    "cards into a suit",
-					"other than {V:1}#2#"
+                    "cards into {V:1}#2#",
+					"or {V:2}#3#"
 				},
 			},
             ["c_ortalab_lot_siren"] = {
@@ -1638,9 +1638,9 @@ return {
             ["c_ortalab_lot_parrot"] = {
 				["name"] = "The Parrot",
 				["text"] = {
-					"Turn {C:attention}#1#{} selected",
-                    "cards into a suit",
-					"other than {V:1}#2#"
+					"Swap the suits of",
+					"up to {C:attention}#1#{} selected",
+					"{V:1}#2#{} or {V:2}#3#{}"
 				},
 			},
             ["c_ortalab_lot_ladder"] = {
@@ -1664,8 +1664,8 @@ return {
 				["name"] = "The Heart",
 				["text"] = {
 					"Turn {C:attention}#1#{} selected",
-                    "cards into a suit",
-					"other than {V:1}#2#"
+                    "cards into {V:1}#2#",
+					"or {V:2}#3#"
 				},
 			},
             ["c_ortalab_lot_harp"] = {
@@ -1738,9 +1738,9 @@ return {
 			["c_ortalab_lot_boot"] = {
 				["name"] = "The Boot",
 				["text"] = {
-					"Turn {C:attention}#1#{} selected",
-                    "cards into a suit",
-					"other than {V:1}#2#"
+					"Swap the suits of",
+					"up to {C:attention}#1#{} selected",
+					"{V:1}#2#{} or {V:2}#3#{}"
 				},
 			},
         },
