@@ -498,7 +498,7 @@ return {
 				name = 'Collector\'s Edition',
 				text = {
 					'On first {C:red}discard{} of round,',
-					'{C:red}destroy{} a discard card and give',
+					'{C:red}destroy{} a discarded card and give',
 					'it\'s {C:attention}enhancement{}, {C:attention}seal{} or {C:dark_edition}edition',
 					'to the {C:attention}left-most{} card in hand'
 				}
