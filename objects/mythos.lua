@@ -142,7 +142,7 @@ SMODS.Consumable({
         end
         local unperish = 0
         for _, joker in pairs(G.jokers.cards) do
-            if not joker.ability.perishable and joker.config.center.perishable_compat then unperish = unperish + 1 end
+            if not joker.ability.perishable then unperish = unperish + 1 end
         end
         if uncursed_cards >= math.min(G.hand.config.card_limit, card.ability.extra.select + G.GAME.ortalab.mythos.extra_select) and unperish >= card.ability.extra.perish_count + G.GAME.ortalab.mythos.tree_of_life_count then
             return true
@@ -183,7 +183,7 @@ SMODS.Consumable({
         -- Add Perishable to 2 jokers
         local available_jokers = {}    
         for _, joker in pairs(G.jokers.cards) do
-            if not joker.ability.perishable and joker.config.center.perishable_compat then
+            if not joker.ability.perishable then
                 available_jokers[#available_jokers + 1] = joker
             end
         end
