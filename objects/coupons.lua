@@ -535,7 +535,7 @@ SMODS.Voucher({
     config = {extra = {active = true}},
     artist_credits = {'no_demo'},
     redeem = function(self, card)
-        if next(G.shop_booster.cards) then
+        if G.shop_booster and next(G.shop_booster.cards) then
             for _, booster in pairs(G.shop_booster.cards) do
                 create_shop_card_ui(booster)
             end
