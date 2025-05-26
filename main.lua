@@ -86,3 +86,10 @@ if (SMODS.Mods['malverk'] or {}).can_load then
         }
     }
 end
+
+Ortalab.ui_config = {
+    colour = G.C.L_GREY,
+    outline_colour = G.ARGS.LOC_COLOURS.Ortalab,
+    tab_button_colour = G.ARGS.LOC_COLOURS.Zodiac,
+    author_bg_colour = G.ARGS.LOC_COLOURS.Ortalab
+}
