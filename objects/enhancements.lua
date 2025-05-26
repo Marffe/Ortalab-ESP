@@ -131,7 +131,7 @@ SMODS.Enhancement({
                 trigger = 'immediate',
                 func = function()
                     card_eval_status_text(card, 'extra', nil, nil, nil, {message = 'Crumble', colour = G.C.GOLD, instant = true})
-                    if card.ability.extra.x_mult < 1 then
+                    if card.ability.extra.x_mult and card.ability.extra.x_mult < 1 then
                         card:start_dissolve()
                     end
                     card.particles = Particles(1, 1, 0,0, {
