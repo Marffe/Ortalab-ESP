@@ -278,9 +278,10 @@ SMODS.Enhancement({
     end,
     calculate = function(self, card, context)
         if context.cardarea == G.play and context.main_scoring then
+            local ret = {}
             if pseudorandom('moldy_discards') > G.GAME.probabilities.normal * (card.ability.extra.discard_chance - 1) / card.ability.extra.discard_chance then
                 ease_discard(card.ability.extra.discards)
-                return {
+                ret = {
                     message = localize('ortalab_moldy_discard'),
                     colour = G.C.RED,
                     chips = card.ability.extra.chips
@@ -303,11 +304,19 @@ SMODS.Enhancement({
                         return true
                     end)
                 }))
-                return {
-                    message = localize('ortalab_moldy_tag'),
-                    colour = G.C.BLUE
-                }
+                if next(ret) then
+                    ret.extra = {
+                        message = localize('ortalab_moldy_tag'),
+                        colour = G.C.BLUE
+                    }
+                else
+                    ret = {
+                        message = localize('ortalab_moldy_tag'),
+                        colour = G.C.BLUE
+                    }
+                end 
             end
+            return ret
         end
     end
 })
