@@ -9,7 +9,7 @@ SMODS.Joker({
 	blueprint_compat = true,
 	eternal_compat = true,
 	perishable_compat = true,
-	config = {extra = {chips = 80, hand_type = 'Two Pair'}},
+	config = {extra = {chips = 65, hand_type = 'Two Pair'}},
 	artist_credits = {'crimson'},
 	loc_vars = function(self, info_queue, card)
 		return {vars = {card.ability.extra.chips, localize(card.ability.extra.hand_type, 'poker_hands')}}

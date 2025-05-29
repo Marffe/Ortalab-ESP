@@ -9,7 +9,7 @@ SMODS.Joker({
     blueprint_compat = true,
     eternal_compat = true,
     perishable_compat = true,
-    config = {extra = {chips = 75, cards = 3}},
+    config = {extra = {chips = 70, cards = 3}},
     artist_credits = {'crimson'},
     pixel_size = {h = 55},
     loc_vars = function(self, info_queue, card)
