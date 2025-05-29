@@ -21,7 +21,7 @@ SMODS.Joker({
             }
         end
         if context.individual and context.cardarea == G.play then
-            if context.other_card:get_id() == 10 then
+            if context.other_card:get_id() == 14 then
                 card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.gain
                 return {
                     message = localize('k_upgrade_ex'),
