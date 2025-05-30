@@ -104,7 +104,7 @@ SMODS.Voucher({
         end }))
     end,
     loc_vars = function(self, info_queue, card)
-        return {vars = {card.ability.extra.free_rerolls}}
+        return {vars = {card.ability.extra.free_rerolls + 1}}
     end,
 })
 

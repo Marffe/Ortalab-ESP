@@ -9,10 +9,10 @@ SMODS.Joker({
     blueprint_compat = true,
     eternal_compat = true,
     perishable_compat = false,
-    config = {extra = {mult = 4, gain = 2}},
+    config = {extra = {mult = 4, gain = 2, rank = "Ace"}},
     artist_credits = {'kosze'},
     loc_vars = function(self, info_queue, card)
-        return {vars = {card.ability.extra.gain, card.ability.extra.mult}}
+        return {vars = {card.ability.extra.gain, card.ability.extra.mult, localize(card.ability.extra.rank, 'ranks')}}
     end,
     calculate = function(self, card, context)
         if context.joker_main then
@@ -21,7 +21,7 @@ SMODS.Joker({
             }
         end
         if context.individual and context.cardarea == G.play then
-            if context.other_card:get_id() == 14 then
+            if context.other_card.base.value == card.ability.extra.rank then
                 card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.gain
                 return {
                     message = localize('k_upgrade_ex'),

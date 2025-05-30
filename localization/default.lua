@@ -1523,7 +1523,7 @@ return {
 				name = 'Wide Joker',
 				text = {
 					'Gains {C:red}+#1#{} Mult when',
-					'each played {C:attention}Ace{} is scored',
+					'each played {C:attention}#1#{} is scored',
 					'{C:inactive}(Currently {C:red}+#2#{C:inactive} Mult)'
 				}
 			},
@@ -2452,7 +2452,7 @@ return {
 			['v_ortalab_infinite_scroll'] = {
 				["name"] = "Infinite Scroll",
 				["text"] = {
-					"The first {C:attention}+#3#{} {C:green}rerolls{} each",
+					"The first {C:attention}#1#{} {C:green}rerolls{} each",
 					"shop are {C:attention}free{}", 
 				}
 			},
@@ -2517,16 +2517,16 @@ return {
 				name = 'Pulse Wave',
 				text = {
 					'{C:dark_edition}Editions{} on {C:attention}Jokers',
-					'that give {C:attention}Money{} or {C:red}Score{}',
-					'trigger {C:attention}Twice{}',
+					'that give {C:money}money{} or {C:red}score{}',
+					'trigger {C:attention}twice{}',
 				}
 			},
 			v_ortalab_energy_surge = {
 				name = 'Energy Surge',
 				text = {
 					'{C:dark_edition}Editions{} on {C:attention}Jokers',
-					'that give {C:attention}Mult{} or {C:money}Score{}',
-					'trigger {C:attention}Four Times{}',
+					'that give {C:money}money{} or {C:red}score{}',
+					'trigger {C:attention}4 times{}',
 				}
 			},
 			v_ortalab_one_mans_trash = {
