@@ -1523,7 +1523,7 @@ return {
 				name = 'Wide Joker',
 				text = {
 					'Gains {C:red}+#1#{} Mult when',
-					'each played {C:attention}#1#{} is scored',
+					'each played {C:attention}#3#{} is scored',
 					'{C:inactive}(Currently {C:red}+#2#{C:inactive} Mult)'
 				}
 			},
