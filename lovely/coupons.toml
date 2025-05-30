@@ -437,8 +437,13 @@ if G.load_shop_ortalab_mythos then
     end
     G.load_shop_ortalab_mythos = nil
 elseif G.GAME.ortalab.vouchers.mythos_shop_slot then
+    local mythos_pool = get_current_pool('Mythos')
+    local selection = pseudorandom_element(mythos_pool, pseudoseed('ortalab_mythos_shop'))
+    while selection == "UNAVAILABLE" do
+        selection = pseudorandom_element(mythos_pool, pseudoseed('ortalab_mythos_shop_re'))
+    end
     local card = Card(G.shop_ortalab_mythos.T.x + G.shop_ortalab_mythos.T.w/2,
-    G.shop_ortalab_mythos.T.y, G.CARD_W, G.CARD_H, G.P_CARDS.empty, G.P_CENTERS[pseudorandom_element(get_current_pool('Mythos'), pseudoseed('ortalab_mythos_shop'))], {bypass_discovery_center = true, bypass_discovery_ui = true})
+    G.shop_ortalab_mythos.T.y, G.CARD_W, G.CARD_H, G.P_CARDS.empty, G.P_CENTERS[selection], {bypass_discovery_center = true, bypass_discovery_ui = true})
     create_shop_card_ui(card)
     card:start_materialize()
     G.shop_ortalab_mythos:emplace(card)
