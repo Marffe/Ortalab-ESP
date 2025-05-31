@@ -254,6 +254,20 @@ pattern = '''draw_card(G.hand, G.discard, i*100/highlighted_count, 'down', false
 position = 'at'
 match_indent = true
 payload = '''
+if G.hand.highlighted[i].curse == 'ortalab_infected' then
+    G.E_MANAGER:add_event(Event({func = function()
+        local uncursed_hand_cards = {}
+        for _, card in ipairs(G.hand.cards) do
+            if not card.ability.curse then uncursed_hand_cards[#uncursed_hand_cards + 1] = card end
+        end
+        if #uncursed_hand_cards == 0 then return true end
+        local card_to_spread = pseudorandom_element(uncursed_hand_cards, pseudoseed('ortalab_infected_spread'))
+        card_to_spread:set_curse('ortalab_infected', nil, nil, true)
+        G.hand.highlighted[i]:set_curse()
+        return true
+    end}))
+end
+
 if G.hand.highlighted[i].corroded_discard or (G.GAME.blind.config.blind.key == 'bl_ortalab_oil' and not G.GAME.blind.disabled) then
     draw_card(G.hand, G.deck, i*100/highlighted_count, 'down', false, G.hand.highlighted[i])
     G.deck:shuffle()

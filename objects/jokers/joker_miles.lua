@@ -15,6 +15,13 @@ SMODS.Joker({
         return {vars = {card.ability.extra.mult_gain, card.ability.extra.mult, math.max(1, G.GAME.probabilities.normal), card.ability.extra.chance / math.min(G.GAME.probabilities.normal, 1)}}
     end,
     calculate = function(self, card, context)
+        if context.before then
+            card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_gain
+            return {
+                message = localize('ortalab_joker_miles'),
+                colour = G.C.RED
+            }
+        end
         if context.end_of_round and context.main_eval and not context.blueprint then
             if pseudorandom(pseudoseed('ortalab_joker_miles')) < G.GAME.probabilities.normal / card.ability.extra.chance then
                 card.ability.extra.mult = 0
@@ -23,11 +30,6 @@ SMODS.Joker({
                     colour = G.C.RED
                 }
             end
-            card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_gain
-            return {
-                message = localize('ortalab_joker_miles'),
-                colour = G.C.RED
-            }
         end
         if context.joker_main and card.ability.extra.mult > 0 then
             return {

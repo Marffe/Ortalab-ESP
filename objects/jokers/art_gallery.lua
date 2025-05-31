@@ -9,7 +9,7 @@ SMODS.Joker({
 	blueprint_compat = true,
 	eternal_compat = true,
 	perishable_compat = true,
-	config = {extra = {chips_add = 20}},
+	config = {extra = {chips_add = 15}},
 	artist_credits = {'flare'},
     loc_vars = function(self, info_queue, card)
 		local total_cards = (G.jokers and #G.jokers.cards or 0) + (G.consumeables and #G.consumeables.cards or 0)

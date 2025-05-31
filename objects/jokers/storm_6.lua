@@ -9,7 +9,7 @@ SMODS.Joker({
     blueprint_compat = true,
     eternal_compat = true,
     perishable_compat = true,
-    config = {extra = {mult = 4, dollars = 2}},
+    config = {extra = {mult = 6, dollars = 2}},
     artist_credits = {'kosze'},
     loc_vars = function(self, info_queue, card)
         local sixes = 0

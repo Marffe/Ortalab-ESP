@@ -17,14 +17,18 @@ SMODS.Joker({
     calculate = function(self, card, context)
         if context.open_booster and context.card.config.center.draw_hand then
             G.hand:change_size(card.ability.extra.hand_size)
+            card.ability.extra.triggered = true
             return {
-                message = '+8 hand size!'
+                message = '+8 hand size!',
+                no_retrigger = true
             }
         end
-        if (context.ending_booster or context.skipping_booster) and context.booster and context.booster.draw_hand then
+        if (context.ending_booster or context.skipping_booster) and context.booster and context.booster.draw_hand and card.ability.extra.triggered then
             G.hand:change_size(-card.ability.extra.hand_size)
+            card.ability.extra.triggered = false
             return {
-                message = '-8 hand size!'
+                message = '-8 hand size!',
+                no_retrigger = true
             }
         end
     end    
