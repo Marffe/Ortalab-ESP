@@ -10,7 +10,7 @@ SMODS.Joker({
 	eternal_compat = true,
 	perishable_compat = true,
 	config = {extra = {chance = 3, money = 2}},
-    artist_credits = {'kosze','salad'},
+    artist_credits = {'kosze','salad','gappie'},
 	loc_vars = function(self, info_queue, card)
         return {vars = {G.GAME.probabilities.normal, card.ability.extra.chance, card.ability.extra.money}}
     end,

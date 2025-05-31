@@ -10,7 +10,7 @@ SMODS.Joker({
 	eternal_compat = true,
 	perishable_compat = true,
 	config = {extra = 1},
-    artist_credits = {'flare'},
+    artist_credits = {'flare', 'gappie'},
     calculate = function(self, card, context) --Dawn Logic
         if context.first_hand_drawn then
             if not context.blueprint then

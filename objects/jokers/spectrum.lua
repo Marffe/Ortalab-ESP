@@ -10,7 +10,7 @@ SMODS.Joker({
 	eternal_compat = true,
 	perishable_compat = true,
 	config = {extra = {x_mult = 2, type = 'Flush'}},
-	artist_credits = {'coro','flare'},
+	artist_credits = {'gappie'},
 	loc_vars = function(self, info_queue, card)
         return {vars = {card.ability.extra.x_mult, localize(card.ability.extra.type, 'poker_hands')}}
     end,

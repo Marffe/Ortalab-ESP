@@ -495,7 +495,7 @@ SMODS.Voucher({
 	discovered = false,
 	available = false,
     requires = {'v_ortalab_fates_coin'},
-    artist_credits = {'no_demo'},
+    artist_credits = {'chvsau'},
 	redeem = function(self, card)
         if Ortalab.config.ortalab_only then
             G.GAME.mythos_rate = 1.2
