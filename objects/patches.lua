@@ -251,7 +251,7 @@ SMODS.Tag({
     config = {type = 'store_joker_create'},
     artist_credits = {'kosze'},
     in_pool = function(self)
-        local chance = pseudoseed('ortalab_soul_patch')
+        local chance = pseudorandom('ortalab_soul_patch')
         if chance < 0.25 then
             return true
         end

@@ -16,7 +16,7 @@ SMODS.Joker({
     end,
     calculate = function(self, card, context)
         if not context.end_of_round and context.individual and context.cardarea == G.hand and context.other_card:is_suit(card.ability.extra.suit) then
-			if pseudoseed('ortalab_mosquito') > (G.GAME.probabilities.normal * card.ability.extra.chance) / card.ability.extra.denom then
+			if pseudorandom('ortalab_mosquito') > (G.GAME.probabilities.normal * card.ability.extra.chance) / card.ability.extra.denom then
 				return {
 					card = card,
 					x_mult = card.ability.extra.xmult

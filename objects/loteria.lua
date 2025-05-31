@@ -1143,13 +1143,13 @@ function harp_randomise(new_card, card_1_info, card_2_info)
     Ortalab.harp_usage = true
     local weighting = 0.2
     assert(SMODS.change_base(new_card, pseudorandom_element({card_1_info.suit, card_2_info.suit}, pseudoseed('harp_suit')), pseudorandom_element({card_1_info.rank, card_2_info.rank}, pseudoseed('harp_rank'))))
-    local edition = pseudoseed('harp_edition') > (0.5 - (card_1_info.edition and weighting or 0) + (card_2_info.edition and weighting or 0)) and (card_1_info.edition or 'none') or (card_2_info.edition or 'none')
+    local edition = pseudorandom('harp_edition') > (0.5 - (card_1_info.edition and weighting or 0) + (card_2_info.edition and weighting or 0)) and (card_1_info.edition or 'none') or (card_2_info.edition or 'none')
     if edition ~= 'none' then new_card:set_edition(edition, true, true) else new_card:set_edition(nil, nil, true) end
-    local enhancement = pseudoseed('harp_enhancement') > (0.5 - (card_1_info.enhancement and weighting or 0) + (card_2_info.enhancement and weighting or 0)) and (card_1_info.enhancement or 'none') or (card_2_info.enhancement or 'none')
+    local enhancement = pseudorandom('harp_enhancement') > (0.5 - (card_1_info.enhancement and weighting or 0) + (card_2_info.enhancement and weighting or 0)) and (card_1_info.enhancement or 'none') or (card_2_info.enhancement or 'none')
     if enhancement ~= 'none' then new_card:set_ability(enhancement) else new_card:set_ability(G.P_CENTERS.c_base) end
-    local seal = pseudoseed('harp_seal') > (0.5 - (card_1_info.seal and weighting or 0) + (card_2_info.seal and weighting or 0)) and (card_1_info.seal or 'none') or (card_2_info.seal or 'none')
+    local seal = pseudorandom('harp_seal') > (0.5 - (card_1_info.seal and weighting or 0) + (card_2_info.seal and weighting or 0)) and (card_1_info.seal or 'none') or (card_2_info.seal or 'none')
     if seal ~= 'none' then new_card:set_seal(seal, true, true) else new_card:set_seal() end
-    local curse = pseudoseed('harp_curse') > 0.5 and (card_1_info.curse or 'none') or (card_2_info.curse or 'none')
+    local curse = pseudorandom('harp_curse') > 0.5 and (card_1_info.curse or 'none') or (card_2_info.curse or 'none')
     if curse ~= 'none' then new_card:set_curse(curse, true, true) else new_card:set_curse() end
     Ortalab.harp_usage = false
 end

@@ -16,7 +16,7 @@ SMODS.Joker({
 	end,
 	calculate = function(self, card, context)
         if context.cardarea == G.play and context.repetition then
-            if pseudoseed('ortalab_scantron') > (G.GAME.probabilities.normal * card.ability.extra.chance) / card.ability.extra.denom then
+            if pseudorandom('ortalab_scantron') > (G.GAME.probabilities.normal * card.ability.extra.chance) / card.ability.extra.denom then
                 return {
                     message = localize('k_again_ex'),
                     repetitions = card.ability.extra.repetitions,
