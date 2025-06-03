@@ -9,7 +9,7 @@ SMODS.Joker({
 	blueprint_compat = true,
 	eternal_compat = true,
 	perishable_compat = true,
-	config = {extra = {mult_per_card = 3}},
+	config = {extra = {mult_per_card = 4}},
 	artist_credits = {'gappie'},
 	loc_vars = function(self, info_queue, card)
         return {vars = {card.ability.extra.mult_per_card, math.max(0,card.ability.extra.mult_per_card*(G.playing_cards and (#G.playing_cards - G.GAME.starting_deck_size) or 0)), G.GAME.starting_deck_size}}
