@@ -499,10 +499,17 @@ SMODS.Tag({
                                 trigger = 'after',
                                 delay = 0.5,
                                 func = function()
-                                    if G.blind_select then
-                                        G.blind_select.alignment.offset.y = G.blind_select.alignment.offset.py
-                                        G.blind_select.alignment.offset.py = nil
-                                    end                  
+                                    G.E_MANAGER:add_event(Event({
+                                        trigger = 'after',
+                                        delay = 0.5,
+                                        func = function()
+                                            if G.blind_select and G.blind_select.alignment.offset.py then
+                                                G.blind_select.alignment.offset.y = G.blind_select.alignment.offset.py
+                                                G.blind_select.alignment.offset.py = nil
+                                            end                  
+                                            return true
+                                        end
+                                    }))                 
                                     return true
                                 end
                             }))
@@ -776,10 +783,17 @@ SMODS.Tag({
                     trigger = 'after',
                     delay = 0.5,
                     func = function()
-                        if G.blind_select then
-                            G.blind_select.alignment.offset.y = G.blind_select.alignment.offset.py
-                            G.blind_select.alignment.offset.py = nil
-                        end                  
+                        G.E_MANAGER:add_event(Event({
+                            trigger = 'after',
+                            delay = 0.5,
+                            func = function()
+                                if G.blind_select and G.blind_select.alignment.offset.py then
+                                    G.blind_select.alignment.offset.y = G.blind_select.alignment.offset.py
+                                    G.blind_select.alignment.offset.py = nil
+                                end                  
+                                return true
+                            end
+                        }))                  
                         return true
                     end
                 }))
