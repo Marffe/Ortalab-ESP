@@ -15,7 +15,7 @@ SMODS.Joker({
 		return {vars = {card.ability.extra.base_chips, card.ability.extra.modifier}}
 	end,
 	calculate = function(self, card, context)
-        if context.individual and context.cardarea == G.hand then
+        if context.individual and context.cardarea == G.hand and not context.end_of_round then
             local temp_Chips, temp_ID = 0, 0
             local open_palm_card = nil
             for i=1, #G.hand.cards do
