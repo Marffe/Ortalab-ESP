@@ -9,15 +9,18 @@ SMODS.Joker({
 	blueprint_compat = true,
 	eternal_compat = true,
 	perishable_compat = false,
-	config = {extra = {money = 20}},
+	config = {extra = {money = 20, cost = 1}},
 	artist_credits = {'gappie'},
 	loc_vars = function(self, info_queue, card)
-		return {vars = {card.ability.extra.money}}
+		return {vars = {card.ability.extra.money, card.ability.extra.cost}}
 	end,
 	add_to_deck = function(self, card, from_debuff)
         ease_dollars(card.ability.extra.money)
-        card.sell_cost = card.ability.extra.money * -1
-    end
+        card:set_cost()
+    end,
+	calc_dollar_bonus = function(self, card)
+		return -card.ability.extra.cost
+	end
 })
 
 local set_cost = Card.set_cost

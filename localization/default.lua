@@ -329,7 +329,7 @@ return {
 			['j_ortalab_artist_proof'] = {
 				["name"] = "Artist Proof",
 				["text"] = {
-					"Gain between {C:money}-$#1#",
+					"Gain between {C:red}-$#1#",
 					"and {C:money}$#2#{} when",
 					"{C:attention}Blind{} is selected"
 				}
@@ -353,8 +353,13 @@ return {
 			['j_ortalab_bank_loan'] = {
 				["name"] = "Bank Loan",
 				["text"] = {
-					"Gain {C:money}$#1#",
-					"Costs {C:red}$#1#{} to sell",
+					{
+						"Gain {C:money}$#1#",
+						"Costs {C:red}$#1#{} to sell"
+					},{
+						'Lose {C:red}$#2#{} at',
+						'end of round'
+					}
 				}
 			},
 			['j_ortalab_basalt_column'] = {
@@ -1736,7 +1741,7 @@ return {
 			["c_ortalab_lot_bonnet"] = {
 				["name"] = "The Bonnet",
 				["text"] = {
-					"Gain between {C:money}-$#1#",
+					"Gain between {C:red}-$#1#",
                     "and {C:money}$#2#",
 					"{C:inactive,s:0.8}Doubled if played with",
 					"{C:inactive,s:0.8}$#2# or more"
