@@ -465,7 +465,8 @@ return {
 			['j_ortalab_cardist'] = {
 				["name"] = "Cardist",
 				["text"] = {
-					"+#1# {C:blue}Hand"
+					"+#1# {C:blue}Hand{} when",
+					"{C:attention}Blind{} is selected"
 				}
 			},
 			['j_ortalab_chameleon'] = {
