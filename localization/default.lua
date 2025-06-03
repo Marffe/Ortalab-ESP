@@ -2079,7 +2079,7 @@ return {
                 }
             },
 			['tag_ortalab_minion'] = {
-                name = "Minion Patch",
+                name = "Shrink Patch",
                 text = {
                     "{C:attention}Halve{} the required",
                     "Chips of the next",
