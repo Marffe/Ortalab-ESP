@@ -9,28 +9,35 @@ SMODS.Joker({
     blueprint_compat = true,
     eternal_compat = true,
     perishable_compat = true,
-    config = {extra = {hands = {}, amount = 3}},
     artist_credits = {'no_demo'},
     loc_vars = function(self, info_queue, card)
-        return {vars = {card.ability.extra.amount, not card.ability.extra.hands.triggered and table.size(card.ability.extra.hands) .. '/' .. card.ability.extra.amount or localize('ortalab_crowd_pleaser_success'), localize(G.GAME.current_round.most_played_poker_hand, 'poker_hands')}}
+        local pokerhands = Ortalab.pokerhands_by_played()
+        return {vars = {localize(pokerhands[3].key, 'poker_hands')}}
     end,
     calculate = function(self, card, context)
-        if context.setting_blind then
-            card.ability.extra.hands = {}
-        end
-        if context.after and not card.ability.extra.hands.triggered then
-            card.ability.extra.hands[context.scoring_name] = true
-            if table.size(card.ability.extra.hands) == card.ability.extra.amount then
-                card.ability.extra.hands.triggered = true
-                return {
-                    message = localize('k_level_up_ex'),
-                    level_up = true,
-                    level_up_hand = G.GAME.current_round.most_played_poker_hand
-                }
-            end
+        if context.end_of_round and context.main_eval then
+            local pokerhands = Ortalab.pokerhands_by_played()
             return {
-                message = table.size(card.ability.extra.hands) .. '/' .. card.ability.extra.amount
+                level_up_hand = pokerhands[3].key,
+                level_up = true
             }
         end
     end    
 })
+
+function Ortalab.pokerhands_by_played()
+    local pokerhands = {}
+    for k,v in pairs(G.GAME.hands) do
+        v.key = k
+        pokerhands[#pokerhands + 1] = v 
+    end
+    table.sort(pokerhands, function(x, y)
+        if x.played == y.played then
+            return x.order < y.order
+        else 
+            return (x.played or 0) > (y.played or 0)
+        end
+    end)
+
+    return pokerhands
+end

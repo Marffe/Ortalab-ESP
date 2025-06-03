@@ -528,11 +528,10 @@ return {
 			j_ortalab_crowd_pleaser = {
 				name = 'Crowd Pleaser',
 				text = {
-					'Upgrade your {C:attention}most-played',
-					'poker hand after playing',
-					'{C:attention}#1# different{} poker hands',
-					'in a single round',
-					'{C:inactive,s:0.9}(Upgrading #3# - #2#)'
+					'Upgrade your {C:attention}third most-played',
+					'poker hand when {C:attention}Blind',
+					'is defeated',
+					'{C:inactive,s:0.8}(Currently upgrading #1#)'
 				}
 			},
 			['j_ortalab_cutout'] = {
