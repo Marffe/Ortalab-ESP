@@ -9,16 +9,29 @@ SMODS.Joker({
 	blueprint_compat = true,
 	eternal_compat = true,
 	perishable_compat = true,
-	config = {extra = {xmult = 1, xmult_gain = 0.5, chance = 3, denom = 4}},
+	config = {extra = {xmult = 1, xmult_gain = 0.75, used = 0}},
 	artist_credits = {'gappie'},
 	loc_vars = function(self, info_queue, card)
-		return {vars = {card.ability.extra.xmult_gain, card.ability.extra.xmult + (card.ability.extra.xmult_gain * (G.consumeables and #G.consumeables.cards or 0)), math.max(1, G.GAME.probabilities.normal) * card.ability.extra.chance, card.ability.extra.denom / math.min(G.GAME.probabilities.normal, 1)}}
+		return {vars = {card.ability.extra.xmult_gain, card.ability.extra.xmult + (card.ability.extra.xmult_gain * card.ability.extra.used)}}
 	end,
 	calculate = function(self, card, context)
+		if context.end_of_round and context.main_eval then
+			card.ability.extra.used = 0
+			return {
+				message = localize('ortalab_joker_miles_reset'),
+				colour = G.C.RED
+			}
+		end
+		if context.using_consumeable and G.GAME.blind.in_blind then
+			card.ability.extra.used = card.ability.extra.used + 1
+			return {
+				message = localize{type='variable',key='a_xmult',vars={card.ability.extra.xmult_gain}},
+				colour = G.C.RED
+			}
+		end
         if context.joker_main then
             return {
-                xmult = card.ability.extra.xmult + (card.ability.extra.xmult_gain * #G.consumeables.cards), 
-                colour = G.C.RED,
+                xmult = card.ability.extra.xmult + (card.ability.extra.xmult_gain * card.ability.extra.used), 
             }
         end
     end

@@ -706,14 +706,10 @@ return {
 			['j_ortalab_freezer'] = {
 				["name"] = "Freezer",
 				["text"] = {
-					{
-						'Gain {X:red,C:white}X#1#{} Mult for each',
-						'{C:attention}consumable{} you are holding',
-						'{C:inactive,s:0.9}(Currently {s:0.9,X:red,C:white}X#2#{C:inactive,s:0.9})',
-					},{
-						'Consumables have a {C:green}#3# in #4#',
-						'chance to be consumed when used'
-					}
+					'Gain {X:red,C:white}X#1#{} Mult for each',
+					'{C:attention}consumable{} used this round',
+					'{C:inactive,s:0.9}(Currently {s:0.9,X:red,C:white}X#2#{C:inactive,s:0.9})',
+					'{C:inactive,s:0.8}(Resets at end of round)'
 				}
 			},
 			['j_ortalab_frowny_face'] = {
