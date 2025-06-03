@@ -14,6 +14,11 @@ SMODS.Joker({
     loc_vars = function(self, info_queue, card)
         return {vars = {card.ability.extra.hand_size}}
     end,
+    remove_from_deck = function(self, card, from_debuff)
+        if card.ability.extra.triggered then
+            G.hand:change_size(-card.ability.extra.hand_size)
+        end
+    end,
     calculate = function(self, card, context)
         if context.open_booster and context.card.config.center.draw_hand then
             G.hand:change_size(card.ability.extra.hand_size)
