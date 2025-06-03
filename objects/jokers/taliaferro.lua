@@ -3,14 +3,14 @@ SMODS.Joker({
 	atlas = "jokers",
 	pos = {x = 5, y = 2},
 	rarity = 1,
-	cost = 4,
+	cost = 5,
 	unlocked = true,
 	discovered = false,
 	blueprint_compat = true,
 	eternal_compat = false,
 	perishable_compat = true,
 	no_pool_flag = 'taliaferro_extinct',
-	config = {extra = {chips = 80, odds = 4}},
+	config = {extra = {chips = 100, odds = 6}},
     artist_credits = {'flare','grassy'},
 	loc_vars = function(self, info_queue, card)
         return {vars = {card.ability.extra.chips, math.max(G.GAME.probabilities.normal, 1), card.ability.extra.odds / math.min(G.GAME.probabilities.normal, 1)}}
