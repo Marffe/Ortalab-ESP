@@ -16,6 +16,9 @@ SMODS.Joker({
         if G.playing_cards then count = Ortalab.curses_in_deck() end
         return {vars = {card.ability.extra.mult, card.ability.extra.mult * count}}
     end,
+    in_pool = function(self)
+        return Ortalab.curses_in_deck() > 0
+    end,
     calculate = function(self, card, context)
         if context.joker_main then
             local count = Ortalab.curses_in_deck()
