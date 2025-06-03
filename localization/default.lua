@@ -739,7 +739,7 @@ return {
 				name = 'Gloomy Gus',
 				text = {
 					{'{C:attention}+#1#{} hand size',},
-					{'Only {C:red}#2#{} cards can be',
+					{'Only {C:red}#2#{} card can be',
 					'discarded at a time'}
 				}
 			},
