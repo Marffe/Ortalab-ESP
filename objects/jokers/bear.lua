@@ -15,7 +15,7 @@ SMODS.Joker({
         return {vars = {card.ability.extra.gain, card.ability.extra.dollars, card.ability.extra.mult, card.ability.extra.spent}}
     end,
     calculate = function(self, card, context)
-        if context.buying_card or context.open_booster and not context.blueprint then
+        if (context.buying_card and context.card ~= card) or context.open_booster and not context.blueprint then
             card.ability.extra.spent = card.ability.extra.spent + context.card.cost
             while card.ability.extra.spent > card.ability.extra.dollars do
                 card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.gain
