@@ -101,7 +101,8 @@ return {
 			k_tag = 'Tag',
 			ortalab_chisel = 'Chiselled!',
 			ortalab_statue = 'Statue!',
-			ortalab = 'Ortalab'
+			ortalab = 'Ortalab',
+			ortalab_policeman = '+4 Discards!'
         },
 		['labels'] = {
 			ortalab_greyscale = 'Greyscale',
@@ -1088,12 +1089,17 @@ return {
 					'{C:inactive}(Currently {X:red,C:white}X#2#{C:inactive} Mult)'
 				}
 			},
-			['j_ortalab_policeman'] = {
+			j_ortalab_policeman = {
 				["name"] = "Policeman",
 				["text"] = {
-					'When {C:attention}Blind{} is selected,',
-					'gain {C:red}+#2#{} discards',
-					'set Hands to {C:blue}#1#',
+					{
+						'When {C:attention}Blind{} is selected,',
+						'gain {C:red}+#2#{} discards',
+						'set Hands to {C:blue}#1#',
+					},{
+						'Earn {C:money}$#3#{} per discard',
+						'remaining at end of round'
+					}
 				}
 			},
 			['j_ortalab_polydactyly'] = {
