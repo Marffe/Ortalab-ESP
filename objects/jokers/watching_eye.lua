@@ -1,7 +1,7 @@
 SMODS.Joker({
-	key = "open_palm",
+	key = "watching_eye",
 	atlas = "jokers",
-	pos = {x=8,y=1},
+	pos = {x=1,y=15},
 	rarity = 1,
 	cost = 4,
 	unlocked = true,
@@ -10,7 +10,7 @@ SMODS.Joker({
 	eternal_compat = true,
 	perishable_compat = true,
 	config = {extra = {base_chips = 100, modifier = 4}},
-    artist_credits = {'gappie'},
+    artist_credits = {'no_demo'},
 	loc_vars = function(self, info_queue, card)
 		return {vars = {card.ability.extra.base_chips, card.ability.extra.modifier}}
 	end,

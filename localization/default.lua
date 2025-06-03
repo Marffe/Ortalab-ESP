@@ -759,11 +759,11 @@ return {
 					'{C:attention}#2#'
 				}
 			},
-			['j_ortalab_graffiti'] = {
-				["name"] = "Graffiti",
+			['j_ortalab_white_flag'] = {
+				["name"] = "White Flag",
 				["text"] = {
 					"{C:mult}+#1#{} Mult",
-					"per hand remaining",
+					"per discard remaining",
 					"{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult){}",
 				}
 			},
@@ -817,8 +817,8 @@ return {
 					'{C:attention}#2#'
 				}
 			},
-			j_ortalab_hooligan = {
-				name = 'Hooligan',
+			j_ortalab_graffiti = {
+				name = 'Graffiti',
 				text = {
 					{'{X:attention,C:white}X#1#{} Boss Blind amount',},
 					{'{C:attention}Redeem{} a random {C:attention}voucher',
@@ -1014,8 +1014,8 @@ return {
 					"shop are free",
 				}
 			},
-			['j_ortalab_open_palm'] = {
-				["name"] = "White Flag",
+			['j_ortalab_watching_eye'] = {
+				["name"] = "Watching Eye",
 				["text"] = {
 					"Adds {C:blue}#1#{} minus {C:attention}#2#X{} the rank", 
 					"of {C:attention}highest{} ranked card",
