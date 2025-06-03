@@ -16,20 +16,22 @@ SMODS.Joker({
     end,
     add_to_deck = function(self, card, from_debuff)
         G.hand:change_size(card.ability.extra.hand_size)
+        card.ability.extra.prev_discard = G.GAME.starting_params.discard_limit
+        SMODS.change_discard_limit(card.ability.extra.discard_limit - G.GAME.starting_params.discard_limit)
     end,
     remove_from_deck = function(self, card, from_debuff)
         G.hand:change_size(-card.ability.extra.hand_size)
+        SMODS.change_discard_limit(card.ability.extra.prev_discard - card.ability.extra.discard_limit)
     end
 })
 
 local can_disc = G.FUNCS.can_discard
 G.FUNCS.can_discard = function(e)
-    can_disc(e)
     local gloomy = SMODS.find_card('j_ortalab_gloomy_gus')
     if next(gloomy) then
-        if #G.hand.highlighted > gloomy[1].ability.extra.discard_limit + G.GAME.ortalab.extra_discard_size then 
-            e.config.colour = G.C.UI.BACKGROUND_INACTIVE
-            e.config.button = nil
+        if G.GAME.starting_params.discard_limit ~= 1 then
+            SMODS.change_discard_limit(gloomy[1].ability.extra.discard_limit - G.GAME.starting_params.discard_limit)
         end
     end
+    can_disc(e)
 end
