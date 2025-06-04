@@ -602,7 +602,7 @@ Ortalab.Zodiac{
         local new_suit = context.scoring_hand[1].base.suit
         local ranks_in_flush = {}
         local rank1, rank2
-        for _, card in pairs(context.scoring_hand) do
+        for _, card in pairs(G.play.cards) do
             suits_in_flush[card.base.suit] = suits_in_flush[card.base.suit] and suits_in_flush[card.base.suit] + 1 or 1
             ranks_in_flush[card.base.value] = ranks_in_flush[card.base.value] and ranks_in_flush[card.base.value] + 1 or 1
             if suits_in_flush[card.base.suit] > suits_in_flush[new_suit] then new_suit = card.base.suit end
