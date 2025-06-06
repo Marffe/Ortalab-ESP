@@ -105,6 +105,7 @@ return {
 			ortalab_policeman = '+4 Discards!',
 			ortalab_score = 'Score: ',
 			ortalab_stake_skips = 'Skips required: ',
+			blind_credit = 'Added by '
 		},
 		['labels'] = {
 			ortalab_greyscale = 'Greyscale',
@@ -1536,12 +1537,16 @@ return {
 					'{C:inactive}(Currently {C:red}+#2#{C:inactive} Mult)'
 				}
 			},
-			['j_ortalab_woo_all_1'] = {
+			j_ortalab_woo_all_1 = {
 				["name"] = "Woo! All 1s",
 				["text"] = {
-					"Halves all {C:attention}listed{}",
-					"{C:green,E:1,S:1.1}probabilities{}",
-					"{C:inactive}(ex: {C:green}2 in 4{C:inactive} -> {C:green}1 in 4{C:inactive})",
+					{"All other{C:attention}listed{} {C:green,E:1,S:1.1}probabilities{}",
+					"are {C:attention}guaranteed",},
+					{'{C:green}#1# in #2#{} chance to',
+					'be {C:attention}disabled{} when',
+					'selecting a {C:attention}Blind',
+					'until the next {C:attention}Blind',
+					'{C:inactive,s:0.7}{Unaffected by probability changes}'}
 				}
 			},
 			j_ortalab_yellow = {

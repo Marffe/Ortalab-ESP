@@ -49,6 +49,9 @@ end
 local igo = Game.init_game_object
 function Game:init_game_object()
     local ret = igo(self)
+    ret.blind_badge = {
+        name = 'temp'
+    }
     ret.ortalab = {
         hand_size = 0,
         extra_discard_size = 0,

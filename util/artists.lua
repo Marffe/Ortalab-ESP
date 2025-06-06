@@ -66,7 +66,7 @@ function G.UIDEF.card_h_popup(card)
     if AUT.mythos then
         table.insert(ret_val.nodes[1].nodes[1].nodes[1].nodes, #ret_val.nodes[1].nodes[1].nodes[1].nodes, desc_from_rows(AUT.mythos))
     end
-    if obj and obj.mod and obj.mod.id == 'ortalab' and Ortalab.config.reduced_mod_badge then
+    if obj and obj.mod and Ortalab.config.reduced_mod_badge then
         local badge = {n=G.UIT.R, config = {align = 'tm'}, nodes = {
             {n=G.UIT.T, config={
               text = "Added by ",
@@ -74,8 +74,8 @@ function G.UIDEF.card_h_popup(card)
               colour = G.C.UI.BACKGROUND_WHITE,
               scale = 0.27}},
               {n=G.UIT.O, config={
-                object = DynaText({string = localize('ortalab'),
-                colours = {G.ARGS.LOC_COLOURS.Ortalab},
+                object = DynaText({string = string.sub(obj.mod.display_name, 1, 20),
+                    colours = {obj.mod.badge_colour},
                 bump = true,
                 silent = true,
                 pop_in = 0,
@@ -104,7 +104,7 @@ end
 local ortalab_create_mod_badges_ortalab = SMODS.create_mod_badges
 function SMODS.create_mod_badges(obj, badges)
     if not SMODS.config.no_mod_badges and obj and obj.mod and obj.mod.display_name and not obj.no_mod_badges then
-        if obj.mod.id == 'ortalab' and Ortalab.config.reduced_mod_badge then return end
+        if Ortalab.config.reduced_mod_badge then return end
         ortalab_create_mod_badges_ortalab(obj, badges)
     end
 end
@@ -168,7 +168,7 @@ function create_UIBox_blind_popup(blind, discovered, vars)
         for i=1, #badges do
             table.insert(popup.nodes, badges[i])
         end
-        if blind.mod.id == 'ortalab' and Ortalab.config.reduced_mod_badge then
+        if Ortalab.config.reduced_mod_badge then
             local badge = {n=G.UIT.R, config = {align = 'tm'}, nodes = {
                 {n=G.UIT.T, config={
                   text = "Added by ",
@@ -176,8 +176,8 @@ function create_UIBox_blind_popup(blind, discovered, vars)
                   colour = G.C.UI.BACKGROUND_WHITE,
                   scale = 0.27}},
                   {n=G.UIT.O, config={
-                    object = DynaText({string = localize('ortalab'),
-                    colours = {G.ARGS.LOC_COLOURS.Ortalab},
+                    object = DynaText({string = string.sub(blind.mod.display_name, 1, 20),
+                    colours = {blind.mod.badge_colour},
                     bump = true,
                     silent = true,
                     pop_in = 0,
@@ -210,7 +210,7 @@ function create_UIBox_blind_choice(type, run_info)
         for i=1, #badges do
             table.insert(box.nodes[1].nodes[2].nodes, badges[i])
         end
-        if blind.mod.id == 'ortalab' and Ortalab.config.reduced_mod_badge then
+        if Ortalab.config.reduced_mod_badge then
             local badge = {n=G.UIT.R, config = {align = 'tm'}, nodes = {
                 {n=G.UIT.T, config={
                   text = "Added by ",
@@ -218,8 +218,8 @@ function create_UIBox_blind_choice(type, run_info)
                   colour = G.C.UI.BACKGROUND_WHITE,
                   scale = 0.27}},
                   {n=G.UIT.O, config={
-                    object = DynaText({string = localize('ortalab'),
-                    colours = {G.ARGS.LOC_COLOURS.Ortalab},
+                    object = DynaText({string = string.sub(blind.mod.display_name, 1, 20),
+                    colours = {blind.mod.badge_colour},
                     bump = true,
                     silent = true,
                     pop_in = 0,
@@ -234,4 +234,26 @@ function create_UIBox_blind_choice(type, run_info)
         end
     end
     return box
+end
+
+G.FUNCS.HUD_blind_badge = function(e)
+    if G.GAME.blind.in_blind then
+        if G.GAME.blind.config.blind.mod then
+            e.states.visible = true
+            local mod = G.GAME.blind.config.blind.mod
+            if Ortalab.config.reduced_mod_badge and e.children[2] then
+                e.children[2].config.text = string.sub(mod.display_name, 1, 20)
+                e.children[2].config.colour = mod.badge_colour
+            elseif e.children[1].children[1] then
+                -- print({string.sub(mod.display_name, 1, 20)})
+                e.children[1].children[1].config.colour = mod.badge_colour
+                G.GAME.blind_badge.name = string.sub(mod.display_name, 1, 20)
+                -- e.children[1].children[1].children[2].config.object.string = {string.sub(mod.display_name, 1, 20)}
+                -- e.children[1].children[1].children[2].config.object:update()
+                e.children[1].children[1].children[2].config.object.colours = {mod.badge_text_colour or G.C.WHITE}
+            end
+        else
+            e.states.visible = false
+        end
+    end
 end
