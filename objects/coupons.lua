@@ -147,6 +147,9 @@ SMODS.Voucher({
                 func = function()
                     if G.zodiacs and G.zodiacs[choice] then
                         G.zodiacs[choice].config.extra.temp_level = G.zodiacs[choice].config.extra.temp_level + (card.ability.extra.increase * G.GAME.ortalab.zodiacs.temp_level_mod)
+                        zodiac_text(zodiac_upgrade_text(choice), choice)
+                        G.zodiacs[choice]:juice_up(1, 1)
+                        delay(0.7)
                     else
                         local _zodiac = Zodiac(choice)
                         _zodiac.config.extra.temp_level = card.ability.extra.increase
