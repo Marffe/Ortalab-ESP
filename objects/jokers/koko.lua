@@ -17,7 +17,9 @@ SMODS.Joker({
     end,
     set_ability = function(self, card, initial, delay)
         for k, _ in pairs(G.ZODIACS) do
-            card.ability.extra.zodiacs[#card.ability.extra.zodiacs+1] = k
+            if k ~= 'zodiac_ortalab_ophichus' then
+                card.ability.extra.zodiacs[#card.ability.extra.zodiacs+1] = k
+            end
         end
     end,
     calculate = function(self, card, context)
