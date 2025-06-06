@@ -1070,7 +1070,7 @@ SMODS.Blind({
         for k, v in ipairs(card_protos) do
             G.playing_card = (G.playing_card and G.playing_card + 1) or 1
             local _card = Card(G.deck.T.x, G.deck.T.y, G.CARD_W, G.CARD_H, G.P_CARDS[v.s..'_'..v.r], G.P_CENTERS[v.e or 'c_base'], {playing_card = G.playing_card})
-            _card.rouge_rose = true
+            _card.ability.rouge_rose = true
             G.deck:emplace(_card)
             table.insert(G.playing_cards, _card)
         end
@@ -1079,7 +1079,7 @@ SMODS.Blind({
     end,
     disable = function(self)
         for _, card in pairs(G.hand.cards) do
-            if card.rouge_rose then
+            if card.ability.rouge_rose then
                 if SMODS.shatters(card) then 
                     card:shatter()
                 else
@@ -1093,7 +1093,7 @@ SMODS.Blind({
     end,
     defeat = function(self)
         for _, card in pairs(G.deck.cards) do
-            if card.rouge_rose then
+            if card.ability.rouge_rose then
                 if SMODS.shatters(card) then 
                     card:shatter()
                 else
@@ -1102,7 +1102,7 @@ SMODS.Blind({
             end
         end
         for _, card in pairs(G.discard.cards) do
-            if card.rouge_rose then
+            if card.ability.rouge_rose then
                 if SMODS.shatters(card) then 
                     card:shatter()
                 else
@@ -1113,6 +1113,26 @@ SMODS.Blind({
         G.GAME.starting_deck_size = self.original_deck_size
     end
 })
+
+SMODS.Atlas({
+    key = 'rouge_rose',
+    path = 'rouge.png',
+    px = 71,
+    py = 95
+})
+
+SMODS.DrawStep {
+    key = 'rouge_rose',
+    order = 36,
+    func = function(self)
+        if self.ability.rouge_rose then
+            if not Ortalab.rouge_rose_sprite then Ortalab.rouge_rose_sprite = Sprite(0, 0, G.CARD_W, G.CARD_H, G.ASSET_ATLAS['ortalab_rouge_rose'], {x=0, y=0}) end
+            Ortalab.rouge_rose_sprite.role.draw_major = self
+            Ortalab.rouge_rose_sprite:draw_shader('dissolve', nil, nil, nil, self.children.center)
+        end
+    end,
+    conditions = { vortex = false, facing = 'front' },
+}
 
 
 SMODS.Blind({
