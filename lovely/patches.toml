@@ -74,7 +74,9 @@ G.GAME.zodiac_choices[G.GAME.round_resets.ante] = G.GAME.zodiac_choices[G.GAME.r
 if not G.GAME.zodiac_choices[G.GAME.round_resets.ante][type] then 
     local _poker_hands = {}
     for k, _ in pairs(G.ZODIACS) do
-        _poker_hands[#_poker_hands+1] = k
+        if k ~= 'zodiac_ortalab_ophiuchus' then
+            _poker_hands[#_poker_hands+1] = k
+        end
     end
 
     local zodiac1 = pseudorandom_element(_poker_hands, pseudoseed('constellation_patch'))
