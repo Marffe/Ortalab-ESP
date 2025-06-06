@@ -26,12 +26,12 @@ SMODS.UndiscoveredSprite({ -- undiscovered sprite
     no_overlay = true
 })
 
-G.ARGS.LOC_COLOURS['Zodiac'] = HEX("a84040")
+G.ARGS.LOC_COLOURS['Zodiac'] = HEX("7e94ba")
 
 SMODS.ConsumableType({ -- Zodiac Card ConsumableType creation
     key = "Zodiac",
-    primary_colour = HEX("a84040"),
-    secondary_colour = HEX("a84040"),
+    primary_colour = HEX("7e94ba"),
+    secondary_colour = HEX("7e94ba"),
     loc_txt = { -- move to localization
         name = "Zodiac",
         collection = "Zodiac Cards",
@@ -419,7 +419,7 @@ SMODS.Consumable({
     pos = {x=0, y=0},
     discovered = false,
     config = {extra = {zodiac = 'zodiac_ortalab_aries'}},
-    artist_credits = {'parchment'},
+    artist_credits = {'gappie'},
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = {generate_ui = zodiac_tooltip, key = self.config.extra.zodiac}
         return {vars = {localize(G.ZODIACS[self.config.extra.zodiac].config.extra.hand_type, 'poker_hands')}}
@@ -473,7 +473,7 @@ SMODS.Consumable({
     pos = {x=1, y=0},
     discovered = false,
     config = {extra = {zodiac = 'zodiac_ortalab_taurus'}},
-    artist_credits = {'parchment'},
+    artist_credits = {'gappie'},
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = {generate_ui = zodiac_tooltip, key = self.config.extra.zodiac}
         return {vars = {localize(G.ZODIACS[self.config.extra.zodiac].config.extra.hand_type, 'poker_hands')}}
@@ -522,7 +522,7 @@ SMODS.Consumable({
     pos = {x=2, y=0},
     discovered = false,
     config = {extra = {zodiac = 'zodiac_ortalab_gemini'}},
-    artist_credits = {'parchment'},
+    artist_credits = {'gappie'},
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = {generate_ui = zodiac_tooltip, key = self.config.extra.zodiac}
         return {vars = {localize(G.ZODIACS[self.config.extra.zodiac].config.extra.hand_type, 'poker_hands')}}
@@ -574,7 +574,7 @@ SMODS.Consumable({
     pos = {x=3, y=0},
     discovered = false,
     config = {extra = {zodiac = 'zodiac_ortalab_cancer'}},
-    artist_credits = {'parchment','salad'},
+    artist_credits = {'gappie'},
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = {generate_ui = zodiac_tooltip, key = self.config.extra.zodiac}
         return {vars = {localize(G.ZODIACS[self.config.extra.zodiac].config.extra.hand_type, 'poker_hands')}}
@@ -638,7 +638,7 @@ SMODS.Consumable({
     pos = {x=0, y=1},
     discovered = false,
     config = {extra = {zodiac = 'zodiac_ortalab_leo'}},
-    artist_credits = {'parchment'},
+    artist_credits = {'gappie'},
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = {generate_ui = zodiac_tooltip, key = self.config.extra.zodiac}
         return {vars = {localize(G.ZODIACS[self.config.extra.zodiac].config.extra.hand_type, 'poker_hands')}}
@@ -695,7 +695,7 @@ SMODS.Consumable({
     pos = {x=1, y=1},
     discovered = false,
     config = {extra = {zodiac = 'zodiac_ortalab_virgo'}},
-    artist_credits = {'parchment'},
+    artist_credits = {'gappie'},
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = {generate_ui = zodiac_tooltip, key = self.config.extra.zodiac}
         return {vars = {localize(G.ZODIACS[self.config.extra.zodiac].config.extra.hand_type, 'poker_hands')}}
@@ -753,7 +753,7 @@ SMODS.Consumable({
     pos = {x=2, y=1},
     discovered = false,
     config = {extra = {zodiac = 'zodiac_ortalab_libra'}},
-    artist_credits = {'parchment'},
+    artist_credits = {'gappie'},
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = {generate_ui = zodiac_tooltip, key = self.config.extra.zodiac}
         return {vars = {localize(G.ZODIACS[self.config.extra.zodiac].config.extra.hand_type, 'poker_hands')}}
@@ -811,7 +811,7 @@ SMODS.Consumable({
     pos = {x=3, y=1},
     discovered = false,
     config = {extra = {zodiac = 'zodiac_ortalab_scorpio'}},
-    artist_credits = {'parchment'},
+    artist_credits = {'gappie'},
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = {generate_ui = zodiac_tooltip, key = self.config.extra.zodiac}
         return {vars = {localize(G.ZODIACS[self.config.extra.zodiac].config.extra.hand_type, 'poker_hands')}}
@@ -876,7 +876,7 @@ SMODS.Consumable({
     pos = {x=0, y=2},
     discovered = false,
     config = {extra = {zodiac = 'zodiac_ortalab_sag'}},
-    artist_credits = {'parchment'},
+    artist_credits = {'gappie'},
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = {generate_ui = zodiac_tooltip, key = self.config.extra.zodiac}
         return {vars = {localize(G.ZODIACS[self.config.extra.zodiac].config.extra.hand_type, 'poker_hands')}}
@@ -933,7 +933,7 @@ SMODS.Consumable({
     pos = {x=1, y=2},
     discovered = false,
     config = {extra = {zodiac = 'zodiac_ortalab_capr'}},
-    artist_credits = {'parchment'},
+    artist_credits = {'gappie'},
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = {generate_ui = zodiac_tooltip, key = self.config.extra.zodiac}
         return {vars = {localize(G.ZODIACS[self.config.extra.zodiac].config.extra.hand_type, 'poker_hands')}}
@@ -982,7 +982,7 @@ SMODS.Consumable({
     pos = {x=2, y=2},
     discovered = false,
     config = {extra = {zodiac = 'zodiac_ortalab_aquarius'}},
-    artist_credits = {'parchment'},
+    artist_credits = {'gappie'},
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = {generate_ui = zodiac_tooltip, key = self.config.extra.zodiac}
         return {vars = {localize(G.ZODIACS[self.config.extra.zodiac].config.extra.hand_type, 'poker_hands')}}
@@ -1035,7 +1035,7 @@ SMODS.Consumable({
     pos = {x=3, y=2},
     discovered = false,
     config = {extra = {zodiac = 'zodiac_ortalab_pisces'}},
-    artist_credits = {'parchment'},
+    artist_credits = {'gappie'},
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = {generate_ui = zodiac_tooltip, key = self.config.extra.zodiac}
         return {vars = {localize(G.ZODIACS[self.config.extra.zodiac].config.extra.hand_type, 'poker_hands')}}
