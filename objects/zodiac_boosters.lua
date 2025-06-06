@@ -10,7 +10,7 @@ local small_boosters = {keys = {'small_zodiac_1', 'small_zodiac_2', 'small_zodia
     config = {choose = 1, extra = 2},
     artist_credits = {'gappie'},
     loc_vars = function(self, info_queue, card)
-        return {vars = {card and card.ability.choose or self.config.choose, (card and card.ability.extra or self.config.extra) + (G.GAME and G.GAME.ortalab.vouchers.horoscope or 0)}}
+        return {vars = {card and card.ability.choose or self.config.choose, (card and card.ability.extra or self.config.extra)}}
     end,
     ease_background_colour = function(self)
         ease_colour(G.C.DYN_UI.MAIN, G.C.SET.Zodiac)
@@ -57,7 +57,7 @@ local mid_boosters = {keys = {'mid_zodiac_1', 'mid_zodiac_2'}, info = {
     config = {choose = 1, extra = 4},
     artist_credits = {'gappie'},
     loc_vars = function(self, info_queue, card)
-        return {vars = {card and card.ability.choose or self.config.choose, (card and card.ability.extra or self.config.extra) + (G.GAME and G.GAME.ortalab.vouchers.horoscope or 0)}}
+        return {vars = {card and card.ability.choose or self.config.choose, (card and card.ability.extra or self.config.extra)}}
     end,
     create_card = function(self, card, i)
         return create_card("Zodiac", G.pack_cards, nil, nil, true, true, nil, "zodpack")
@@ -103,7 +103,7 @@ local large_boosters = {keys = {'big_zodiac_1', 'big_zodiac_2'}, info = {
     config = {choose = 2, extra = 4},
     artist_credits = {'gappie'},
     loc_vars = function(self, info_queue, card)
-        return {vars = {card and card.ability.choose or self.config.choose, (card and card.ability.extra or self.config.extra) + (G.GAME and G.GAME.ortalab.vouchers.horoscope or 0)}}
+        return {vars = {card and card.ability.choose or self.config.choose, (card and card.ability.extra or self.config.extra)}}
     end,
     create_card = function(self, card, i)
         return create_card("Zodiac", G.pack_cards, nil, nil, true, true, nil, "zodpack")

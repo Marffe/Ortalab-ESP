@@ -2415,8 +2415,9 @@ return {
 			['v_ortalab_horoscope'] = {
 				["name"] = "Horoscope",
 				["text"] = {
-					"{C:zodiac}Astral Packs{} contain",
-					'{C:attention}#1#{} extra card'
+					"When {C:attention}entering{} a shop,",
+					'{C:zodiac}improve{} a random hand,',
+					'by {C:attention}#1#{} levels'
 				}
 			},
 			['v_ortalab_natal_sign'] = {

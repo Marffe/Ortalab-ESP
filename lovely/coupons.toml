@@ -23,21 +23,6 @@ if self.config.center.ortalab_type == 'Loteria' then
     G.GAME.pack_choices = G.GAME.pack_choices + G.GAME.ortalab.vouchers.cantor
 end'''
 
-# Horoscope Coupon Increase Zodiac Pack Limit
-[[patches]]
-[patches.pattern]
-target = 'card.lua'
-match_indent = true
-position = 'after'
-pattern = '''
-booster_obj = self.config.center
-'''
-payload = '''
-if self.config.center.ortalab_type == 'Zodiac' then
-    self.ability.extra = self.ability.extra + G.GAME.ortalab.vouchers.horoscope
-end
-'''
-
 # Natal Sign Calculation
 [[patches]]
 [patches.pattern]
@@ -660,4 +645,17 @@ if (e.config.ref_table.cost) > 0 and (e.config.ref_table.cost > G.GAME.dollars -
 payload = '''
 local free_packs = SMODS.find_card('v_ortalab_anti_inv')
 if not (next(free_packs) and free_packs[1].ability.extra.active) and (e.config.ref_table.cost) > 0 and (e.config.ref_table.cost > G.GAME.dollars - G.GAME.bankrupt_at) then
+'''
+
+
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/utils.lua"]'
+match_indent = true
+position = 'before'
+pattern = '''
+-- TARGET: additive probability changes before, multiplicative probability changes after
+'''
+payload = '''
+base_numerator = base_numerator + 1
 '''

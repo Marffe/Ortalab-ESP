@@ -116,13 +116,63 @@ SMODS.Voucher({
 	unlocked = true,
 	discovered = false,
 	available = true,
-    config = {extra = {extra_choices = 1}},
+    config = {extra = {increase = 2}},
     artist_credits = {'gappie'},
     loc_vars = function(self, info_queue, card)
-        return {vars = {card.ability.extra.extra_choices}}
+        return {vars = {card.ability.extra.increase}}
     end,
-    redeem = function(self, voucher)
-        G.GAME.ortalab.vouchers.horoscope = G.GAME.ortalab.vouchers.horoscope + voucher.ability.extra.extra_choices
+    calculate = function(self, card, context)
+        if context.starting_shop then
+            local zodiacs = {}
+            for k, _ in pairs(G.ZODIACS) do
+                if k ~= 'zodiac_ortalab_ophiuchus' then
+                    zodiacs[#zodiacs+1] = k
+                end
+            end
+            local choice = pseudorandom_element(zodiacs, pseudoseed('ortalab_horoscope'))
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                delay = 0.1,
+                func = function()
+                    if G.shop and not G.shop.alignment.offset.py then
+                        G.shop.alignment.offset.py = G.shop.alignment.offset.y
+                        G.shop.alignment.offset.y = G.ROOM.T.y + 39
+                    end
+                    return true
+                end
+            }))
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                delay = 0.1,
+                func = function()
+                    if G.zodiacs and G.zodiacs[choice] then
+                        G.zodiacs[choice].config.extra.temp_level = G.zodiacs[choice].config.extra.temp_level + (card.ability.extra.increase * G.GAME.ortalab.zodiacs.temp_level_mod)
+                    else
+                        local _zodiac = Zodiac(choice)
+                        _zodiac.config.extra.temp_level = card.ability.extra.increase
+                        add_zodiac(_zodiac, nil, nil, 1)
+                    end
+                    return true
+                end
+            }))
+            G.E_MANAGER:add_event(Event({
+                trigger = 'immediate',
+                func = function()
+                    G.E_MANAGER:add_event(Event({
+                        trigger = 'after',
+                        delay = 0.3,
+                        func = function()
+                            if G.shop and G.shop.alignment.offset.py then
+                                G.shop.alignment.offset.y = G.shop.alignment.offset.py
+                                G.shop.alignment.offset.py = nil
+                            end                  
+                            return true
+                        end
+                    }))                 
+                    return true
+                end
+            }))
+        end
     end
 })
 
