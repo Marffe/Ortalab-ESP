@@ -217,29 +217,84 @@ local alt_button
 if type == 'Boss' and G.GAME.ortalab.alt_boss then
     local alt_blind = G.P_BLINDS[G.GAME.ortalab.alt_boss]
     local alt_blind_name = localize{type = 'name_text', key = alt_blind.key, set = 'Blind'}
+        local alt_blind_reward = localize("$")..alt_blind.dollars + (G.GAME.ortalab.blind_rewards or 0) .. '+'
+        local alt_blind_score = localize('ortalab_score') .. number_format(get_blind_amount(G.GAME.round_resets.blind_ante) * alt_blind.mult * G.GAME.starting_params.ante_scaling)
     local alt_blind_col = get_blind_main_colour(G.GAME.ortalab.alt_boss)
     alt_button = {n=G.UIT.R, config={align = "cm", r = 0.1, outline = 1, outline_colour = alt_blind_col, colour = darken(alt_blind_col, 0.6), maxw = 2.4, emboss = 0.1, padding = 0.07, line_emboss = 0.8, button = 'swap_blind', type = type}, nodes={
-            {n=G.UIT.O, config={object = DynaText({string = alt_blind_name, colours = {G.C.UI.TEXT_INACTIVE}, shadow = not disabled, float = false, y_offset = -4, scale = 0.35, maxw =2.2})}},
+            {n=G.UIT.R, config = {align = 'cm'}, nodes = {
+                    {n=G.UIT.O, config={object = DynaText({string = alt_blind_name, colours = {G.C.UI.TEXT_INACTIVE}, shadow = not disabled, float = false, y_offset = -4, scale = 0.35, maxw =1.6})}},
+                }},
+                {n=G.UIT.R, config={align="cm"}, nodes ={
+                    {n=G.UIT.O, config={object = DynaText({string = alt_blind_score, colours = {mix_colours(G.C.UI.TEXT_INACTIVE, G.C.RED, 0.7)}, shadow = not disabled, float = false, y_offset = -4, scale = 0.25, maxw =1.2})}},
+                    {n=G.UIT.O, config={object = DynaText({string = ' / ', colours = {G.C.UI.TEXT_INACTIVE}, shadow = not disabled, float = false, y_offset = -4, scale = 0.25, maxw =0.6})}},
+                    {n=G.UIT.O, config={object = DynaText({string = alt_blind_reward, colours = {mix_colours(G.C.UI.TEXT_INACTIVE, G.C.GOLD, 0.7)}, shadow = not disabled, float = false, y_offset = -4, scale = 0.25, maxw =1})}},
+                }}
         }}
 elseif G.GAME.ortalab.double_blind then
     if type == 'Small' then
         local alt_small = G.P_BLINDS[G.GAME.ortalab.alt_small]
         local alt_small_name = localize{type = 'name_text', key = alt_small.key, set = 'Blind'}
+        local alt_small_reward = localize("$")..alt_small.dollars + (G.GAME.ortalab.blind_rewards or 0) .. '+'
+        local alt_small_score = localize('ortalab_score') .. number_format(get_blind_amount(G.GAME.round_resets.blind_ante) * alt_small.mult * G.GAME.starting_params.ante_scaling)
         local alt_small_col = (G.GAME.round_resets.blind_states[type] == 'Defeated' or G.GAME.round_resets.blind_states[type] == 'Skipped') and G.C.BLACK or get_blind_main_colour(G.GAME.ortalab.alt_small)
         alt_button = {n=G.UIT.R, config={align = "cm", r = 0.1, outline = 1, outline_colour = alt_small_col, colour = darken(alt_small_col, 0.6), maxw = 2.4, emboss = 0.1, padding = 0.07, line_emboss = 0.8, button = 'swap_blind', type = type}, nodes={
-                {n=G.UIT.O, config={object = DynaText({string = alt_small_name, colours = {G.C.UI.TEXT_INACTIVE}, shadow = not disabled, float = false, y_offset = -4, scale = 0.35, maxw =2.2})}},
+                {n=G.UIT.R, config = {align = 'cm'}, nodes = {
+                    {n=G.UIT.O, config={object = DynaText({string = alt_small_name, colours = {G.C.UI.TEXT_INACTIVE}, shadow = not disabled, float = false, y_offset = -4, scale = 0.35, maxw =1.6})}},
+                }},
+                {n=G.UIT.R, config={align="cm"}, nodes ={
+                    {n=G.UIT.O, config={object = DynaText({string = alt_small_score, colours = {mix_colours(G.C.UI.TEXT_INACTIVE, G.C.RED, 0.7)}, shadow = not disabled, float = false, y_offset = -4, scale = 0.25, maxw =1.2})}},
+                    {n=G.UIT.O, config={object = DynaText({string = ' / ', colours = {G.C.UI.TEXT_INACTIVE}, shadow = not disabled, float = false, y_offset = -4, scale = 0.25, maxw =0.6})}},
+                    {n=G.UIT.O, config={object = DynaText({string = alt_small_reward, colours = {mix_colours(G.C.UI.TEXT_INACTIVE, G.C.GOLD, 0.7)}, shadow = not disabled, float = false, y_offset = -4, scale = 0.25, maxw =1})}},
+                }}
             }}
     elseif type == 'Big' then
         local alt_small = G.P_BLINDS[G.GAME.ortalab.alt_big]
         local alt_small_name = localize{type = 'name_text', key = alt_small.key, set = 'Blind'}
+        local alt_small_reward = localize("$")..alt_small.dollars + (G.GAME.ortalab.blind_rewards or 0) .. '+'
+        local alt_small_score = localize('ortalab_score') .. number_format(get_blind_amount(G.GAME.round_resets.blind_ante) * alt_small.mult * G.GAME.starting_params.ante_scaling)
         local alt_small_col = (G.GAME.round_resets.blind_states[type] == 'Defeated' or G.GAME.round_resets.blind_states[type] == 'Skipped') and G.C.BLACK or get_blind_main_colour(G.GAME.ortalab.alt_big)
         alt_button = {n=G.UIT.R, config={align = "cm", r = 0.1, outline = 1, outline_colour = alt_small_col, colour = darken(alt_small_col, 0.6), maxw = 2.4, emboss = 0.1, padding = 0.07, line_emboss = 0.8, button = 'swap_blind', type = type}, nodes={
-                {n=G.UIT.O, config={object = DynaText({string = alt_small_name, colours = {G.C.UI.TEXT_INACTIVE}, shadow = not disabled, float = false, y_offset = -4, scale = 0.35, maxw =2.2})}},
+                {n=G.UIT.R, config = {align = 'cm'}, nodes = {
+                    {n=G.UIT.O, config={object = DynaText({string = alt_small_name, colours = {G.C.UI.TEXT_INACTIVE}, shadow = not disabled, float = false, y_offset = -4, scale = 0.35, maxw =1.6})}},
+                }},
+                {n=G.UIT.R, config={align="cm"}, nodes ={
+                    {n=G.UIT.O, config={object = DynaText({string = alt_small_score, colours = {mix_colours(G.C.UI.TEXT_INACTIVE, G.C.RED, 0.7)}, shadow = not disabled, float = false, y_offset = -4, scale = 0.25, maxw =1.2})}},
+                    {n=G.UIT.O, config={object = DynaText({string = ' / ', colours = {G.C.UI.TEXT_INACTIVE}, shadow = not disabled, float = false, y_offset = -4, scale = 0.25, maxw =0.6})}},
+                    {n=G.UIT.O, config={object = DynaText({string = alt_small_reward, colours = {mix_colours(G.C.UI.TEXT_INACTIVE, G.C.GOLD, 0.7)}, shadow = not disabled, float = false, y_offset = -4, scale = 0.25, maxw =1})}},
+                }}
             }}
     end
 end
 
 '''
+# Recolour initial selection
+[[patches]]
+[patches.pattern]
+target = 'functions/UI_definitions.lua'
+match_indent = true
+position = 'at'
+pattern = '''
+G.blind_select_opts.small = G.GAME.round_resets.blind_states['Small'] ~= 'Hide' and UIBox{definition = {n=G.UIT.ROOT, config={align = "cm", colour = G.C.CLEAR}, nodes={UIBox_dyn_container({create_UIBox_blind_choice('Small')},false,get_blind_main_colour('Small'))}}, config = {align="bmi", offset = {x=0,y=0}}} or nil
+G.blind_select_opts.big = G.GAME.round_resets.blind_states['Big'] ~= 'Hide' and UIBox{definition = {n=G.UIT.ROOT, config={align = "cm", colour = G.C.CLEAR}, nodes={UIBox_dyn_container({create_UIBox_blind_choice('Big')},false,get_blind_main_colour('Big'))}}, config = {align="bmi", offset = {x=0,y=0}}} or nil
+'''
+payload = '''
+G.blind_select_opts.small = G.GAME.round_resets.blind_states['Small'] ~= 'Hide' and UIBox{definition = {n=G.UIT.ROOT, config={align = "cm", colour = G.C.CLEAR}, nodes={UIBox_dyn_container({create_UIBox_blind_choice('Small')},false,get_blind_main_colour('Small'), mix_colours(G.C.BLACK, get_blind_main_colour('Small'), 0.8))}}, config = {align="bmi", offset = {x=0,y=0}}} or nil
+G.blind_select_opts.big = G.GAME.round_resets.blind_states['Big'] ~= 'Hide' and UIBox{definition = {n=G.UIT.ROOT, config={align = "cm", colour = G.C.CLEAR}, nodes={UIBox_dyn_container({create_UIBox_blind_choice('Big')},false,get_blind_main_colour('Big'), mix_colours(G.C.BLACK, get_blind_main_colour('Big'), 0.8))}}, config = {align="bmi", offset = {x=0,y=0}}} or nil
+'''
+
+# Recolour skip area
+[[patches]]
+[patches.pattern]
+target = 'functions/button_callbacks.lua'
+match_indent = true
+position = 'at'
+pattern = '''
+_tag_container.children[2].config.colour = G.C.BLACK
+'''
+payload = '''
+_tag_container.children[2].config.colour = mix_colours(G.C.BLACK, get_blind_main_colour(e.config.id), 0.9)
+'''
+
 # Add button to display
 [[patches]]
 [patches.pattern]

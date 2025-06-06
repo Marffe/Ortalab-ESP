@@ -102,8 +102,10 @@ return {
 			ortalab_chisel = 'Chiselled!',
 			ortalab_statue = 'Statue!',
 			ortalab = 'Ortalab',
-			ortalab_policeman = '+4 Discards!'
-        },
+			ortalab_policeman = '+4 Discards!',
+			ortalab_score = 'Score: ',
+			ortalab_stake_skips = 'Skips required: ',
+		},
 		['labels'] = {
 			ortalab_greyscale = 'Greyscale',
 			ortalab_fluorescent = 'Fluorescent',
@@ -2871,8 +2873,8 @@ return {
 			['stake_ortalab_four'] = {
 				["name"] = 'Sapphire Stake',
 				["text"] = {
-					"Played and discarded cards are {C:red}not reshuffled{}",
-					' after defeating the {C:attention}Small Blind{}',
+					"You {C:red}must{C:attention} skip{} at least",
+					'{C:attention}3 Blinds{} after Ante 1',
 					"{s:0.8}Applies {C:Ortalab,s:0.8}Amethyst Stake"
 				}
 			},

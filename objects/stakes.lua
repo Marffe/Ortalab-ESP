@@ -75,9 +75,30 @@ SMODS.Stake({
     sticker_pos = {x = 3, y = 0},
     sticker_atlas = 'stickers',
     modifiers = function()
-        G.GAME.ortalab.no_reshuffle = true
+        G.GAME.ortalab.skips_required = true
+        G.GAME.ortalab.skips = 3
     end,
 })
+
+local ortalab_blind_choice_handler = G.FUNCS.blind_choice_handler
+G.FUNCS.blind_choice_handler = function(e)
+    ortalab_blind_choice_handler(e)
+    local _blind_choice_box = e.UIBox:get_UIE_by_ID('select_blind_button')
+    if e.config.id ~= 'Boss' and _blind_choice_box and G.GAME.round_resets.blind_states[e.config.id] == 'Select' and G.GAME.ortalab.skips_required and G.GAME.ortalab.skips > 0 and Ortalab.rounds_left(e.config.id) == G.GAME.ortalab.skips then
+        G.GAME.round_resets.loc_blind_states[e.config.id] = localize('b_skip_blind')
+        _blind_choice_box.config.colour = darken(G.C.RED, 0.2)
+        _blind_choice_box.config.outline = 1
+        _blind_choice_box.config.outline_colour = G.C.RED
+        _blind_choice_box.config.button = 'skip_blind'
+    end
+end
+
+function Ortalab.rounds_left(blind)
+    local antes_left = G.GAME.win_ante - G.GAME.round_resets.ante
+    local rounds_left = (antes_left * 2) + (blind == 'Small' and 2 or blind == 'Big' and 1 or 0)
+    if G.GAME.ortalab.finisher_ante then rounds_left = rounds_left - 2 end
+    return rounds_left
+end
 
 SMODS.Stake({
     key = "five",
