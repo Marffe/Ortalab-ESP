@@ -373,7 +373,7 @@ SMODS.Voucher({
 	discovered = false,
 	available = false,
     requires = {'v_ortalab_one_mans_trash'},
-    config = {extra = {extra_dollars = 1}},
+    config = {extra = {extra_dollars = 2}},
     artist_credits = {'joey'},
 	redeem = function(self, card)
         G.GAME.modifiers.money_per_hand = (G.GAME.modifiers.money_per_hand or 1) + card.ability.extra.extra_dollars
