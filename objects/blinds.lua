@@ -249,7 +249,7 @@ SMODS.Blind({
     pos = {x = 0, y = 5},
     dollars = 5,
     mult = 2,
-    boss = {min = 1, max = 10},
+    boss = {min = 3, max = 10},
     boss_colour = HEX('3e85bd'),
     config = {extra = {discard_amount = 0}},
     artist_credits = {'flare'},
@@ -329,7 +329,7 @@ SMODS.Blind({
     pos = {x = 0, y = 8},
     dollars = 5,
     mult = 2,
-    boss = {min = 1, max = 10},
+    boss = {min = 3, max = 10},
     boss_colour = HEX('5c6e31'),
     artist_credits = {'flare'},
 })
@@ -397,7 +397,7 @@ SMODS.Blind({
     pos = {x = 0, y = 11},
     dollars = 5,
     mult = 2,
-    boss = {min = 1, max = 10},
+    boss = {min = 3, max = 10},
     boss_colour = HEX('4b71e4'),
     config = {extra = {triggered = false}},
     artist_credits = {'flare'},
@@ -706,9 +706,9 @@ SMODS.Blind({
     pos = {x = 0, y = 18},
     dollars = 5,
     mult = 2,
-    boss = {min = 1, max = 10},
+    boss = {min = 2, max = 10},
     boss_colour = HEX('b95c96'),
-    config = {extra = {change = 1}},
+    config = {extra = {change = 2}},
     artist_credits = {'flare'},
     loc_vars = function(self, info_queue, card)
         return {vars = {self.config.extra.change}}

@@ -10,6 +10,7 @@ SMODS.Tag({
     atlas = 'patches',
     pos = {x = 2, y = 2},
     discovered = false,
+    min_ante = 2,
     config = {type = 'ortalab_shop_add', extra = {amount = 2}},
     artist_credits = {'5381','kosze'},
     loc_vars = function(self, info_queue, card)
@@ -153,6 +154,7 @@ SMODS.Tag({
     atlas = 'patches',
     pos = {x = 0, y = 0},
     discovered = false,
+    min_ante = 2,
     in_pool = function(self)
         if G.GAME.last_selected_tag and G.GAME.last_selected_tag.key ~= 'tag_ortalab_rewind' then
             return true
@@ -198,7 +200,7 @@ SMODS.Tag({
     atlas = 'patches',
     pos = {x = 4, y = 0},
     discovered = false,
-    config = {type = 'round_start_bonus', modifier = 0.5},
+    config = {type = 'round_start_bonus', modifier = 0.25},
     artist_credits = {'gappie','kosze'},
     apply = function(self, tag, context)
         if context.type == self.config.type then
@@ -592,7 +594,7 @@ SMODS.Tag({
     pos = {x = 4, y = 4},
     discovered = false,
     min_ante = 2,
-    config = {type = 'immediate', cards = 5, dollars = 10},
+    config = {type = 'immediate', cards = 5, dollars = 5},
     artist_credits = {'no_demo'},
     loc_vars = function(self, info_queue, card)
         return {vars = {card.config.cards, card.config.dollars}}

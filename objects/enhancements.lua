@@ -112,7 +112,7 @@ SMODS.Enhancement({
     key = "sand",
     atlas = "ortalab_enhanced",
     pos = {x = 3, y = 0},
-    config = {extra = {x_mult = 2.5, change=0.25}},
+    config = {extra = {x_mult = 2.0, change=0.20}},
     artist_credits = {'gappie'},
     loc_vars = function(self, info_queue, card)
         return {
