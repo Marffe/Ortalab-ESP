@@ -4,7 +4,7 @@ SMODS.Joker({
     pos = {x = 2, y = 12},
     soul_pos = {x = 3, y = 12},
     rarity = 4,
-    cost = 10,
+    cost = 20,
     unlocked = true,
     discovered = false,
     blueprint_compat = true,
