@@ -3071,8 +3071,8 @@ return {
 				name = 'The Spring',
 				text = {
 					'Lose $ equal to',
-					'played poker', 
-					'hand\'s level'
+					'number of times poker', 
+					'hand has been played'
 				}
 			},
 			['bl_ortalab_tongs'] = {

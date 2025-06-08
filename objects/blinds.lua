@@ -641,10 +641,33 @@ SMODS.Blind({
     boss_colour = HEX('c6e0eb'),
     artist_credits = {'flare'},
     modify_hand = function(self, cards, poker_hands, text, mult, hand_chips)
-        local text,_,_,_,_ = G.FUNCS.get_poker_hand_info(cards)
-        ease_dollars(-G.GAME.hands[text].level)
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.5,
+            func = function()                
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'after',
+                    delay = 0.5,
+                    func = function()                
+                        G.GAME.blind:juice_up()
+                        play_sound('ortalab_spring')
+                        attention_text({
+                            scale = 1, text = '-'..localize('$')..G.GAME.hands[text].played, hold = 2, align = 'cm', offset = {x = 0,y = -2.7},major = G.play, colour = G.C.RED
+                        })
+                        return true
+                    end
+                }))  
+                ease_dollars(-G.GAME.hands[text].played)
+                return true
+            end
+        }))      
         return mult, hand_chips, false
     end
+})
+
+SMODS.Sound({
+    key = 'spring',
+    path = 'spring.ogg'
 })
 
 SMODS.Blind({
