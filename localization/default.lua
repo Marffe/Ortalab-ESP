@@ -77,7 +77,7 @@ return {
 			ortalab_cured = 'Cured!',
 			ortalab_spike_debuff = 'Hand will be debuffed!',
 			ortalab_fork_cap = 'Score capped at 50%',
-			ortalab_tongs = '+1%',
+			ortalab_tongs = '+2%',
 			ortalab_minimised = 'Minimised!',
 			ortalab_rank = 'certain rank',
 			ortalab_zodiac_add = '+1 Zodiac',
@@ -2088,7 +2088,7 @@ return {
 			['tag_ortalab_minion'] = {
                 name = "Shrink Patch",
                 text = {
-                    "{C:attention}Halve{} the required",
+                    "{C:attention}Quarter{} the required",
                     "Chips of the next",
                     "Small or Big Blind"
                 }
