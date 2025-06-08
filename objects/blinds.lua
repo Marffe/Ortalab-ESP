@@ -229,8 +229,8 @@ SMODS.Blind({
     collection_loc_vars = function(self)
         return {vars = {self.config.extra.suit}}
     end,
-    debuff_hand = function(self, cards, hand, handname, check)
-        for _, card in pairs(cards) do
+    debuff_hand = function(self, cards, hands, handname, check)
+        for _, card in pairs(hands[handname][1]) do
             if card:is_suit(self.config.extra.suit) then return false end
         end
         return true
@@ -309,8 +309,8 @@ SMODS.Blind({
     collection_loc_vars = function(self)
         return {vars = {self.config.extra.suit}}
     end,
-    debuff_hand = function(self, cards, hand, handname, check)
-        for _, card in pairs(cards) do
+    debuff_hand = function(self, cards, hands, handname, check)
+        for _, card in pairs(hands[handname][1]) do
             if card:is_suit(self.config.extra.suit) then return false end
         end
         return true
@@ -350,8 +350,8 @@ SMODS.Blind({
     collection_loc_vars = function(self)
         return {vars = {self.config.extra.suit}}
     end,
-    debuff_hand = function(self, cards, hand, handname, check)
-        for _, card in pairs(cards) do
+    debuff_hand = function(self, cards, hands, handname, check)
+        for _, card in pairs(hands[handname][1]) do
             if card:is_suit(self.config.extra.suit) then return false end
         end
         return true
@@ -663,8 +663,8 @@ SMODS.Blind({
     collection_loc_vars = function(self)
         return {vars = {self.config.extra.suit}}
     end,
-    debuff_hand = function(self, cards, hand, handname, check)
-        for _, card in pairs(cards) do
+    debuff_hand = function(self, cards, hands, handname, check)
+        for _, card in pairs(hands[handname][1]) do
             if card:is_suit(self.config.extra.suit) then return false end
         end
         return true

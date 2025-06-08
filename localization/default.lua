@@ -2965,7 +2965,7 @@ return {
 			['bl_ortalab_parasol'] = {
 				name = 'The Parasol',
 				text = {
-					'Hand must',
+					'Poker hand must',
 					'contain #1#'
 				}
 			},
@@ -3012,14 +3012,14 @@ return {
 			['bl_ortalab_buckler'] = {
 				name = 'The Buckler',
 				text = {
-					'Hand must',
+					'Poker hand must',
 					'contain #1#'
 				}
 			},
 			['bl_ortalab_room'] = {
 				name = 'The Room',
 				text = {
-					'Hand must',
+					'Poker hand must',
 					'contain #1#'
 				}
 			},
@@ -3063,7 +3063,7 @@ return {
 			['bl_ortalab_face'] = {
 				name = 'The Face',
 				text = {
-					'Hand must',
+					'Poker hand must',
 					'contain #1#'
 				}
 			},
