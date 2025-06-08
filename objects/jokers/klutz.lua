@@ -21,18 +21,26 @@ SMODS.Joker({
     end,
     calculate = function(self, card, context)
         if context.open_booster and context.card.config.center.draw_hand then
+            card.ability.extra.triggered = G.hand.config.card_limit
             G.hand:change_size(card.ability.extra.hand_size)
-            card.ability.extra.triggered = true
             return {
                 message = '+8 hand size!',
                 no_retrigger = true
             }
         end
-        if (context.ending_booster or context.skipping_booster) and context.booster and context.booster.draw_hand and card.ability.extra.triggered then
-            G.hand:change_size(-card.ability.extra.hand_size)
-            card.ability.extra.triggered = false
+        if (context.ending_booster or context.skipping_booster) and context.booster and context.booster.draw_hand and card.ability.extra.triggered and not context.blueprint then
+            local change = card.ability.extra.triggered - G.hand.config.card_limit
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                delay = 0.5,
+                func = function()
+                    G.hand:change_size(change)
+                    return true
+                end
+            }))      
+            card.ability.extra.triggered = nil
             return {
-                message = '-8 hand size!',
+                message = localize('ortalab_joker_miles_reset'),
                 no_retrigger = true
             }
         end
