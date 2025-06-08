@@ -12,18 +12,30 @@ SMODS.Joker({
 	config = {extra = {money = 25, count = 4, current = 0}},
     artist_credits = {'gappie'},
 	loc_vars = function(self, info_queue, card)
-		return {vars = {card.ability.extra.money, card.ability.extra.count, card.ability.extra.current}}
+		return {vars = {card.ability.extra.money, card.ability.extra.count, card.ability.extra.current%card.ability.extra.count}}
 	end,
 	calculate = function(self, card, context)
         if context.using_consumeable and context.consumeable.ability.set == 'Loteria' and not context.blueprint then
-            card.ability.extra.current = card.ability.extra.current + 1
-            SMODS.calculate_effect({message = card.ability.extra.current..'/'..card.ability.extra.count, colour = G.ARGS.LOC_COLOURS.loteria}, card)
-            if card.ability.extra.current == card.ability.extra.count then
-                card.ability.extra.current = 0             
+            if not context.retrigger_joker and not context.blueprint then 
+                card.ability.extra.current = (card.ability.extra.current%card.ability.extra.count) + 1
+                SMODS.calculate_effect({message = card.ability.extra.current..'/'..card.ability.extra.count, colour = G.ARGS.LOC_COLOURS.loteria}, card)
+            end
+            if card.ability.extra.current >= card.ability.extra.count then
+                if not context.retrigger_joker then
+                    G.E_MANAGER:add_event(Event({
+                        trigger = 'after',
+                        delay = 0.5,
+                        func = function()                
+                            SMODS.calculate_effect({
+                                message = localize('ortalab_joker_miles_reset'),
+                                colour = G.ARGS.LOC_COLOURS.loteria
+                            }, card)
+                            return true
+                        end
+                    }))  
+                end        
                 return {
                     dollars = card.ability.extra.money,
-                    message = localize('ortalab_joker_miles_reset'),
-                    colour = G.ARGS.LOC_COLOURS.loteria
                 }
             end
         end
