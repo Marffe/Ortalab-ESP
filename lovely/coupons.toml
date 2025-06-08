@@ -69,12 +69,16 @@ target = 'functions/button_callbacks.lua'
 match_indent = true
 position = 'after'
 pattern = '''
-for i = 1, #G.GAME.tags do
-    G.GAME.tags[i]:apply_to_run({type = 'immediate'})
-end
-for i = 1, #G.GAME.tags do
-    if G.GAME.tags[i]:apply_to_run({type = 'new_blind_choice'}) then break end
-end
+        for i = 1, #G.GAME.tags do
+            G.GAME.tags[i]:apply_to_run({type = 'immediate'})
+          end
+          for i = 1, #G.GAME.tags do
+            if G.GAME.tags[i]:apply_to_run({type = 'new_blind_choice'}) then break end
+          end
+          return true
+        end
+      }))
+    end
 '''
 payload = '''
 G.E_MANAGER:add_event(Event({
@@ -97,9 +101,9 @@ G.E_MANAGER:add_event(Event({
                 trigger = 'after',
                 blocking = false,
                 func = function()
-                if #G.E_MANAGER.queues.base > 2 or G.GAME.PACK_INTERRUPT then return false end
-                    G.STATE = G.STATES.SHOP
+                    if G.STATE == G.STATES.SMODS_BOOSTER_OPENED or #G.E_MANAGER.queues.base > 3 then return false end
                     G.STATE_COMPLETE = false
+                    G.STATE = G.STATES.SHOP
                     return true
                 end
             }))
