@@ -416,8 +416,7 @@ SMODS.Voucher({
     config = {extra = {discard_size = 2}},
     artist_credits = {'no_demo'},
 	redeem = function(self, card)
-        G.GAME.ortalab.extra_discard_size = G.GAME.ortalab.extra_discard_size + card.ability.extra.discard_size
-        G.hand.config.highlighted_limit = G.hand.config.highlighted_limit + card.ability.extra.discard_size
+        SMODS.change_discard_limit(card.ability.extra.discard_size)
     end,
     loc_vars = function(self, info_queue, card)
         return {vars = {card.ability.extra.discard_size}}
