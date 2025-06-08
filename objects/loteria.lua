@@ -915,6 +915,14 @@ function Card:highlight(is_highlighted)
     end
 end
 
+local ortalab_sell = Card.sell_card
+function Card:sell_card()
+    if self.config.center_key == 'c_ortalab_lot_tree' or self.config.center_key == 'c_ortalab_lot_heart' then
+        G.hand.config.highlighted_limit = self.ability.extra.highlight_limit or 5
+    end
+    ortalab_sell(self)
+end
+
 function random_suits(cards, suits)
     for _, card in ipairs(cards) do
         G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.15, func = function()
