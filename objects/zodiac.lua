@@ -726,9 +726,9 @@ Ortalab.Zodiac{
         G.E_MANAGER:add_event(Event({
             func = function()
                 local cards = {}
-                for i=2, #context.scoring_hand-1 do
+                for i=1, 2 do
                     G.playing_card = (G.playing_card and G.playing_card + 1) or 1
-                    local _card = copy_card(context.scoring_hand[i], nil, nil, G.playing_card)
+                    local _card = copy_card(context.scoring_hand[i == 1 and i or #context.scoring_hand], nil, nil, G.playing_card)
                     table.insert(cards, _card)
                 end
                 for i, _card in ipairs(cards) do
@@ -736,7 +736,7 @@ Ortalab.Zodiac{
                     G.deck.config.card_limit = G.deck.config.card_limit + 1
                     table.insert(G.playing_cards, _card)
                     G.deck:emplace(_card)
-                    context.scoring_hand[i+1]:juice_up()
+                    context.scoring_hand[i==1 and i or #context.scoring_hand]:juice_up()
                     _card:juice_up()
                 end
                 playing_card_joker_effects(cards)

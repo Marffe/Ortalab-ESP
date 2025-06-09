@@ -2208,8 +2208,8 @@ return {
                 name = "Virgo",
                 text = {
 					"{C:attention}+#1#{} levels to next {C:attention}#2#",
-					'Add a {C:attention}copy{} of #3# {C:attention}central',
-					'scoring cards into your deck'
+					'Add a {C:attention}copy{} of {C:attention}left-most{} and',
+					'{C:attention}right-most{} scoring cards into your deck'
                 }
             },
 			['zodiac_ortalab_pisces'] = {
