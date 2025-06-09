@@ -659,7 +659,7 @@ Ortalab.Zodiac{
     key = 'leo',
     pos = {x=0, y=1},
     colour = HEX('8fb85c'),
-    config = {extra = {temp_level = 4, effects = 3, hand_type = 'Flush Five'}},
+    config = {extra = {temp_level = 4, effects = 2, hand_type = 'Flush Five'}},
     loc_vars = function(self, info_queue, card)
         local zodiac = card or self
         local temp_level = (not zodiac.voucher_check and G.GAME.ortalab.zodiacs.temp_level_mod or 1) * zodiac.config.extra.temp_level
