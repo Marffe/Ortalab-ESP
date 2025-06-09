@@ -9,17 +9,16 @@ SMODS.Joker({
 	blueprint_compat = true,
 	eternal_compat = true,
 	perishable_compat = true,
-	config = {extra = {rank = 2, chips = 30, mult = 3}},
+	config = {extra = {rank = "Ace", mult = 18, hand = 'Straight'}},
 	artist_credits = {'crimson'},
 	loc_vars = function(self, info_queue, card)
-		return {vars = {localize(tostring(card.ability.extra.rank), 'ranks'), card.ability.extra.chips, card.ability.extra.mult}}
+		return {vars = {localize(card.ability.extra.hand, 'poker_hands'), localize(card.ability.extra.rank, 'ranks'), card.ability.extra.mult}}
 	end,
 	calculate = function(self, card, context)
-        if context.individual and context.cardarea == G.play and context.other_card.base.id == card.ability.extra.rank then
+        if context.individual and context.cardarea == G.play and context.other_card.base.value == card.ability.extra.rank and next(context.poker_hands[card.ability.extra.hand]) then
             return {
-                chips = card.ability.extra.chips,
                 mult = card.ability.extra.mult,
-                card = card
+                message_card = context.other_card
             }
         end
     end

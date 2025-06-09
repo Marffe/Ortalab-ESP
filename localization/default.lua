@@ -594,13 +594,12 @@ return {
 					'{C:inactive}(Currently {C:red}+#2#{C:inactive} Mult)'
 				}
 			},
-			['j_ortalab_dropout'] = {
+			j_ortalab_dropout = {
 				["name"] = "Dropout",
 				["text"] = {
-					'Each played {C:attention}#1#{} gives', 
-					'{C:blue}+#2#{} Chips and',
-					'{C:red}+#3#{} Mult when',
-					'scored'
+					'If poker hand contains a',
+					'{C:attention}#1#{}, each played',
+					'{C:attention}#2# {}gives {C:red}+#3#{} Mult'
 				}
 			},
 			j_ortalab_drunk_driving = {
