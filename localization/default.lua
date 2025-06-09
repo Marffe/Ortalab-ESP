@@ -721,13 +721,12 @@ return {
 					"when scored",
 				}
 			},
-			['j_ortalab_futuristic'] = {
+			j_ortalab_futuristic = {
 				["name"] = "Futuristic Joker",
 				["text"] = {
-					'{C:attention}Scored cards{} give {X:red,C:white}X#1#{} Mult',
-					'if {C:attention}played hand{} contains a',
-					'{C:attention}#3# {}and a {C:attention}#2#',
-					'{C:inactive,s:0.8}(Rank changes each round)'
+					'Each {C:attention}scored card{} gives {X:red,C:white}X#1#{} Mult',
+					'if {C:attention}poker hand{} contains a',
+					'card with it\'s {C:attention}consecutive{} rank'
 				}
 			},
 			['j_ortalab_generous'] = {
