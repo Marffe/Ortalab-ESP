@@ -36,6 +36,10 @@ SMODS.Stake({
     end,
 })
 
+Ortalab.ortalab_only_inclusion = { -- Vanilla objects that are allowed in Ortalab only mode
+    'e_negative',
+}
+
 SMODS.Stake({
     key = "two",
     applied_stakes = {'one'},
