@@ -493,14 +493,18 @@ Ortalab.Zodiac{
     config = {extra = {temp_level = 4, hand_type = 'Three of a Kind', amount = 3}},
     loc_vars = function(self, info_queue, card)
         local zodiac = card or self
-        if not card and info_queue then info_queue[#info_queue + 1] = G.P_CENTERS['m_ortalab_rusty'] end
+        if not card and info_queue then
+            info_queue[#info_queue+1] = G.P_CENTERS.m_ortalab_rusty
+            info_queue[#info_queue+1] = G.P_CENTERS.m_ortalab_sand
+            info_queue[#info_queue+1] = G.P_CENTERS.m_ortalab_recycled
+        end
         local temp_level = (not zodiac.voucher_check and G.GAME.ortalab.zodiacs.temp_level_mod or 1) * zodiac.config.extra.temp_level
         return {vars = {temp_level, localize(zodiac.config.extra.hand_type, 'poker_hands'), zodiac.config.extra.amount}}
     end,
     pre_trigger = function(self, zodiac, context)
         for i=1, zodiac.config.extra.amount do
             if G.hand.cards[i] then
-                G.hand.cards[i]:set_ability(G.P_CENTERS['m_ortalab_rusty'], nil, true)
+                G.hand.cards[i]:set_ability(SMODS.poll_enhancement({guaranteed = true, options = {'m_ortalab_rusty','m_ortalab_sand','m_ortalab_recycled', key = 'zodiac_taurus'}}), nil, true)
                 G.E_MANAGER:add_event(Event({
                     trigger = 'before', delay = 0.2, func = function()
                         zodiac:juice_up()

@@ -2133,8 +2133,8 @@ return {
                 name = "Taurus",
                 text = {
 					"{C:attention}+#1#{} levels to next {C:attention}#2#",
-					'Turn #3# {C:attention}left-most{} cards in',
-					'hand into {C:attention}Rusty cards'
+					'Turn #3# {C:attention}left-most{} cards in hand',
+					'into {C:attention}Rusty{}, {C:attention}Sand {}or{C:attention} Recycled{} cards'
                 }
             },
 			['zodiac_ortalab_gemini'] = {
