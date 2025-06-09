@@ -1500,7 +1500,7 @@ return {
 				["name"] = "Vinyl",
 				["text"] = {
 					'{C:attention}Numbered{} cards give {C:chips}+#1#{} Chips',
-					'for every scoring {C:attention}numbered{} card',
+					'for every {C:attention}different rank{}',
 					'already scored'
 				}
 			},
