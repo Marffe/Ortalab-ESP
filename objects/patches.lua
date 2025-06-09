@@ -595,7 +595,7 @@ SMODS.Tag({
     discovered = false,
     min_ante = 2,
     config = {type = 'immediate', cards = 5, dollars = 5},
-    artist_credits = {'no_demo'},
+    artist_credits = {'crimson','gappie'},
     loc_vars = function(self, info_queue, card)
         return {vars = {card.config.cards, card.config.dollars}}
     end,
