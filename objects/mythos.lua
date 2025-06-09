@@ -1107,7 +1107,7 @@ SMODS.Consumable({
     cost = 6,
     pos = {x=0, y=2},
     discovered = false,
-    config = {extra = {select = 2, curse = 'ortalab_possessed', method = 'c_ortalab_mult_random', handsize = 1}},
+    config = {extra = {select = 5, scale = 2, curse = 'ortalab_possessed', method = 'c_ortalab_mult_random', handsize = 1}},
     artist_credits = {'gappie'},
     loc_vars = function(self, info_queue, card)
         return {vars = {card.ability.extra.handsize}}
@@ -1163,7 +1163,7 @@ SMODS.Consumable({
                 G.hand.config.card_limit = G.hand.config.card_limit + card.ability.extra.handsize
                 SMODS.calculate_effect({message = localize('ortalab_hand_size_gain'), colour = G.C.BLUE}, card)
                 draw_card(G.deck, G.hand)
-                G.GAME.ortalab.mythos.ya_te_veo_count = G.GAME.ortalab.mythos.ya_te_veo_count + 1
+                G.GAME.ortalab.mythos.ya_te_veo_count = G.GAME.ortalab.mythos.ya_te_veo_count + card.ability.extra.scale
                 return true
             end
         }))
