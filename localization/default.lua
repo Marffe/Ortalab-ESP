@@ -938,11 +938,11 @@ return {
 					'{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive})'
 				}
 			},
-			['j_ortalab_misfits'] = {
+			j_ortalab_misfits = {
 				["name"] = "The Misfits",
 				["text"] = {
 					'{X:red,C:white}X#1#{} Mult if {C:attention}poker hand',
-					'contains exactly',
+					'contains at least',
 					'{C:attention}#2#{} Suits and {C:attention}#2#{} Ranks'
 				}
 			},
