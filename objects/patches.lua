@@ -721,7 +721,7 @@ SMODS.Tag({
                         trigger = 'after',
                         delay = 0.7,
                         func = function()
-                            local card = SMODS.add_card({key = 'c_ortalab_lot_hand', area = G.consumeables, skip_materialize = true})
+                            local card = SMODS.add_card({key = 'c_ortalab_lot_hand', area = G.consumeables, skip_materialize = true, edition = 'e_negative'})
                             card:start_materialize({G.C.SET.Loteria}) 
                             return true
                         end

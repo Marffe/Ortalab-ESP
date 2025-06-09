@@ -1984,9 +1984,8 @@ return {
 			tag_ortalab_hand = {
 				name = 'Gambler\'s Patch',
 				text = {
-					'Obtain {C:attention}#1#{} copies of', 
-					'{C:Loteria}The Hand',
-					'{C:inactive,s:0.7}(Does not need space)'
+					'Obtain {C:attention}#1#{C:dark_edition} negative', 
+					'copies of {C:loteria}The Hand',
 				}
 			},
 			tag_ortalab_777 = {
