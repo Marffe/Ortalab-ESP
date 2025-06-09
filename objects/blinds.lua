@@ -470,7 +470,7 @@ SMODS.Blind({
         end
         return mult, hand_chips
     end,
-    drawn_to_hand = function(self)
+    set_blind = function(self)
         for _, card in pairs(G.playing_cards) do
             if not SMODS.has_no_rank(card) and self.config.extra.ranks[card:get_id()] then card:set_debuff(true); card.debuffed_by_glyph = true end
         end
@@ -533,13 +533,11 @@ SMODS.Blind({
                 possible_ranks[rank] = nil
             end
         end
-        self.triggered = true
-        G.GAME.blind:set_text()
-    end,
-    drawn_to_hand = function(self)
         for _, card in pairs(G.playing_cards) do
             if not SMODS.has_no_rank(card) and self.config.extra.ranks[card.base.value] then card:set_debuff(true); card.debuffed_by_reed = true end
         end
+        self.triggered = true
+        G.GAME.blind:set_text()
     end,
     recalc_debuff = function(self, card, from_blind)
         if not SMODS.has_no_rank(card) and self.config.extra.ranks[card.base.value] then
@@ -942,38 +940,68 @@ SMODS.Blind({
     mult = 2,
     boss = {min = 1, max = 10, showdown = true},
     boss_colour = HEX('22857b'),
-    config = {extra = {options = {'Face', 'Even', 'Odd'}, current = ''}},
     artist_credits = {'flare'},
+    set_blind = function(self)
+        -- Count ranks
+        local ranks = {}
+        for _, pcard in ipairs(G.playing_cards) do
+            ranks[pcard.base.value] = (ranks[pcard.base.value] or 0) + 1
+        end
+        -- Find most abundant
+        local max_amount = 0
+        local ranks_to_debuff = {}
+        for rank, amount in pairs(ranks) do
+            if amount > max_amount then
+                ranks_to_debuff = {rank}
+                max_amount = amount
+            elseif amount == max_amount then
+                ranks_to_debuff[#ranks_to_debuff+1] = rank
+            end
+        end
+        -- Sort table in rank order (highest to lowest)
+        table.sort(ranks_to_debuff, function(a,b) return SMODS.Ranks[a].sort_nominal > SMODS.Ranks[b].sort_nominal end)
+        -- Debuff cards
+        for _, card in pairs(G.playing_cards) do
+            if table.contains(ranks_to_debuff, card.base.value) then
+                card:set_debuff(true)
+                card.debuffed_by_blind = true
+                card.ability.celadon = true
+            end
+        end
+        -- Add notification split over 2 lines
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.7,
+            func = function()
+                local text = {localize(ranks_to_debuff[1], 'ranks')..'s'..(#ranks_to_debuff>2 and ', ' or ''), ""}
+                for i=2, #ranks_to_debuff-2 do
+                    text[i<7 and 1 or 2] = text[i<7 and 1 or 2]..localize(ranks_to_debuff[i], 'ranks')..'s, '
+                end
+                if #ranks_to_debuff > 1 then
+                    text[string.len(text[2])>0 and 2 or 1] = text[string.len(text[2])>0 and 2 or 1] .. (#ranks_to_debuff > 2 and localize(ranks_to_debuff[#ranks_to_debuff-1], 'ranks')..'s' or '') .. localize('ortalab_celadon_and') .. localize(ranks_to_debuff[#ranks_to_debuff], 'ranks') .. 's'
+                end
+                text[string.len(text[2])>0 and 2 or 1] = text[string.len(text[2])>0 and 2 or 1] .. localize('ortalab_celadon_notification')
+                attention_text({
+                    scale = 0.9, text = text[1], hold = 4*math.ceil(#ranks_to_debuff/7), align = 'cm', offset = {x = 0,y = -2.7},major = G.play, colour = G.C.RED
+                })         
+                attention_text({
+                    scale = 0.9, text = text[2], hold = 4*math.ceil(#ranks_to_debuff/7), align = 'cm', offset = {x = 0,y = -1.8},major = G.play, colour = G.C.RED
+                })            
+                return true
+            end
+        }))
+    end,
+    recalc_debuff = function(self, card, from_blind)
+        return card.debuff
+    end,
     disable = function(self)
         for _, card in pairs(G.playing_cards) do
-            card.celadon = false
+            if card.ability.celadon then card:set_debuff(); card.ability.celadon = nil; card.debuffed_by_blind = nil end
         end
     end,
     defeat = function(self)
         for _, card in pairs(G.playing_cards) do
-            card.celadon = false
-        end
-    end,
-    drawn_to_hand = function(self)
-        if not self.prepped then
-            self.config.extra.current = pseudorandom_element(self.config.extra.options, pseudoseed('celadon_shuffle'))
-            self.prepped = true
-            attention_text({
-                scale = 1, text = self.config.extra.current..' cards will not score!', hold = 2, align = 'cm', offset = {x = 0,y = -2.7},major = G.play
-            })
-        end
-        for _, card in pairs(G.playing_cards) do
-            celadon_check(self, card)
-        end
-    end,
-    press_play = function(self)
-        self.prepped = false
-    end,
-    calculate = function(self, card, context)
-        if context.modify_scoring_hand and context.other_card.celadon then
-            return {
-                remove_from_hand = true
-            }
+            if card.ability.celadon then card:set_debuff(); card.ability.celadon = nil; card.debuffed_by_blind = nil end
         end
     end
 })

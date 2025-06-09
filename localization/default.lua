@@ -105,7 +105,9 @@ return {
 			ortalab_policeman = '+4 Discards!',
 			ortalab_score = 'Score: ',
 			ortalab_stake_skips = 'Skips required: ',
-			blind_credit = 'Added by '
+			blind_credit = 'Added by ',
+			ortalab_celadon_notification = ' are debuffed',
+			ortalab_celadon_and = ' and '
 		},
 		['labels'] = {
 			ortalab_greyscale = 'Greyscale',
@@ -3126,8 +3128,9 @@ return {
 			['bl_ortalab_celadon_clubs'] = {
 				name = 'Celadon Clubs',
 				text = {
-					'Set a type of card', 
-					'to not score each hand',
+					'Debuff the most',
+					'common rank in',
+					'your deck'
 				}
 			},
 			['bl_ortalab_caramel_coin'] = {
