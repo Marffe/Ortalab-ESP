@@ -1008,24 +1008,6 @@ SMODS.Blind({
 
 SMODS.Shader({key = 'celadon', path = 'applied.fs'})
 
-
-function celadon_check(self, card)
-    card.celadon = false
-    if card:is_face() then
-        if self.config.extra.current == 'Face' then
-            card.celadon = true
-        end
-    elseif card.base.nominal % 2 == 0 then
-        if self.config.extra.current == 'Even' then
-            card.celadon = true
-        end
-    else
-        if self.config.extra.current == 'Odd' then
-            card.celadon = true
-        end
-    end
-end
-
 SMODS.DrawStep {
     key = 'celadon',
     order = -1,
@@ -1076,18 +1058,37 @@ SMODS.Blind({
     config = {extra = {chance = 2}},
     artist_credits = {'flare'},
     loc_vars = function(self, info_queue, card)
-        return {vars = {math.max(G.GAME.probabilities.normal, 1), self.config.extra.chance / math.min(G.GAME.probabilities.normal, 1)}}
+        local suits = Ortalab.count_suits()
+        return {vars = {localize(suits[#suits].suit, 'suits_plural'), colours = {G.C.SUITS[suits[#suits].suit]}}}
     end,
     collection_loc_vars = function(self)
-        return {vars = {G.GAME.probabilities.normal, self.config.extra.chance}}
+        return {vars = {localize('ortalab_saffron'), colours = {G.ARGS.LOC_COLOURS.attention}}}
     end,
-    stay_flipped = function (self, area, card)
-        if self.disabled or area ~= G.hand then return false end
-        if pseudorandom(pseudoseed('saffron_shield')) < G.GAME.probabilities.normal / self.config.extra.chance then
-            return true
+    set_blind = function(self)
+        local suits = Ortalab.count_suits()
+        self.config.extra.suit = suits[#suits].suit
+    end,
+    debuff_hand = function(self, cards, hands, handname, check)
+        for _, card in pairs(hands[handname][1]) do
+            if card:is_suit(self.config.extra.suit) then return false end
         end
-    end
+        return true
+    end,
 })
+
+function Ortalab.count_suits()
+    -- Count suits
+    local suits = {}
+    for _, pcard in ipairs(G.playing_cards) do
+        suits[pcard.base.suit] = (suits[pcard.base.suit] or 0) + 1
+    end
+    local suits_by_count = {}
+    for suit, count in pairs(suits) do
+        table.insert(suits_by_count, {suit = suit, count = count})
+    end
+    table.sort(suits_by_count, function(a, b) return a.count > b.count end)
+    return suits_by_count
+end
 
 SMODS.Blind({
     key = 'rouge_rose',

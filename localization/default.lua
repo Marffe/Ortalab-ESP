@@ -107,7 +107,8 @@ return {
 			ortalab_stake_skips = 'Skips required: ',
 			blind_credit = 'Added by ',
 			ortalab_celadon_notification = ' are debuffed',
-			ortalab_celadon_and = ' and '
+			ortalab_celadon_and = ' and ',
+			ortalab_saffron = 'least common suit'
 		},
 		['labels'] = {
 			ortalab_greyscale = 'Greyscale',
@@ -3150,8 +3151,8 @@ return {
 			['bl_ortalab_saffron_shield'] = {
 				name = 'Saffron Shield',
 				text = {
-					'#1# in #2# cards are', 
-					'drawn face down'
+					'Poker hand must',
+					'contain {V:1}#1#'
 				}
 			},
 			['bl_ortalab_rouge_rose'] = {
