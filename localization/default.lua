@@ -108,7 +108,8 @@ return {
 			blind_credit = 'Added by ',
 			ortalab_celadon_notification = ' are debuffed',
 			ortalab_celadon_and = ' and ',
-			ortalab_saffron = 'least common suit'
+			ortalab_saffron = 'least common suit',
+			ortalab_kopi = 'Kopi\'d!'
 		},
 		['labels'] = {
 			ortalab_greyscale = 'Greyscale',
@@ -885,10 +886,11 @@ return {
 			j_ortalab_kopi = {
 				name = 'Kopi',
 				text = {
-					'If exactly {C:attention}#1#{} cards are',
-					'drawn, add a {C:attention}copy{} of',
-					'them to your deck',
-					'{C:inactive,s:0.8}(Number changes when triggered)'
+					'After using {C:attention}#1#{} consumables,',
+					'create a {C:kopi}copy{} of a',
+					'random Joker that lasts until',
+					'a {C:attention}Blind{} is defeated',
+					'{C:inactive,s:0.8}(Currently #2#/#1#)'
 				}
 			},
 			['j_ortalab_mathmagician'] = {
@@ -2677,6 +2679,13 @@ return {
             },
 		},
 		['Other'] = {
+			ortalab_kopi = {
+				name = '{C:kopi}Kopi\'d',
+				text = {
+					'Will be removed when',
+					'{C:attention}Blind{} is defeated'
+				}
+			},
 			ortalab_chiselled = {
 				name = "Chiselled",
 				text = {
