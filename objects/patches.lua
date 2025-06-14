@@ -462,7 +462,7 @@ SMODS.Tag({
     pos = {x = 3, y = 4},
     discovered = false,
     config = {type = 'immediate', vouchers = 1},
-    artist_credits = {'no_demo'},
+    artist_credits = {'eremel'},
     apply = function(self, tag, context)
         if context.type == tag.config.type then
             tag:yep('+', G.C.GREEN,function()
@@ -859,7 +859,7 @@ SMODS.Tag({
     discovered = false,
     min_ante = 2,
     config = {type = 'ortalab_first_hand'},
-    artist_credits = {'no_demo'},
+    artist_credits = {'eremel'},
     apply = function(self, tag, context)
         if context.type == tag.config.type then
             tag:yep('+', G.C.GREEN ,function() 
@@ -901,3 +901,36 @@ SMODS.Tag({
         end
     end
 })
+
+SMODS.Tag({
+    key = 'resonance',
+    atlas = 'patches',
+    pos = {x = 3, y = 0},
+    discovered = false,
+    min_ante = 3,
+    config = {type = 'press_play', xmult_change = 0.2},
+    artist_credits = {'eremel'},
+    loc_vars = function(self, info_queue, card)
+        return {vars = {self.config.xmult_change}}
+    end,
+    apply = function(self, tag, context)
+        if context.type == self.config.type then
+            tag:yep('+', G.C.GREEN,function()
+                for _, card in ipairs(G.play.cards) do
+                    card.ability.perma_x_mult = card.ability.perma_x_mult + tag.config.xmult_change
+                    SMODS.calculate_effect({message = '+X'..tag.config.xmult_change, colour = G.C.RED}, card)
+                end
+                return true
+            end)
+        end 
+    end
+})
+
+local ortalab_press_play = Blind.press_play
+function Blind:press_play()
+	local ret = ortalab_press_play(self)
+    for i = 1, #G.GAME.tags do
+        G.GAME.tags[i]:apply_to_run({type = 'press_play'})
+    end
+	return ret
+end

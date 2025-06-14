@@ -2012,6 +2012,14 @@ return {
 					'a {C:attention}single rank'
 				}
 			},
+			tag_ortalab_resonance = {
+				name = 'Resonance Patch',
+				text = {
+					'Each card in the next',
+					'played poker hand permanently',
+					'gains {C:white,X:red}X#1#{} Mult',
+				}
+			},
 			["tag_ortalab_common"] = {
 				["name"] = "Common Patch",
 				["text"] = {
