@@ -1860,9 +1860,11 @@ return {
 			["m_ortalab_rusty"] = {
 				["name"] = "Rusty Card",
 				["text"] = {
-					{"{X:mult,C:white}X#1#{} Mult",},
+					{"{X:mult,C:white}X#1#{} Mult whilst",
+					"held in hand"},
 					{"Gains {X:mult,C:white}X#2#{} Mult per",
-					"{C:attention}Rusty Card{} held in hand"}
+					"{C:attention}Rusty Card{} in",
+					"played {C:attention}poker hand"}
 				},
 			},
 			["m_ortalab_recycled"] = {

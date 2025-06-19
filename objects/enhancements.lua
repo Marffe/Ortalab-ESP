@@ -187,9 +187,9 @@ SMODS.Enhancement({
         }
     end,
     calculate = function(self, card, context)
-        if context.cardarea == G.play and context.main_scoring then
+        if context.cardarea == G.hand and context.main_scoring then
             local rusty_in_hand = 0
-            for i, held_card in pairs(G.hand.cards) do
+            for i, held_card in pairs(context.scoring_hand) do
                 if SMODS.has_enhancement(held_card, 'm_ortalab_rusty') then
                     if not Ortalab.config.enhancement_skip then
                         G.E_MANAGER:add_event(Event({
