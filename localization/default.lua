@@ -120,6 +120,8 @@ return {
 			ortalab_possessed = 'Possessed',
 			ortalab_restrained = 'Restrained',
 			ortalab_infected = 'Infected',
+			ortalab_cyan_seal = 'Cyan Seal',
+			ortalab_fuchsia_seal = 'Fuchsia Seal'
 		}
     },
     ["descriptions"] = {
@@ -2681,6 +2683,23 @@ return {
             },
 		},
 		['Other'] = {
+			ortalab_cyan_seal = {
+				name = 'Cyan Seal',
+				text = {
+					'Creates a random {C:zodiac}Zodiac{} card',
+					'if {C:attention}held{} in hand at',
+					'end of round',
+					'{C:inactive,s:0.8}(Must have room)'
+				},
+			},
+			ortalab_fuchsia_seal = {
+				name = 'Fuchsia Seal',
+				text = {
+					'Creates a {C:loteria}Loteria{} card',
+					'when {C:attention}discarded',
+					'{C:inactive,s:0.8}(Must have room)'
+				},
+			},
 			ortalab_kopi = {
 				name = '{C:kopi}Kopi\'d',
 				text = {

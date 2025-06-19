@@ -10,7 +10,7 @@ target = 'functions/common_events.lua'
 pattern = '''if add and not G.GAME.banned_keys[v.key] then'''
 position = 'before'
 match_indent = true
-payload = '''if G.GAME.modifiers.ortalab_only and _type ~= 'Seal' then
+payload = '''if G.GAME.modifiers.ortalab_only then
     if (not v.mod or v.mod.id ~= 'ortalab') and not table.contains(Ortalab.ortalab_only_inclusion, v.key) then
         add = false
     end 
