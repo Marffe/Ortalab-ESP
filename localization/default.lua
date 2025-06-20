@@ -862,8 +862,9 @@ return {
 			j_ortalab_klutz = {
 				name = 'Klutz',
 				text = {
-					'{C:attention}+#1#{} hand size whilst',
-					'opening a {C:attention}consumable pack'
+					{'{C:attention}+#1#{} hand size and',
+					'{C:red}+#3#{} discard each round',},
+					{'{C:red}#2#{} hand each round'}
 				}
 			},
 			['j_ortalab_knitted_sweater'] = {

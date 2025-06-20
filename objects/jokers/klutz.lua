@@ -9,40 +9,23 @@ SMODS.Joker({
     blueprint_compat = true,
     eternal_compat = true,
     perishable_compat = true,
-    config = {extra = {hand_size = 8}},
+    config = {extra = {hand_size = 1, hands = -1, discards = 1}},
     artist_credits = {'no_demo'},
     loc_vars = function(self, info_queue, card)
-        return {vars = {card.ability.extra.hand_size}}
+        return {vars = {card.ability.extra.hand_size, card.ability.extra.hands, card.ability.extra.discards}}
+    end,
+    add_to_deck = function(self, card, from_debuff)
+        G.GAME.round_resets.hands = G.GAME.round_resets.hands + card.ability.extra.hands
+        G.GAME.round_resets.discards = G.GAME.round_resets.discards + card.ability.extra.discards
+        ease_hands_played(card.ability.extra.hands)
+        ease_discard(card.ability.extra.discards)
+        G.hand:change_size(card.ability.extra.hand_size)
     end,
     remove_from_deck = function(self, card, from_debuff)
-        if card.ability.extra.triggered then
-            G.hand:change_size(-card.ability.extra.hand_size)
-        end
+        G.GAME.round_resets.hands = G.GAME.round_resets.hands - card.ability.extra.hands
+        G.GAME.round_resets.discards = G.GAME.round_resets.discards - card.ability.extra.discards
+        ease_hands_played(-1*card.ability.extra.hands)
+        ease_discard(-1*card.ability.extra.discards)
+        G.hand:change_size(-1*card.ability.extra.hand_size)
     end,
-    calculate = function(self, card, context)
-        if context.open_booster and context.card.config.center.draw_hand then
-            card.ability.extra.triggered = G.hand.config.card_limit
-            G.hand:change_size(card.ability.extra.hand_size)
-            return {
-                message = '+8 hand size!',
-                no_retrigger = true
-            }
-        end
-        if (context.ending_booster or context.skipping_booster) and context.booster and context.booster.draw_hand and card.ability.extra.triggered and not context.blueprint then
-            local change = card.ability.extra.triggered - G.hand.config.card_limit
-            G.E_MANAGER:add_event(Event({
-                trigger = 'after',
-                delay = 0.5,
-                func = function()
-                    G.hand:change_size(change)
-                    return true
-                end
-            }))      
-            card.ability.extra.triggered = nil
-            return {
-                message = localize('ortalab_joker_miles_reset'),
-                no_retrigger = true
-            }
-        end
-    end    
 })
