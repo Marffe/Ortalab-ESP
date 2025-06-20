@@ -15,15 +15,24 @@ SMODS.Joker({
 	loc_vars = function(self, info_queue, card)
         return {vars = {card.ability.extra.Xmult}}
     end,
+	calculate = function(self, card, context)
+		if context.ortalab_money_gain then
+			return {
+				xmult = card.ability.extra.Xmult
+			}
+		end
+	end
 })
 
-local ease_hook = ease_dollars
-function ease_dollars(mod, instant)
-    ease_hook(mod, instant)
-    if G.GAME.Ortalab_Scoring_Active and to_big(mod) > to_big(0) then
-        local mint_jokers = SMODS.find_card('j_ortalab_mint_condition')
-        for _, card in pairs(mint_jokers) do
-			SMODS.calculate_effect({xmult = card.ability.extra.Xmult}, card)
-        end
-    end
+local ortalab_calc_individual_effect = SMODS.calculate_individual_effect
+function SMODS.calculate_individual_effect(effect, scored_card, key, amount, from_edition)
+    ortalab_calc_individual_effect(effect, scored_card, key, amount, from_edition)
+	if (key == 'p_dollars' or key == 'dollars' or key == 'h_dollars') and amount then
+		if G.GAME.Ortalab_Scoring_Active and to_big(amount) > to_big(0) then
+			local mint_jokers = SMODS.find_card('j_ortalab_mint_condition')
+			if next(mint_jokers) then
+				SMODS.calculate_context({ortalab_money_gain = true, amount = amount})
+			end
+		end
+	end
 end
