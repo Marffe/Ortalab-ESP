@@ -172,11 +172,12 @@ SMODS.Tag({
                 tag:yep('+', G.C.GREEN,function() 
                     return true
                 end)
+                local last_tag = G.GAME.last_selected_tag
                 G.E_MANAGER:add_event(Event({
                     trigger = 'immediate',
                     func = function()
-                        local tag = Tag(G.GAME.last_selected_tag.key, false, G.GAME.last_selected_tag.ability.blind_type)
-                        if G.GAME.last_selected_tag.key == 'tag_orbital' then
+                        local tag = Tag(last_tag.key, false, last_tag.blind_type)
+                        if last_tag.key == 'tag_orbital' then
                             local _poker_hands = {}
                             for k, v in pairs(G.GAME.hands) do
                                 if v.visible then _poker_hands[#_poker_hands+1] = k end
@@ -390,8 +391,15 @@ local skip_blind = G.FUNCS.skip_blind
 G.FUNCS.skip_blind = function(e)
     local _tag = e.UIBox:get_UIE_by_ID('tag_container').config.ref_table
     skip_blind(e)
-    if _tag.key == 'tag_ortalab_rewind' then return end
-    G.GAME.last_selected_tag = _tag or G.GAME.last_selected_tag
+    G.E_MANAGER:add_event(Event({
+        trigger = 'after',
+        delay = 0.7,
+        func = function()
+            if _tag.key == 'tag_ortalab_rewind' then return end
+            G.GAME.last_selected_tag = {key = _tag.key, blind_type = _tag.ability.blind_type} or G.GAME.last_selected_tag
+            return true
+        end
+    }))
 end
 
 SMODS.Tag({
