@@ -17,11 +17,11 @@ SMODS.Joker({
     calculate = function(self, card, context)
         if context.end_of_round and context.main_eval and not context.blueprint then
             local pos
-            for i, v in ipairs(G.jokers.cards) do
+            for i, v in ipairs(card.area.cards) do
                 if v == card then pos = i end
             end
-            if G.jokers.cards[pos+1] and G.jokers.cards[pos+1].config.center.rarity == 1 then
-                local destroy_card = G.jokers.cards[pos+1]
+            if card.area.cards[pos+1] and card.area.cards[pos+1].config.center.rarity == 1 then
+                local destroy_card = card.area.cards[pos+1]
                 local sell_val = destroy_card.sell_cost
                 G.E_MANAGER:add_event(Event({
                     trigger = 'immediate',
