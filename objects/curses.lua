@@ -420,7 +420,7 @@ Ortalab.Curse({
                 end
             }))
         end
-        if context.before and context.cardarea == G.jokers then
+        if context.press_play and context.cardarea == G.jokers then
             if pseudorandom('infected_joker_chance') < G.GAME.probabilities.normal / card.ability.curse.extra.denom then
                 G.E_MANAGER:add_event(Event({func = function()
                     card.ability.no_score_shader = true
