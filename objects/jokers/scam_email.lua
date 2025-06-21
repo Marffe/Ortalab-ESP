@@ -22,12 +22,13 @@ SMODS.Joker({
 	calculate = function(self, card, context)
         if context.setting_blind then
             card.ability.extra.rank = Ortalab.rank_from_deck('ortalab_scam_email')
-            card:juice_up()
-            card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize(card.ability.extra.rank, 'ranks')})
+            return {
+                message = localize(card.ability.extra.rank, 'ranks'),
+                no_retrigger = true
+            }
         end
 		if context.cardarea == G.play and context.individual and context.other_card.base.value == card.ability.extra.rank then
             return {
-                card = card,
                 dollars = card.ability.extra.dollars
             }
         end
