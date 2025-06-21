@@ -463,20 +463,17 @@ SMODS.Blind({
     boss_colour = HEX('7e6752'),
     config = {extra = {ranks = {}}},
     artist_credits = {'flare'},
-    modify_hand = function(self, cards, poker_hands, handname, mult, hand_chips)
-        local _,_,_,scoring_hand,_ = G.FUNCS.get_poker_hand_info(cards)
-        for _, card in pairs(scoring_hand) do
-            if not SMODS.has_no_rank(card) then self.config.extra.ranks[card:get_id()] = true end
-        end
-        return mult, hand_chips
-    end,
     set_blind = function(self)
-        for _, card in pairs(G.playing_cards) do
-            if not SMODS.has_no_rank(card) and self.config.extra.ranks[card:get_id()] then card:set_debuff(true); card.debuffed_by_glyph = true end
+        for _,card in pairs(G.playing_cards) do
+            if card.ability.played_this_ante and not SMODS.has_no_rank(card) then
+                self.config.extra.ranks[card.base.id] = true
+                card.debuffed_by_glyph = true
+                card:set_debuff(true)
+            end
         end
     end,
     recalc_debuff = function(self, card, from_blind)
-        if not SMODS.has_no_rank(card) and self.config.extra.ranks[card.base.value] then
+        if not SMODS.has_no_rank(card) and self.config.extra.ranks[card.base.id] then
             card.debuffed_by_glyph = true
             return true
         else
