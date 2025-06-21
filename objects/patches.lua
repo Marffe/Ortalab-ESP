@@ -184,7 +184,14 @@ SMODS.Tag({
                             end
                             tag.ability.orbital_hand = pseudorandom_element(_poker_hands, pseudoseed('rewind_orbital'))
                         end
-                        add_tag(tag)
+                        G.E_MANAGER:add_event(Event({
+                            trigger = 'immediate',
+                            func = function()                
+                                add_tag(tag)
+                                tag:apply_to_run({type = 'immediate'})
+                                return true
+                            end
+                        }))
                         return true
                 end}))
                 tag.triggered = true
@@ -395,7 +402,7 @@ G.FUNCS.skip_blind = function(e)
         trigger = 'after',
         delay = 0.7,
         func = function()
-            if _tag.key == 'tag_ortalab_rewind' then return end
+            if _tag.key == 'tag_ortalab_rewind' then return true end
             G.GAME.last_selected_tag = {key = _tag.key, blind_type = _tag.ability.blind_type} or G.GAME.last_selected_tag
             return true
         end
@@ -436,7 +443,6 @@ SMODS.Tag({
                             G.zodiacs[key]:juice_up(1, 1)
                             delay(0.7)
                         else
-                            print(tag.config.extra.zodiacs)
                             add_zodiac(Zodiac(key), nil, nil, tag.config.extra.zodiacs)
                         end
                         return true
@@ -654,10 +660,10 @@ SMODS.Tag({
                             trigger = 'after',
                             delay = 0.5,
                             func = function()
-                        if G.blind_select then
-                            G.blind_select.alignment.offset.y = G.blind_select.alignment.offset.py
-                            G.blind_select.alignment.offset.py = nil
-                        end                  
+                                if G.blind_select and G.blind_select.alignment.offset.py then
+                                    G.blind_select.alignment.offset.y = G.blind_select.alignment.offset.py
+                                    G.blind_select.alignment.offset.py = nil
+                                end                  
                                 return true
                             end
                         }))              
