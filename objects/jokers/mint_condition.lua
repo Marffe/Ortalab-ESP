@@ -26,7 +26,7 @@ SMODS.Joker({
 
 local ortalab_calc_individual_effect = SMODS.calculate_individual_effect
 function SMODS.calculate_individual_effect(effect, scored_card, key, amount, from_edition)
-    ortalab_calc_individual_effect(effect, scored_card, key, amount, from_edition)
+  local ret = ortalab_calc_individual_effect(effect, scored_card, key, amount, from_edition)
 	if (key == 'p_dollars' or key == 'dollars' or key == 'h_dollars') and amount then
 		if G.GAME.Ortalab_Scoring_Active and to_big(amount) > to_big(0) then
 			local mint_jokers = SMODS.find_card('j_ortalab_mint_condition')
@@ -35,4 +35,5 @@ function SMODS.calculate_individual_effect(effect, scored_card, key, amount, fro
 			end
 		end
 	end
+return ret
 end
