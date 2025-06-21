@@ -371,3 +371,16 @@ if card.ability.kopi then
     sell = nil
 end
 '''
+
+# Pinkprint calc_dollar_bonus implementation
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+match_indent = true
+position = 'at'
+pattern = '''
+if not self:can_calculate() then return end
+'''
+payload = '''
+if self.can_calculate and not self:can_calculate() then return end
+'''

@@ -28,6 +28,7 @@ SMODS.Joker({
             card.ability.extra.last_joker = context.card.config.center_key
             card.ability.extra.last_joker_table = {
                 fake_card = true,
+                pinkprint = card.ID,
                 ability = copy_table(context.card.ability),
                 config = {
                     center = G.P_CENTERS[card.ability.extra.last_joker]
@@ -49,7 +50,6 @@ SMODS.Joker({
             }
         end
         if card.ability.extra.last_joker then
-            local calc = G.P_CENTERS[card.ability.extra.last_joker]
             local ret, trig = Card.calculate_joker(card.ability.extra.last_joker_table, context)
             if ret and ret.card and ret.card == card.ability.extra.last_joker_table then
                 ret.card = card
@@ -57,6 +57,11 @@ SMODS.Joker({
             return ret, trig
         end
     end,
+    calc_dollar_bonus = function(self, card)
+        if card.ability.extra.last_joker then
+            return Card.calculate_dollar_bonus(card.ability.extra.last_joker_table)
+        end
+	end,
     load = function(self, card, table, other)
         if table.ability.extra.last_joker_table then table.ability.extra.last_joker_table.config.center = G.P_CENTERS[table.ability.extra.last_joker] end
     end,
@@ -66,3 +71,20 @@ SMODS.Joker({
         end
     end
 })
+
+local ortalab_destroy_cards = SMODS.destroy_cards
+function SMODS.destroy_cards(cards)
+    if not cards[1] then cards = {cards} end
+    for i=1, #cards do
+        if cards[i].pinkprint then
+            for _, joker in pairs(G.jokers.cards) do
+                if cards[i].pinkprint == joker.ID then
+                    cards[i] = joker
+                    ortalab_destroy_cards(cards)
+                    return
+                end
+            end
+        end
+    end
+    ortalab_destroy_cards(cards)
+end
