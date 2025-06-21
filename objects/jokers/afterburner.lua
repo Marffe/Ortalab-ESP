@@ -19,7 +19,7 @@ SMODS.Joker({
     end,
     calculate = function(self, card, context) --Fuel Tank Logic
         if not context.blueprint then
-            if context.end_of_round and not context.individual and not context.repetition then
+            if context.end_of_round and context.main_eval then
                 if G.GAME.blind.boss then
                     if card.ability.extra.money - card.ability.extra.money_loss <= 0 then
                         SMODS.destroy_cards(card)
