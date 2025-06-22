@@ -290,16 +290,7 @@ function Card:open()
                         local edition_rate = 2
                         local edition = poll_edition('standard_edition'..G.GAME.round_resets.ante, edition_rate, true, nil, {'e_ortalab_greyscale','e_ortalab_fluorescent','e_ortalab_anaglyphic'})
                         card:set_edition(edition)
-                        local seal_rate = 10
-                        local seal_poll = pseudorandom(pseudoseed('stdseal'..G.GAME.round_resets.ante))
-                        if seal_poll > 1 - 0.02*seal_rate then
-                            local seal_type = pseudorandom(pseudoseed('stdsealtype'..G.GAME.round_resets.ante))
-                            if seal_type > 0.75 then card:set_seal('Red')
-                            elseif seal_type > 0.5 then card:set_seal('Blue')
-                            elseif seal_type > 0.25 then card:set_seal('Gold')
-                            else card:set_seal('Purple')
-                            end
-                        end
+                        card:set_seal(SMODS.poll_seal({mod = 10}))
                    
                     card.T.x = self.T.x
                     card.T.y = self.T.y
