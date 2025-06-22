@@ -15,15 +15,19 @@ SMODS.Joker({
         return {vars = {card.ability.extra.mult}}
     end,
     calculate = function(self, card, context)
-        if context.joker_main then
+        if context.individual and not context.end_of_round and card.ability.extra.active and context.cardarea == G.hand then
+            return {
+                mult = card.ability.extra.mult
+            }
+        end
+        if context.before then
+            card.ability.extra.active = false
             for _, _card in ipairs(G.hand.cards) do
                 if _card:is_face() then
                     return
                 end
             end
-            return {
-                mult = card.ability.extra.mult * #G.hand.cards
-            }
+            card.ability.extra.active = true
         end
     end    
 })
