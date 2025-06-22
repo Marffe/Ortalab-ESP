@@ -25,5 +25,41 @@ SMODS.Joker({
 			if card.config.center.no_rank or SMODS.has_enhancement(card, 'm_stone') then return true end
 		end
 		return false
-	end
+	end,
+	
 })
+
+local ortalab_evaluate_poker_hand = evaluate_poker_hand
+function evaluate_poker_hand(hand)
+	table.sort(hand, function (a, b) return a.T.x + a.T.w/2 < b.T.x + b.T.w/2 end)
+	local new_hand = {hand[1]}
+	if next(SMODS.find_card('j_ortalab_stonehenge')) then
+		for i=2, #hand do
+			if hand[i].config.center.no_rank then
+				new_hand[i] = Ortalab.find_card_to_left_with_rank(hand, i)
+			else
+				new_hand[i] = hand[i]
+			end
+		end
+	end
+	return ortalab_evaluate_poker_hand(new_hand)
+end
+
+function Ortalab.find_card_to_left_with_rank(hand, index)
+	for i=index, 1, -1 do
+		if not hand[i].config.center.no_rank then return hand[i] end
+	end
+	return hand[index]
+end
+
+local ortalab_align_cards = CardArea.align_cards
+function CardArea:align_cards()
+	ortalab_align_cards(self)
+	if self.config.type == 'hand' and not (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK or G.STATE == G.STATES.PLANET_PACK or G.STATE == G.STATES.SMODS_BOOSTER_OPENED) then
+		for k, card in ipairs(self.cards) do
+            if card.states.drag.is and card.config.center.no_rank then
+				self:parse_highlighted()
+			end
+		end
+	end
+end

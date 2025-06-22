@@ -1426,10 +1426,9 @@ return {
 			j_ortalab_stonehenge = {
 				name = 'Stonehenge',
 				text = {
-					'If {C:attention}played hand{} contains', 
-					'a {C:attention}rankless{} card',
-					'it acts as your {C:attention}most',
-					'{C:attention}played poker hand'
+					'{C:attention}Rankless{} cards count as',
+					'the card to their {C:attention}left',
+					'when making a {C:attention}poker hand'
 				}
 			},
 			j_ortalab_storm_6 = {

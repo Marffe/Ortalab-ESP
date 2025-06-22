@@ -231,44 +231,6 @@ if context.cardarea == Ortalab.polydactyly then
 end
 '''
 
-
-# Stonehenge
-[[patches]]
-[patches.pattern]
-target = 'functions/state_events.lua'
-match_indent = true
-position = 'after'
-pattern = '''
-local text,disp_text,poker_hands,scoring_hand,non_loc_disp_text = G.FUNCS.get_poker_hand_info(G.play.cards)
-'''
-payload = '''
-local stonehenge = SMODS.find_card('j_ortalab_stonehenge')
-if next(stonehenge) and stonehenge[1].config.center:hand_contains_no_rank(G.play.cards) then
-    text = stonehenge[1].config.center:calculate_most_played()
-    disp_text = localize(text, 'poker_hands')
-    non_loc_disp_text = text
-    poker_hands[text] = {{true}}
-    SMODS.calculate_effect({message = 'Changed!', colour = G.C.BLUE}, stonehenge[1])
-    delay(0.3)
-end
-'''
-# Stonehenge update selected text
-[[patches]]
-[patches.pattern]
-target = 'cardarea.lua'
-match_indent = true
-position = 'after'
-pattern = '''
-local text,disp_text,poker_hands = G.FUNCS.get_poker_hand_info(self.highlighted)
-'''
-payload = '''
-local stonehenge = SMODS.find_card('j_ortalab_stonehenge')
-if next(stonehenge) and stonehenge[1].config.center:hand_contains_no_rank(G.hand.highlighted) then
-    text = stonehenge[1].config.center:calculate_most_played()
-    disp_text = localize(text, 'poker_hands')
-end
-'''
-
 # Wallet - scored cards act as in hand
 [[patches]]
 [patches.pattern]
