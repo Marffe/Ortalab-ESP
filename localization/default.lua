@@ -1195,7 +1195,8 @@ return {
 					"destroy leftmost {C:attention}Joker{}",
 					"and permanently add {C:attention}#1#x{}",
 					"its sell value to this {C:blue}Chips",
-					"{C:inactive}(Currently {C:blue}+#2#{C:inactive} Chips)"
+					"{C:inactive}(Currently {C:blue}+#2#{C:inactive} Chips)",
+					'{C:inactive,s:0.7}Cannot shoot self'
 				}
 			},
 			j_ortalab_right_hand = {
