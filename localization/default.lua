@@ -1084,9 +1084,9 @@ return {
 			['j_ortalab_pitch_mitch'] = {
 				["name"] = "Pitch Mitch",
 				["text"] = {
-					"Played {C:spades}Spades{} and",
-					"{C:clubs}Clubs{} give {C:blue}+#1#{} Chips",
-					"when scored"
+					"{C:blue}+#1#{} chips if played",
+					'{C:attention}poker hand{} contains',
+					'{V:1}#2#{} and {V:2}#3#'
 				}
 			},
 			j_ortalab_priest = {
