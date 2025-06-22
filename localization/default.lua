@@ -1175,9 +1175,9 @@ return {
 			['j_ortalab_red_fred'] = {
 				["name"] = "Red Fred",
 				["text"] = {
-					"Played {C:hearts}Hearts{} and",
-					"{C:diamonds}Diamonds{} give {C:red}+#1#{} Mult",
-					"when scored"
+					"{C:red}+#1#{} Mult if played",
+					'{C:attention}poker hand{} contains',
+					'{V:1}#2#{} and {V:2}#3#'
 				}
 			},
 			['j_ortalab_reduce_reuse'] = {
