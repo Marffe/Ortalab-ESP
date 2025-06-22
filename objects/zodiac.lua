@@ -605,14 +605,19 @@ Ortalab.Zodiac{
         local suits_in_flush = {}
         local new_suit = context.scoring_hand[1].base.suit
         local ranks_in_flush = {}
-        local rank1, rank2
+        local rank1, rank2 = context.scoring_hand[1].base.value
         for _, card in pairs(G.play.cards) do
-            suits_in_flush[card.base.suit] = suits_in_flush[card.base.suit] and suits_in_flush[card.base.suit] + 1 or 1
-            ranks_in_flush[card.base.value] = ranks_in_flush[card.base.value] and ranks_in_flush[card.base.value] + 1 or 1
-            if suits_in_flush[card.base.suit] > suits_in_flush[new_suit] then new_suit = card.base.suit end
-        end
-        for rank, amount in pairs(ranks_in_flush) do
-            if amount == 3 then rank1 = rank elseif amount == 2 then rank2 = rank end
+            if not card.config.center.no_suit then 
+                suits_in_flush[card.base.suit] = suits_in_flush[card.base.suit] and suits_in_flush[card.base.suit] + 1 or 1 
+                if suits_in_flush[card.base.suit] > suits_in_flush[new_suit] then new_suit = card.base.suit end
+            end
+            if not card.config.center.no_rank then
+                ranks_in_flush[card.base.value] = ranks_in_flush[card.base.value] and ranks_in_flush[card.base.value] + 1 or 1
+                if ranks_in_flush[card.base.value] > ranks_in_flush[rank1] then
+                    rank2 = rank1
+                    rank1 = card.base.value
+                end
+            end
         end
         for i, card in ipairs(G.hand.cards) do
             local new_rank = SMODS.Ranks[i % 2 == 0 and rank1 or rank2]
