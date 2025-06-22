@@ -463,13 +463,26 @@ SMODS.Blind({
     boss_colour = HEX('7e6752'),
     config = {extra = {ranks = {}}},
     artist_credits = {'flare'},
+    calculate = function(self, _card, context)
+        if context.after then
+             G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.2, func = function()
+                for _, card in ipairs(G.playing_cards) do
+                    if not SMODS.has_no_rank(card) and G.GAME.blind.config.blind.config.extra.ranks[card.base.id] then
+                        card:set_debuff(true)
+                    end
+                end
+            return true end }))
+        end
+    end,
+    modify_hand = function(self, cards, poker_hands, handname, mult, hand_chips)
+        for _, card in pairs(poker_hands[handname][1]) do
+            if not SMODS.has_no_rank(card) then self.config.extra.ranks[card.base.id] = true end
+        end
+        return mult, hand_chips
+    end,
     set_blind = function(self)
-        for _,card in pairs(G.playing_cards) do
-            if card.ability.played_this_ante and not SMODS.has_no_rank(card) then
-                self.config.extra.ranks[card.base.id] = true
-                card.debuffed_by_glyph = true
-                card:set_debuff(true)
-            end
+        for _, card in pairs(G.playing_cards) do
+            if not SMODS.has_no_rank(card) and self.config.extra.ranks[card.base.id] then card:set_debuff(true); card.debuffed_by_glyph = true end
         end
     end,
     recalc_debuff = function(self, card, from_blind)
