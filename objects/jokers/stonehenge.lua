@@ -31,9 +31,9 @@ SMODS.Joker({
 
 local ortalab_evaluate_poker_hand = evaluate_poker_hand
 function evaluate_poker_hand(hand)
-	table.sort(hand, function (a, b) return a.T.x + a.T.w/2 < b.T.x + b.T.w/2 end)
-	local new_hand = {hand[1]}
 	if next(SMODS.find_card('j_ortalab_stonehenge')) then
+		table.sort(hand, function (a, b) return a.T.x + a.T.w/2 < b.T.x + b.T.w/2 end)
+		local new_hand = {hand[1]}
 		for i=2, #hand do
 			if hand[i].config.center.no_rank then
 				new_hand[i] = Ortalab.find_card_to_left_with_rank(hand, i)
@@ -41,8 +41,9 @@ function evaluate_poker_hand(hand)
 				new_hand[i] = hand[i]
 			end
 		end
+		return ortalab_evaluate_poker_hand(new_hand)
 	end
-	return ortalab_evaluate_poker_hand(new_hand)
+	return ortalab_evaluate_poker_hand(hand)
 end
 
 function Ortalab.find_card_to_left_with_rank(hand, index)
