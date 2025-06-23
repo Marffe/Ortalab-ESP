@@ -2701,9 +2701,9 @@ return {
 			ortalab_cyan_seal = {
 				name = 'Cyan Seal',
 				text = {
-					'Creates a random {C:zodiac}Zodiac{} card',
-					'if {C:attention}held{} in hand at',
-					'end of round',
+					'Upgrade a {C:attention}random{} poker hand',
+					'by {C:attention}#1#{} if {C:attention}held{} in hand',
+					'at end of round',
 					'{C:inactive,s:0.8}(Must have room)'
 				},
 			},
