@@ -10,6 +10,7 @@ SMODS.Joker({
 	eternal_compat = true,
 	perishable_compat = true,
 	artist_credits = {'gappie'},
+	enhancement_gate = 'm_ortalab_ore',
     calculate_most_played = function(self)
         local _handname, _played, _order = 'High Card', -1, 100
         for k, v in pairs(G.GAME.hands) do
