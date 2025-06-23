@@ -922,7 +922,7 @@ SMODS.Tag({
     pos = {x = 3, y = 0},
     discovered = false,
     min_ante = 3,
-    config = {type = 'press_play', xmult_change = 0.2},
+    config = {type = 'press_play', xmult_change = 0.1},
     artist_credits = {'eremel'},
     loc_vars = function(self, info_queue, card)
         return {vars = {self.config.xmult_change}}
