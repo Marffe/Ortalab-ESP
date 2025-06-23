@@ -8,7 +8,7 @@ SMODS.Edition({
     discovered = false,
     unlocked = true,
     shader = 'anaglyphic',
-    config = { chips = 20, mult = 6 },
+    config = { chips = 25, mult = 6 },
     in_shop = true,
     weight = 20,
     extra_cost = 2,
