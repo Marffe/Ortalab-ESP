@@ -9,7 +9,7 @@ SMODS.Joker({
 	blueprint_compat = false,
 	eternal_compat = true,
 	perishable_compat = true,
-	config = {extra = {negative = 10, positive = 25}},
+	config = {extra = {negative = 10, positive = 21}},
 	artist_credits = {'gappie'},
 	loc_vars = function(self, info_queue, card)
 		return {vars = {card.ability.extra.negative, card.ability.extra.positive}}
