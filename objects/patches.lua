@@ -172,18 +172,26 @@ SMODS.Tag({
                 tag:yep('+', G.C.GREEN,function() 
                     return true
                 end)
+                local last_tag = G.GAME.last_selected_tag
                 G.E_MANAGER:add_event(Event({
                     trigger = 'immediate',
                     func = function()
-                        local tag = Tag(G.GAME.last_selected_tag.key, false, G.GAME.last_selected_tag.ability.blind_type)
-                        if G.GAME.last_selected_tag.key == 'tag_orbital' then
+                        local tag = Tag(last_tag.key, false, last_tag.blind_type)
+                        if last_tag.key == 'tag_orbital' then
                             local _poker_hands = {}
                             for k, v in pairs(G.GAME.hands) do
                                 if v.visible then _poker_hands[#_poker_hands+1] = k end
                             end
                             tag.ability.orbital_hand = pseudorandom_element(_poker_hands, pseudoseed('rewind_orbital'))
                         end
-                        add_tag(tag)
+                        G.E_MANAGER:add_event(Event({
+                            trigger = 'immediate',
+                            func = function()                
+                                add_tag(tag)
+                                tag:apply_to_run({type = 'immediate'})
+                                return true
+                            end
+                        }))
                         return true
                 end}))
                 tag.triggered = true
@@ -390,8 +398,15 @@ local skip_blind = G.FUNCS.skip_blind
 G.FUNCS.skip_blind = function(e)
     local _tag = e.UIBox:get_UIE_by_ID('tag_container').config.ref_table
     skip_blind(e)
-    if _tag.key == 'tag_ortalab_rewind' then return end
-    G.GAME.last_selected_tag = _tag or G.GAME.last_selected_tag
+    G.E_MANAGER:add_event(Event({
+        trigger = 'after',
+        delay = 0.7,
+        func = function()
+            if _tag.key == 'tag_ortalab_rewind' then return true end
+            G.GAME.last_selected_tag = {key = _tag.key, blind_type = _tag.ability.blind_type} or G.GAME.last_selected_tag
+            return true
+        end
+    }))
 end
 
 SMODS.Tag({
@@ -428,7 +443,6 @@ SMODS.Tag({
                             G.zodiacs[key]:juice_up(1, 1)
                             delay(0.7)
                         else
-                            print(tag.config.extra.zodiacs)
                             add_zodiac(Zodiac(key), nil, nil, tag.config.extra.zodiacs)
                         end
                         return true
@@ -462,7 +476,7 @@ SMODS.Tag({
     pos = {x = 3, y = 4},
     discovered = false,
     config = {type = 'immediate', vouchers = 1},
-    artist_credits = {'no_demo'},
+    artist_credits = {'eremel'},
     apply = function(self, tag, context)
         if context.type == tag.config.type then
             tag:yep('+', G.C.GREEN,function()
@@ -595,7 +609,7 @@ SMODS.Tag({
     discovered = false,
     min_ante = 2,
     config = {type = 'immediate', cards = 5, dollars = 5},
-    artist_credits = {'no_demo'},
+    artist_credits = {'crimson','gappie'},
     loc_vars = function(self, info_queue, card)
         return {vars = {card.config.cards, card.config.dollars}}
     end,
@@ -646,10 +660,10 @@ SMODS.Tag({
                             trigger = 'after',
                             delay = 0.5,
                             func = function()
-                        if G.blind_select then
-                            G.blind_select.alignment.offset.y = G.blind_select.alignment.offset.py
-                            G.blind_select.alignment.offset.py = nil
-                        end                  
+                                if G.blind_select and G.blind_select.alignment.offset.py then
+                                    G.blind_select.alignment.offset.y = G.blind_select.alignment.offset.py
+                                    G.blind_select.alignment.offset.py = nil
+                                end                  
                                 return true
                             end
                         }))              
@@ -721,7 +735,7 @@ SMODS.Tag({
                         trigger = 'after',
                         delay = 0.7,
                         func = function()
-                            local card = SMODS.add_card({key = 'c_ortalab_lot_hand', area = G.consumeables, skip_materialize = true})
+                            local card = SMODS.add_card({key = 'c_ortalab_lot_hand', area = G.consumeables, skip_materialize = true, edition = 'e_negative'})
                             card:start_materialize({G.C.SET.Loteria}) 
                             return true
                         end
@@ -859,7 +873,7 @@ SMODS.Tag({
     discovered = false,
     min_ante = 2,
     config = {type = 'ortalab_first_hand'},
-    artist_credits = {'no_demo'},
+    artist_credits = {'eremel'},
     apply = function(self, tag, context)
         if context.type == tag.config.type then
             tag:yep('+', G.C.GREEN ,function() 
@@ -901,3 +915,36 @@ SMODS.Tag({
         end
     end
 })
+
+SMODS.Tag({
+    key = 'resonance',
+    atlas = 'patches',
+    pos = {x = 3, y = 0},
+    discovered = false,
+    min_ante = 3,
+    config = {type = 'press_play', xmult_change = 0.2},
+    artist_credits = {'eremel'},
+    loc_vars = function(self, info_queue, card)
+        return {vars = {self.config.xmult_change}}
+    end,
+    apply = function(self, tag, context)
+        if context.type == self.config.type then
+            tag:yep('+', G.C.GREEN,function()
+                for _, card in ipairs(G.play.cards) do
+                    card.ability.perma_x_mult = card.ability.perma_x_mult + tag.config.xmult_change
+                    SMODS.calculate_effect({message = '+X'..tag.config.xmult_change, colour = G.C.RED}, card)
+                end
+                return true
+            end)
+        end 
+    end
+})
+
+local ortalab_press_play = Blind.press_play
+function Blind:press_play()
+	local ret = ortalab_press_play(self)
+    for i = 1, #G.GAME.tags do
+        G.GAME.tags[i]:apply_to_run({type = 'press_play'})
+    end
+	return ret
+end

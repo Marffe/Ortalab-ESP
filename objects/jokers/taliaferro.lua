@@ -13,11 +13,11 @@ SMODS.Joker({
 	config = {extra = {chips = 100, odds = 6}},
     artist_credits = {'flare','grassy'},
 	loc_vars = function(self, info_queue, card)
-        return {vars = {card.ability.extra.chips, math.max(G.GAME.probabilities.normal, 1), card.ability.extra.odds / math.min(G.GAME.probabilities.normal, 1)}}
+        return {vars = {card.ability.extra.chips, SMODS.get_probability_vars(card, 1, card.ability.extra.odds)}}
     end,
     calculate = function(self, card, context) --Taliaferro Logic NOTE: MUST ADD POOL FLAGS
         if context.end_of_round and not context.blueprint and not context.repetition and not context.individual then
-            if pseudorandom('taliaferro') < G.GAME.probabilities.normal/card.ability.extra.odds then
+            if SMODS.pseudorandom_probability(card, 'taliaferro', 1, card.ability.extra.odds) then
                 SMODS.destroy_cards(card)
                 G.GAME.pool_flags.taliaferro_extinct = true
                 return {

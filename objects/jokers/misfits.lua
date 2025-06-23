@@ -9,7 +9,7 @@ SMODS.Joker({
 	blueprint_compat = true,
 	eternal_compat = true,
 	perishable_compat = true,
-	config = {extra = {xmult = 10, count = 4}},
+	config = {extra = {xmult = 7, count = 4}},
     artist_credits = {'gappie'},
 	loc_vars = function(self, info_queue, card)
 		return {vars = {card.ability.extra.xmult, card.ability.extra.count}}
@@ -24,7 +24,7 @@ SMODS.Joker({
                 suits[suit] = suit
                 ranks[rank] = rank
             end
-            if table.size(suits) == card.ability.extra.count and table.size(ranks) == card.ability.extra.count then
+            if table.size(suits) >= card.ability.extra.count and table.size(ranks) >= card.ability.extra.count then
                 return {
                     xmult = card.ability.extra.xmult
                 }

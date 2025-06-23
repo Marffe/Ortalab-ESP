@@ -9,7 +9,7 @@ SMODS.Joker({
 	blueprint_compat = true,
 	eternal_compat = true,
 	perishable_compat = true,
-	config = {extra = {xmult = 1.75, rank = nil}},
+	config = {extra = {xmult = 1.5}},
     artist_credits = {'kosze'},
 	loc_vars = function(self, info_queue, card)
 		return {vars = {card.ability.extra.xmult, card.ability.extra.rank and localize(card.ability.extra.rank, 'ranks') or localize('ortalab_rank'), localize('Straight', 'poker_hands')}}
@@ -20,15 +20,24 @@ SMODS.Joker({
         end
     end,
 	calculate = function(self, card, context)
-        if context.setting_blind then
-            card.ability.extra.rank = Ortalab.rank_from_deck('ortalab_futuristic')
-            card:juice_up()
+        if context.before then
+            card.ability.extra.ranks = {}
+            for _, pcard in ipairs(context.scoring_hand) do
+                card.ability.extra.ranks[#card.ability.extra.ranks+1] = pcard.base.value
+            end
         end
-        if context.cardarea == G.play and context.individual and next(context.poker_hands['Straight']) and Ortalab.hand_contains_rank(context.scoring_hand, card.ability.extra.rank) then
+        if context.cardarea == G.play and context.individual and Ortalab.futuristic_check(SMODS.merge_lists({SMODS.Ranks[context.other_card.base.value].next, SMODS.Ranks[context.other_card.base.value].prev}), card.ability.extra.ranks) then
             return {
                 x_mult = card.ability.extra.xmult,
-                card = card
+                message_card = context.other_card
             }
         end
     end
 })
+
+function Ortalab.futuristic_check(consecutive_ranks, ranks_in_hand)
+    for _, rank in ipairs(consecutive_ranks) do
+        if table.contains(ranks_in_hand, rank) then return true end
+    end
+    return false
+end

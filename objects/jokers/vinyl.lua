@@ -9,20 +9,20 @@ SMODS.Joker({
 	blueprint_compat = true,
 	eternal_compat = true,
 	perishable_compat = true,
-	config = {extra = {chips = 12}},
+	config = {extra = {chips = 15}},
     artist_credits = {'gappie'},
     loc_vars = function(self, info_queue, card)
         return {vars = {card.ability.extra.chips}}
     end,
 	calculate = function (self, card, context)
         if context.individual and context.cardarea == G.play and context.other_card:is_numbered() then
-            local prior_cards = 0
+            local prior_ranks = {}
             local chip_mod = 0
             for i=1, #context.scoring_hand do
                 if context.scoring_hand[i] == context.other_card then
-                    chip_mod = prior_cards
-                else
-                    if context.scoring_hand[i]:is_numbered() then prior_cards = prior_cards + 1 end
+                    chip_mod = table.size(prior_ranks)
+                elseif context.scoring_hand[i].base.id ~= context.other_card.base.id then
+                    prior_ranks[context.scoring_hand[i].base.id] = true
                 end
             end
             if chip_mod > 0 then

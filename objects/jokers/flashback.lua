@@ -17,12 +17,10 @@ SMODS.Joker({
     end,
     calculate = function(self, card, context)
         if context.skip_blind then
-                card:juice_up()
-                card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('ortalab_flashback')})
-                add_tag(Tag(card.ability.extra.tag))
-                for i = 1, #G.GAME.tags do
-                    G.GAME.tags[i]:apply_to_run({type = 'immediate'})
-                end
+            card:juice_up()
+            card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('ortalab_flashback')})
+            add_tag(Tag(card.ability.extra.tag))
+            G.GAME.tags[#G.GAME.tags]:apply_to_run({type = 'immediate'})
             return nil, {}
         end
     end

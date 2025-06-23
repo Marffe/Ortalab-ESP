@@ -36,6 +36,74 @@ SMODS.Stake({
     end,
 })
 
+Ortalab.ortalab_only_inclusion = { -- Vanilla objects that are allowed in Ortalab only mode
+    'e_negative',
+    'Red',
+    'Gold'
+}
+
+SMODS.Atlas({
+    key = 'seals',
+    path = 'seals.png',
+    px = 71,
+    py = 95
+})
+
+SMODS.Seal({
+    key = 'cyan',
+    atlas = 'seals',
+    pos = {x=0,y=0},
+    config = {extra = {levels = 2}},
+    no_collection = true,
+    badge_colour = HEX('7e94ba'),
+    in_pool = function(self)
+        return G.GAME.modifiers.ortalab_only
+    end,
+    loc_vars = function(self, info_queue, card)
+        return {vars = {card.ability.seal.extra.levels}}
+    end,
+    calculate = function(self, card, context)
+        if context.playing_card_end_of_round and context.cardarea == G.hand then
+            local _poker_hands = {}
+            for k, v in pairs(G.GAME.hands) do
+                if v.visible then _poker_hands[#_poker_hands+1] = k end
+            end
+            local hand_to_level = pseudorandom_element(_poker_hands, pseudoseed('cyanseal'))
+            return {
+                message = localize(hand_to_level, 'poker_hands'),
+                colour = G.ARGS.LOC_COLOURS.Zodiac,
+                level_up = card.ability.seal.extra.levels,
+                level_up_hand = hand_to_level
+            }
+        end
+    end
+})
+
+SMODS.Seal({
+    key = 'fuchsia',
+    atlas = 'seals',
+    pos = {x=1,y=0},
+    config = {},
+    no_collection = true,
+    badge_colour = HEX('A85D7C'),
+    in_pool = function(self)
+        return G.GAME.modifiers.ortalab_only
+    end,
+    calculate = function(self, card, context)
+        if context.discard and context.other_card == card and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
+            G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
+            return {
+                message = localize('ortalab_loteria_add'),
+                colour = G.C.SECONDARY_SET.Loteria,
+                func = function()
+                    SMODS.add_card({set = 'Loteria'})
+                    G.GAME.consumeable_buffer = G.GAME.consumeable_buffer - 1
+                end
+            }
+        end
+    end
+})
+
 SMODS.Stake({
     key = "two",
     applied_stakes = {'one'},
@@ -227,16 +295,7 @@ function Card:open()
                         local edition_rate = 2
                         local edition = poll_edition('standard_edition'..G.GAME.round_resets.ante, edition_rate, true, nil, {'e_ortalab_greyscale','e_ortalab_fluorescent','e_ortalab_anaglyphic'})
                         card:set_edition(edition)
-                        local seal_rate = 10
-                        local seal_poll = pseudorandom(pseudoseed('stdseal'..G.GAME.round_resets.ante))
-                        if seal_poll > 1 - 0.02*seal_rate then
-                            local seal_type = pseudorandom(pseudoseed('stdsealtype'..G.GAME.round_resets.ante))
-                            if seal_type > 0.75 then card:set_seal('Red')
-                            elseif seal_type > 0.5 then card:set_seal('Blue')
-                            elseif seal_type > 0.25 then card:set_seal('Gold')
-                            else card:set_seal('Purple')
-                            end
-                        end
+                        card:set_seal(SMODS.poll_seal({mod = 10}))
                    
                     card.T.x = self.T.x
                     card.T.y = self.T.y

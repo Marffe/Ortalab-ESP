@@ -333,7 +333,7 @@ end
 function zodiac_reduce_level(zodiac)
     local zodiac_joker = SMODS.find_card('j_ortalab_prediction_dice')
     for _, joker_card in pairs(zodiac_joker) do        
-        if pseudorandom(pseudoseed('loteria_check_keep')) > (joker_card.ability.extra.num*G.GAME.probabilities.normal) / joker_card.ability.extra.chance then
+        if SMODS.pseudorandom_probability(joker_card, 'zodiac_no_decay', 1, joker_card.ability.extra.chance) then
             -- joker_card:juice_up()
             card_eval_status_text(joker_card, 'extra', nil, nil, nil, {message = localize('ortalab_zodiac_no_decay')})
             return
@@ -493,14 +493,18 @@ Ortalab.Zodiac{
     config = {extra = {temp_level = 4, hand_type = 'Three of a Kind', amount = 3}},
     loc_vars = function(self, info_queue, card)
         local zodiac = card or self
-        if not card then info_queue[#info_queue + 1] = G.P_CENTERS['m_ortalab_rusty'] end
+        if not card and info_queue then
+            info_queue[#info_queue+1] = G.P_CENTERS.m_ortalab_rusty
+            info_queue[#info_queue+1] = G.P_CENTERS.m_ortalab_sand
+            info_queue[#info_queue+1] = G.P_CENTERS.m_ortalab_recycled
+        end
         local temp_level = (not zodiac.voucher_check and G.GAME.ortalab.zodiacs.temp_level_mod or 1) * zodiac.config.extra.temp_level
         return {vars = {temp_level, localize(zodiac.config.extra.hand_type, 'poker_hands'), zodiac.config.extra.amount}}
     end,
     pre_trigger = function(self, zodiac, context)
         for i=1, zodiac.config.extra.amount do
             if G.hand.cards[i] then
-                G.hand.cards[i]:set_ability(G.P_CENTERS['m_ortalab_rusty'], nil, true)
+                G.hand.cards[i]:set_ability(SMODS.poll_enhancement({guaranteed = true, options = {'m_ortalab_rusty','m_ortalab_sand','m_ortalab_recycled', key = 'zodiac_taurus'}}), nil, true)
                 G.E_MANAGER:add_event(Event({
                     trigger = 'before', delay = 0.2, func = function()
                         zodiac:juice_up()
@@ -601,14 +605,19 @@ Ortalab.Zodiac{
         local suits_in_flush = {}
         local new_suit = context.scoring_hand[1].base.suit
         local ranks_in_flush = {}
-        local rank1, rank2
+        local rank1, rank2 = context.scoring_hand[1].base.value
         for _, card in pairs(G.play.cards) do
-            suits_in_flush[card.base.suit] = suits_in_flush[card.base.suit] and suits_in_flush[card.base.suit] + 1 or 1
-            ranks_in_flush[card.base.value] = ranks_in_flush[card.base.value] and ranks_in_flush[card.base.value] + 1 or 1
-            if suits_in_flush[card.base.suit] > suits_in_flush[new_suit] then new_suit = card.base.suit end
-        end
-        for rank, amount in pairs(ranks_in_flush) do
-            if amount == 3 then rank1 = rank elseif amount == 2 then rank2 = rank end
+            if not card.config.center.no_suit then 
+                suits_in_flush[card.base.suit] = suits_in_flush[card.base.suit] and suits_in_flush[card.base.suit] + 1 or 1 
+                if suits_in_flush[card.base.suit] > suits_in_flush[new_suit] then new_suit = card.base.suit end
+            end
+            if not card.config.center.no_rank then
+                ranks_in_flush[card.base.value] = ranks_in_flush[card.base.value] and ranks_in_flush[card.base.value] + 1 or 1
+                if ranks_in_flush[card.base.value] > ranks_in_flush[rank1] then
+                    rank2 = rank1
+                    rank1 = card.base.value
+                end
+            end
         end
         for i, card in ipairs(G.hand.cards) do
             local new_rank = SMODS.Ranks[i % 2 == 0 and rank1 or rank2]
@@ -655,7 +664,7 @@ Ortalab.Zodiac{
     key = 'leo',
     pos = {x=0, y=1},
     colour = HEX('8fb85c'),
-    config = {extra = {temp_level = 4, effects = 3, hand_type = 'Flush Five'}},
+    config = {extra = {temp_level = 4, effects = 2, hand_type = 'Flush Five'}},
     loc_vars = function(self, info_queue, card)
         local zodiac = card or self
         local temp_level = (not zodiac.voucher_check and G.GAME.ortalab.zodiacs.temp_level_mod or 1) * zodiac.config.extra.temp_level
@@ -722,9 +731,9 @@ Ortalab.Zodiac{
         G.E_MANAGER:add_event(Event({
             func = function()
                 local cards = {}
-                for i=2, #context.scoring_hand-1 do
+                for i=1, 2 do
                     G.playing_card = (G.playing_card and G.playing_card + 1) or 1
-                    local _card = copy_card(context.scoring_hand[i], nil, nil, G.playing_card)
+                    local _card = copy_card(context.scoring_hand[i == 1 and i or #context.scoring_hand], nil, nil, G.playing_card)
                     table.insert(cards, _card)
                 end
                 for i, _card in ipairs(cards) do
@@ -732,7 +741,7 @@ Ortalab.Zodiac{
                     G.deck.config.card_limit = G.deck.config.card_limit + 1
                     table.insert(G.playing_cards, _card)
                     G.deck:emplace(_card)
-                    context.scoring_hand[i+1]:juice_up()
+                    context.scoring_hand[i==1 and i or #context.scoring_hand]:juice_up()
                     _card:juice_up()
                 end
                 playing_card_joker_effects(cards)
@@ -952,7 +961,7 @@ Ortalab.Zodiac{
     colour = HEX('8058b6'),
     config = {extra = {temp_level = 4, hand_type = 'Straight', amount = 2}},
     loc_vars = function(self, info_queue, card)
-        if not card then info_queue[#info_queue + 1] = G.P_CENTERS['m_ortalab_index'] end
+        if not card and info_queue then info_queue[#info_queue + 1] = G.P_CENTERS['m_ortalab_index'] end
         local zodiac = card or self
         local temp_level = (not zodiac.voucher_check and G.GAME.ortalab.zodiacs.temp_level_mod or 1) * zodiac.config.extra.temp_level
         return {vars = {temp_level, localize(zodiac.config.extra.hand_type, 'poker_hands'), zodiac.config.extra.amount}}

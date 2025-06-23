@@ -99,6 +99,9 @@ payload = '''
 if specific_vars and specific_vars.shinku then
     info_queue[#info_queue + 1] = {generate_ui = ortalab_artist_tooltip, key = 'shinku', title = 'Shinku'}
 end
+if card and card.ability and card.ability.kopi then
+    info_queue[#info_queue + 1] = {set = 'Other', key = 'ortalab_kopi'}
+end
 '''
 match_indent = true
 
@@ -228,44 +231,6 @@ if context.cardarea == Ortalab.polydactyly then
 end
 '''
 
-
-# Stonehenge
-[[patches]]
-[patches.pattern]
-target = 'functions/state_events.lua'
-match_indent = true
-position = 'after'
-pattern = '''
-local text,disp_text,poker_hands,scoring_hand,non_loc_disp_text = G.FUNCS.get_poker_hand_info(G.play.cards)
-'''
-payload = '''
-local stonehenge = SMODS.find_card('j_ortalab_stonehenge')
-if next(stonehenge) and stonehenge[1].config.center:hand_contains_no_rank(G.play.cards) then
-    text = stonehenge[1].config.center:calculate_most_played()
-    disp_text = localize(text, 'poker_hands')
-    non_loc_disp_text = text
-    poker_hands[text] = {{true}}
-    SMODS.calculate_effect({message = 'Changed!', colour = G.C.BLUE}, stonehenge[1])
-    delay(0.3)
-end
-'''
-# Stonehenge update selected text
-[[patches]]
-[patches.pattern]
-target = 'cardarea.lua'
-match_indent = true
-position = 'after'
-pattern = '''
-local text,disp_text,poker_hands = G.FUNCS.get_poker_hand_info(self.highlighted)
-'''
-payload = '''
-local stonehenge = SMODS.find_card('j_ortalab_stonehenge')
-if next(stonehenge) and stonehenge[1].config.center:hand_contains_no_rank(G.hand.highlighted) then
-    text = stonehenge[1].config.center:calculate_most_played()
-    disp_text = localize(text, 'poker_hands')
-end
-'''
-
 # Wallet - scored cards act as in hand
 [[patches]]
 [patches.pattern]
@@ -345,4 +310,39 @@ if i > min_length and not any_tuple then
 '''
 payload = '''
 if i > min_length - pairs_count and not any_tuple then
+'''
+
+# Kopi disable sell
+[[patches]]
+[patches.pattern]
+target = 'functions/UI_definitions.lua'
+match_indent = true
+position = 'after'
+pattern = '''
+elseif card.area and card.area == G.pack_cards then
+    return {
+      n=G.UIT.ROOT, config = {padding = 0, colour = G.C.CLEAR}, nodes={
+        {n=G.UIT.R, config={ref_table = card, r = 0.08, padding = 0.1, align = "bm", minw = 0.5*card.T.w - 0.15, maxw = 0.9*card.T.w - 0.15, minh = 0.3*card.T.h, hover = true, shadow = true, colour = G.C.UI.BACKGROUND_INACTIVE, one_press = true, button = 'use_card', func = 'can_select_card'}, nodes={
+          {n=G.UIT.T, config={text = localize('b_select'),colour = G.C.UI.TEXT_LIGHT, scale = 0.45, shadow = true}}
+        }},
+    }}
+  end
+'''
+payload = '''
+if card.ability.kopi then
+    sell = nil
+end
+'''
+
+# Pinkprint calc_dollar_bonus implementation
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+match_indent = true
+position = 'at'
+pattern = '''
+if not self:can_calculate() then return end
+'''
+payload = '''
+if self.can_calculate and not self:can_calculate() then return end
 '''

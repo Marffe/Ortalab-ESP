@@ -263,9 +263,9 @@ if G.hand.highlighted[i].curse == 'ortalab_infected' then
         if #uncursed_hand_cards == 0 then return true end
         local card_to_spread = pseudorandom_element(uncursed_hand_cards, pseudoseed('ortalab_infected_spread'))
         card_to_spread:set_curse('ortalab_infected', nil, nil, true)
-        G.hand.highlighted[i]:set_curse()
         return true
     end}))
+    G.hand.highlighted[i]:set_curse()
 end
 
 if G.hand.highlighted[i].corroded_discard or (G.GAME.blind.config.blind.key == 'bl_ortalab_oil' and not G.GAME.blind.disabled) then

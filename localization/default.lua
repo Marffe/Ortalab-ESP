@@ -105,7 +105,12 @@ return {
 			ortalab_policeman = '+4 Discards!',
 			ortalab_score = 'Score: ',
 			ortalab_stake_skips = 'Skips required: ',
-			blind_credit = 'Added by '
+			blind_credit = 'Added by ',
+			ortalab_celadon_notification = ' are debuffed',
+			ortalab_celadon_and = ' and ',
+			ortalab_saffron = 'least common suit',
+			ortalab_kopi = 'Kopi\'d!',
+			ortalab_enabled = 'Enabled!',
 		},
 		['labels'] = {
 			ortalab_greyscale = 'Greyscale',
@@ -116,6 +121,8 @@ return {
 			ortalab_possessed = 'Possessed',
 			ortalab_restrained = 'Restrained',
 			ortalab_infected = 'Infected',
+			ortalab_cyan_seal = 'Cyan Seal',
+			ortalab_fuchsia_seal = 'Fuchsia Seal'
 		}
     },
     ["descriptions"] = {
@@ -317,7 +324,7 @@ return {
 					"Each {V:1}#2#{}",
 					"held in hand has a",
 					'{C:green}#3# in #4#{} chance to',
-					"not give {X:mult,C:white}X#1#{} Mult",
+					"give {X:mult,C:white}X#1#{} Mult",
 				}
 			},
 			['j_ortalab_art_gallery'] = {
@@ -420,7 +427,8 @@ return {
 				["text"] = {
 					"{C:green}#1# in #2#{} chance for",
 					"{C:loteria}Loteria Cards{} to be",
-					"consumed when used"
+					"kept when used",
+					"{C:inactive,s:0.8}(Each card can only be kept once)"
 				}
 			},
 			['j_ortalab_black_friday'] = {
@@ -594,13 +602,12 @@ return {
 					'{C:inactive}(Currently {C:red}+#2#{C:inactive} Mult)'
 				}
 			},
-			['j_ortalab_dropout'] = {
+			j_ortalab_dropout = {
 				["name"] = "Dropout",
 				["text"] = {
-					'Each played {C:attention}#1#{} gives', 
-					'{C:blue}+#2#{} Chips and',
-					'{C:red}+#3#{} Mult when',
-					'scored'
+					'If poker hand contains a',
+					'{C:attention}#1#{}, each played',
+					'{C:attention}#2# {}gives {C:red}+#3#{} Mult'
 				}
 			},
 			j_ortalab_drunk_driving = {
@@ -722,13 +729,12 @@ return {
 					"when scored",
 				}
 			},
-			['j_ortalab_futuristic'] = {
+			j_ortalab_futuristic = {
 				["name"] = "Futuristic Joker",
 				["text"] = {
-					'{C:attention}Scored cards{} give {X:red,C:white}X#1#{} Mult',
-					'if {C:attention}played hand{} contains a',
-					'{C:attention}#3# {}and a {C:attention}#2#',
-					'{C:inactive,s:0.8}(Rank changes each round)'
+					'Each {C:attention}scored card{} gives {X:red,C:white}X#1#{} Mult',
+					'if {C:attention}poker hand{} contains a',
+					'card with it\'s {C:attention}consecutive{} rank'
 				}
 			},
 			['j_ortalab_generous'] = {
@@ -848,18 +854,19 @@ return {
 			['j_ortalab_joker_miles'] = {
 				["name"] = "Joker Miles Card",
 				["text"] = {
-					"Gains {C:red}+#1#{} Mult per",
+					{"Gains {C:red}+#1#{} Mult per",
 					"{C:blue}Hand{} played",
-					"{C:green}#3# in #4#{} chance to reset",
-					"when {C:attention}Blind{} is defeated",
-					"{C:inactive}(Currently {C:red}+#2#{C:inactive} Mult)"
+					"{C:inactive,s:0.85}(Currently {C:red,s:0.85}+#2#{C:inactive,s:0.85} Mult)",},
+					{"{C:green}#3# in #4#{} chance to reset",
+					"when {C:blue}Hand{} is played",}
 				}
 			},
 			j_ortalab_klutz = {
 				name = 'Klutz',
 				text = {
-					'{C:attention}+#1#{} hand size whilst',
-					'opening a {C:attention}consumable pack'
+					{'{C:attention}+#1#{} hand size and',
+					'{C:red}+#3#{} discard each round',},
+					{'{C:red}#2#{} hand each round'}
 				}
 			},
 			['j_ortalab_knitted_sweater'] = {
@@ -884,10 +891,11 @@ return {
 			j_ortalab_kopi = {
 				name = 'Kopi',
 				text = {
-					'If exactly {C:attention}#1#{} cards are',
-					'drawn, add a {C:attention}copy{} of',
-					'them to your deck',
-					'{C:inactive,s:0.8}(Number changes when triggered)'
+					'After using {C:attention}#1#{} consumables,',
+					'create a {C:kopi}copy{} of a',
+					'random Joker that lasts until',
+					'a {C:attention}Blind{} is defeated',
+					'{C:inactive,s:0.8}(Currently #2#/#1#)'
 				}
 			},
 			['j_ortalab_mathmagician'] = {
@@ -939,11 +947,11 @@ return {
 					'{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive})'
 				}
 			},
-			['j_ortalab_misfits'] = {
+			j_ortalab_misfits = {
 				["name"] = "The Misfits",
 				["text"] = {
 					'{X:red,C:white}X#1#{} Mult if {C:attention}poker hand',
-					'contains exactly',
+					'contains at least',
 					'{C:attention}#2#{} Suits and {C:attention}#2#{} Ranks'
 				}
 			},
@@ -1078,9 +1086,9 @@ return {
 			['j_ortalab_pitch_mitch'] = {
 				["name"] = "Pitch Mitch",
 				["text"] = {
-					"Played {C:spades}Spades{} and",
-					"{C:clubs}Clubs{} give {C:blue}+#1#{} Chips",
-					"when scored"
+					"{C:blue}+#1#{} chips if played",
+					'{C:attention}poker hand{} contains',
+					'{V:1}#2#{} and {V:2}#3#'
 				}
 			},
 			j_ortalab_priest = {
@@ -1127,7 +1135,7 @@ return {
 				["name"] = "Prediction Dice",
 				["text"] = {
 					"{C:green}#1# in #2#{} chance for",
-					"{C:zodiac}Zodiacs{} to decay",
+					"{C:zodiac}Zodiacs{} to not decay",
 					"when activated"
 				}
 			},
@@ -1169,9 +1177,9 @@ return {
 			['j_ortalab_red_fred'] = {
 				["name"] = "Red Fred",
 				["text"] = {
-					"Played {C:hearts}Hearts{} and",
-					"{C:diamonds}Diamonds{} give {C:red}+#1#{} Mult",
-					"when scored"
+					"{C:red}+#1#{} Mult if played",
+					'{C:attention}poker hand{} contains',
+					'{V:1}#2#{} and {V:2}#3#'
 				}
 			},
 			['j_ortalab_reduce_reuse'] = {
@@ -1189,7 +1197,8 @@ return {
 					"destroy leftmost {C:attention}Joker{}",
 					"and permanently add {C:attention}#1#x{}",
 					"its sell value to this {C:blue}Chips",
-					"{C:inactive}(Currently {C:blue}+#2#{C:inactive} Chips)"
+					"{C:inactive}(Currently {C:blue}+#2#{C:inactive} Chips)",
+					'{C:inactive,s:0.7}Cannot shoot self'
 				}
 			},
 			j_ortalab_right_hand = {
@@ -1270,9 +1279,8 @@ return {
 			['j_ortalab_scantron'] = {
 				["name"] = "Scantron",
 				["text"] = {
-					'{C:attention}Retrigger{} all played cards',
-					"Played cards have a {C:green}#1# in #2#{} chance",
-					"to not {C:attention}retrigger",
+					"Played cards have a",
+					"{C:green}#1# in #2#{} chance to {C:attention}retrigger",
 				}
 			},
 			['j_ortalab_scared_face'] = {
@@ -1420,10 +1428,9 @@ return {
 			j_ortalab_stonehenge = {
 				name = 'Stonehenge',
 				text = {
-					'If {C:attention}played hand{} contains', 
-					'a {C:attention}rankless{} card',
-					'it acts as your {C:attention}most',
-					'{C:attention}played poker hand'
+					'{C:attention}Rankless{} cards count as',
+					'the card to their {C:attention}left',
+					'when making a {C:attention}poker hand'
 				}
 			},
 			j_ortalab_storm_6 = {
@@ -1501,7 +1508,7 @@ return {
 				["name"] = "Vinyl",
 				["text"] = {
 					'{C:attention}Numbered{} cards give {C:chips}+#1#{} Chips',
-					'for every scoring {C:attention}numbered{} card',
+					'for every {C:attention}different rank{}',
 					'already scored'
 				}
 			},
@@ -1540,9 +1547,22 @@ return {
 			j_ortalab_woo_all_1 = {
 				["name"] = "Woo! All 1s",
 				["text"] = {
-					{"All other{C:attention}listed{} {C:green,E:1,S:1.1}probabilities{}",
+					{"All other {C:attention}listed{} {C:green,E:1,S:1.1}probabilities{}",
 					"are {C:attention}guaranteed",},
-					{'{C:green}#1# in #2#{} chance to',
+					{'{C:green}#1#%{} chance to',
+					'be {C:attention}disabled{} when',
+					'selecting a {C:attention}Blind',
+					'until the next {C:attention}Blind',
+					'{C:inactive,s:0.7}{Unaffected by probability changes}'}
+				}
+			},
+			j_ortalab_woo_all_1_disabled = {
+				["name"] = "Woo! All 1s",
+				["text"] = {
+					{"{C:Ortalab}DISABLED",
+					"{C:inactive,s:0.8}All other listed probabilities",
+					"{C:inactive,s:0.8}are guaranteed",},
+					{'{C:green}#1#%{} chance to',
 					'be {C:attention}disabled{} when',
 					'selecting a {C:attention}Blind',
 					'until the next {C:attention}Blind',
@@ -1857,19 +1877,21 @@ return {
 			["m_ortalab_rusty"] = {
 				["name"] = "Rusty Card",
 				["text"] = {
-					{"{X:mult,C:white}X#1#{} Mult",},
+					{"{X:mult,C:white}X#1#{} Mult whilst",
+					"held in hand"},
 					{"Gains {X:mult,C:white}X#2#{} Mult per",
-					"{C:attention}Rusty Card{} held in hand"}
+					"{C:attention}Rusty Card{} in",
+					"played {C:attention}poker hand"}
 				},
 			},
 			["m_ortalab_recycled"] = {
 				["name"] = "Recycled Card",
 				["text"] = {
 					{"{C:green}#1# in #2#{} chance",
-					"to not add {C:blue}+#7#{} Chips",
+					"to add {C:blue}+#7#{} Chips",
 					"and gain {C:red}+#3# Discard",},
 					{"{C:green}#4# in #5#{} chance",
-					"to not gain {C:attention}#6# Tag",}
+					"to gain {C:attention}#6# Tag",}
 				},
 			},
 			["m_ortalab_bent"] = {
@@ -1986,9 +2008,8 @@ return {
 			tag_ortalab_hand = {
 				name = 'Gambler\'s Patch',
 				text = {
-					'Obtain {C:attention}#1#{} copies of', 
-					'{C:Loteria}The Hand',
-					'{C:inactive,s:0.7}(Does not need space)'
+					'Obtain {C:attention}#1#{C:dark_edition} negative', 
+					'copies of {C:loteria}The Hand',
 				}
 			},
 			tag_ortalab_777 = {
@@ -2011,6 +2032,14 @@ return {
 					'Convert all cards in the {C:attention}first hand',
 					'of the next round to',
 					'a {C:attention}single rank'
+				}
+			},
+			tag_ortalab_resonance = {
+				name = 'Resonance Patch',
+				text = {
+					'Each card in the next',
+					'played poker hand permanently',
+					'gains {C:white,X:red}X#1#{} Mult',
 				}
 			},
 			["tag_ortalab_common"] = {
@@ -2136,8 +2165,8 @@ return {
                 name = "Taurus",
                 text = {
 					"{C:attention}+#1#{} levels to next {C:attention}#2#",
-					'Turn #3# {C:attention}left-most{} cards in',
-					'hand into {C:attention}Rusty cards'
+					'Turn #3# {C:attention}left-most{} cards in hand',
+					'into {C:attention}Rusty{}, {C:attention}Sand {}or{C:attention} Recycled{} cards'
                 }
             },
 			['zodiac_ortalab_gemini'] = {
@@ -2211,8 +2240,8 @@ return {
                 name = "Virgo",
                 text = {
 					"{C:attention}+#1#{} levels to next {C:attention}#2#",
-					'Add a {C:attention}copy{} of #3# {C:attention}central',
-					'scoring cards into your deck'
+					'Add a {C:attention}copy{} of {C:attention}left-most{} and',
+					'{C:attention}right-most{} scoring cards into your deck'
                 }
             },
 			['zodiac_ortalab_pisces'] = {
@@ -2669,6 +2698,30 @@ return {
             },
 		},
 		['Other'] = {
+			ortalab_cyan_seal = {
+				name = 'Cyan Seal',
+				text = {
+					'Upgrade a {C:attention}random{} poker hand',
+					'by {C:attention}#1#{} if {C:attention}held{} in hand',
+					'at end of round',
+					'{C:inactive,s:0.8}(Must have room)'
+				},
+			},
+			ortalab_fuchsia_seal = {
+				name = 'Fuchsia Seal',
+				text = {
+					'Creates a {C:loteria}Loteria{} card',
+					'when {C:attention}discarded',
+					'{C:inactive,s:0.8}(Must have room)'
+				},
+			},
+			ortalab_kopi = {
+				name = '{C:kopi}Kopi\'d',
+				text = {
+					'Will be removed when',
+					'{C:attention}Blind{} is defeated'
+				}
+			},
 			ortalab_chiselled = {
 				name = "Chiselled",
 				text = {
@@ -2965,7 +3018,7 @@ return {
 			['bl_ortalab_parasol'] = {
 				name = 'The Parasol',
 				text = {
-					'Hand must',
+					'Poker hand must',
 					'contain #1#'
 				}
 			},
@@ -3012,14 +3065,14 @@ return {
 			['bl_ortalab_buckler'] = {
 				name = 'The Buckler',
 				text = {
-					'Hand must',
+					'Poker hand must',
 					'contain #1#'
 				}
 			},
 			['bl_ortalab_room'] = {
 				name = 'The Room',
 				text = {
-					'Hand must',
+					'Poker hand must',
 					'contain #1#'
 				}
 			},
@@ -3063,7 +3116,7 @@ return {
 			['bl_ortalab_face'] = {
 				name = 'The Face',
 				text = {
-					'Hand must',
+					'Poker hand must',
 					'contain #1#'
 				}
 			},
@@ -3071,8 +3124,8 @@ return {
 				name = 'The Spring',
 				text = {
 					'Lose $ equal to',
-					'played poker', 
-					'hand\'s level'
+					'number of times poker', 
+					'hand has been played'
 				}
 			},
 			['bl_ortalab_tongs'] = {
@@ -3129,8 +3182,9 @@ return {
 			['bl_ortalab_celadon_clubs'] = {
 				name = 'Celadon Clubs',
 				text = {
-					'Set a type of card', 
-					'to not score each hand',
+					'Debuff the most',
+					'common rank in',
+					'your deck'
 				}
 			},
 			['bl_ortalab_caramel_coin'] = {
@@ -3142,8 +3196,8 @@ return {
 			['bl_ortalab_saffron_shield'] = {
 				name = 'Saffron Shield',
 				text = {
-					'#1# in #2# cards are', 
-					'drawn face down'
+					'Poker hand must',
+					'contain {V:1}#1#'
 				}
 			},
 			['bl_ortalab_rouge_rose'] = {

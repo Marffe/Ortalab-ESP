@@ -187,9 +187,9 @@ SMODS.Enhancement({
         }
     end,
     calculate = function(self, card, context)
-        if context.cardarea == G.play and context.main_scoring then
+        if context.cardarea == G.hand and context.main_scoring then
             local rusty_in_hand = 0
-            for i, held_card in pairs(G.hand.cards) do
+            for i, held_card in pairs(context.scoring_hand) do
                 if SMODS.has_enhancement(held_card, 'm_ortalab_rusty') then
                     if not Ortalab.config.enhancement_skip then
                         G.E_MANAGER:add_event(Event({
@@ -272,14 +272,16 @@ SMODS.Enhancement({
     artist_credits = {'kosze'},
     loc_vars = function(self, info_queue, card)
         local card_ability = card and card.ability or self.config
+        local a, b = SMODS.get_probability_vars(card, 1, card_ability.extra.discard_chance)
+        local c, d = SMODS.get_probability_vars(card, 1, card_ability.extra.tag_chance)
         return {
-            vars = { math.max(G.GAME.probabilities.normal, 1) * (card_ability.extra.discard_chance - 1), card_ability.extra.discard_chance / math.min(G.GAME.probabilities.normal, 1), card_ability.extra.discards, math.max(1, G.GAME.probabilities.normal) * (card_ability.extra.tag_chance - 1), card_ability.extra.tag_chance / math.min(G.GAME.probabilities.normal, 1), card_ability.extra.tags, card_ability.extra.chips }
+            vars = { a, b, card_ability.extra.discards, c, d, card_ability.extra.tags, card_ability.extra.chips }
         }
     end,
     calculate = function(self, card, context)
         if context.cardarea == G.play and context.main_scoring then
             local ret = {}
-            if pseudorandom('moldy_discards') > G.GAME.probabilities.normal * (card.ability.extra.discard_chance - 1) / card.ability.extra.discard_chance then
+            if SMODS.pseudorandom_probability(card, 'recycled_discard', 1, card.ability.extra.discard_chance) then
                 ease_discard(card.ability.extra.discards)
                 ret = {
                     message = localize('ortalab_moldy_discard'),
@@ -287,7 +289,7 @@ SMODS.Enhancement({
                     chips = card.ability.extra.chips
                 }
             end
-            if pseudorandom('moldy_hands') > G.GAME.probabilities.normal * (card.ability.extra.tag_chance - 1) / card.ability.extra.tag_chance then
+            if SMODS.pseudorandom_probability(card, 'recycled_tag', 1, card.ability.extra.tag_chance) then
                 local tag_pool = get_current_pool('Tag')
                 local selected_tag = pseudorandom_element(tag_pool, pseudoseed('ortalab_hoarder'))
                 local it = 1

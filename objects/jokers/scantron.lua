@@ -12,11 +12,11 @@ SMODS.Joker({
 	config = {extra = {chance = 2, denom = 4, repetitions = 1}},
 	artist_credits = {'gappie'},
 	loc_vars = function(self, info_queue, card)
-		return {vars = {math.max(G.GAME.probabilities.normal, 1) * card.ability.extra.chance, card.ability.extra.denom / math.min(G.GAME.probabilities.normal, 1), card.ability.extra.repetitions}}
+		return {vars = {SMODS.get_probability_vars(card, card.ability.extra.chance, card.ability.extra.denom)}}
 	end,
 	calculate = function(self, card, context)
         if context.cardarea == G.play and context.repetition then
-            if pseudorandom('ortalab_scantron') > (G.GAME.probabilities.normal * card.ability.extra.chance) / card.ability.extra.denom then
+            if SMODS.pseudorandom_probability(card, 'ortalab_scantron', card.ability.extra.chance, card.ability.extra.denom) then
                 return {
                     message = localize('k_again_ex'),
                     repetitions = card.ability.extra.repetitions,

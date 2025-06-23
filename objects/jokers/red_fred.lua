@@ -9,17 +9,22 @@ SMODS.Joker({
 	blueprint_compat = true,
 	eternal_compat = true,
 	perishable_compat = true,
-	config = {extra = {mult = 3}},
+	config = {extra = {mult = 20}},
 	artist_credits = {'flare'},
 	loc_vars = function(self, info_queue, card)
-        return {vars = {card.ability.extra.mult}}
+        return {vars = {card.ability.extra.mult, localize('Hearts', 'suits_plural'), localize('Diamonds', 'suits_plural'), colours = {G.C.SUITS.Hearts, G.C.SUITS.Diamonds}}}
     end,
     calculate = function(self, card, context)
-        if context.individual and context.cardarea == G.play and (context.other_card:is_suit('Hearts') or context.other_card:is_suit('Diamonds')) then
-            return {
-                mult = card.ability.extra.mult,
-                card = card
-            }
-        end
+		if context.joker_main then
+			local suits = {}
+			for _, _card in pairs(context.scoring_hand) do
+				suits[_card.base.suit] = true
+			end
+			if suits['Hearts'] and suits['Diamonds'] then
+				return {
+					mult = card.ability.extra.mult
+				}
+			end
+		end
     end
 })

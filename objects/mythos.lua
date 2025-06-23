@@ -236,6 +236,7 @@ SMODS.Consumable({
     config = {extra = {select = 2, curse = 'ortalab_possessed', method = 'c_ortalab_mult_random_deck', cards = 3}},
     artist_credits = {'gappie'},
     loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = {set = 'Curse', key = card.ability.extra.curse}
         return {vars = {card.ability.extra.cards}}
     end,
     can_use = function(self, card)
@@ -389,6 +390,7 @@ SMODS.Consumable({
     config = {extra = {select = 2, curse = 'ortalab_infected', method = 'c_ortalab_mult_random_deck', cards = 1}},
     artist_credits = {'gappie'},
     loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = {set = 'Curse', key = card.ability.extra.curse}
     end,
     can_use = function(self, card)
         if #G.hand.highlighted == card.ability.extra.cards then
@@ -445,6 +447,9 @@ SMODS.Consumable({
     discovered = false,
     config = {extra = {select = 3, curse = 'ortalab_restrained', method = 'c_ortalab_mult_random'}},
     artist_credits = {'gappie'},
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = {set = 'Curse', key = card.ability.extra.curse, specific_vars = {Ortalab.Curses[card.ability.extra.curse].config.extra.level_loss}}
+    end,
     can_use = function(self, card)
         local uncursed_cards = 0
         for _, card in pairs(G.hand.cards) do
@@ -533,6 +538,7 @@ SMODS.Consumable({
     config = {extra = {select = 1, curse = 'ortalab_infected', method = 'c_ortalab_one_selected', cards = 3}},
     artist_credits = {'eremel'},
     loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = {set = 'Curse', key = card.ability.extra.curse}
         return {vars = {card.ability.extra.cards}}
     end,
     can_use = function(self, card)
@@ -600,6 +606,7 @@ SMODS.Consumable({
     config = {extra = {select = 1, curse = 'ortalab_restrained', method = 'c_ortalab_one_selected', cards = 3, rank = 7}},
     artist_credits = {'kosze'},
     loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = {set = 'Curse', key = card.ability.extra.curse, specific_vars = {Ortalab.Curses[card.ability.extra.curse].config.extra.level_loss}}
         return {vars = {card.ability.extra.cards, card.ability.extra.rank}}
     end,
     can_use = function(self, card)
@@ -659,6 +666,7 @@ SMODS.Consumable({
     config = {extra = {select = 1, curse = 'ortalab_corroded', method = 'c_ortalab_one_selected', cards = 3, rank = 'A'}},
     artist_credits = {'kosze'},
     loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = {set = 'Curse', key = card.ability.extra.curse, specific_vars = {Ortalab.Curses[card.ability.extra.curse].config.extra.base, Ortalab.Curses[card.ability.extra.curse].config.extra.gain}}
         return {vars = {card.ability.extra.cards}}
     end,
     can_use = function(self, card)
@@ -718,6 +726,7 @@ SMODS.Consumable({
     config = {extra = {select = 1, money_gain = 2, curse = 'ortalab_corroded', method = 'c_ortalab_mult_random_joker'}},
     artist_credits = {'gappie'},
     loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = {set = 'Curse', key = card.ability.extra.curse..'_joker', specific_vars = {Ortalab.Curses[card.ability.extra.curse].config.extra.gain}}
         local total_value = 0
         if G.jokers then
             for k=1, #G.jokers.cards + #G.consumeables.cards do
@@ -821,6 +830,9 @@ SMODS.Consumable({
     discovered = false,
     config = {extra = {select = 1, curse = 'ortalab_possessed', method = 'c_ortalab_mult_random_joker'}},
     artist_credits = {'gappie'},
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = {set = 'Curse', key = card.ability.extra.curse..'_joker'}
+    end,
     can_use = function(self, card)
         local uncursed = 0
         local i = 1
@@ -900,6 +912,7 @@ SMODS.Consumable({
     config = {extra = {select = 2, curse = 'ortalab_corroded', method = 'c_ortalab_mult_random_deck', cards = 4}},
     artist_credits = {'gappie'},
     loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = {set = 'Curse', key = card.ability.extra.curse, specific_vars = {Ortalab.Curses[card.ability.extra.curse].config.extra.base, Ortalab.Curses[card.ability.extra.curse].config.extra.gain}}
         return {vars = {card.ability.extra.cards}}
     end,
     can_use = function(self, card)
@@ -971,6 +984,9 @@ SMODS.Consumable({
     discovered = false,
     config = {extra = {select = 1, curse = 'ortalab_restrained', method = 'c_ortalab_mult_random_joker', cards = 1}},
     artist_credits = {'gappie'},
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = {set = 'Curse', key = card.ability.extra.curse..'_joker', specific_vars = {Ortalab.Curses[card.ability.extra.curse].config.extra.level_loss}}
+    end,
     can_use = function(self, card)
         if #G.jokers.highlighted > 0 and #G.jokers.highlighted <= card.ability.extra.cards then
             local uncursed = 0
@@ -1040,6 +1056,7 @@ SMODS.Consumable({
     config = {extra = {select = 4, curse = 'ortalab_corroded', method = 'c_ortalab_mult_random', hands = 1}},
     artist_credits = {'kosze'},
     loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = {set = 'Curse', key = card.ability.extra.curse, specific_vars = {Ortalab.Curses[card.ability.extra.curse].config.extra.base, Ortalab.Curses[card.ability.extra.curse].config.extra.gain}}
         return {vars = {card.ability.extra.hands}}
     end,
     can_use = function(self, card)
@@ -1107,9 +1124,10 @@ SMODS.Consumable({
     cost = 6,
     pos = {x=0, y=2},
     discovered = false,
-    config = {extra = {select = 2, curse = 'ortalab_possessed', method = 'c_ortalab_mult_random', handsize = 1}},
+    config = {extra = {select = 5, scale = 2, curse = 'ortalab_possessed', method = 'c_ortalab_mult_random', handsize = 1}},
     artist_credits = {'gappie'},
     loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = {set = 'Curse', key = card.ability.extra.curse}
         return {vars = {card.ability.extra.handsize}}
     end,
     can_use = function(self, card)
@@ -1163,7 +1181,7 @@ SMODS.Consumable({
                 G.hand.config.card_limit = G.hand.config.card_limit + card.ability.extra.handsize
                 SMODS.calculate_effect({message = localize('ortalab_hand_size_gain'), colour = G.C.BLUE}, card)
                 draw_card(G.deck, G.hand)
-                G.GAME.ortalab.mythos.ya_te_veo_count = G.GAME.ortalab.mythos.ya_te_veo_count + 1
+                G.GAME.ortalab.mythos.ya_te_veo_count = G.GAME.ortalab.mythos.ya_te_veo_count + card.ability.extra.scale
                 return true
             end
         }))
@@ -1179,6 +1197,9 @@ SMODS.Consumable({
     discovered = false,
     config = {extra = {select = 1, curse = 'ortalab_infected', method = 'c_ortalab_mult_random_joker', cards = 1}},
     artist_credits = {'gappie'},
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = {set = 'Curse', key = card.ability.extra.curse..'_joker', specific_vars = {G.GAME.probabilities.normal, Ortalab.Curses[card.ability.extra.curse].config.extra.denom}}
+    end,
     can_use = function(self, card)
         if #G.jokers.highlighted > 0 and #G.jokers.highlighted <= card.ability.extra.cards then
             local uncursed = 0
@@ -1243,6 +1264,7 @@ SMODS.Consumable({
     config = {extra = {select = 2, curse = 'ortalab_corroded', method = 'c_ortalab_mult_random_deck', cards = 4}},
     artist_credits = {'gappie'},
     loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = {set = 'Curse', key = card.ability.extra.curse, specific_vars = {Ortalab.Curses[card.ability.extra.curse].config.extra.base, Ortalab.Curses[card.ability.extra.curse].config.extra.gain}}
         return {vars = {card.ability.extra.cards}}
     end,
     can_use = function(self, card)
@@ -1269,6 +1291,7 @@ SMODS.Consumable({
     config = {extra = {select = 2, curse = 'ortalab_corroded', method = 'c_ortalab_mult_random_deck', cards = 4, zodiac = 'zodiac_ortalab_ophiuchus'}},
     artist_credits = {'gappie'},
     loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = {set = 'Curse', key = card.ability.extra.curse, specific_vars = {Ortalab.Curses[card.ability.extra.curse].config.extra.base, Ortalab.Curses[card.ability.extra.curse].config.extra.gain}}
         info_queue[#info_queue+1] = {generate_ui = zodiac_tooltip, key = self.config.extra.zodiac}
         return {vars = {card.ability.extra.cards}}
     end,

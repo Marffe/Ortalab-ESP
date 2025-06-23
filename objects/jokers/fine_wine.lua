@@ -12,7 +12,8 @@ SMODS.Joker({
 	config = {extra = {discards = 2, odds = 6, gain = 1}},
     artist_credits = {'gappie'},
 	loc_vars = function(self, info_queue, card)
-        return {vars = {card.ability.extra.discards, math.max(1, G.GAME.probabilities.normal), card.ability.extra.odds / math.min(G.GAME.probabilities.normal, 1), card.ability.extra.gain}}
+        local a, b = SMODS.get_probability_vars(card, 1, card.ability.extra.odds)
+        return {vars = {card.ability.extra.discards, a, b, card.ability.extra.gain}}
     end,
     calculate = function(self, card, context) --Fine Wine Logic
         if not context.blueprint then
@@ -24,7 +25,7 @@ SMODS.Joker({
                 }
             end
             if context.end_of_round and not context.individual and not context.repetition then
-                if pseudorandom('fine_wine') < G.GAME.probabilities.normal/card.ability.extra.odds then
+                if SMODS.pseudorandom_probability(card, 'fine_wine', 1, card.ability.extra.odds) then
                     SMODS.destroy_cards(card)
                     return {
                         message = localize('k_drank_ex')

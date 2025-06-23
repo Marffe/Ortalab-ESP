@@ -160,7 +160,7 @@ SMODS.Blind({
     config = {extra = {frequency = 5}},
     artist_credits = {'flare'},
     loc_vars = function(self, info_queue, card)
-        return {vars = {math.max(G.GAME.probabilities.normal, 1), self.config.extra.frequency / math.min(G.GAME.probabilities.normal, 1)}}
+        return {vars = {SMODS.get_probability_vars(G.GAME.blind, 1, self.config.extra.frequency)}}
     end,
     collection_loc_vars = function(self)
         return {vars = {G.GAME.probabilities.normal, self.config.extra.frequency}}
@@ -168,7 +168,7 @@ SMODS.Blind({
     drawn_to_hand = function(self)
         for _, card in pairs(G.hand.cards) do
             if not card.top_check then
-                if pseudorandom('top_blind') < G.GAME.probabilities.normal / self.config.extra.frequency then
+                if SMODS.pseudorandom_probability(G.GAME.blind, 'top_blind', 1, self.config.extra.frequency) then
                     card:set_debuff(true)
                     if card.debuff then card.debuffed_by_blind = true end
                 end
@@ -229,8 +229,8 @@ SMODS.Blind({
     collection_loc_vars = function(self)
         return {vars = {self.config.extra.suit}}
     end,
-    debuff_hand = function(self, cards, hand, handname, check)
-        for _, card in pairs(cards) do
+    debuff_hand = function(self, cards, hands, handname, check)
+        for _, card in pairs(hands[handname][1]) do
             if card:is_suit(self.config.extra.suit) then return false end
         end
         return true
@@ -309,8 +309,8 @@ SMODS.Blind({
     collection_loc_vars = function(self)
         return {vars = {self.config.extra.suit}}
     end,
-    debuff_hand = function(self, cards, hand, handname, check)
-        for _, card in pairs(cards) do
+    debuff_hand = function(self, cards, hands, handname, check)
+        for _, card in pairs(hands[handname][1]) do
             if card:is_suit(self.config.extra.suit) then return false end
         end
         return true
@@ -350,8 +350,8 @@ SMODS.Blind({
     collection_loc_vars = function(self)
         return {vars = {self.config.extra.suit}}
     end,
-    debuff_hand = function(self, cards, hand, handname, check)
-        for _, card in pairs(cards) do
+    debuff_hand = function(self, cards, hands, handname, check)
+        for _, card in pairs(hands[handname][1]) do
             if card:is_suit(self.config.extra.suit) then return false end
         end
         return true
@@ -463,20 +463,30 @@ SMODS.Blind({
     boss_colour = HEX('7e6752'),
     config = {extra = {ranks = {}}},
     artist_credits = {'flare'},
+    calculate = function(self, _card, context)
+        if context.after then
+             G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.2, func = function()
+                for _, card in ipairs(G.playing_cards) do
+                    if not SMODS.has_no_rank(card) and G.GAME.blind.config.blind.config.extra.ranks[card.base.id] then
+                        card:set_debuff(true)
+                    end
+                end
+            return true end }))
+        end
+    end,
     modify_hand = function(self, cards, poker_hands, handname, mult, hand_chips)
-        local _,_,_,scoring_hand,_ = G.FUNCS.get_poker_hand_info(cards)
-        for _, card in pairs(scoring_hand) do
-            if not SMODS.has_no_rank(card) then self.config.extra.ranks[card:get_id()] = true end
+        for _, card in pairs(poker_hands[handname][1]) do
+            if not SMODS.has_no_rank(card) then self.config.extra.ranks[card.base.id] = true end
         end
         return mult, hand_chips
     end,
-    drawn_to_hand = function(self)
+    set_blind = function(self)
         for _, card in pairs(G.playing_cards) do
-            if not SMODS.has_no_rank(card) and self.config.extra.ranks[card:get_id()] then card:set_debuff(true); card.debuffed_by_glyph = true end
+            if not SMODS.has_no_rank(card) and self.config.extra.ranks[card.base.id] then card:set_debuff(true); card.debuffed_by_glyph = true end
         end
     end,
     recalc_debuff = function(self, card, from_blind)
-        if not SMODS.has_no_rank(card) and self.config.extra.ranks[card.base.value] then
+        if not SMODS.has_no_rank(card) and self.config.extra.ranks[card.base.id] then
             card.debuffed_by_glyph = true
             return true
         else
@@ -533,13 +543,11 @@ SMODS.Blind({
                 possible_ranks[rank] = nil
             end
         end
-        self.triggered = true
-        G.GAME.blind:set_text()
-    end,
-    drawn_to_hand = function(self)
         for _, card in pairs(G.playing_cards) do
             if not SMODS.has_no_rank(card) and self.config.extra.ranks[card.base.value] then card:set_debuff(true); card.debuffed_by_reed = true end
         end
+        self.triggered = true
+        G.GAME.blind:set_text()
     end,
     recalc_debuff = function(self, card, from_blind)
         if not SMODS.has_no_rank(card) and self.config.extra.ranks[card.base.value] then
@@ -641,10 +649,33 @@ SMODS.Blind({
     boss_colour = HEX('c6e0eb'),
     artist_credits = {'flare'},
     modify_hand = function(self, cards, poker_hands, text, mult, hand_chips)
-        local text,_,_,_,_ = G.FUNCS.get_poker_hand_info(cards)
-        ease_dollars(-G.GAME.hands[text].level)
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.5,
+            func = function()                
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'after',
+                    delay = 0.5,
+                    func = function()                
+                        G.GAME.blind:juice_up()
+                        play_sound('ortalab_spring')
+                        attention_text({
+                            scale = 1, text = '-'..localize('$')..G.GAME.hands[text].played, hold = 2, align = 'cm', offset = {x = 0,y = -2.7},major = G.play, colour = G.C.RED
+                        })
+                        return true
+                    end
+                }))  
+                ease_dollars(-G.GAME.hands[text].played)
+                return true
+            end
+        }))      
         return mult, hand_chips, false
     end
+})
+
+SMODS.Sound({
+    key = 'spring',
+    path = 'spring.ogg'
 })
 
 SMODS.Blind({
@@ -663,8 +694,8 @@ SMODS.Blind({
     collection_loc_vars = function(self)
         return {vars = {self.config.extra.suit}}
     end,
-    debuff_hand = function(self, cards, hand, handname, check)
-        for _, card in pairs(cards) do
+    debuff_hand = function(self, cards, hands, handname, check)
+        for _, card in pairs(hands[handname][1]) do
             if card:is_suit(self.config.extra.suit) then return false end
         end
         return true
@@ -919,61 +950,73 @@ SMODS.Blind({
     mult = 2,
     boss = {min = 1, max = 10, showdown = true},
     boss_colour = HEX('22857b'),
-    config = {extra = {options = {'Face', 'Even', 'Odd'}, current = ''}},
     artist_credits = {'flare'},
+    set_blind = function(self)
+        -- Count ranks
+        local ranks = {}
+        for _, pcard in ipairs(G.playing_cards) do
+            ranks[pcard.base.value] = (ranks[pcard.base.value] or 0) + 1
+        end
+        -- Find most abundant
+        local max_amount = 0
+        local ranks_to_debuff = {}
+        for rank, amount in pairs(ranks) do
+            if amount > max_amount then
+                ranks_to_debuff = {rank}
+                max_amount = amount
+            elseif amount == max_amount then
+                ranks_to_debuff[#ranks_to_debuff+1] = rank
+            end
+        end
+        -- Sort table in rank order (highest to lowest)
+        table.sort(ranks_to_debuff, function(a,b) return SMODS.Ranks[a].sort_nominal > SMODS.Ranks[b].sort_nominal end)
+        -- Debuff cards
+        for _, card in pairs(G.playing_cards) do
+            if table.contains(ranks_to_debuff, card.base.value) then
+                card:set_debuff(true)
+                card.debuffed_by_blind = true
+                card.ability.celadon = true
+            end
+        end
+        -- Add notification split over 2 lines
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.7,
+            func = function()
+                local text = {localize(ranks_to_debuff[1], 'ranks')..'s'..(#ranks_to_debuff>2 and ', ' or ''), ""}
+                for i=2, #ranks_to_debuff-2 do
+                    text[i<7 and 1 or 2] = text[i<7 and 1 or 2]..localize(ranks_to_debuff[i], 'ranks')..'s, '
+                end
+                if #ranks_to_debuff > 1 then
+                    text[string.len(text[2])>0 and 2 or 1] = text[string.len(text[2])>0 and 2 or 1] .. (#ranks_to_debuff > 2 and localize(ranks_to_debuff[#ranks_to_debuff-1], 'ranks')..'s' or '') .. localize('ortalab_celadon_and') .. localize(ranks_to_debuff[#ranks_to_debuff], 'ranks') .. 's'
+                end
+                text[string.len(text[2])>0 and 2 or 1] = text[string.len(text[2])>0 and 2 or 1] .. localize('ortalab_celadon_notification')
+                attention_text({
+                    scale = 0.9, text = text[1], hold = 4*math.ceil(#ranks_to_debuff/7), align = 'cm', offset = {x = 0,y = -2.7},major = G.play, colour = G.C.RED
+                })         
+                attention_text({
+                    scale = 0.9, text = text[2], hold = 4*math.ceil(#ranks_to_debuff/7), align = 'cm', offset = {x = 0,y = -1.8},major = G.play, colour = G.C.RED
+                })            
+                return true
+            end
+        }))
+    end,
+    recalc_debuff = function(self, card, from_blind)
+        return card.debuff
+    end,
     disable = function(self)
         for _, card in pairs(G.playing_cards) do
-            card.celadon = false
+            if card.ability.celadon then card:set_debuff(); card.ability.celadon = nil; card.debuffed_by_blind = nil end
         end
     end,
     defeat = function(self)
         for _, card in pairs(G.playing_cards) do
-            card.celadon = false
-        end
-    end,
-    drawn_to_hand = function(self)
-        if not self.prepped then
-            self.config.extra.current = pseudorandom_element(self.config.extra.options, pseudoseed('celadon_shuffle'))
-            self.prepped = true
-            attention_text({
-                scale = 1, text = self.config.extra.current..' cards will not score!', hold = 2, align = 'cm', offset = {x = 0,y = -2.7},major = G.play
-            })
-        end
-        for _, card in pairs(G.playing_cards) do
-            celadon_check(self, card)
-        end
-    end,
-    press_play = function(self)
-        self.prepped = false
-    end,
-    calculate = function(self, card, context)
-        if context.modify_scoring_hand and context.other_card.celadon then
-            return {
-                remove_from_hand = true
-            }
+            if card.ability.celadon then card:set_debuff(); card.ability.celadon = nil; card.debuffed_by_blind = nil end
         end
     end
 })
 
 SMODS.Shader({key = 'celadon', path = 'applied.fs'})
-
-
-function celadon_check(self, card)
-    card.celadon = false
-    if card:is_face() then
-        if self.config.extra.current == 'Face' then
-            card.celadon = true
-        end
-    elseif card.base.nominal % 2 == 0 then
-        if self.config.extra.current == 'Even' then
-            card.celadon = true
-        end
-    else
-        if self.config.extra.current == 'Odd' then
-            card.celadon = true
-        end
-    end
-end
 
 SMODS.DrawStep {
     key = 'celadon',
@@ -1025,18 +1068,37 @@ SMODS.Blind({
     config = {extra = {chance = 2}},
     artist_credits = {'flare'},
     loc_vars = function(self, info_queue, card)
-        return {vars = {math.max(G.GAME.probabilities.normal, 1), self.config.extra.chance / math.min(G.GAME.probabilities.normal, 1)}}
+        local suits = Ortalab.count_suits()
+        return {vars = {localize(suits[#suits].suit, 'suits_plural'), colours = {G.C.SUITS[suits[#suits].suit]}}}
     end,
     collection_loc_vars = function(self)
-        return {vars = {G.GAME.probabilities.normal, self.config.extra.chance}}
+        return {vars = {localize('ortalab_saffron'), colours = {G.ARGS.LOC_COLOURS.attention}}}
     end,
-    stay_flipped = function (self, area, card)
-        if self.disabled or area ~= G.hand then return false end
-        if pseudorandom(pseudoseed('saffron_shield')) < G.GAME.probabilities.normal / self.config.extra.chance then
-            return true
+    set_blind = function(self)
+        local suits = Ortalab.count_suits()
+        self.config.extra.suit = suits[#suits].suit
+    end,
+    debuff_hand = function(self, cards, hands, handname, check)
+        for _, card in pairs(hands[handname][1]) do
+            if card:is_suit(self.config.extra.suit) then return false end
         end
-    end
+        return true
+    end,
 })
+
+function Ortalab.count_suits()
+    -- Count suits
+    local suits = {}
+    for _, pcard in ipairs(G.playing_cards) do
+        suits[pcard.base.suit] = (suits[pcard.base.suit] or 0) + 1
+    end
+    local suits_by_count = {}
+    for suit, count in pairs(suits) do
+        table.insert(suits_by_count, {suit = suit, count = count})
+    end
+    table.sort(suits_by_count, function(a, b) return a.count > b.count end)
+    return suits_by_count
+end
 
 SMODS.Blind({
     key = 'rouge_rose',

@@ -18,7 +18,7 @@ SMODS.Joker({
         if context.before and not context.blueprint then
             local upgrade = false
             for _, pcard in pairs(G.play.cards) do
-                if pcard.ability.was_flipped or card.debuffed then
+                if pcard.ability.was_flipped or pcard.debuff then
                     pcard.ability.was_flipped = nil
                     card.ability.extra.xmult = card.ability.extra.xmult + card.ability.extra.gain
                     upgrade = true
