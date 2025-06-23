@@ -1180,7 +1180,7 @@ function loteria_joker_save_check(card)
     if card.ability.extra.kept then return false end
     local loteria_joker = SMODS.find_card('j_ortalab_black_cat')
     for _, joker_card in pairs(loteria_joker) do        
-        if SMODS.pseudorandom_probability(card, 'black_cat_keep', 1, card.ability.extra.chance) then
+        if SMODS.pseudorandom_probability(joker_card, 'black_cat_keep', 1, joker_card.ability.extra.chance) then
             joker_card:juice_up()
             card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('ortalab_loteria_saved')})
             card.ability.extra.kept = true
