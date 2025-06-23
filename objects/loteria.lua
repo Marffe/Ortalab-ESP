@@ -295,7 +295,7 @@ SMODS.Consumable({
     config = {extra = {chance = 4, amount = 1}},
     artist_credits = {'parchment'},
     loc_vars = function(self, info_queue, card)
-        return {vars = {math.max(G.GAME.probabilities.normal, 1), card.ability.extra.chance / math.min(G.GAME.probabilities.normal, 1)}}
+        return {vars = {SMODS.get_probability_vars(card, 1, card.ability.extra.chance)}}
     end,
     can_use = function(self, card)
         if G.STATE ~= G.STATES.HAND_PLAYED and G.STATE ~= G.STATES.DRAW_TO_HAND and G.STATE ~= G.STATES.PLAY_TAROT or any_state then
@@ -317,7 +317,7 @@ SMODS.Consumable({
                 table.insert(eligible_jokers, v)
             end
         end
-        if pseudorandom(pseudoseed('pear_roll')) < (G.GAME.probabilities.normal / card.ability.extra.chance) then
+        if SMODS.pseudorandom_probability(card, 'pear_roll', 1, card.ability.extra.chance) then
             G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.4, func = function()
                 local over = false
                 local eligible_card = pseudorandom_element(eligible_jokers, pseudoseed('pear_select'))
@@ -1177,11 +1177,13 @@ function bottle_randomise(card)
 end
 
 function loteria_joker_save_check(card)
+    if card.ability.extra.kept then return false end
     local loteria_joker = SMODS.find_card('j_ortalab_black_cat')
     for _, joker_card in pairs(loteria_joker) do        
-        if pseudorandom(pseudoseed('loteria_check_keep')) > (joker_card.ability.extra.num*G.GAME.probabilities.normal) / joker_card.ability.extra.chance then
+        if SMODS.pseudorandom_probability(card, 'black_cat_keep', 1, card.ability.extra.chance) then
             joker_card:juice_up()
             card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('ortalab_loteria_saved')})
+            card.ability.extra.kept = true
             return true
         end
     end

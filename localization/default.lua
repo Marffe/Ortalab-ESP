@@ -109,7 +109,8 @@ return {
 			ortalab_celadon_notification = ' are debuffed',
 			ortalab_celadon_and = ' and ',
 			ortalab_saffron = 'least common suit',
-			ortalab_kopi = 'Kopi\'d!'
+			ortalab_kopi = 'Kopi\'d!',
+			ortalab_enabled = 'Enabled!',
 		},
 		['labels'] = {
 			ortalab_greyscale = 'Greyscale',
@@ -323,7 +324,7 @@ return {
 					"Each {V:1}#2#{}",
 					"held in hand has a",
 					'{C:green}#3# in #4#{} chance to',
-					"not give {X:mult,C:white}X#1#{} Mult",
+					"give {X:mult,C:white}X#1#{} Mult",
 				}
 			},
 			['j_ortalab_art_gallery'] = {
@@ -426,7 +427,8 @@ return {
 				["text"] = {
 					"{C:green}#1# in #2#{} chance for",
 					"{C:loteria}Loteria Cards{} to be",
-					"consumed when used"
+					"kept when used",
+					"{C:inactive,s:0.8}(Each card can only be kept once)"
 				}
 			},
 			['j_ortalab_black_friday'] = {
@@ -1133,7 +1135,7 @@ return {
 				["name"] = "Prediction Dice",
 				["text"] = {
 					"{C:green}#1# in #2#{} chance for",
-					"{C:zodiac}Zodiacs{} to decay",
+					"{C:zodiac}Zodiacs{} to not decay",
 					"when activated"
 				}
 			},
@@ -1277,9 +1279,8 @@ return {
 			['j_ortalab_scantron'] = {
 				["name"] = "Scantron",
 				["text"] = {
-					'{C:attention}Retrigger{} all played cards',
-					"Played cards have a {C:green}#1# in #2#{} chance",
-					"to not {C:attention}retrigger",
+					"Played cards have a",
+					"{C:green}#1# in #2#{} chance to {C:attention}retrigger",
 				}
 			},
 			['j_ortalab_scared_face'] = {
@@ -1546,9 +1547,22 @@ return {
 			j_ortalab_woo_all_1 = {
 				["name"] = "Woo! All 1s",
 				["text"] = {
-					{"All other{C:attention}listed{} {C:green,E:1,S:1.1}probabilities{}",
+					{"All other {C:attention}listed{} {C:green,E:1,S:1.1}probabilities{}",
 					"are {C:attention}guaranteed",},
-					{'{C:green}#1# in #2#{} chance to',
+					{'{C:green}#1#%{} chance to',
+					'be {C:attention}disabled{} when',
+					'selecting a {C:attention}Blind',
+					'until the next {C:attention}Blind',
+					'{C:inactive,s:0.7}{Unaffected by probability changes}'}
+				}
+			},
+			j_ortalab_woo_all_1_disabled = {
+				["name"] = "Woo! All 1s",
+				["text"] = {
+					{"{C:Ortalab}DISABLED",
+					"{C:inactive,s:0.8}All other listed probabilities",
+					"{C:inactive,s:0.8}are guaranteed",},
+					{'{C:green}#1#%{} chance to',
 					'be {C:attention}disabled{} when',
 					'selecting a {C:attention}Blind',
 					'until the next {C:attention}Blind',
@@ -1874,10 +1888,10 @@ return {
 				["name"] = "Recycled Card",
 				["text"] = {
 					{"{C:green}#1# in #2#{} chance",
-					"to not add {C:blue}+#7#{} Chips",
+					"to add {C:blue}+#7#{} Chips",
 					"and gain {C:red}+#3# Discard",},
 					{"{C:green}#4# in #5#{} chance",
-					"to not gain {C:attention}#6# Tag",}
+					"to gain {C:attention}#6# Tag",}
 				},
 			},
 			["m_ortalab_bent"] = {

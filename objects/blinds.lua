@@ -160,7 +160,7 @@ SMODS.Blind({
     config = {extra = {frequency = 5}},
     artist_credits = {'flare'},
     loc_vars = function(self, info_queue, card)
-        return {vars = {math.max(G.GAME.probabilities.normal, 1), self.config.extra.frequency / math.min(G.GAME.probabilities.normal, 1)}}
+        return {vars = {SMODS.get_probability_vars(G.GAME.blind, 1, self.config.extra.frequency)}}
     end,
     collection_loc_vars = function(self)
         return {vars = {G.GAME.probabilities.normal, self.config.extra.frequency}}
@@ -168,7 +168,7 @@ SMODS.Blind({
     drawn_to_hand = function(self)
         for _, card in pairs(G.hand.cards) do
             if not card.top_check then
-                if pseudorandom('top_blind') < G.GAME.probabilities.normal / self.config.extra.frequency then
+                if SMODS.pseudorandom_probability(G.GAME.blind, 'top_blind', 1, self.config.extra.frequency) then
                     card:set_debuff(true)
                     if card.debuff then card.debuffed_by_blind = true end
                 end

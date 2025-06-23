@@ -12,11 +12,12 @@ SMODS.Joker({
 	config = {extra = {chance = 3, money = 2}},
     artist_credits = {'kosze','salad','gappie'},
 	loc_vars = function(self, info_queue, card)
-        return {vars = {G.GAME.probabilities.normal, card.ability.extra.chance, card.ability.extra.money}}
+        local a, b = SMODS.get_probability_vars(card, 1, card.ability.extra.chance)
+        return {vars = {a, b, card.ability.extra.money}}
     end,
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play and context.other_card:is_numbered() and not context.other_card.config.center.always_scores then
-            if pseudorandom(pseudoseed('ortalab_scratchcard')) < G.GAME.probabilities.normal / card.ability.extra.chance then
+            if SMODS.pseudorandom_probability(card, 'ortalab_scratchcard', 1, card.ability.extra.chance) then
                 return {
                     dollars = card.ability.extra.money,
                     card = card

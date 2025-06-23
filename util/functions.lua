@@ -101,7 +101,7 @@ function Ortalab.reset_game_globals(first_pass)
     if G.GAME.ortalab.round_decay then
         local zodiac_joker = SMODS.find_card('j_ortalab_prediction_dice')
         for _, joker_card in pairs(zodiac_joker) do        
-            if pseudorandom(pseudoseed('loteria_check_keep')) > (joker_card.ability.extra.num*G.GAME.probabilities.normal) / joker_card.ability.extra.chance then
+            if SMODS.pseudorandom_probability(joker_card, 'zodiac_no_decay', 1, joker_card.ability.extra.chance) then
                 SMODS.calculate_effect({message = localize('ortalab_zodiac_no_decay')}, joker_card)
                 return
             end

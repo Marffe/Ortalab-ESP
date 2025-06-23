@@ -12,11 +12,11 @@ SMODS.Joker({
 	config = {extra = {mult = 0, mult_gain = 8, chance = 6}},
     artist_credits = {'logan'},'flare',
 	loc_vars = function(self, info_queue, card)
-        return {vars = {card.ability.extra.mult_gain, card.ability.extra.mult, math.max(1, G.GAME.probabilities.normal), card.ability.extra.chance / math.min(G.GAME.probabilities.normal, 1)}}
+        return {vars = {card.ability.extra.mult_gain, card.ability.extra.mult, SMODS.get_probability_vars(card, 1, card.ability.extra.chance)}}
     end,
     calculate = function(self, card, context)
         if context.after then
-            if pseudorandom(pseudoseed('ortalab_joker_miles')) < G.GAME.probabilities.normal / card.ability.extra.chance then
+            if SMODS.pseudorandom_probability(card, 'ortalab_joker_miles', 1, card.ability.extra.chance) then
                 card.ability.extra.mult = 0
                 return {
                     message = localize('ortalab_joker_miles_reset'),

@@ -13,11 +13,11 @@ SMODS.Joker({
 	config = {extra = {xchips = 3, odds = 1000}},
     artist_credits = {'flowwey','grassy','salad','flare'},
 	loc_vars = function(self, info_queue, card)
-        return {vars = {card.ability.extra.xchips, math.max(G.GAME.probabilities.normal, 1), card.ability.extra.odds / math.min(G.GAME.probabilities.normal, 1)}}
+        return {vars = {card.ability.extra.xchips, SMODS.get_probability_vars(card, 1, card.ability.extra.odds)}}
     end,
     calculate = function(self, card, context) --Royal Gala Logic
         if context.end_of_round and not context.blueprint and not context.repetition and not context.individual then
-            if pseudorandom('royalgala') < G.GAME.probabilities.normal/card.ability.extra.odds then
+            if SMODS.pseudorandom_probability(card, 'royalgala', 1, card.ability.extra.odds) then
                 SMODS.destroy_cards(card)
                 return {
                     message = localize('k_extinct_ex')

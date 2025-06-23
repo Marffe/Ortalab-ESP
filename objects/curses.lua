@@ -388,7 +388,7 @@ Ortalab.Curse({
     artist_credits = {'flare'},
     loc_vars = function(self, info_queue, card)
         if card and card.config.center.set == 'Joker' then 
-            return {vars = {G.GAME.probabilities.normal, card.ability.curse.extra.denom}, key = 'ortalab_infected_joker'}
+            return {vars = {SMODS.get_probability_vars(card, 1, card.ability.curse.extra.denom)}, key = 'ortalab_infected_joker'}
         end
     end,
     calculate = function(self, card, context)
@@ -421,7 +421,7 @@ Ortalab.Curse({
             }))
         end
         if context.press_play and context.cardarea == G.jokers then
-            if pseudorandom('infected_joker_chance') < G.GAME.probabilities.normal / card.ability.curse.extra.denom then
+            if SMODS.pseudorandom_probability(card, 'infected_joker_chance', 1, card.ability.curse.extra.denom) then
                 G.E_MANAGER:add_event(Event({func = function()
                     card.ability.no_score_shader = true
                     return true
@@ -444,32 +444,24 @@ Ortalab.Curse({
     end
 })
 
-local calc_card = Card.can_calculate
+local ortalab_card_can_calculate = Card.can_calculate
 function Card:can_calculate(ignore_debuff, ignore_sliced)
     if self.ability.set ~= 'Joker' and self.curse == 'ortalab_infected' and not self.curse_removed then
         return false
     end
-    return calc_card(self, ignore_debuff, ignore_sliced)
+    return ortalab_card_can_calculate(self, ignore_debuff, ignore_sliced)
 end
 
--- local score = SMODS.score_card
--- function SMODS.score_card(card, context)
---     if card.curse == 'ortalab_infected' and not card.curse_removed then
---         return
---     end
---     score(card, context)
--- end
-
-local dfdtd = G.FUNCS.draw_from_discard_to_deck
+local ortalab_draw_from_discard_to_deck = G.FUNCS.draw_from_discard_to_deck
 G.FUNCS.draw_from_discard_to_deck = function(e)
     for _, card in pairs(G.discard.cards) do
         card.ability.no_score = false
         card.ability.no_score_shader = false
     end
-    dfdtd(e)
+    ortalab_draw_from_discard_to_deck(e)
 end
 
-local ec = eval_card
+local ortalab_eval_card = eval_card
 function eval_card(card, context)
     if card.ability.no_score then
         local cur = {}
@@ -481,12 +473,6 @@ function eval_card(card, context)
         end
         return cur, {}
     end
-    local ret, post = ec(card, context)
+    local ret, post = ortalab_eval_card(card, context)
     return ret, post
 end
-
--- local evaluate_play = G.FUNCS.evaluate_play
--- G.FUNCS.evaluate_play = function(e)
---     evaluate_play(e)
---     SMODS.calculate_context({remove_curse = true}, {})
--- end
