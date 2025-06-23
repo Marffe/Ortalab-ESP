@@ -716,21 +716,23 @@ SMODS.Consumable({
     atlas = 'loteria_cards',
     pos = {x=4, y=2},
     discovered = false,
-    config = {extra = {selected = 3, suits = {'Hearts', 'Diamonds'}}},
+    config = {extra = {selected = 6, suits = {'Diamonds', 'Spades'}}},
     artist_credits = {'parchment'},
     loc_vars = function(self, info_queue, card)
         return {vars = {card.ability.extra.selected + (G.GAME and G.GAME.ortalab.vouchers.tabla), localize(card.ability.extra.suits[1], 'suits_plural'), localize(card.ability.extra.suits[2], 'suits_plural'),
         colours = {G.C.SUITS[card.ability.extra.suits[1]], G.C.SUITS[card.ability.extra.suits[2]]}}}
     end,
     can_use = function(self, card)
-        return flip_use(self, card)
+        return selected_use(self, card)
     end,
     keep_on_use = function(self, card)
         return loteria_joker_save_check(card)
     end,
     use = function(self, card, area, copier)
         track_usage(card.config.center.set, card.config.center_key)
-        flip_suits(G.hand.highlighted, card.ability.extra.suits)
+        table.sort(G.hand.highlighted, function (a, b) return a.T.x + a.T.w/2 < b.T.x + b.T.w/2 end)
+        random_suits(G.hand.highlighted, card.ability.extra.suits)
+        G.hand.config.highlighted_limit = card.ability.extra.highlight_limit or 5
     end
 })
 
@@ -740,21 +742,23 @@ SMODS.Consumable({
     atlas = 'loteria_cards',
     pos = {x=0, y=1},
     discovered = false,
-    config = {extra = {selected = 3, suits = {'Clubs', 'Spades'}}},
+    config = {extra = {selected = 6, suits = {'Hearts', 'Clubs'}}},
     artist_credits = {'parchment'},
     loc_vars = function(self, info_queue, card)
         return {vars = {card.ability.extra.selected + (G.GAME and G.GAME.ortalab.vouchers.tabla), localize(card.ability.extra.suits[1], 'suits_plural'), localize(card.ability.extra.suits[2], 'suits_plural'),
         colours = {G.C.SUITS[card.ability.extra.suits[1]], G.C.SUITS[card.ability.extra.suits[2]]}}}
     end,
     can_use = function(self, card)
-        return flip_use(self, card)
+        return selected_use(self, card)
     end,
     keep_on_use = function(self, card)
         return loteria_joker_save_check(card)
     end,
     use = function(self, card, area, copier)
         track_usage(card.config.center.set, card.config.center_key)
-        flip_suits(G.hand.highlighted, card.ability.extra.suits)
+        table.sort(G.hand.highlighted, function (a, b) return a.T.x + a.T.w/2 < b.T.x + b.T.w/2 end)
+        random_suits(G.hand.highlighted, card.ability.extra.suits)
+        G.hand.config.highlighted_limit = card.ability.extra.highlight_limit or 5
     end
 })
 
@@ -904,7 +908,7 @@ local ortalab_highlight = Card.highlight
 function Card:highlight(is_highlighted)
     ortalab_highlight(self, is_highlighted)
     if self.area ~= G.consumeables then return end
-    if self.config.center_key == 'c_ortalab_lot_tree' or self.config.center_key == 'c_ortalab_lot_heart' then
+    if self.config.center_key == 'c_ortalab_lot_tree' or self.config.center_key == 'c_ortalab_lot_heart' or self.config.center_key == 'c_ortalab_lot_parrot' or self.config.center_key == 'c_ortalab_lot_boot' then
         if is_highlighted and G.hand.config.highlighted_limit < 6 then
             self.ability.extra.highlight_limit = G.hand.config.highlighted_limit
             G.hand.config.highlighted_limit = 6

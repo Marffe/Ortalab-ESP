@@ -1672,9 +1672,9 @@ return {
             ["c_ortalab_lot_parrot"] = {
 				["name"] = "The Parrot",
 				["text"] = {
-					"Swap the suits of",
-					"up to {C:attention}#1#{} selected",
-					"{V:1}#2#{} or {V:2}#3#{}"
+					"Turn {C:attention}#1#{} selected",
+                    "cards into {V:1}#2#",
+					"or {V:2}#3#"
 				},
 			},
             ["c_ortalab_lot_ladder"] = {
@@ -1772,9 +1772,9 @@ return {
 			["c_ortalab_lot_boot"] = {
 				["name"] = "The Boot",
 				["text"] = {
-					"Swap the suits of",
-					"up to {C:attention}#1#{} selected",
-					"{V:1}#2#{} or {V:2}#3#{}"
+					"Turn {C:attention}#1#{} selected",
+                    "cards into {V:1}#2#",
+					"or {V:2}#3#"
 				},
 			},
         },
