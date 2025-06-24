@@ -9,7 +9,7 @@ SMODS.Joker({
     blueprint_compat = true,
     eternal_compat = true,
     perishable_compat = false,
-    config = {extra = {mult = 4, gain = 2, rank = "Ace"}},
+    config = {extra = {mult = 0, gain = 2, rank = "Ace"}},
     artist_credits = {'kosze'},
     loc_vars = function(self, info_queue, card)
         return {vars = {card.ability.extra.gain, card.ability.extra.mult, localize(card.ability.extra.rank, 'ranks')}}
