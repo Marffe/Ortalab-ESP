@@ -460,7 +460,9 @@ SMODS.Tag({
             else
                 local _poker_hands = {}
                 for k, _ in pairs(G.ZODIACS) do
-                    _poker_hands[#_poker_hands+1] = k
+                    if k ~= 'zodiac_ortalab_ophiuchus' then
+                        _poker_hands[#_poker_hands+1] = k
+                    end
                 end
             
                 local zodiac1 = pseudorandom_element(_poker_hands, pseudoseed('constellation_patch'))
