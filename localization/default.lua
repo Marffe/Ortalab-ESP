@@ -1869,8 +1869,8 @@ return {
 				["name"] = "Sand Card",
 				["text"] = {
 					{"{X:mult,C:white}X#1#{} Mult",},
-                    {"Loses {X:mult,C:white}X#2#{} Mult", 
-					"when held in hand",
+                    {"Loses {X:mult,C:white}X#2#{} Mult when", 
+					"played or held in hand",
                     "{C:inactive,s:0.7}(Destroyed when held at {X:mult,C:white,s:0.7}X1{C:inactive,s:0.7} Mult)",}
 				},
 			},
