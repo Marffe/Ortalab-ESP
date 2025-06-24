@@ -3,7 +3,7 @@ SMODS.Joker({
     atlas = "jokers",
     pos = {x = 9, y = 14},
     rarity = 3,
-    cost = 5,
+    cost = 7,
     unlocked = true,
     discovered = false,
     blueprint_compat = false,
@@ -30,6 +30,7 @@ G.FUNCS.can_discard = function(e)
     local gloomy = SMODS.find_card('j_ortalab_gloomy_gus')
     if next(gloomy) then
         if G.GAME.starting_params.discard_limit ~= 1 then
+            gloomy[1].ability.extra.prev_discard = gloomy[1].ability.extra.prev_discard + G.GAME.starting_params.discard_limit - gloomy[1].ability.extra.discard_limit
             SMODS.change_discard_limit(gloomy[1].ability.extra.discard_limit - G.GAME.starting_params.discard_limit)
         end
     end

@@ -112,7 +112,7 @@ SMODS.Enhancement({
     key = "sand",
     atlas = "ortalab_enhanced",
     pos = {x = 3, y = 0},
-    config = {extra = {x_mult = 2.0, change=0.20}},
+    config = {extra = {x_mult = 2.0, change=0.25}},
     artist_credits = {'gappie'},
     loc_vars = function(self, info_queue, card)
         return {
@@ -125,7 +125,7 @@ SMODS.Enhancement({
                 xmult = card.ability.extra.x_mult
             }
         end
-        if context.final_scoring_step and context.cardarea == G.hand and not next(SMODS.find_card('j_ortalab_sandstone')) then
+        if context.final_scoring_step and (context.cardarea == G.hand or context.cardarea == G.play or context.cardarea == "unscored")and not next(SMODS.find_card('j_ortalab_sandstone')) then
             card.ability.extra.x_mult = card.ability.extra.x_mult - card.ability.extra.change
             G.E_MANAGER:add_event(Event({
                 trigger = 'immediate',

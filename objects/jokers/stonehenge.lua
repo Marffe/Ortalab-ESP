@@ -26,7 +26,12 @@ SMODS.Joker({
 		end
 		return false
 	end,
-	
+	in_pool = function(self, args)
+        for _, card in ipairs(G.playing_cards) do
+            if SMODS.has_no_rank(card) then return true end
+        end
+        return false
+    end,
 })
 
 local ortalab_evaluate_poker_hand = evaluate_poker_hand

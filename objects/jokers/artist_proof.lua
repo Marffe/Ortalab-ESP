@@ -9,7 +9,7 @@ SMODS.Joker({
 	blueprint_compat = false,
 	eternal_compat = true,
 	perishable_compat = true,
-	config = {extra = {negative = 10, positive = 25}},
+	config = {extra = {negative = 7, positive = 20}},
 	artist_credits = {'gappie'},
 	loc_vars = function(self, info_queue, card)
 		return {vars = {card.ability.extra.negative, card.ability.extra.positive}}
@@ -17,11 +17,11 @@ SMODS.Joker({
 	calculate = function(self, card, context) --Beyond The Mask Logic
         if context.setting_blind and not context.blueprint then
             local amount = pseudorandom(pseudoseed('ortalab_artist_proof'), -card.ability.extra.negative, card.ability.extra.positive)
-            local message = amount < 0 and '-' or ''
-            message = message .. localize('$') .. math.abs(amount)
-            card_eval_status_text(card, 'extra', nil, nil, nil, {message = message, colour = amount > 0 and G.C.MONEY or G.C.RED})
-            ease_dollars(amount)
-			return nil, true
+			return {
+				dollars = amount,
+				message = (amount < 0 and '-' or '') .. localize('$') .. math.abs(amount),
+				colour =  amount > 0 and G.C.MONEY or G.C.RED
+			}
         end
     end
 })

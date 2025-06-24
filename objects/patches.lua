@@ -460,7 +460,9 @@ SMODS.Tag({
             else
                 local _poker_hands = {}
                 for k, _ in pairs(G.ZODIACS) do
-                    _poker_hands[#_poker_hands+1] = k
+                    if k ~= 'zodiac_ortalab_ophiuchus' then
+                        _poker_hands[#_poker_hands+1] = k
+                    end
                 end
             
                 local zodiac1 = pseudorandom_element(_poker_hands, pseudoseed('constellation_patch'))
@@ -922,7 +924,7 @@ SMODS.Tag({
     pos = {x = 3, y = 0},
     discovered = false,
     min_ante = 3,
-    config = {type = 'press_play', xmult_change = 0.2},
+    config = {type = 'press_play', xmult_change = 0.1},
     artist_credits = {'eremel'},
     loc_vars = function(self, info_queue, card)
         return {vars = {self.config.xmult_change}}
