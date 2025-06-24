@@ -11,9 +11,14 @@ SMODS.Joker({
 	perishable_compat = true,
     config = {extra = {xmult = 1, gain = 0.2}},
     artist_credits = {'gappie'},
-    enhancement_gate = 'm_ortalab_ore',
 	loc_vars = function(self, info_queue, card)
         return {vars = {card.ability.extra.xmult, card.ability.extra.gain}}
+    end,
+    in_pool = function(self, args)
+        for _, card in ipairs(G.playing_cards) do
+            if SMODS.has_no_rank(card) then return true end
+        end
+        return false
     end,
     calculate = function(self, card, context)
         if context.destroying_card and (context.destroying_card.config.center.no_rank or context.destroying_card.config.center_key == 'm_stone') then
