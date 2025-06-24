@@ -30,6 +30,7 @@ G.FUNCS.can_discard = function(e)
     local gloomy = SMODS.find_card('j_ortalab_gloomy_gus')
     if next(gloomy) then
         if G.GAME.starting_params.discard_limit ~= 1 then
+            gloomy[1].ability.extra.prev_discard = gloomy[1].ability.extra.prev_discard + G.GAME.starting_params.discard_limit - gloomy[1].ability.extra.discard_limit
             SMODS.change_discard_limit(gloomy[1].ability.extra.discard_limit - G.GAME.starting_params.discard_limit)
         end
     end
