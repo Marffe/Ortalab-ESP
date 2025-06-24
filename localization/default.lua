@@ -716,7 +716,7 @@ return {
 				["name"] = "Freezer",
 				["text"] = {
 					'Gain {X:red,C:white}X#1#{} Mult for each',
-					'{C:attention}consumable{} used this round',
+					'{C:attention}consumable{} used during the blind',
 					'{C:inactive,s:0.9}(Currently {s:0.9,X:red,C:white}X#2#{C:inactive,s:0.9})',
 					'{C:inactive,s:0.8}(Resets at end of round)'
 				}
