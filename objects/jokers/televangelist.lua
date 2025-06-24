@@ -17,7 +17,7 @@ SMODS.Joker({
 	calculate = function(self, card, context)
 		if context.using_consumeable and context.consumeable.ability.set == 'Loteria' and not context.blueprint then
 			card.ability.extra.xmult = card.ability.extra.xmult + card.ability.extra.gain
-            card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize{type = 'variable', key = 'a_xmult', vars = {card.ability.extra.xmult}}})
+            SMODS.calculate_effect({message = localize{type = 'variable', key = 'a_xmult', vars = {card.ability.extra.xmult}}}, card)
 		end
         if context.joker_main then
             return {
