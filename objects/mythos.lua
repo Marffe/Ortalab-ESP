@@ -1288,6 +1288,9 @@ SMODS.Consumable({
     cost = 6,
     pos = {x=3, y=3},
     discovered = false,
+    hidden = true,
+    soul_set = 'Zodiac',
+    soul_rate = 0.03,
     config = {extra = {select = 2, curse = 'ortalab_corroded', method = 'c_ortalab_mult_random_deck', cards = 4, zodiac = 'zodiac_ortalab_ophiuchus'}},
     artist_credits = {'gappie'},
     loc_vars = function(self, info_queue, card)
