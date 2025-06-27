@@ -7,10 +7,10 @@ SMODS.Joker({
     cost = 20,
     unlocked = true,
     discovered = false,
-    blueprint_compat = true,
+    blueprint_compat = false,
     eternal_compat = true,
     perishable_compat = true,
-    config = {extra = {target = 3, current = 0}},
+    config = {extra = {target = 4, current = 0}},
     artist_credits = {'gappie'},
     loc_vars = function(self, info_queue, card)
         return {vars = {card.ability.extra.target, card.ability.extra.current}}
