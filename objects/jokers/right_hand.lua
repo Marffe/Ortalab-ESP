@@ -11,7 +11,7 @@ SMODS.Joker({
     perishable_compat = true,
     artist_credits = {'gappie'},
     loc_vars = function(self, info_queue, card)
-        if G.jokers and G.jokers.cards[#G.jokers.cards] ~= card and G.jokers.cards[#G.jokers.cards].config.center.blueprint_compat then
+        if card.area == G.jokers and G.jokers.cards[#G.jokers.cards] ~= card and G.jokers.cards[#G.jokers.cards].config.center.blueprint_compat then
             card.ability.blueprint_compat = ' '..localize('k_compatible')..' '
             card.ability.bubble_colour = mix_colours(G.C.GREEN, G.C.JOKER_GREY, 0.8)
 
