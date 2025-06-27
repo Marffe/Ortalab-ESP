@@ -56,7 +56,6 @@ SMODS.Voucher({
 local ortalab_skip_blind = G.FUNCS.skip_blind
 G.FUNCS.skip_blind = function(e)
     Ortalab.queue_size = #G.E_MANAGER.queues.base
-    print('Queue size: '..Ortalab.queue_size)
     ortalab_skip_blind(e)
     G.E_MANAGER:add_event(Event({
     trigger = 'after',
@@ -630,7 +629,7 @@ SMODS.Voucher({
     config = {extra = {active = true}},
     artist_credits = {'no_demo'},
     redeem = function(self, card)
-        if G.shop_booster and next(G.shop_booster.cards) then
+        if G.shop_booster and G.shop_booster.cards and next(G.shop_booster.cards) then
             for _, booster in pairs(G.shop_booster.cards) do
                 create_shop_card_ui(booster)
             end
