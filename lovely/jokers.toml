@@ -271,7 +271,7 @@ position = 'before'
 match_indent = true
 payload = '''
 elseif _c.pinkprint then
-    localize{type = 'descriptions', set = 'Joker', key = _c.key, nodes = desc_nodes, vars = specific_vars or _c.vars}
+    localize{type = 'descriptions', set = 'Joker', key = _c.key, nodes = desc_nodes, vars = specific_vars or _c.vars, AUT = {info = {}}}
 '''
 # # Pinkprint calculation - MISSES
 # [[patches]]
