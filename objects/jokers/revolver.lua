@@ -16,9 +16,9 @@ SMODS.Joker({
     end,
     calculate = function(self, card, context)
         if context.setting_blind and not context.blueprint then
-            if G.jokers.cards[1] == card then return end
-            if not card.getting_sliced and not G.jokers.cards[1].ability.eternal and not G.jokers.cards[1].getting_sliced then 
-                local sliced_card = G.jokers.cards[1]
+            if card.area.cards[1] == card then return end
+            if not card.getting_sliced and not card.area.cards[1].ability.eternal and not card.area.cards[1].getting_sliced then 
+                local sliced_card = card.area.cards[1]
                 sliced_card.getting_sliced = true
                 G.GAME.joker_buffer = G.GAME.joker_buffer - 1
                 G.E_MANAGER:add_event(Event({func = function()
