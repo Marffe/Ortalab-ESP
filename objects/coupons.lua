@@ -78,7 +78,6 @@ G.FUNCS.skip_blind = function(e)
                 trigger = 'after',
                 blocking = false,
                 func = function()
-                    print('Queue Size: '..Ortalab.queue_size..' Actual size: '..#G.E_MANAGER.queues.base)
                     if G.STATE == G.STATES.SMODS_BOOSTER_OPENED or #G.E_MANAGER.queues.base > Ortalab.queue_size then return false end
                     G.STATE_COMPLETE = false
                     G.STATE = G.STATES.SHOP
