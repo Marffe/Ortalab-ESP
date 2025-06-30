@@ -73,6 +73,7 @@ SMODS.Tag({
     atlas = 'patches',
     pos = {x = 0, y = 3},
     discovered = false,
+    min_ante = 2,
     artist_credits = {'kosze'},
     config = {type = 'store_joker_modify', edition = 'e_ortalab_fluorescent'},
     loc_vars = function(self, info_queue, card)
@@ -684,6 +685,7 @@ SMODS.Tag({
     atlas = 'patches',
     pos = {x = 1, y = 1},
     discovered = false,
+    min_ante = 2,
     config = {type = 'immediate'},
     artist_credits = {'hat','kosze'},
     apply = function(self, tag, context)
@@ -923,7 +925,6 @@ SMODS.Tag({
     atlas = 'patches',
     pos = {x = 3, y = 0},
     discovered = false,
-    min_ante = 3,
     config = {type = 'press_play', xmult_change = 0.1},
     artist_credits = {'eremel'},
     loc_vars = function(self, info_queue, card)

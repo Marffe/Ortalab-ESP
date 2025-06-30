@@ -280,7 +280,7 @@ SMODS.Blind({
     pos = {x = 0, y = 6},
     dollars = 5,
     mult = 2,
-    boss = {min = 1, max = 10},
+    boss = {min = 2, max = 10},
     boss_colour = HEX('50bf7c'),
     artist_credits = {'flare'},
     debuff_hand = function(self, cards, hand, handname, check)
@@ -884,7 +884,7 @@ SMODS.Blind({
     atlas = 'ortalab_blinds',
     pos = {x = 0, y = 22},
     dollars = 6,
-    mult = 0.75,
+    mult = 0.5,
     boss = {min = 3, max = 7},
     boss_colour = HEX('b52d2d'),
     artist_credits = {'flare'},
