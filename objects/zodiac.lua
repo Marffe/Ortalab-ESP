@@ -788,19 +788,19 @@ Ortalab.Zodiac{
     pre_trigger = function(self, zodiac, context)
         for i=1, math.min(zodiac.config.extra.convert, #G.hand.cards) do
             if G.hand.cards[i] then
-                G.hand.cards[i].base.suit = context.scoring_hand[2].base.suit
-                G.hand.cards[i].base.id = context.scoring_hand[2].base.id
-                G.hand.cards[i].base.nominal = context.scoring_hand[2].base.nominal
-                G.hand.cards[i].base.face_nominal = context.scoring_hand[2].base.face_nominal
-                G.hand.cards[i].delay_edition = context.scoring_hand[2].edition and context.scoring_hand[2].edition.key or true
-                G.hand.cards[i]:set_edition(context.scoring_hand[2].edition and context.scoring_hand[2].edition.key, false, true)
-                G.hand.cards[i]:set_ability(G.P_CENTERS[context.scoring_hand[2].config.center_key], nil, true)
+                G.hand.cards[i].base.suit = context.scoring_hand[1].base.suit
+                G.hand.cards[i].base.id = context.scoring_hand[1].base.id
+                G.hand.cards[i].base.nominal = context.scoring_hand[1].base.nominal
+                G.hand.cards[i].base.face_nominal = context.scoring_hand[1].base.face_nominal
+                G.hand.cards[i].delay_edition = context.scoring_hand[1].edition and context.scoring_hand[1].edition.key or true
+                G.hand.cards[i]:set_edition(context.scoring_hand[1].edition and context.scoring_hand[1].edition.key, false, true)
+                G.hand.cards[i]:set_ability(G.P_CENTERS[context.scoring_hand[1].config.center_key], nil, true)
                 G.E_MANAGER:add_event(Event({
                     func = function()
-                        local _card = copy_card(context.scoring_hand[2], G.hand.cards[i], nil, nil, true)
+                        local _card = copy_card(context.scoring_hand[1], G.hand.cards[i], nil, nil, true)
                         G.hand.cards[i].delay_edition = nil
                         _card:juice_up()
-                        context.scoring_hand[2]:juice_up()
+                        context.scoring_hand[1]:juice_up()
                         return true
                     end
                 }))
@@ -1018,13 +1018,13 @@ Ortalab.Zodiac{
         G.E_MANAGER:add_event(Event({
             func = function()
                 G.playing_card = (G.playing_card and G.playing_card + 1) or 1
-                local _card = copy_card(context.scoring_hand[2], nil, nil, G.playing_card)
+                local _card = copy_card(context.scoring_hand[1], nil, nil, G.playing_card)
                 _card:add_to_deck()
                 G.deck.config.card_limit = G.deck.config.card_limit + 1
                 table.insert(G.playing_cards, _card)
                 G.deck:emplace(_card)
                 G.deck:shuffle('zodiac_aquarius')
-                context.scoring_hand[2]:juice_up()
+                context.scoring_hand[1]:juice_up()
                 _card:juice_up()
 
                 playing_card_joker_effects({_card})
