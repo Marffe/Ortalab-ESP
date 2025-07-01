@@ -1436,12 +1436,11 @@ return {
 			j_ortalab_storm_6 = {
 				name = 'Storm 6',
 				text = {
-					{'{C:red}-$#3#{} when {C:attention}Blind{} is',
-					'selected if there is a {C:attention}9{}',
-					'in your {C:attention}full deck',},
 					{'{C:red}+#1#{} Mult for each', 
-					'{C:attention}6{} in your {C:attention}full deck',
-					'{C:inactive}(Currently {C:red}+#2#{C:inactive} Mult)'}
+					'{C:attention}6{} in your {C:attention}full deck',},
+					{'{C:red}-#2#{} Mult for each', 
+					'{C:attention}9{} in your {C:attention}full deck',
+					'{C:inactive}(Currently {C:red}+#3#{C:inactive} Mult)'}
 				}
 			},
 			j_ortalab_street_rat = {
