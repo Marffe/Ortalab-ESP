@@ -845,9 +845,9 @@ return {
 			['j_ortalab_hypercalculia'] = {
 				["name"] = "Hypercalculia",
 				["text"] = {
-					"All cards are",
-					'considered',
-					"{C:attention}numbered{} cards"
+					'{C:white,X:mult}X#1#{} Mult',
+					'Gains {X:mult,C:white}X#2#{} for each', 
+					'unique face card scored',
 				}
 			},
 			['j_ortalab_joker_miles'] = {
