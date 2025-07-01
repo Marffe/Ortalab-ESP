@@ -716,9 +716,8 @@ return {
 				["name"] = "Freezer",
 				["text"] = {
 					'Gain {X:red,C:white}X#1#{} Mult for each',
-					'{C:attention}consumable{} used during the blind',
+					'{C:attention}consumable{} used during this blind',
 					'{C:inactive,s:0.9}(Currently {s:0.9,X:red,C:white}X#2#{C:inactive,s:0.9})',
-					'{C:inactive,s:0.8}(Resets at end of round)'
 				}
 			},
 			['j_ortalab_frowny_face'] = {
@@ -1688,9 +1687,14 @@ return {
             ["c_ortalab_lot_heron"] = {
 				["name"] = "The Heron",
 				["text"] = {
-					"Earn {C:money}$#1#{} for every",
-					"{C:chips}#2# Chip value{} of",
-					"{C:attention}#3#{} random cards in hand"
+					--"Earn {C:money}$#1#{} for every",
+					--"{C:chips}#2# Chip value{} of",
+					--"{C:attention}#3#{} random cards in hand",
+					--"{C:inactive,s:0.8}(Max of $40)"
+					"Earn {C:money}${} equal to",
+					"half the {C:chips}Chips{} of",
+					"{C:attention}#3#{} random cards in hand",
+					"{C:inactive,s:0.8}(Max of $40)"
 				},
 			},
             ["c_ortalab_lot_heart"] = {
@@ -2199,7 +2203,7 @@ return {
                 name = "Aquarius",
                 text = {
 					"{C:attention}+#1#{} levels to next {C:attention}#2#",
-					'Add a copy of the {C:attention}second{}',
+					'Add a copy of the {C:attention}first{}',
 					'scoring card to deck'
                 }
             },
@@ -2224,7 +2228,7 @@ return {
                 text = {
 					"{C:attention}+#1#{} levels to next {C:attention}#2#",
 					'Turn {C:attention}left-most{} card in hand',
-					'into {C:attention}second{} scoring card'
+					'into {C:attention}first{} scoring card'
                 }
             },
 			['zodiac_ortalab_leo'] = {
