@@ -246,9 +246,6 @@ Ortalab.Curse({
     badge_colour = HEX('dc2e33'),
     config = {extra = {base = 3, gain = 1}},
     artist_credits = {'gappie'},
-    in_pool = function(self)
-        return false
-    end,
     loc_vars = function(self, info_queue, card)
         if card and card.config.center.set == 'Joker' then 
             return {vars = {card.ability.curse.extra.gain}, key = 'ortalab_corroded_joker'}
