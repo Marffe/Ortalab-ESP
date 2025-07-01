@@ -16,12 +16,8 @@ SMODS.Joker({
         local nines = 0
         if G.playing_cards then    
             for _, card in pairs(G.playing_cards) do
-                if card:get_id() == 6 then sixes = sixes + 1 end
-            end
-        end
-        if G.playing_cards then    
-            for _, card in pairs(G.playing_cards) do
-                if card:get_id() == 9 then nines = nines + 1 end
+                if card:get_id() == 6 then sixes = sixes + 1
+                elseif card:get_id() == 9 then nines = nines + 1 end
             end
         end
         return {vars = {card.ability.extra.mult, card.ability.extra.mult_minus, card.ability.extra.mult * sixes - card.ability.extra.mult_minus * nines}}
@@ -31,10 +27,8 @@ SMODS.Joker({
             local sixes = 0
             local nines = 0
             for _, card in pairs(G.playing_cards) do
-                if card:get_id() == 6 then sixes = sixes + 1 end
-            end
-            for _, card in pairs(G.playing_cards) do
-                if card:get_id() == 9 then nines = nines + 1 end
+                if card:get_id() == 6 then sixes = sixes + 1
+                elseif card:get_id() == 9 then nines = nines + 1 end
             end
             return {
                 mult = (card.ability.extra.mult * sixes) - (card.ability.extra.mult_minus * nines);
