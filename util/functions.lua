@@ -98,6 +98,7 @@ function Ortalab.reset_game_globals(first_pass)
 		G.GAME.current_round["ortalab_free_rerolls"] = 0
         return
 	end
+    -- Decay zodiacs
     if G.GAME.ortalab.round_decay then
         local zodiac_joker = SMODS.find_card('j_ortalab_prediction_dice')
         for _, joker_card in pairs(zodiac_joker) do        
@@ -129,6 +130,25 @@ function Ortalab.reset_game_globals(first_pass)
                         return true
                     end)
                 }))
+            end
+        end
+    end
+    -- Kopi remove cards
+    for _, joker in ipairs(G.jokers.cards) do
+        if joker.ability.kopi then
+            SMODS.destroy_cards(joker)
+            G.jokers.config.card_limit = G.jokers.config.card_limit - 1
+        end
+    end
+    -- Shinku remove cards
+    if G.GAME.blind.boss then
+        for _, joker in pairs(G.jokers.cards) do
+            if joker.ability.shinku then
+                G.E_MANAGER:add_event(Event({
+                    func = function() 
+                        joker:start_dissolve()
+                        return true
+                end}))   
             end
         end
     end

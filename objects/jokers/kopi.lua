@@ -45,35 +45,6 @@ SMODS.Joker({
                 SMODS.calculate_effect({message = card.ability.extra.current..'/'..card.ability.extra.target, colour = HEX('dc9d6c')}, card)
             end
         end
-        if context.end_of_round and context.main_eval then
-            for _, joker in ipairs(G.jokers.cards) do
-                if joker.ability.kopi then
-                    SMODS.destroy_cards(joker)
-                    G.jokers.config.card_limit = G.jokers.config.card_limit - 1
-                end
-            end
-        end
-        -- if context.hand_drawn and #context.hand_drawn == card.ability.extra.drawn_size then
-        --     SMODS.calculate_effect({message = 'Kopied!', colour = G.C.MONEY}, card)
-        --     local created_cards = {}
-        --     for _, _card in pairs(context.hand_drawn) do
-        --         created_cards[#created_cards + 1] = copy_card(_card, nil, nil, G.playing_card)
-        --         _card:juice_up()
-        --     end
-        --     for i, _card in ipairs(created_cards) do
-        --         _card:add_to_deck()
-        --         G.deck.config.card_limit = G.deck.config.card_limit + 1
-        --         table.insert(G.playing_cards, _card)
-        --         G.deck:emplace(_card)
-        --     end
-        --     G.deck:shuffle('ortalab_kopi')
-        --     playing_card_joker_effects(created_cards)
-        --     card.ability.extra.drawn_size = pseudorandom('ortalab_kopi', 1, 5)
-        --     return {
-        --         message = 'Draw '.. card.ability.extra.drawn_size,
-        --         colour = G.C.MONEY
-        --     }
-        -- end
     end    
 })
 

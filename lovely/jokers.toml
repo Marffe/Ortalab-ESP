@@ -63,33 +63,6 @@ G.GAME.Ortalab_Scoring_Active = false
 '''
 match_indent = true
 
-# ## Demo Card Badges
-# [[patches]]
-# [patches.pattern]
-# target = 'functions/UI_definitions.lua'
-# pattern = '''badges[#badges + 1] = create_badge(((card.ability.name == 'Pluto' or card.ability.name == 'Ceres' or card.ability.name == 'Eris') and localize('k_dwarf_planet')) or (card.ability.name == 'Planet X' and localize('k_planet_q') or card_type),card_type_colour, nil, 1.2)'''
-# position = 'after'
-# match_indent = true
-# payload = '''if card.config.center.ortalab_demo_card then badges = {}; end'''
-
-[[patches]]
-[patches.pattern]
-target = "functions/state_events.lua"
-pattern = '''reset_idol_card()'''
-position = "before"
-payload = '''
-for _, joker in pairs(G.jokers.cards) do
-    if joker.ability.shinku then
-        G.E_MANAGER:add_event(Event({
-            func = function() 
-                joker:start_dissolve()
-                return true
-        end}))   
-    end
-end
-'''
-match_indent = true
-
 [[patches]]
 [patches.pattern]
 target = "functions/common_events.lua"
