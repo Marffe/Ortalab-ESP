@@ -125,7 +125,7 @@ SMODS.Enhancement({
                 xmult = card.ability.extra.x_mult
             }
         end
-        if context.final_scoring_step and (context.cardarea == G.hand or context.cardarea == G.play or context.cardarea == "unscored")and not next(SMODS.find_card('j_ortalab_sandstone')) then
+        if context.final_scoring_step and (context.cardarea == G.hand or context.cardarea == G.play or context.cardarea == "unscored") and not next(SMODS.find_card('j_ortalab_sandstone')) then
             card.ability.extra.x_mult = card.ability.extra.x_mult - card.ability.extra.change
             G.E_MANAGER:add_event(Event({
                 trigger = 'immediate',
@@ -160,7 +160,7 @@ SMODS.Enhancement({
                 end
             }))
         end
-        if context.destroying_card and card.ability.extra.x_mult < 1 then
+        if context.destroying_card and context.destroying_card == card and card.ability.extra.x_mult < 1 then
             return {
                 remove = true
             }
