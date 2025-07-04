@@ -2449,7 +2449,7 @@ return {
 				["text"] = {
 					"When {C:attention}entering{} a shop,",
 					'{C:zodiac}improve{} a random hand,',
-					'by {C:attention}#1#{} levels'
+					'by {C:attention}#1#{} level'
 				}
 			},
 			['v_ortalab_natal_sign'] = {
