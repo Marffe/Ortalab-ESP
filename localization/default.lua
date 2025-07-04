@@ -845,9 +845,9 @@ return {
 			['j_ortalab_hypercalculia'] = {
 				["name"] = "Hypercalculia",
 				["text"] = {
-					"All cards are",
-					'considered',
-					"{C:attention}numbered{} cards"
+					'{C:white,X:mult}X#1#{} Mult',
+					'Gains {X:mult,C:white}X#2#{} for each', 
+					'unique face card scored',
 				}
 			},
 			['j_ortalab_joker_miles'] = {
@@ -2449,7 +2449,7 @@ return {
 				["text"] = {
 					"When {C:attention}entering{} a shop,",
 					'{C:zodiac}improve{} a random hand,',
-					'by {C:attention}#1#{} levels'
+					'by {C:attention}#1#{} level'
 				}
 			},
 			['v_ortalab_natal_sign'] = {
