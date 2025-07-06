@@ -2296,11 +2296,13 @@ return {
 					'{C:attention}Jokers{} with {C:dark_edition}editions{} are {C:green}free'
 				}
 			},
-			['b_ortalab_white'] = {
-				["name"] = "White Deck",
+			['b_ortalab_express'] = {
+				["name"] = "Express Deck",
 				["text"] = {
-					"{C:attention}+#1#{} consumable slot",
-					"{C:red}#2#{} discard"
+					'Start with {C:attention,T:v_ortalab_home_delivery}#1#',
+					'and {C:attention,T:v_ortalab_hoarding}#2#',
+					"You {C:red}must{} skip at least {C:red}#3#{} times",
+					'after Ante 1'
 				}
 			},
 			['b_ortalab_experimental'] = {
