@@ -52,19 +52,40 @@ SMODS.Back({
 })
 
 SMODS.Back({
-    key = "brown", 
+    key = "neon", 
     atlas = "decks",
     pos = {x = 3, y = 0}, 
-    config = {}, 
+    config = {vouchers = {'v_ortalab_pulse_wave'}, extra = {rate = 5}}, 
     apply = function(self)
-        G.GAME.interest_amount = 2
-        G.GAME.modifiers.no_extra_hand_money = true
+        G.GAME.modifiers.neon_deck = true
     end,
     loc_vars = function(self, info_queue, card)
         -- info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'flare'}
-        return {vars = {self.config.debt}}
+        return {vars = {localize({key = self.config.vouchers[1], set = 'Voucher', type = 'name_text'}), self.config.extra.rate}}
     end,
 })
+
+local ortalab_poll_edition = poll_edition
+function poll_edition(key, _mod, _no_neg, _guaranteed, options)
+    if G.GAME.modifiers.neon_deck then _mod = (_mod or 1) * G.GAME.selected_back.effect.config.extra.rate end
+    return ortalab_poll_edition(key, _mod, _no_neg, _guaranteed, options)
+end
+
+local ortalab_card_for_shop = create_card_for_shop
+function create_card_for_shop(area)
+    local card = ortalab_card_for_shop(area)
+    if G.GAME.modifiers.neon_deck and card.edition then
+        card.ability.couponed = true
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                card:set_cost()
+                return true
+            end
+        }))
+    end
+    
+    return card
+end
 
 SMODS.Voucher:take_ownership('v_seed_money', {loc_vars = function(self, info_queue, card) return {vars = {self.config.extra/5 * G.GAME.interest_amount}} end}, true)
 SMODS.Voucher:take_ownership('v_money_tree', {loc_vars = function(self, info_queue, card) return {vars = {self.config.extra/5 * G.GAME.interest_amount}} end}, true)

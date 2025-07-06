@@ -2283,16 +2283,17 @@ return {
 			['b_ortalab_shady'] = {
 				["name"] = "Shady Deck",
 				["text"] = {
-					"Start with an {C:attention,T:sticker_eternal}Eternal{},",
+					"Start with an {C:attention}Eternal{},",
 					"{C:dark_edition,T:e_ortalab_greyscale}Greyscale {C:attention}#1#{} and {C:red}$#2#",
 					"{C:attention}+#3#{} Joker slot"
 				}
 			},
-			['b_ortalab_brown'] = {
-				["name"] = "Brown Deck",
+			['b_ortalab_neon'] = {
+				["name"] = "Neon Deck",
 				["text"] = {
-					"{C:blue}Hands{} no longer earn money",
-					"Earn double {C:attention}Interest"
+					"{C:dark_edition}Editions{} spawn {C:attention}#2#X{} as often",
+					'Start with {C:attention,T:v_ortalab_pulse_wave}#1#',
+					'{C:attention}Jokers{} with {C:dark_edition}editions{} are {C:green}free'
 				}
 			},
 			['b_ortalab_white'] = {
