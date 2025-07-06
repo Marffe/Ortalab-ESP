@@ -30,16 +30,24 @@ SMODS.Back({
 })
 
 SMODS.Back({
-    key = "cobalt", 
+    key = "shady", 
     atlas = "decks",
     pos = {x = 2, y = 0}, 
-    config = {debt = 25}, 
+    config = {joker = 'j_ortalab_black_friday', dollars = 0, bonus_slots = 1}, 
     apply = function(self)
-        G.GAME.bankrupt_at = -self.config.debt
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                SMODS.add_card({key = self.config.joker, stickers = {'eternal'}, edition = 'e_ortalab_greyscale'})
+                G.jokers.config.card_limit = G.jokers.config.card_limit + self.config.bonus_slots
+                G.GAME.dollars = self.config.dollars
+                return true
+            end
+        }))
+        
     end,
     loc_vars = function(self, info_queue, card)
         -- info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'flare'}
-        return {vars = {self.config.debt}}
+        return {vars = {localize({key = self.config.joker, set = 'Joker', type = 'name_text'}), self.config.dollars, self.config.bonus_slots}}
     end,
 })
 

@@ -2280,11 +2280,12 @@ return {
 					"{C:red}#2#{} discard",
 				}
 			},
-			['b_ortalab_cobalt'] = {
-				["name"] = "Cobalt Deck",
+			['b_ortalab_shady'] = {
+				["name"] = "Shady Deck",
 				["text"] = {
-					"Go up to {C:red}-$#1#",
-					"in debt"
+					"Start with an {C:attention,T:sticker_eternal}Eternal{},",
+					"{C:dark_edition,T:e_ortalab_greyscale}Greyscale {C:attention}#1#{} and {C:red}$#2#",
+					"{C:attention}+#3#{} Joker slot"
 				}
 			},
 			['b_ortalab_brown'] = {
@@ -2321,8 +2322,8 @@ return {
 			b_ortalab_sacred = {
 				name = 'Sacred Deck',
 				text = {
-					'{C:Mythos,E:1}Mythos Cards{} curse {C:attention}1{} fewer',
-					'cards',
+					'{C:Mythos,E:1}Mythos Cards{} curse',
+					'{C:attention}1{} fewer cards',
 					'Start with {C:attention,T:v_ortalab_fates_coin}Fate\'s Coin'
 				}
 			},
