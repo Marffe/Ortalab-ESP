@@ -2379,11 +2379,13 @@ return {
 					"if beaten in {C:attention}1{} {C:blue}Hand"
 				}
 			},
-			['b_ortalab_overused'] = {
-				["name"] = "Overused Deck",
+			['b_ortalab_restored'] = {
+				["name"] = "Restored? Deck",
 				["text"] = {
-					'{C:attention}Random cards{} are',
-					'missing from the deck'
+					'Start with {C:attention}2{} copies of each card',
+					'Your deck {C:red}only reshuffles{} at',
+					'the {C:attention}end{} of each Ante',
+					'{C:zodiac}Zodiacs{} decay {C:attention}#1#{} times slower'
 				} 
 			},
 		},

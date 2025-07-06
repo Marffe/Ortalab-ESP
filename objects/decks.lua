@@ -341,24 +341,30 @@ Blind.defeat = function(silent)
 end
 
 SMODS.Back({
-    key = "overused", 
+    key = "restored", 
     atlas = "decks",
     pos = {x = 4, y = 2}, 
-    config = {extra = {top = 20, bottom = 6}},
+    config = {extra = {reduction = 2}},
     apply = function(self)
-        G.E_MANAGER:add_event(Event({
-            func = function()
-                local remove_count = pseudorandom(pseudoseed('overused_deck'), self.config.extra.bottom, self.config.extra.top)
-                for i=1, remove_count do
-                    local remove_card, index = pseudorandom_element(G.playing_cards, pseudoseed('overused_deck_remove'))
-                    remove_card:remove()
-                end
-                G.GAME.starting_deck_size = #G.playing_cards
-                return true
+        G.GAME.ortalab.no_reshuffle = true
+        G.GAME.ortalab.zodiacs.reduction = self.config.extra.reduction
+        local card_protos = {}
+        for k, v in pairs(G.P_CARDS) do
+            if type(SMODS.Ranks[v.value].in_pool) == 'function' and not SMODS.Ranks[v.value]:in_pool({initial_deck = true, suit = v.suit})
+            or type(SMODS.Suits[v.suit].in_pool) == 'function' and not SMODS.Suits[v.suit]:in_pool({initial_deck = true, rank = v.value}) then
+                goto continue
             end
-        }))
+            local _ = nil
+            local _r, _s = SMODS.Ranks[v.value].card_key, SMODS.Suits[v.suit].card_key
+         
+            card_protos[#card_protos+1] = {s=_s,r=_r}
+            ::continue::
+        end
+        G.GAME.starting_params.extra_cards = card_protos
     end,
     loc_vars = function(self, info_queue, card)
         -- info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'salad'}
+        return {vars = {self.config.extra.reduction}}
     end,
 })
+
