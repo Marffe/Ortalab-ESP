@@ -216,32 +216,13 @@ SMODS.Back({
 })
 
 SMODS.Back({
-    key = "striped", 
+    key = "prismatic", 
     atlas = "decks",
     pos = {x = 4, y = 1}, 
-    config = {wild_rank = 8},
-    apply = function(self)
-        G.E_MANAGER:add_event(Event({
-            func = function()
-                local ranks = {}
-                for k, rank in pairs(SMODS.Ranks) do
-                    ranks[rank.id] = pseudorandom_element({'Spades','Hearts','Diamonds','Clubs'})
-                end
-                for k, v in pairs(G.playing_cards) do
-                    if v:get_id() == self.config.wild_rank then
-                        v:set_ability(G.P_CENTERS['m_wild'])
-                    else
-                        local rank = v:get_id()
-                        SMODS.change_base(v, ranks[rank], nil)
-                    end
-                end
-                return true
-            end
-        }))
-    end,
+    config = {vouchers = {'v_ortalab_chisel'}},
     loc_vars = function(self, info_queue, card)
         -- info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'crimson'}
-        return {vars = {self.config.wild_rank}}
+        return {vars = {localize({type = 'name_text', set = 'Voucher', key = self.config.vouchers[1]})}}
     end,
 })
 

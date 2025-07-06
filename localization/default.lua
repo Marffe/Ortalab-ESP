@@ -2340,13 +2340,12 @@ return {
 					"{s:0.9,C:attention}Face Card{s:0.9} to your deck"
 				}
 			},
-			['b_ortalab_striped'] = {
-				["name"] = "Striped Deck",
+			['b_ortalab_prismatic'] = {
+				["name"] = "Prismatic Deck",
 				["text"] = {
-					"All cards of a rank start",
-					"as the same {C:attention}suit{}",
-					"All {C:attention}#1#s{} become",
-					"{T:m_wild,C:attention}Wild Cards"
+					"All cards act as",
+					"all suits when {C:attention}scored",
+					'Start with {C:attention,T:v_ortalab_chisel}#1#',
 				}
 			},
 			['b_ortalab_membership'] = {
