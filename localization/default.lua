@@ -731,9 +731,9 @@ return {
 			j_ortalab_futuristic = {
 				["name"] = "Futuristic Joker",
 				["text"] = {
-					'Each {C:attention}scored card{} gives {X:red,C:white}X#1#{} Mult',
-					'if {C:attention}poker hand{} contains a',
-					'card with it\'s {C:attention}consecutive{} rank'
+					'Each {C:attention}played card{} gives {X:red,C:white}X#1#{} Mult',
+					'if {C:attention}played hand{} contains a {C:attention}rank{}',
+					'one {C:attention}higher{} or {C:attention}lower{}'
 				}
 			},
 			['j_ortalab_generous'] = {
