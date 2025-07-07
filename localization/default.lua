@@ -2280,25 +2280,29 @@ return {
 					"{C:red}#2#{} discard",
 				}
 			},
-			['b_ortalab_cobalt'] = {
-				["name"] = "Cobalt Deck",
+			['b_ortalab_shady'] = {
+				["name"] = "Shady Deck",
 				["text"] = {
-					"Go up to {C:red}-$#1#",
-					"in debt"
+					"Start with an {C:attention}Eternal{},",
+					"{C:dark_edition,T:e_ortalab_greyscale}Greyscale {C:attention}#1#{} and {C:red}$#2#",
+					"{C:attention}+#3#{} Joker slot"
 				}
 			},
-			['b_ortalab_brown'] = {
-				["name"] = "Brown Deck",
+			['b_ortalab_neon'] = {
+				["name"] = "Neon Deck",
 				["text"] = {
-					"{C:blue}Hands{} no longer earn money",
-					"Earn double {C:attention}Interest"
+					"{C:dark_edition}Editions{} spawn {C:attention}#2#X{} as often",
+					'Start with {C:attention,T:v_ortalab_pulse_wave}#1#',
+					'{C:attention}Jokers{} with {C:dark_edition}editions{} are {C:green}free'
 				}
 			},
-			['b_ortalab_white'] = {
-				["name"] = "White Deck",
+			['b_ortalab_express'] = {
+				["name"] = "Express Deck",
 				["text"] = {
-					"{C:attention}+#1#{} consumable slot",
-					"{C:red}#2#{} discard"
+					'Start with {C:attention,T:v_ortalab_home_delivery}#1#',
+					'and {C:attention,T:v_ortalab_hoarding}#2#',
+					"You {C:red}must{} skip at least {C:red}#3#{} times",
+					'after Ante 1'
 				}
 			},
 			['b_ortalab_experimental'] = {
@@ -2321,8 +2325,8 @@ return {
 			b_ortalab_sacred = {
 				name = 'Sacred Deck',
 				text = {
-					'{C:Mythos,E:1}Mythos Cards{} curse {C:attention}1{} fewer',
-					'cards',
+					'{C:Mythos,E:1}Mythos Cards{} curse',
+					'{C:attention}1{} fewer cards',
 					'Start with {C:attention,T:v_ortalab_fates_coin}Fate\'s Coin'
 				}
 			},
@@ -2336,13 +2340,12 @@ return {
 					"{s:0.9,C:attention}Face Card{s:0.9} to your deck"
 				}
 			},
-			['b_ortalab_striped'] = {
-				["name"] = "Striped Deck",
+			['b_ortalab_prismatic'] = {
+				["name"] = "Prismatic Deck",
 				["text"] = {
-					"All cards of a rank start",
-					"as the same {C:attention}suit{}",
-					"All {C:attention}#1#s{} become",
-					"{T:m_wild,C:attention}Wild Cards"
+					"All cards act as",
+					"all suits when {C:attention}scored",
+					'Start with {C:attention,T:v_ortalab_chisel}#1#',
 				}
 			},
 			['b_ortalab_membership'] = {
@@ -2375,11 +2378,13 @@ return {
 					"if beaten in {C:attention}1{} {C:blue}Hand"
 				}
 			},
-			['b_ortalab_overused'] = {
-				["name"] = "Overused Deck",
+			['b_ortalab_restored'] = {
+				["name"] = "Restored? Deck",
 				["text"] = {
-					'{C:attention}Random cards{} are',
-					'missing from the deck'
+					'Start with {C:attention}2{} copies of each card',
+					'Your deck {C:red}only reshuffles{} at',
+					'the {C:attention}end{} of each Ante',
+					'{C:zodiac}Zodiacs{} decay {C:attention}#1#{} times slower'
 				} 
 			},
 		},
