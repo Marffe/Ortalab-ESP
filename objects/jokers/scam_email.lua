@@ -20,7 +20,7 @@ SMODS.Joker({
         end
     end,
 	calculate = function(self, card, context)
-        if context.setting_blind then
+        if context.end_of_round and context.main_eval and not context.blueprint then
             card.ability.extra.rank = Ortalab.rank_from_deck('ortalab_scam_email')
             return {
                 message = localize(card.ability.extra.rank, 'ranks'),
