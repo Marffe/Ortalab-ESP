@@ -8,7 +8,7 @@ SMODS.Joker({
     discovered = false,
     blueprint_compat = false,
     eternal_compat = true,
-    perishable_compat = true,
+    perishable_compat = false,
     pixel_size = {w = 41},
     config = {extra = {dollars = 1, gain = 1, last_reroll = 0}},
     artist_credits = {'gappie'},
