@@ -110,6 +110,7 @@ return {
 			ortalab_celadon_and = ' and ',
 			ortalab_saffron = 'least common suit',
 			ortalab_kopi = 'Kopi\'d!',
+			ortalab_kopi_no = 'No target!',
 			ortalab_enabled = 'Enabled!',
 		},
 		['labels'] = {
