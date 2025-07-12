@@ -73,18 +73,18 @@ SMODS.Joker({
 })
 
 local ortalab_destroy_cards = SMODS.destroy_cards
-function SMODS.destroy_cards(cards)
+function SMODS.destroy_cards(cards, bypass_eternal, immediate)
     if not cards[1] then cards = {cards} end
     for i=1, #cards do
         if cards[i].pinkprint then
             for _, joker in pairs(G.jokers.cards) do
                 if cards[i].pinkprint == joker.ID then
                     cards[i] = joker
-                    ortalab_destroy_cards(cards)
+                    ortalab_destroy_cards(cards, bypass_eternal, immediate)
                     return
                 end
             end
         end
     end
-    ortalab_destroy_cards(cards)
+    ortalab_destroy_cards(cards, bypass_eternal, immediate)
 end
