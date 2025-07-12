@@ -465,8 +465,8 @@ return {
 			['j_ortalab_caffeyne'] = {
 				["name"] = "Caffeyne",
 				["text"] = {
-					"Gain {C:white,X:red}X#1#{} Mult per", 
-					'{C:attention}#2#{} triggered cards',
+					"This Joker gains {C:white,X:red}X#1#{} Mult", 
+					'every {C:attention}#2#{} cards scored',
 					'{C:inactive}(Currently {X:red,C:white}X#3#{C:inactive} Mult)',
 					'{C:inactive,s:0.9}#4#/#2#'
 				}
@@ -716,9 +716,8 @@ return {
 				["name"] = "Freezer",
 				["text"] = {
 					'Gain {X:red,C:white}X#1#{} Mult for each',
-					'{C:attention}consumable{} used this round',
+					'{C:attention}consumable{} used during this blind',
 					'{C:inactive,s:0.9}(Currently {s:0.9,X:red,C:white}X#2#{C:inactive,s:0.9})',
-					'{C:inactive,s:0.8}(Resets at end of round)'
 				}
 			},
 			['j_ortalab_frowny_face'] = {
@@ -732,9 +731,9 @@ return {
 			j_ortalab_futuristic = {
 				["name"] = "Futuristic Joker",
 				["text"] = {
-					'Each {C:attention}scored card{} gives {X:red,C:white}X#1#{} Mult',
-					'if {C:attention}poker hand{} contains a',
-					'card with it\'s {C:attention}consecutive{} rank'
+					'Each {C:attention}played card{} gives {X:red,C:white}X#1#{} Mult',
+					'if {C:attention}played hand{} contains a {C:attention}rank{}',
+					'one {C:attention}higher{} or {C:attention}lower{}'
 				}
 			},
 			['j_ortalab_generous'] = {
@@ -846,9 +845,9 @@ return {
 			['j_ortalab_hypercalculia'] = {
 				["name"] = "Hypercalculia",
 				["text"] = {
-					"All cards are",
-					'considered',
-					"{C:attention}numbered{} cards"
+					'{C:white,X:mult}X#1#{} Mult',
+					'Gains {X:mult,C:white}X#2#{} for each', 
+					'unique face card scored',
 				}
 			},
 			['j_ortalab_joker_miles'] = {
@@ -1029,9 +1028,9 @@ return {
 			['j_ortalab_watching_eye'] = {
 				["name"] = "Watching Eye",
 				["text"] = {
-					"Adds {C:blue}#1#{} minus {C:attention}#2#X{} the rank", 
+					"Adds {C:red}#1#{} minus {C:attention}#2#X{} the rank", 
 					"of {C:attention}highest{} ranked card",
-					"held in hand to {C:blue}Chips"
+					"held in hand to {C:red}Mult"
 				}
 			},
 			j_ortalab_other_half = {
@@ -1436,12 +1435,11 @@ return {
 			j_ortalab_storm_6 = {
 				name = 'Storm 6',
 				text = {
-					{'{C:red}-$#3#{} when {C:attention}Blind{} is',
-					'selected if there is a {C:attention}9{}',
-					'in your {C:attention}full deck',},
 					{'{C:red}+#1#{} Mult for each', 
-					'{C:attention}6{} in your {C:attention}full deck',
-					'{C:inactive}(Currently {C:red}+#2#{C:inactive} Mult)'}
+					'{C:attention}6{} in your {C:attention}full deck',},
+					{'{C:red}-#2#{} Mult for each', 
+					'{C:attention}9{} in your {C:attention}full deck',
+					'{C:inactive}(Currently {C:red}+#3#{C:inactive} Mult)'}
 				}
 			},
 			j_ortalab_street_rat = {
@@ -1689,9 +1687,14 @@ return {
             ["c_ortalab_lot_heron"] = {
 				["name"] = "The Heron",
 				["text"] = {
-					"Earn {C:money}$#1#{} for every",
-					"{C:chips}#2# Chip value{} of",
-					"{C:attention}#3#{} random cards in hand"
+					--"Earn {C:money}$#1#{} for every",
+					--"{C:chips}#2# Chip value{} of",
+					--"{C:attention}#3#{} random cards in hand",
+					--"{C:inactive,s:0.8}(Max of $40)"
+					"Earn {C:money}${} equal to",
+					"half the {C:chips}Chips{} of",
+					"{C:attention}#3#{} random cards in hand",
+					"{C:inactive,s:0.8}(Max of $40)"
 				},
 			},
             ["c_ortalab_lot_heart"] = {
@@ -2200,7 +2203,7 @@ return {
                 name = "Aquarius",
                 text = {
 					"{C:attention}+#1#{} levels to next {C:attention}#2#",
-					'Add a copy of the {C:attention}second{}',
+					'Add a copy of the {C:attention}first{}',
 					'scoring card to deck'
                 }
             },
@@ -2225,7 +2228,7 @@ return {
                 text = {
 					"{C:attention}+#1#{} levels to next {C:attention}#2#",
 					'Turn {C:attention}left-most{} card in hand',
-					'into {C:attention}second{} scoring card'
+					'into {C:attention}first{} scoring card'
                 }
             },
 			['zodiac_ortalab_leo'] = {
@@ -2277,25 +2280,29 @@ return {
 					"{C:red}#2#{} discard",
 				}
 			},
-			['b_ortalab_cobalt'] = {
-				["name"] = "Cobalt Deck",
+			['b_ortalab_shady'] = {
+				["name"] = "Shady Deck",
 				["text"] = {
-					"Go up to {C:red}-$#1#",
-					"in debt"
+					"Start with an {C:attention}Eternal{},",
+					"{C:dark_edition,T:e_ortalab_greyscale}Greyscale {C:attention}#1#{} and {C:red}$#2#",
+					"{C:attention}+#3#{} Joker slot"
 				}
 			},
-			['b_ortalab_brown'] = {
-				["name"] = "Brown Deck",
+			['b_ortalab_neon'] = {
+				["name"] = "Neon Deck",
 				["text"] = {
-					"{C:blue}Hands{} no longer earn money",
-					"Earn double {C:attention}Interest"
+					"{C:dark_edition}Editions{} spawn {C:attention}#2#X{} as often",
+					'Start with {C:attention,T:v_ortalab_pulse_wave}#1#',
+					'{C:attention}Jokers{} with {C:dark_edition}editions{} are {C:green}free'
 				}
 			},
-			['b_ortalab_white'] = {
-				["name"] = "White Deck",
+			['b_ortalab_express'] = {
+				["name"] = "Express Deck",
 				["text"] = {
-					"{C:attention}+#1#{} consumable slot",
-					"{C:red}#2#{} discard"
+					'Start with {C:attention,T:v_ortalab_home_delivery}#1#',
+					'and {C:attention,T:v_ortalab_hoarding}#2#',
+					"You {C:red}must{} skip at least {C:red}#3#{} times",
+					'after Ante 1'
 				}
 			},
 			['b_ortalab_experimental'] = {
@@ -2318,8 +2325,8 @@ return {
 			b_ortalab_sacred = {
 				name = 'Sacred Deck',
 				text = {
-					'{C:Mythos,E:1}Mythos Cards{} curse {C:attention}1{} fewer',
-					'cards',
+					'{C:Mythos,E:1}Mythos Cards{} curse',
+					'{C:attention}1{} fewer cards',
 					'Start with {C:attention,T:v_ortalab_fates_coin}Fate\'s Coin'
 				}
 			},
@@ -2333,13 +2340,12 @@ return {
 					"{s:0.9,C:attention}Face Card{s:0.9} to your deck"
 				}
 			},
-			['b_ortalab_striped'] = {
-				["name"] = "Striped Deck",
+			['b_ortalab_prismatic'] = {
+				["name"] = "Prismatic Deck",
 				["text"] = {
-					"All cards of a rank start",
-					"as the same {C:attention}suit{}",
-					"All {C:attention}#1#s{} become",
-					"{T:m_wild,C:attention}Wild Cards"
+					"All cards act as",
+					"all suits when {C:attention}scored",
+					'Start with {C:attention,T:v_ortalab_chisel}#1#',
 				}
 			},
 			['b_ortalab_membership'] = {
@@ -2372,11 +2378,13 @@ return {
 					"if beaten in {C:attention}1{} {C:blue}Hand"
 				}
 			},
-			['b_ortalab_overused'] = {
-				["name"] = "Overused Deck",
+			['b_ortalab_restored'] = {
+				["name"] = "Restored? Deck",
 				["text"] = {
-					'{C:attention}Random cards{} are',
-					'missing from the deck'
+					'Start with {C:attention}2{} copies of each card',
+					'Your deck {C:red}only reshuffles{} at',
+					'the {C:attention}end{} of each Ante',
+					'{C:zodiac}Zodiacs{} decay {C:attention}#1#{} times slower'
 				} 
 			},
 		},
@@ -2446,7 +2454,7 @@ return {
 				["text"] = {
 					"When {C:attention}entering{} a shop,",
 					'{C:zodiac}improve{} a random hand,',
-					'by {C:attention}#1#{} levels'
+					'by {C:attention}#1#{} level'
 				}
 			},
 			['v_ortalab_natal_sign'] = {

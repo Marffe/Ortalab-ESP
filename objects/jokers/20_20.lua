@@ -3,7 +3,7 @@ SMODS.Joker({
     atlas = "jokers",
     pos = {x = 6, y = 9},
     rarity = 2,
-    cost = 5,
+    cost = 6,
     unlocked = true,
     discovered = false,
     blueprint_compat = true,
@@ -17,8 +17,8 @@ SMODS.Joker({
     calculate = function(self, card, context)
         if context.before then
             local ranks = {}
-            for _, card in pairs(context.scoring_hand) do
-                ranks[card:get_id()] = true
+            for _, _card in pairs(context.scoring_hand) do
+                ranks[_card:get_id()] = ranks[_card:get_id()] or not SMODS.has_no_rank(_card) or nil
             end
             if table.size(ranks) > 1 then
                 card.ability.extra.active = true

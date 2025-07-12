@@ -9,7 +9,7 @@ SMODS.Joker({
 	blueprint_compat = true,
 	eternal_compat = false,
 	perishable_compat = false,
-	config = {extra = {chips = 0, change = 10, limit = 150}},
+	config = {extra = {chips = 0, change = 15, limit = 180}},
     artist_credits = {'gappie'},
 	loc_vars = function(self, info_queue, card)
 		return {vars = {card.ability.extra.chips, card.ability.extra.change, card.ability.extra.limit}}

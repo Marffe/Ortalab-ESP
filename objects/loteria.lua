@@ -622,6 +622,7 @@ SMODS.Consumable({
         table.sort(G.hand.highlighted, function (a,b) return a.T.x + a.T.w/2 < b.T.x + b.T.w/2 end)
         G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.35,func = function()
             local total = 0
+            local temp_total = 0
             for _, card in pairs(G.hand.highlighted) do
                 G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.35,func = function()
                     local chips = card:get_chip_bonus()
@@ -630,7 +631,12 @@ SMODS.Consumable({
                     chips = chips + edition_chips + enhancement_chips
                     local money = math.floor(chips/loteria.ability.extra.value)
                     card_eval_status_text(card, 'dollars', money, nil, nil, {instant = true})
-                    total = total + money
+                    temp_total = total + money
+                            if temp_total >= 40 then
+                                total = 40
+                            else
+                                total = total + money
+                        end
                     return true
                 end}))
             end

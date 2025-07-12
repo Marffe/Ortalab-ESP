@@ -42,11 +42,8 @@ SMODS.Joker({
 local CardIs_Suit_ref = Card.is_suit
 function Card.is_suit(self, suit, bypass_debuff, flush_calc) --Monochrome Logic
 	local orig_CardIs_Suit_ref = CardIs_Suit_ref(self, suit, bypass_debuff, flush_calc)
-	if not flush_calc and not self.debuff and not bypass_debuff and (next(SMODS.find_card('j_ortalab_monochrome'))) then
-        local monochrome = SMODS.find_card('j_ortalab_monochrome')
-        for _, card in pairs(monochrome) do
-            return true
-        end
+	if not flush_calc and not self.debuff and not bypass_debuff and (next(SMODS.find_card('j_ortalab_monochrome')) or G.GAME.selected_back.effect.center.key == 'b_ortalab_prismatic') then
+        return true
 	end
     return orig_CardIs_Suit_ref
 end

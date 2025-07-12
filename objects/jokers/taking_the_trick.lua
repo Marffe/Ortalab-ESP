@@ -35,7 +35,7 @@ SMODS.Joker({
                 mult = card.ability.extra.mult
             }
         end
-        if context.after and not context.blueprint then
+        if context.end_of_round and context.main_eval and not context.blueprint then
             card.ability.extra.suit = pseudorandom_element(SMODS.Suits, pseudoseed('ortalab_trick_suit')).name
             card.ability.extra.rank = pseudorandom_element(SMODS.Ranks, pseudoseed('ortalab_trick_rank')).key
             return {

@@ -70,35 +70,6 @@ if _pool_size == 0 then
 end
 '''
 
-# Stake 4 - send hand cards back to deck
-[[patches]]
-[patches.pattern]
-target = 'functions/state_events.lua'
-match_indent = true
-position = 'at'
-pattern = '''
-G.FUNCS.draw_from_hand_to_discard()
-'''
-payload = '''
-if G.GAME.blind:get_type() == 'Small' and G.GAME.ortalab.no_reshuffle then
-    G.FUNCS.draw_from_hand_to_deck()
-else
-    G.FUNCS.draw_from_hand_to_discard()
-end
-'''
-# Stake 4 - stop discarded hands returning to deck
-[[patches]]
-[patches.pattern]
-target = 'functions/button_callbacks.lua'
-match_indent = true
-position = 'after'
-pattern = '''
-G.GAME.skips = (G.GAME.skips or 0) + 1
-'''
-payload = '''
-if G.GAME.ortalab.skips and G.GAME.round_resets.ante > 1 then G.GAME.ortalab.skips = math.max(0, G.GAME.ortalab.skips - 1) end
-'''
-
 [[patches]]
 [patches.pattern]
 target = 'functions/UI_definitions.lua'
@@ -123,6 +94,18 @@ G.GAME.ortalab.skips_required and not run_info and G.GAME.round_resets.ante > 1 
 }} or nil,
 '''
 
+[[patches]]
+[patches.pattern]
+target = 'functions/button_callbacks.lua'
+match_indent = true
+position = 'after'
+pattern = '''
+G.GAME.skips = (G.GAME.skips or 0) + 1
+'''
+payload = '''
+if G.GAME.ortalab.skips and G.GAME.round_resets.ante > 1 then G.GAME.ortalab.skips = math.max(0, G.GAME.ortalab.skips - 1) end
+'''
+
 # Stake 6 - apply curse to shop jokers
 [[patches]]
 [patches.pattern]
@@ -134,7 +117,7 @@ local card = create_card(v.type, area, nil, nil, nil, nil, nil, 'sho')
 '''
 payload = '''
 if G.GAME.ortalab.shop_curses and v.type == 'Joker' then
-    if pseudorandom('ortalab_stake_curse') < 0.3 then
+    if pseudorandom('ortalab_stake_curse') < 0.36 then
         local curse = pseudorandom_element(Ortalab.Curses, pseudoseed('ortalab_stake_curse_gen'))
         card:set_curse(curse.key, true, true)
     end

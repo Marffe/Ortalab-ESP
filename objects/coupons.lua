@@ -53,6 +53,48 @@ SMODS.Voucher({
     artist_credits = {'flare'},
 })
 
+local ortalab_skip_blind = G.FUNCS.skip_blind
+G.FUNCS.skip_blind = function(e)
+    Ortalab.queue_size = #G.E_MANAGER.queues.base
+    ortalab_skip_blind(e)
+    G.E_MANAGER:add_event(Event({
+    trigger = 'after',
+    func = function()
+        if G.GAME.used_vouchers['v_ortalab_home_delivery'] then
+            if G.blind_select then 
+                G.blind_select:remove()
+                G.blind_prompt_box:remove()
+                G.blind_select = nil
+            end
+            G.GAME.current_round.used_packs = {}
+            G.GAME.current_round.jokers_purchased = 0
+            G.GAME.current_round.reroll_cost_increase = 0
+            G.GAME.round_resets.temp_reroll_cost = nil
+            G.GAME.current_round.free_rerolls = G.GAME.round_resets.free_rerolls
+            calculate_reroll_cost(true)
+
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                blocking = false,
+                func = function()
+                    if G.STATE == G.STATES.SMODS_BOOSTER_OPENED or #G.E_MANAGER.queues.base > Ortalab.queue_size then return false end
+                    G.STATE_COMPLETE = false
+                    G.STATE = G.STATES.SHOP
+                    return true
+                end
+            }))
+        end
+        return true
+    end}))
+end
+
+function Ortalab.home_delivery()
+    print(inspectFunction(G.E_MANAGER.queues.base[#G.E_MANAGER.queues.base].func))
+    
+    G.STATE_COMPLETE = false
+    G.STATE = G.STATES.SHOP
+end
+
 SMODS.Voucher({
 	key = "hoarding",
 	atlas = "coupons",
@@ -116,7 +158,7 @@ SMODS.Voucher({
 	unlocked = true,
 	discovered = false,
 	available = true,
-    config = {extra = {increase = 2}},
+    config = {extra = {increase = 1}},
     artist_credits = {'gappie'},
     loc_vars = function(self, info_queue, card)
         return {vars = {card.ability.extra.increase}}
@@ -587,7 +629,7 @@ SMODS.Voucher({
     config = {extra = {active = true}},
     artist_credits = {'no_demo'},
     redeem = function(self, card)
-        if G.shop_booster and next(G.shop_booster.cards) then
+        if G.shop_booster and G.shop_booster.cards and next(G.shop_booster.cards) then
             for _, booster in pairs(G.shop_booster.cards) do
                 create_shop_card_ui(booster)
             end

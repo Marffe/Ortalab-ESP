@@ -30,45 +30,78 @@ SMODS.Back({
 })
 
 SMODS.Back({
-    key = "cobalt", 
+    key = "shady", 
     atlas = "decks",
     pos = {x = 2, y = 0}, 
-    config = {debt = 25}, 
+    config = {joker = 'j_ortalab_black_friday', dollars = 0, bonus_slots = 1}, 
     apply = function(self)
-        G.GAME.bankrupt_at = -self.config.debt
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                SMODS.add_card({key = self.config.joker, stickers = {'eternal'}, edition = 'e_ortalab_greyscale'})
+                G.jokers.config.card_limit = G.jokers.config.card_limit + self.config.bonus_slots
+                G.GAME.dollars = self.config.dollars
+                return true
+            end
+        }))
+        
     end,
     loc_vars = function(self, info_queue, card)
         -- info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'flare'}
-        return {vars = {self.config.debt}}
+        return {vars = {localize({key = self.config.joker, set = 'Joker', type = 'name_text'}), self.config.dollars, self.config.bonus_slots}}
     end,
 })
 
 SMODS.Back({
-    key = "brown", 
+    key = "neon", 
     atlas = "decks",
     pos = {x = 3, y = 0}, 
-    config = {}, 
+    config = {vouchers = {'v_ortalab_pulse_wave'}, extra = {rate = 5}}, 
     apply = function(self)
-        G.GAME.interest_amount = 2
-        G.GAME.modifiers.no_extra_hand_money = true
+        G.GAME.modifiers.neon_deck = true
     end,
     loc_vars = function(self, info_queue, card)
         -- info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'flare'}
-        return {vars = {self.config.debt}}
+        return {vars = {localize({key = self.config.vouchers[1], set = 'Voucher', type = 'name_text'}), self.config.extra.rate}}
     end,
 })
+
+local ortalab_poll_edition = poll_edition
+function poll_edition(key, _mod, _no_neg, _guaranteed, options)
+    if G.GAME.modifiers.neon_deck then _mod = (_mod or 1) * G.GAME.selected_back.effect.config.extra.rate end
+    return ortalab_poll_edition(key, _mod, _no_neg, _guaranteed, options)
+end
+
+local ortalab_card_for_shop = create_card_for_shop
+function create_card_for_shop(area)
+    local card = ortalab_card_for_shop(area)
+    if G.GAME.modifiers.neon_deck and card.edition then
+        card.ability.couponed = true
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                card:set_cost()
+                return true
+            end
+        }))
+    end
+    
+    return card
+end
 
 SMODS.Voucher:take_ownership('v_seed_money', {loc_vars = function(self, info_queue, card) return {vars = {self.config.extra/5 * G.GAME.interest_amount}} end}, true)
 SMODS.Voucher:take_ownership('v_money_tree', {loc_vars = function(self, info_queue, card) return {vars = {self.config.extra/5 * G.GAME.interest_amount}} end}, true)
 
 SMODS.Back({
-    key = "white", 
+    key = "express", 
     atlas = "decks",
     pos = {x = 4, y = 0}, 
-    config = {consumable_slot = 1, discards = -1},
+    config = {vouchers = {'v_ortalab_home_delivery', 'v_ortalab_hoarding'}, extra = {skips = 7}}, 
+    artist = {'gappie'},
+    apply = function(self)
+        G.GAME.ortalab.skips_required = true
+        G.GAME.ortalab.skips = self.config.extra.skips
+    end,
     loc_vars = function(self, info_queue, card)
-        -- info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'flare'}
-        return {vars = {self.config.consumable_slot, self.config.discards}}
+        return {vars = {localize({key = self.config.vouchers[1], set = 'Voucher', type = 'name_text'}), localize({key = self.config.vouchers[2], set = 'Voucher', type = 'name_text'}), self.config.extra.skips}}
     end,
 })
 
@@ -183,32 +216,13 @@ SMODS.Back({
 })
 
 SMODS.Back({
-    key = "striped", 
+    key = "prismatic", 
     atlas = "decks",
     pos = {x = 4, y = 1}, 
-    config = {wild_rank = 8},
-    apply = function(self)
-        G.E_MANAGER:add_event(Event({
-            func = function()
-                local ranks = {}
-                for k, rank in pairs(SMODS.Ranks) do
-                    ranks[rank.id] = pseudorandom_element({'Spades','Hearts','Diamonds','Clubs'})
-                end
-                for k, v in pairs(G.playing_cards) do
-                    if v:get_id() == self.config.wild_rank then
-                        v:set_ability(G.P_CENTERS['m_wild'])
-                    else
-                        local rank = v:get_id()
-                        SMODS.change_base(v, ranks[rank], nil)
-                    end
-                end
-                return true
-            end
-        }))
-    end,
+    config = {vouchers = {'v_ortalab_chisel'}},
     loc_vars = function(self, info_queue, card)
         -- info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'crimson'}
-        return {vars = {self.config.wild_rank}}
+        return {vars = {localize({type = 'name_text', set = 'Voucher', key = self.config.vouchers[1]})}}
     end,
 })
 
@@ -308,24 +322,30 @@ Blind.defeat = function(silent)
 end
 
 SMODS.Back({
-    key = "overused", 
+    key = "restored", 
     atlas = "decks",
     pos = {x = 4, y = 2}, 
-    config = {extra = {top = 20, bottom = 6}},
+    config = {extra = {reduction = 2}},
     apply = function(self)
-        G.E_MANAGER:add_event(Event({
-            func = function()
-                local remove_count = pseudorandom(pseudoseed('overused_deck'), self.config.extra.bottom, self.config.extra.top)
-                for i=1, remove_count do
-                    local remove_card, index = pseudorandom_element(G.playing_cards, pseudoseed('overused_deck_remove'))
-                    remove_card:remove()
-                end
-                G.GAME.starting_deck_size = #G.playing_cards
-                return true
+        G.GAME.ortalab.no_reshuffle = true
+        G.GAME.ortalab.zodiacs.reduction = self.config.extra.reduction
+        local card_protos = {}
+        for k, v in pairs(G.P_CARDS) do
+            if type(SMODS.Ranks[v.value].in_pool) == 'function' and not SMODS.Ranks[v.value]:in_pool({initial_deck = true, suit = v.suit})
+            or type(SMODS.Suits[v.suit].in_pool) == 'function' and not SMODS.Suits[v.suit]:in_pool({initial_deck = true, rank = v.value}) then
+                goto continue
             end
-        }))
+            local _ = nil
+            local _r, _s = SMODS.Ranks[v.value].card_key, SMODS.Suits[v.suit].card_key
+         
+            card_protos[#card_protos+1] = {s=_s,r=_r}
+            ::continue::
+        end
+        G.GAME.starting_params.extra_cards = card_protos
     end,
     loc_vars = function(self, info_queue, card)
         -- info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'salad'}
+        return {vars = {self.config.extra.reduction}}
     end,
 })
+

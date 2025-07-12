@@ -3,13 +3,13 @@ SMODS.Joker({
 	atlas = "jokers",
 	pos = {x = 7, y = 13},
 	rarity = 2,
-	cost = 5,
+	cost = 6,
 	unlocked = true,
 	discovered = false,
 	blueprint_compat = true,
 	eternal_compat = true,
 	perishable_compat = true,
-	config = {extra = {dollars = 1}},
+	config = {extra = {dollars = 2}},
 	artist_credits = {'gappie'},
     loc_vars = function(self, info_queue, card)
         return {vars = {card.ability.extra.dollars, table.size(G.GAME.ortalab.zodiacs.activated or {})*card.ability.extra.dollars}}

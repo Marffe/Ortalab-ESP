@@ -43,7 +43,7 @@ SMODS.Edition({
         return { vars = {self.config.p_dollars}, key = card and card.config and card.config.center.set == 'Joker' and 'e_ortalab_fluorescent_joker'}
     end,
     calculate = function(self, card, context)
-        if (context.cardarea == G.jokers and context.end_of_round) or (context.main_scoring and context.cardarea == G.play) then
+        if (card.ability.set == 'Joker' and context.end_of_round and context.main_eval) or (context.main_scoring and context.cardarea == G.play) then
             return {
                 dollars = card.edition.p_dollars
             }     
