@@ -1370,9 +1370,8 @@ return {
 				["name"] = "Shinku",
 				["text"] = {
 					"Create #1# random {C:Ortalab}Ortalab",
-					"{C:attention}Jokers{} that last for", 
-					"{C:attention}one round{} when {C:attention}Blind",
-					"is selected"
+					"{C:attention}Jokers{} that are replaced when", 
+					"a {C:attention}Boss Blind{} is defeated",
 				}
 			},
 			['j_ortalab_soil'] = {

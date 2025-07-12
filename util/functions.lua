@@ -140,18 +140,6 @@ function Ortalab.reset_game_globals(first_pass)
             G.jokers.config.card_limit = G.jokers.config.card_limit - 1
         end
     end
-    -- Shinku remove cards
-    if G.GAME.blind.boss then
-        for _, joker in pairs(G.jokers.cards) do
-            if joker.ability.shinku then
-                G.E_MANAGER:add_event(Event({
-                    func = function() 
-                        joker:start_dissolve()
-                        return true
-                end}))   
-            end
-        end
-    end
 end
 
 -- Function modify the amount of joker slots with an animation
@@ -305,4 +293,13 @@ function Ortalab.change_suit_no_anim(card, suit)
             SMODS.calculate_effect({message = localize{type = 'variable', key = 'a_xmult', vars = {card.ability.extra.xmult}}}, card)
         end
     end
+end
+
+function Ortalab.context(context)
+    if context.check_enhancement or context.stay_flipped or context.debuff_card then return end
+    local str = ''
+    for k, v in pairs(context) do
+        str = str .. k .. '/'
+    end
+    print(str)
 end
