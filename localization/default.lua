@@ -2308,9 +2308,20 @@ return {
 			['b_ortalab_experimental'] = {
 				["name"] = "Experimental Deck",
 				["text"] = {
-					"{C:blue}+#1#{} hand size",
-					"Start with a copy of",
-					"{T:c_ortalab_lot_barrel,C:loteria}The Barrel",
+					"{C:white,X:red}X#1#{} Mult",
+					'Gains {X:red,C:white}X#2#{} Mult when one of',
+					'{C:attention}#4#{C:loteria} Loteria Cards{} are used',
+					'{C:inactive}(Cards change after each ante)',
+					"{C:red}X#3#{} base Blind size",
+				}
+			},
+			b_ortalab_experimental_tooltip = {
+				name = 'Experimental Deck',
+				text = {
+					'{X:red,C:white}X#1#{} Mult',
+					'Gains {X:red,C:white}X#2#{} Mult when you use',
+					'{C:loteria}#3#{}, {C:loteria}#4#{},',
+					'{C:loteria}#5#{} or {C:loteria}#6#'
 				}
 			},
 			['b_ortalab_eclipse'] = {
