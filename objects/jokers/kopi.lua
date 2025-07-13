@@ -19,10 +19,11 @@ SMODS.Joker({
         if context.using_consumeable then
             card.ability.extra.current = card.ability.extra.current + 1
             if card.ability.extra.current == card.ability.extra.target then
-                SMODS.calculate_effect({message = localize('ortalab_kopi'), colour = HEX('dfb958')}, card)
                 card.ability.extra.current = 0
+                if #G.jokers.cards == 1 then SMODS.calculate_effect({message = localize('ortalab_kopi_no'), colour = HEX('dfb958')}, card); return end
+                SMODS.calculate_effect({message = localize('ortalab_kopi'), colour = HEX('dfb958')}, card)
                 local joker = pseudorandom_element(G.jokers.cards, 'ortalab_kopi')
-                while (joker.config.center_key == 'j_ortalab_kopi' or joker.ability.kopi) do
+                while (joker ~= card or joker.ability.kopi) do
                     joker = pseudorandom_element(G.jokers.cards, 'ortalab_kopi_resample')
                 end
                 G.E_MANAGER:add_event(Event({
@@ -37,6 +38,7 @@ SMODS.Joker({
                         copy.ability.kopi = true
                         copy.ignore_base_shader = {kopi = true}
                         copy.ignore_shadow = {kopi = true}
+                        copy:set_cost()
                         G.jokers.config.card_limit = G.jokers.config.card_limit + 1
                         return true
                     end

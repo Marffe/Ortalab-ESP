@@ -165,27 +165,3 @@ if zodiac_effect and zodiac_effect.destroy and type(zodiac_effect.destroy) == 'f
     zodiac_reduce_level(zodiac_current)
 end
 '''
-
-[[patches]]
-[patches.pattern]
-target = 'functions/state_events.lua'
-pattern = '''local cards_destroyed = {}'''
-position = 'after'
-match_indent = true
-payload = '''
-
-'''
-
-[[patches]]
-[patches.pattern]
-target = 'card.lua'
-match_indent = true
-position = 'after'
-pattern = '''
---If the card has a front, draw that next
-'''
-payload = '''
-if self.children.front and self.becoming_no_rank then
-    self.children.front:draw_shader('dissolve')
-end
-'''

@@ -40,35 +40,97 @@ else
 end
 '''
 
-# No reshuffle mid ante
+# Experimental display loterias
 [[patches]]
 [patches.pattern]
-target = 'functions/state_events.lua'
+target = 'functions/button_callbacks.lua'
 match_indent = true
-position = 'at'
+position = 'after'
 pattern = '''
-G.FUNCS.draw_from_hand_to_discard()
+G.deck:hard_set_T()
 '''
 payload = '''
-if G.GAME.round_resets.blind_states.Boss ~= 'Current' and G.GAME.ortalab.no_reshuffle then
-    G.FUNCS.draw_from_hand_to_deck()
-else
-    G.FUNCS.draw_from_hand_to_discard()
+delay(0.3)
+if G.GAME.selected_back.effect.center.key == 'b_ortalab_experimental' and G.GAME.round_resets.blind_states.Boss == 'Defeated' then
+    G.GAME.selected_back.effect.config.target_loterias = {}
+    G.GAME.selected_back.effect.config.target_loterias_keys = {}
+
+    for i=1, G.GAME.selected_back.effect.config.loterias do
+        local new_loteria = pseudorandom_element(G.P_CENTER_POOLS.Loteria, 'ortalab_experimental_deck')
+        while G.GAME.selected_back.effect.config.target_loterias[new_loteria.key] do
+            new_loteria = pseudorandom_element(G.P_CENTER_POOLS.Loteria, 'ortalab_experimental_deck_resample')
+        end
+        G.GAME.selected_back.effect.config.target_loterias[new_loteria.key] = true
+    end
+    for key, _ in pairs(G.GAME.selected_back.effect.config.target_loterias) do
+        table.insert(G.GAME.selected_back.effect.config.target_loterias_keys, localize({key = key, set = 'Loteria', type = 'name_text'}))
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.7,
+            func = function()
+                SMODS.add_card({key = key, area = G.play})
+                return true
+            end
+        }))
+    end
+    G.E_MANAGER:add_event(Event({
+        trigger = 'after',
+        delay = 0.7,
+        func = function()
+            attention_text({
+                scale = 1, text = 'Use these cards for a bonus!', hold = 4, align = 'cm', offset = {x = 0,y = 2.1},major = G.play
+            })
+            return true
+        end
+    }))
+    G.E_MANAGER:add_event(Event({
+        trigger = 'after',
+        delay = 5,
+        func = function()
+            for _, card in ipairs(G.play.cards) do
+                card:start_dissolve()
+            end              
+            return true
+        end
+    }))      
 end
 '''
 
-# No reshuffle mid ante
+# Back save loteria cards
 [[patches]]
 [patches.pattern]
-target = 'functions/state_events.lua'
+target = 'back.lua'
 match_indent = true
 position = 'at'
 pattern = '''
-G.FUNCS.draw_from_discard_to_deck()
+effect = self.effect,
 '''
 payload = '''
-if G.GAME.round_resets.blind_states.Boss ~= 'Current' and G.GAME.ortalab.no_reshuffle then
-else
-    G.FUNCS.draw_from_discard_to_deck()
-end
+effect = recursive_table_cull(self.effect),
+'''
+
+# Back:load()
+[[patches]]
+[patches.pattern]
+target = 'back.lua'
+match_indent = true
+position = 'before'
+pattern = '''
+self.effect.center = G.P_CENTERS[backTable.key] or G.P_CENTERS.b_red
+'''
+payload = '''
+self.target_loterias = backTable.target_loterias
+'''
+
+# Actually load back effects
+[[patches]]
+[patches.pattern]
+target = 'game.lua'
+match_indent = true
+position = 'before'
+pattern = '''
+G.GAME.blind:load(saveTable.BLIND)
+'''
+payload = '''
+G.GAME.selected_back:load(saveTable.BACK)
 '''

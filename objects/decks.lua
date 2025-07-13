@@ -109,12 +109,102 @@ SMODS.Back({
     key = "experimental", 
     atlas = "decks",
     pos = {x = 0, y = 1}, 
-    config = {consumables = {'c_ortalab_lot_barrel'}, hand_size = 1}, 
+    config = {ante_scaling = 1.25, xmult = 1, xmult_gain = 0.1, loterias = 4, target_loterias_keys = {}}, 
     loc_vars = function(self, info_queue, card)
         -- info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'crimson'}
-        return {vars = {self.config.hand_size}}
+        return {vars = {self.config.xmult, self.config.xmult_gain, self.config.ante_scaling, self.config.loterias}}
     end,
+    apply = function(self, card)
+        card.effect.config.target_loterias = {}
+        for i=1, card.effect.config.loterias do
+            local new_loteria = G.P_CENTER_POOLS.Loteria[math.random(1, #G.P_CENTER_POOLS.Loteria)]
+            while card.effect.config.target_loterias[new_loteria.key] do
+                new_loteria = G.P_CENTER_POOLS.Loteria[math.random(1, #G.P_CENTER_POOLS.Loteria)]
+            end
+            card.effect.config.target_loterias[new_loteria.key] = true
+        end
+        for key, _ in pairs(card.effect.config.target_loterias) do
+            table.insert(card.effect.config.target_loterias_keys, localize({key = key, set = 'Loteria', type = 'name_text'}))
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                delay = 0.7,
+                func = function()
+                    SMODS.add_card({key = key, area = G.play})
+                    return true
+                end
+            }))
+        end
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.7,
+            func = function()
+                attention_text({
+                    scale = 1, text = 'Use these cards for a bonus!', hold = 4, align = 'cm', offset = {x = 0,y = 2.1},major = G.play
+                })
+                return true
+            end
+        }))
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 5,
+            func = function()
+                for _, card in ipairs(G.play.cards) do
+                    card:start_dissolve()
+                end              
+                return true
+            end
+        }))   
+    end,
+    calculate = function(self, card, context)
+        if context.final_scoring_step then
+            return {
+                xmult = card.effect.config.xmult
+            }
+        end
+        if context.using_consumeable and card.effect.config.target_loterias[context.consumeable.config.center_key] then
+            card.effect.config.xmult = card.effect.config.xmult + card.effect.config.xmult_gain
+            return {
+                message = localize('ortalab_joker_miles'),
+                colour = G.C.RED,
+            }
+        end
+    end
 })
+
+function Ortalab.experimental_deck_tooltip(deck)
+    local nodes = {}
+    localize{type = 'descriptions', key = 'b_ortalab_experimental_tooltip', set = 'Back', nodes = nodes, vars = SMODS.merge_lists({{deck.effect.config.xmult, deck.effect.config.xmult_gain},deck.effect.config.target_loterias_keys})}
+    return {n=G.UIT.ROOT, config={align = "cm", minw = 3.5, minh = 1.75, id = deck.name, colour = G.C.CLEAR}, nodes={
+        desc_from_rows(nodes, true, 3.5)
+    }}
+end
+
+local ortalab_card_hover = Card.hover
+function Card:hover()
+    if self.area == G.deck and G.GAME.selected_back.effect.center.key == 'b_ortalab_experimental' then
+        self.config.h_popup = {n=G.UIT.C, config={align = "cm", padding=0.1}, nodes={
+            {n=G.UIT.R, config={align=(self.params.deck_preview and 'bm' or 'cm')}, nodes = {
+                {n=G.UIT.C, config={align = "cm", minh = 1.5, r = 0.1, colour = G.C.L_BLACK, padding = 0.1, outline=1}, nodes={
+                    {n=G.UIT.R, config={align = "cm", r = 0.1, minw = 3, maxw = 4, minh = 0.4}, nodes={
+                        {n=G.UIT.O, config={object = UIBox{definition =
+                            {n=G.UIT.ROOT, config={align = "cm", colour = G.C.CLEAR}, nodes={
+                                {n=G.UIT.O, config={object = DynaText({string = G.GAME.selected_back:get_name(),maxw = 4, colours = {G.C.WHITE}, shadow = true, bump = true, scale = 0.5, pop_in = 0, silent = true})}},
+                            }},
+                        config = {offset = {x=0,y=0}, align = 'cm', parent = e}}}
+                        },
+                    }},
+                    {n=G.UIT.R, config={align = "cm", colour = G.C.WHITE, minh = 1.3, maxh = 3, minw = 3, maxw = 4, r = 0.1}, nodes={
+                        {n=G.UIT.O, config={object = UIBox{definition = Ortalab.experimental_deck_tooltip(G.GAME.selected_back), config = {offset = {x=0,y=0}}}}}
+                    }},
+                }}
+            }},            
+        }}
+        self.config.h_popup_config = self:align_h_popup()
+        Node.hover(self)
+    else
+        ortalab_card_hover(self)
+    end
+end
 
 SMODS.Back({
     key = "eclipse", 

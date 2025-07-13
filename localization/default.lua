@@ -110,6 +110,7 @@ return {
 			ortalab_celadon_and = ' and ',
 			ortalab_saffron = 'least common suit',
 			ortalab_kopi = 'Kopi\'d!',
+			ortalab_kopi_no = 'No target!',
 			ortalab_enabled = 'Enabled!',
 		},
 		['labels'] = {
@@ -1169,8 +1170,9 @@ return {
 			j_ortalab_rea = {
 				name = 'Rea',
 				text = {
-					'{X:red,C:white}X#1#{} Mult if',
-					'{C:attention}Blind{} is not a Boss'
+					'Played cards give {X:red,C:white}X#2#{} Mult',
+					'for each {C:attention}unique enhancement{}, {C:dark_edition}edition{},',
+					' {C:attention}seal{} and {C:mythos}curse{} in scoring hand'
 				}
 			},
 			['j_ortalab_red_fred'] = {
@@ -1369,9 +1371,8 @@ return {
 				["name"] = "Shinku",
 				["text"] = {
 					"Create #1# random {C:Ortalab}Ortalab",
-					"{C:attention}Jokers{} that last for", 
-					"{C:attention}one round{} when {C:attention}Blind",
-					"is selected"
+					"{C:attention}Jokers{} that are replaced when", 
+					"a {C:attention}Boss Blind{} is defeated",
 				}
 			},
 			['j_ortalab_soil'] = {
@@ -2308,9 +2309,20 @@ return {
 			['b_ortalab_experimental'] = {
 				["name"] = "Experimental Deck",
 				["text"] = {
-					"{C:blue}+#1#{} hand size",
-					"Start with a copy of",
-					"{T:c_ortalab_lot_barrel,C:loteria}The Barrel",
+					"{C:white,X:red}X#1#{} Mult",
+					'Gains {X:red,C:white}X#2#{} Mult when one of',
+					'{C:attention}#4#{C:loteria} Loteria Cards{} are used',
+					'{C:inactive}(Cards change after each ante)',
+					"{C:red}X#3#{} base Blind size",
+				}
+			},
+			b_ortalab_experimental_tooltip = {
+				name = 'Experimental Deck',
+				text = {
+					'{X:red,C:white}X#1#{} Mult',
+					'Gains {X:red,C:white}X#2#{} Mult when you use',
+					'{C:loteria}#3#{}, {C:loteria}#4#{},',
+					'{C:loteria}#5#{} or {C:loteria}#6#'
 				}
 			},
 			['b_ortalab_eclipse'] = {

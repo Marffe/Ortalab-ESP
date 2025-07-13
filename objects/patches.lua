@@ -773,7 +773,7 @@ SMODS.Tag({
                 local pool = get_current_pool('Tag')
                 local final_pool = {}
                 for _, v in ipairs(pool) do
-                    if v ~= 'UNAVAILABLE' and v ~= 'tag_ortalab_777' then
+                    if v ~= 'UNAVAILABLE' and v ~= 'tag_ortalab_777' and v~= 'tag_ortalab_rewind' then
                         table.insert(final_pool, v)
                     end
                 end
