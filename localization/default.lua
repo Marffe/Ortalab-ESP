@@ -1170,8 +1170,10 @@ return {
 			j_ortalab_rea = {
 				name = 'Rea',
 				text = {
-					'{X:red,C:white}X#1#{} Mult if',
-					'{C:attention}Blind{} is not a Boss'
+					'Played cards give {X:red,C:white}X#1#{} Mult when',
+					'scored, increased by {X:red,C:white}X#2#{} for each {C:attention}unique',
+					'{C:attention}enhancement{}, {C:dark_edition}edition{}, {C:attention}seal',
+					'and {C:mythos}curse{} in scoring hand'
 				}
 			},
 			['j_ortalab_red_fred'] = {
