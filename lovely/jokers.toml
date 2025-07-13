@@ -222,6 +222,28 @@ if next(wallets) and context.cardarea == G.play then
 end
 '''
 
+# Wallet/Raised Fist compat
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+match_indent = true
+position = 'before'
+pattern = '''
+if raised_card == context.other_card then 
+'''
+payload = '''
+if next(SMODS.find_card('j_ortalab_wallet')) then
+    for i=1, #G.play.cards do
+        if temp_ID >= G.play.cards[i].base.id and not SMODS.has_no_rank(G.play.cards[i]) then 
+            temp_Mult = G.play.cards[i].base.nominal
+            temp_ID = G.play.cards[i].base.id
+            raised_card = G.play.cards[i]
+        end
+    end
+end
+'''
+
+
 # Proletaire
 [[patches]]
 [patches.pattern]
