@@ -1184,3 +1184,18 @@ function loteria_joker_save_check(card)
     end
     return false
 end
+
+local ortalab_highlight = Card.highlight
+function Card:highlight(is_highlighted)
+    ortalab_highlight(self, is_highlighted)
+    if self.area ~= G.consumeables and self.area ~= G.pack_cards then return end
+    if self.config.center_key == 'c_ortalab_lot_tree' or self.config.center_key == 'c_ortalab_lot_heart' or self.config.center_key == 'c_ortalab_lot_parrot' or self.config.center_key == 'c_ortalab_lot_boot' then
+        if is_highlighted and G.hand.config.highlighted_limit < (self.ability.extra.selected + (G.GAME and G.GAME.ortalab.vouchers.tabla)) then
+            self.ability.extra.highlight_limit = G.hand.config.highlighted_limit
+            G.hand.config.highlighted_limit = self.ability.extra.selected + (G.GAME and G.GAME.ortalab.vouchers.tabla)
+        end
+        if not is_highlighted then
+            G.hand.config.highlighted_limit = self.ability.extra.highlight_limit or 5
+        end
+    end
+end
