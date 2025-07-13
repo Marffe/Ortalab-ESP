@@ -183,6 +183,30 @@ payload = '''
 if G.GAME.blind:get_type() == 'Boss' and G.GAME.round_resets.blind_states.Boss == 'Current' then
 '''
 
+# Stop duplicate boss blinds in final ante
+[[patches]]
+[patches.pattern]
+target = 'functions/common_events.lua'
+match_indent = true
+position = 'at'
+pattern = '''
+function get_new_boss()
+'''
+payload = '''
+function get_new_boss(current)
+'''
+# pt 2
+[[patches]]
+[patches.pattern]
+target = 'functions/common_events.lua'
+match_indent = true
+position = 'after'
+pattern = '''
+if not v.boss then
+'''
+payload = '''
+elseif v == current then
+'''
 
 
 ## Patch SMODS get_pack
