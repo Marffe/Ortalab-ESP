@@ -302,10 +302,24 @@ elseif card.area and card.area == G.pack_cards then
   end
 '''
 payload = '''
-if card.ability.kopi then
+if card.ability.kopi or card.ability.shinku then
     sell = nil
 end
 '''
+
+# Kopi/Shinku set cost to 0
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+match_indent = true
+position = 'after'
+pattern = '''
+if self.area and self.ability.couponed and (self.area == G.shop_jokers or self.area == G.shop_booster) then self.cost = 0 end
+'''
+payload = '''
+if self.ability.shinku or self.ability.kopi then self.cost = 0; self.sell_cost = 0 end
+'''
+
 
 # Pinkprint calc_dollar_bonus implementation
 [[patches]]

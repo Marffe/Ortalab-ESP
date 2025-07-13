@@ -51,6 +51,7 @@ SMODS.Joker({
                         new_joker.ability.shinku = true
                         new_joker.ignore_base_shader = {shinku = true}
                         new_joker.ignore_shadow = {shinku = true}
+                        new_joker:set_cost()
                         G.jokers.config.card_limit = G.jokers.config.card_limit + 1
                         return true
                     end}))  
@@ -71,12 +72,6 @@ SMODS.Joker({
         end
     end
 })
-
-local can_sell = Card.can_sell_card
-function Card:can_sell_card(context)
-    if self.ability.shinku then return false end
-    return can_sell(self, context)
-end
 
 SMODS.DrawStep {
     key = 'shinku',

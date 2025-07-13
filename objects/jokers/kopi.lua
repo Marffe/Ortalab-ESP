@@ -38,6 +38,7 @@ SMODS.Joker({
                         copy.ability.kopi = true
                         copy.ignore_base_shader = {kopi = true}
                         copy.ignore_shadow = {kopi = true}
+                        copy:set_cost()
                         G.jokers.config.card_limit = G.jokers.config.card_limit + 1
                         return true
                     end
