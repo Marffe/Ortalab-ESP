@@ -17,7 +17,7 @@ SMODS.Joker({
     end,
     calculate = function(self, card, context)
         if context.end_of_round and context.main_eval and context.beat_boss then
-            self.remove_shinku_jokers()
+            self.remove_shinku_jokers(card)
             delay(0.7)
             return self.add_shinku_jokers(card) 
         end
@@ -26,13 +26,13 @@ SMODS.Joker({
         self.add_shinku_jokers(card).func()
     end,
     remove_from_deck = function(self, card, from_debuff)
-        self.remove_shinku_jokers()
+        self.remove_shinku_jokers(card)
     end,
     add_shinku_jokers = function(card)
         local new_joker_pool = get_current_pool('Joker')
         local final_pool = {}
         for _, v in ipairs(new_joker_pool) do
-            if v ~= 'UNAVAILABLE' and ((G.P_CENTERS[v].mod and G.P_CENTERS[v].mod.id == 'ortalab') or table.contains(Ortalab.ortalab_only_inclusion, v)) then
+            if v ~= 'UNAVAILABLE' and ((G.P_CENTERS[v].mod and G.P_CENTERS[v].mod.id == 'ortalab') or table.contains(Ortalab.ortalab_only_inclusion, v)) and G.P_CENTERS[v].perishable_compat then
                 table.insert(final_pool, v)
             end
         end
@@ -59,7 +59,7 @@ SMODS.Joker({
             end
         }
     end,
-    remove_shinku_jokers = function()
+    remove_shinku_jokers = function(card)
         local old_shinku_jokers = {}
         for _, joker in pairs(G.jokers.cards) do
             if joker.ability.shinku then
@@ -67,7 +67,7 @@ SMODS.Joker({
             end
         end
         if next(old_shinku_jokers) then 
-            G.jokers.config.card_limit = G.jokers.config.card_limit - #old_shinku_jokers
+            G.jokers.config.card_limit = G.jokers.config.card_limit - card.ability.extra.cards_to_create
             SMODS.destroy_cards(old_shinku_jokers)
         end
     end
