@@ -722,7 +722,7 @@ SMODS.Consumable({
     atlas = 'loteria_cards',
     pos = {x=4, y=2},
     discovered = false,
-    config = {extra = {selected = 6, suits = {'Diamonds', 'Spades'}}},
+    config = {extra = {selected = 5, suits = {'Diamonds', 'Spades'}}},
     artist_credits = {'parchment'},
     loc_vars = function(self, info_queue, card)
         return {vars = {card.ability.extra.selected + (G.GAME and G.GAME.ortalab.vouchers.tabla), localize(card.ability.extra.suits[1], 'suits_plural'), localize(card.ability.extra.suits[2], 'suits_plural'),
@@ -748,7 +748,7 @@ SMODS.Consumable({
     atlas = 'loteria_cards',
     pos = {x=0, y=1},
     discovered = false,
-    config = {extra = {selected = 6, suits = {'Hearts', 'Clubs'}}},
+    config = {extra = {selected = 5, suits = {'Hearts', 'Clubs'}}},
     artist_credits = {'parchment'},
     loc_vars = function(self, info_queue, card)
         return {vars = {card.ability.extra.selected + (G.GAME and G.GAME.ortalab.vouchers.tabla), localize(card.ability.extra.suits[1], 'suits_plural'), localize(card.ability.extra.suits[2], 'suits_plural'),
@@ -774,7 +774,7 @@ SMODS.Consumable({
     atlas = 'loteria_cards',
     pos = {x=3, y=1},
     discovered = false,
-    config = {extra = {selected = 6, suits = {'Hearts', 'Diamonds'}}},
+    config = {extra = {selected = 5, suits = {'Hearts', 'Diamonds'}}},
     artist_credits = {'parchment'},
     loc_vars = function(self, info_queue, card)
         return {vars = {card.ability.extra.selected + (G.GAME and G.GAME.ortalab.vouchers.tabla), localize(card.ability.extra.suits[1], 'suits_plural'), localize(card.ability.extra.suits[2], 'suits_plural'),
@@ -890,7 +890,7 @@ SMODS.Consumable({
     atlas = 'loteria_cards',
     pos = {x=1, y=0},
     discovered = false,
-    config = {extra = {selected = 6, suits = {'Spades', 'Clubs'}}},
+    config = {extra = {selected = 5, suits = {'Spades', 'Clubs'}}},
     artist_credits = {'parchment'},
     loc_vars = function(self, info_queue, card)
         return {vars = {card.ability.extra.selected + (G.GAME and G.GAME.ortalab.vouchers.tabla), localize(card.ability.extra.suits[1], 'suits_plural'), localize(card.ability.extra.suits[2], 'suits_plural'),
@@ -909,21 +909,6 @@ SMODS.Consumable({
         G.hand.config.highlighted_limit = card.ability.extra.highlight_limit or 5
     end
 })
-
-local ortalab_highlight = Card.highlight
-function Card:highlight(is_highlighted)
-    ortalab_highlight(self, is_highlighted)
-    if self.area ~= G.consumeables then return end
-    if self.config.center_key == 'c_ortalab_lot_tree' or self.config.center_key == 'c_ortalab_lot_heart' or self.config.center_key == 'c_ortalab_lot_parrot' or self.config.center_key == 'c_ortalab_lot_boot' then
-        if is_highlighted and G.hand.config.highlighted_limit < 6 then
-            self.ability.extra.highlight_limit = G.hand.config.highlighted_limit
-            G.hand.config.highlighted_limit = 6
-        end
-        if not is_highlighted then
-            G.hand.config.highlighted_limit = self.ability.extra.highlight_limit or 5
-        end
-    end
-end
 
 local ortalab_sell = Card.sell_card
 function Card:sell_card()
