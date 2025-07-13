@@ -5,5 +5,6 @@ return {
     placeholders = true,
     enhancement_skip = false,
     loteria_skip = false,
-    ortalab_only = true
+    ortalab_only = true,
+    menu_toggle = true
 }
