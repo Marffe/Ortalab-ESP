@@ -9,7 +9,7 @@ SMODS.Joker({
     blueprint_compat = false,
     eternal_compat = true,
     perishable_compat = true,
-    config = {extra = {hand_size = 3, discard_limit = 1}},
+    config = {extra = {hand_size = 3, discard_limit = 2}},
     artist_credits = {'no_demo'},
     loc_vars = function(self, info_queue, card)
         return {vars = {card.ability.extra.hand_size, card.ability.extra.discard_limit + G.GAME.ortalab.extra_discard_size}}

@@ -123,7 +123,7 @@ return {
 			ortalab_restrained = 'Restrained',
 			ortalab_infected = 'Infected',
 			ortalab_cyan_seal = 'Cyan Seal',
-			ortalab_fuchsia_seal = 'Fuchsia Seal'
+			ortalab_magenta_seal = 'Magenta Seal'
 		}
     },
     ["descriptions"] = {
@@ -2727,8 +2727,8 @@ return {
 					'{C:inactive,s:0.8}(Must have room)'
 				},
 			},
-			ortalab_fuchsia_seal = {
-				name = 'Fuchsia Seal',
+			ortalab_magenta_seal = {
+				name = 'Magenta Seal',
 				text = {
 					'Creates a {C:loteria}Loteria{} card',
 					'when {C:attention}discarded',
