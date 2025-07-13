@@ -16,12 +16,12 @@ SMODS.Joker({
 	end,
     set_ability = function(self, card)
         if G.playing_cards and #G.playing_cards > 0 then
-            card.ability.extra.rank = Ortalab.rank_from_deck('ortalab_scam_email')
+            card.ability.extra.rank = self.rank_from_deck()
         end
     end,
 	calculate = function(self, card, context)
         if context.end_of_round and context.main_eval and not context.blueprint then
-            card.ability.extra.rank = Ortalab.rank_from_deck('ortalab_scam_email')
+            card.ability.extra.rank = self.rank_from_deck()
             return {
                 message = localize(card.ability.extra.rank, 'ranks'),
                 no_retrigger = true
@@ -33,5 +33,8 @@ SMODS.Joker({
             }
         end
         
+    end,
+    rank_from_deck = function()
+        return pseudorandom_element(G.playing_cards, pseudoseed('ortalab_scam_email')).base.value
     end
 })
