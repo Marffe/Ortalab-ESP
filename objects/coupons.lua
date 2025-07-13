@@ -788,25 +788,23 @@ G.FUNCS.swap_blind = function(e)
         G.FUNCS.change_tab(G.OVERLAY_MENU.definition.nodes[1].nodes[1].nodes[1].nodes[1].nodes[1].nodes[2].nodes[2].nodes[1].nodes[1].config.button_UIE)
         save_run()
     end
-    -- disappear
-    G.E_MANAGER:add_event(Event({
-        trigger = 'immediate',
-        func = function()
-          play_sound('other1')
-          G.blind_select_opts[string.lower(type)]:set_role({xy_bond = 'Weak'})
-          G.blind_select_opts[string.lower(type)].alignment.offset.y = 20
-          return true
-        end
-      }))
-    -- change
-    G.E_MANAGER:add_event(Event({
-      trigger = 'after',
-      delay = 0.6,
-      func = (function()
-        local par = G.blind_select_opts[string.lower(type)].parent
-        
-
-        
+    if G.blind_select_opts then
+        -- disappear
+        G.E_MANAGER:add_event(Event({
+            trigger = 'immediate',
+            func = function()
+            play_sound('other1')
+            G.blind_select_opts[string.lower(type)]:set_role({xy_bond = 'Weak'})
+            G.blind_select_opts[string.lower(type)].alignment.offset.y = 20
+            return true
+            end
+        }))
+        -- change
+        G.E_MANAGER:add_event(Event({
+        trigger = 'after',
+        delay = 0.6,
+        func = (function()
+            local par = G.blind_select_opts[string.lower(type)].parent
             G.blind_select_opts[string.lower(type)]:remove()
             G.blind_select_opts[string.lower(type)] = UIBox{
             T = {par.T.x, 0, 0, 0, },
@@ -831,10 +829,10 @@ G.FUNCS.swap_blind = function(e)
             end
             }))
 
-        save_run()
-        return true
-      end)
-    }))
+            save_run()
+            return true
+        end)}))
+    end
 end
 
 
