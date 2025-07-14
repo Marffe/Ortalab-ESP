@@ -23,7 +23,8 @@ SMODS.Joker({
                 if #G.jokers.cards == 1 then SMODS.calculate_effect({message = localize('ortalab_kopi_no'), colour = HEX('dfb958')}, card); return end
                 SMODS.calculate_effect({message = localize('ortalab_kopi'), colour = HEX('dfb958')}, card)
                 local joker = pseudorandom_element(G.jokers.cards, 'ortalab_kopi')
-                while (joker ~= card or joker.ability.kopi) do
+                while (joker == card or joker.ability.kopi) do
+                    print('reroll')
                     joker = pseudorandom_element(G.jokers.cards, 'ortalab_kopi_resample')
                 end
                 G.E_MANAGER:add_event(Event({
