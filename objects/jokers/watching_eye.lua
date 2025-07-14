@@ -19,7 +19,12 @@ SMODS.Joker({
             local temp_Mult, temp_ID = 0, 0
             local open_palm_card = nil
             for i=1, #G.hand.cards do
-                if temp_ID <= G.hand.cards[i].base.id and G.hand.cards[i].ability.effect ~= 'Stone Card' and not G.hand.cards[i].config.center.replace_base_card then temp_Mult = G.hand.cards[i].base.nominal; temp_ID = G.hand.cards[i].base.id; open_palm_card = G.hand.cards[i] end
+                if temp_ID <= G.hand.cards[i].base.id and not SMODS.has_no_rank(G.hand.cards[i]) then temp_Mult = G.hand.cards[i].base.nominal; temp_ID = G.hand.cards[i].base.id; open_palm_card = G.hand.cards[i] end
+            end
+            if next(SMODS.find_card('j_ortalab_wallet')) then
+                for i=1, #G.play.cards do
+                    if temp_ID <= G.play.cards[i].base.id and not SMODS.has_no_rank(G.play.cards[i]) then temp_Mult = G.play.cards[i].base.nominal; temp_ID = G.play.cards[i].base.id; open_palm_card = G.play.cards[i] end
+                end
             end
             if open_palm_card == context.other_card then 
                 if context.other_card.debuff then

@@ -48,7 +48,7 @@ SMODS.Joker({
                         new_joker:add_to_deck()
                         G.jokers:emplace(new_joker)
                         new_joker:start_materialize()
-                        new_joker.ability.shinku = true
+                        new_joker.ability.shinku = card.ID
                         new_joker.ignore_base_shader = {shinku = true}
                         new_joker.ignore_shadow = {shinku = true}
                         new_joker:set_cost()
@@ -62,7 +62,7 @@ SMODS.Joker({
     remove_shinku_jokers = function(card)
         local old_shinku_jokers = {}
         for _, joker in pairs(G.jokers.cards) do
-            if joker.ability.shinku then
+            if joker.ability.shinku == card.ID then
                 table.insert(old_shinku_jokers, joker)
             end
         end

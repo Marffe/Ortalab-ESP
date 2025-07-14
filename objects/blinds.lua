@@ -618,6 +618,7 @@ SMODS.Blind({
     artist_credits = {'flare'},
     config = {played_ranks = {}},
     set_blind = function(self)
+        self.config.played_ranks = {}
         for _,card in pairs(G.playing_cards) do
             if card.ability.played_this_ante then
                 self.config.played_ranks[card.base.id] = true

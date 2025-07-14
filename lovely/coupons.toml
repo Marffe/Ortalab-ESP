@@ -122,7 +122,7 @@ position = 'after'
 pattern = '''
 if key ~= 'smods' and type(effect) == 'table' then
     local calc = SMODS.calculate_effect(effect, effect.scored_card or card, key == 'edition')
-    for k, v in pairs(calc) do ret[k] = v end
+    for k, v in pairs(calc) do ret[k] = type(ret[k]) == 'number' and ret[k] + v or v end
 end
 '''
 payload = '''
