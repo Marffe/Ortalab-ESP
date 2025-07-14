@@ -557,9 +557,9 @@ return {
 			['j_ortalab_damp'] = {
 				["name"] = "Damp Joker",
 				["text"] = {
-					"Upgrades the first",
-					"played {C:attention}poker hand{}",
-					"scored this blind",
+					"Upgrades the level of",
+					"the first {C:attention}played {}poker hand",
+					"if it defeats the Blind",
 				}
 			},
 			['j_ortalab_dawn'] = {
