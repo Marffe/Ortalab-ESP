@@ -640,9 +640,10 @@ return {
 			j_ortalab_false_phd = {
 				name = 'False PHD',
 				text = {
-					'Add {C:attention}#1#{} identical', 
-					'{C:mythos}cursed cards{} to the',
-					'{C:attention}first hand{} of each round'
+					'When round begins, add',
+					'{C:attention}#1#{} identical {C:attention}temporary playing cards', 
+					'with an {C:attention}enhancement{}, {C:dark_edition}edition',
+					' and {C:attention}seal{} to your hand'
 				}
 			},
 			['j_ortalab_fine_wine'] = {
@@ -2756,6 +2757,14 @@ return {
 				text = {
 					'Will be removed when',
 					'{C:attention}Blind{} is defeated'
+				}
+			},
+			ortalab_temporary = {
+				name = 'Temporary',
+				text = {
+					'Will be removed when',
+					'{C:attention}Blind{} is defeated',
+					'{C:inactive,s:0.7}Source: #1#'
 				}
 			},
 			ortalab_chiselled = {

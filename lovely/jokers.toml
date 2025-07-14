@@ -75,6 +75,9 @@ end
 if card and card.ability and card.ability.kopi then
     info_queue[#info_queue + 1] = {set = 'Other', key = 'ortalab_kopi'}
 end
+if card and card.ability and card.ability.temporary then
+    info_queue[#info_queue + 1] = {set = 'Other', key = 'ortalab_temporary', vars = {card.ability.temporary}}
+end
 '''
 match_indent = true
 
