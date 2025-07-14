@@ -1294,9 +1294,15 @@ return {
 			['j_ortalab_scenic'] = {
 				["name"] = "Scenic Route",
 				["text"] = {
-					"{C:attention}Straights{} can be",
-					"made with {C:attention}pairs{}",
-					"{C:inactive}(ex: {C:attention}7 7 6 6 5{C:inactive})",
+					{
+						"{C:attention}Straights{} can be",
+						"made with {C:attention}pairs{}",
+						"{C:inactive}(ex: {C:attention}7 7 6 6 5{C:inactive})"
+					},{
+						"Upgrade the level of",
+						"{C:attention}#1#{} and {C:attention}#2#",
+						"when {C:attention}Boss Blind{} is defeated"
+					}
 				}
 			},
 			['j_ortalab_sedimentation'] = {
