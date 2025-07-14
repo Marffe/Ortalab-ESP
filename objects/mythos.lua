@@ -828,7 +828,7 @@ SMODS.Consumable({
     cost = 5,
     pos = {x=3, y=1},
     discovered = false,
-    config = {extra = {select = 1, curse = 'ortalab_crawler', method = 'c_ortalab_mult_random_joker'}},
+    config = {extra = {select = 1, curse = 'ortalab_possessed', method = 'c_ortalab_mult_random_joker'}},
     artist_credits = {'gappie'},
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = {set = 'Curse', key = card.ability.extra.curse..'_joker'}
