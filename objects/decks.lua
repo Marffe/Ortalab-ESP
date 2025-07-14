@@ -173,6 +173,9 @@ SMODS.Back({
 
 function Ortalab.experimental_deck_tooltip(deck)
     local nodes = {}
+    if Ortalab.loteria_targets then
+        Ortalab.loteria_targets:remove()
+    end
     Ortalab.loteria_targets = CardArea(G.ROOM.T.x + 0.2 * G.ROOM.T.w / 2, G.ROOM.T.h, 2 * G.CARD_W, 0.7 * G.CARD_H,
 			{card_limit = 4, type = 'title', highlight_limit = 0, collection = true})
     for key, _ in pairs(deck.effect.config.target_loterias) do
@@ -186,14 +189,6 @@ function Ortalab.experimental_deck_tooltip(deck)
         desc_from_rows(nodes, true, 3.5),
         {n = G.UIT.R, config = {align = "cm", padding = 0, no_fill = true}, nodes = {{n = G.UIT.O, config = {object = Ortalab.loteria_targets}}}}
     }}
-end
-
-local card_stop_hover = Card.stop_hover
-function Card:stop_hover()
-    if Ortalab.loteria_targets then
-        Ortalab.loteria_targets:remove()
-    end
-    card_stop_hover(self)
 end
 
 local ortalab_card_hover = Card.hover
