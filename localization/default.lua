@@ -2729,7 +2729,7 @@ return {
                 name = "Infected",
                 text = {
                     '{C:green}#1# in #2#{} chance to',
-					'be {C:mythos}disabled{} each hand'
+					'be {C:red}disabled{} each {C:blue}Hand'
                 }
             },
 		},
