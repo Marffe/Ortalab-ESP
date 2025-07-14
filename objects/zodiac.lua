@@ -104,8 +104,10 @@ function add_zodiac(_tag, silent, from_load, from_patch)
     if G.GAME.ortalab.zodiacs.temp_level_mod ~= 1 and not from_load and not from_patch then
         _tag.config.extra.temp_level = _tag.config.extra.temp_level * G.GAME.ortalab.zodiacs.temp_level_mod
     end
+    local leap_year_proc = false
     if G.GAME.ortalab.vouchers.leap_year and not from_load and not from_patch then
-        _tag.config.extra.temp_level = _tag.config.extra.temp_level + (pseudorandom('ortalab_leap_year') > 0.5 and G.GAME.ortalab.vouchers.leap_year or 0)
+        leap_year_proc = SMODS.pseudorandom_probability(_tag, 'ortalab_leap_year', 1, G.GAME.ortalab.vouchers.leap_year[2])
+        _tag.config.extra.temp_level = _tag.config.extra.temp_level + (leap_year_proc and G.GAME.ortalab.vouchers.leap_year[1] or 0)
     end
     _tag.voucher_check = true
     G.HUD_zodiac = G.HUD_zodiac or {}
@@ -128,7 +130,7 @@ function add_zodiac(_tag, silent, from_load, from_patch)
     G.zodiacs[_tag.key] = _tag
 
     _tag.HUD_zodiac = G.HUD_zodiac[#G.HUD_zodiac]
-    if not silent then zodiac_text(localize({set='Tag', key=_tag.key, type='name_text'})..localize('ortalab_zodiac_added'), _tag.key) end
+    if not silent then zodiac_text(localize({set='Tag', key=_tag.key, type='name_text'})..localize('ortalab_zodiac_added'), _tag.key, leap_year_proc) end
     -- delay(0.7)
 end
 Zodiac = Object:extend()
@@ -365,7 +367,7 @@ function zodiac_upgrade_text(key)
     return zodiac_name .. localize('ortalab_zodiac_upgraded')
 end
 
-function zodiac_text(message, key)
+function zodiac_text(message, key, leap_year_proc)
     if Ortalab.config.zodiac_skip then return end
     Ortalab.zodiac_animation = true
     local old_colours = {
@@ -397,6 +399,7 @@ function zodiac_text(message, key)
     table.insert(G.I.MOVEABLE, zodiac_UI)
 
     attention_text({scale = 1, text = message, hold = 2, align = 'cm', offset = {x = 0,y = -2.7},major = G.play})
+    if leap_year_proc then attention_text({scale = 0.75, text = localize({set = 'Voucher', key = 'v_ortalab_leap_year', type='name_text'})..'!', hold = 2, align = 'cm', emboss = true, offset = {x = 0,y = -1.9},major = G.play}) end
     delay(1.5)
 end
 

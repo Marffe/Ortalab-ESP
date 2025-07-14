@@ -2502,7 +2502,7 @@ return {
 				["name"] = "Leap Year",
 				["text"] = {
 					'{C:zodiac}Zodiac cards{} have a',
-					'{C:green}50%{} chance to give',
+					'{C:green}#2# in #3#{} chance to give',
 					'{C:attention}+#1#{} temporary levels'
 				}
 			},

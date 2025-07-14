@@ -325,13 +325,13 @@ SMODS.Voucher({
 	unlocked = true,
 	discovered = false,
 	available = true,
-    config = {extra = {gain = 2}},
+    config = {extra = {gain = 2, denom = 2}},
     artist_credits = {'gappie'},
 	redeem = function(self, card)
-        G.GAME.ortalab.vouchers.leap_year = card.ability.extra.gain
+        G.GAME.ortalab.vouchers.leap_year = {card.ability.extra.gain, card.ability.extra.denom}
     end,
     loc_vars = function(self, info_queue, card)
-        return {vars = {card.ability.extra.gain}}
+        return {vars = {card.ability.extra.gain, SMODS.get_probability_vars(card, 1, card.ability.extra.denom, 'ortalab_leap_year')}}
     end,
 })
 
