@@ -264,7 +264,7 @@ Ortalab.Curse({
                 p_dollars = -card.ability.curse.extra.base,
             }
         end
-        if (context.post_trigger and context.other_context.cardarea == G.jokers and context.other_card == card) or (context.end_of_round and context.main_eval and context.cardarea == G.jokers) then
+        if context.after and context.cardarea == G.jokers then
             card.ability.extra_value = card.ability.extra_value - card.ability.curse.extra.gain
             card:set_cost()
             return {
