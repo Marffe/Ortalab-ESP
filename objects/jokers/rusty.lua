@@ -10,16 +10,15 @@ SMODS.Joker({
 	eternal_compat = true,
 	perishable_compat = true,
     enhancement_gate = 'm_ortalab_rusty',
-	config = {extra = {xmult = 1, gain = 0.2}},
+	config = {extra = {xmult = 1, gain = 0.1}},
     artist_credits = {'gappie'},
 	loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS['m_ortalab_rusty']
-        local count = G.playing_cards and calculate_rusty_amount() or 0
-        return {vars = {card.ability.extra.xmult + (card.ability.extra.gain * count), card.ability.extra.gain}}
+        return {vars = {card.ability.extra.gain}}
     end,
     calculate = function(self, card, context)
-        if context.joker_main then
-            local count = G.playing_cards and calculate_rusty_amount() or 0
+        if context.individual and context.cardarea == G.play and SMODS.has_enhancement(context.other_card, 'm_ortalab_rusty') then
+            local count = calculate_rusty_amount() or 0
             return {
                 xmult = card.ability.extra.xmult + (card.ability.extra.gain * count)
             }
@@ -29,7 +28,7 @@ SMODS.Joker({
 
 function calculate_rusty_amount()
     local count = 0
-    for _, card in ipairs(G.playing_cards) do
+    for _, card in ipairs(G.hand.cards) do
         if SMODS.has_enhancement(card, 'm_ortalab_rusty') then
             count = count + 1
         end

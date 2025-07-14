@@ -1238,10 +1238,9 @@ return {
 			['j_ortalab_rusty'] = {
 				["name"] = "Rusty Joker",
 				["text"] = {
-					"Gives {X:mult,C:white}X#2#{} Mult for",
-					"each {C:attention}Rusty Card{}",
-					"in your {C:attention}full deck",
-					"{C:inactive,s:0.9}(Currently {C:white,X:mult,s:0.9}X#1#{C:inactive,s:0.9})"
+					'Scored {C:attention}Rusty Cards{} give',
+					'{X:red,C:white}X#1#{} Mult for each',
+					'{C:attention}Rusty Card{} held in hand'
 				}
 			},
 			['j_ortalab_salad'] = {
