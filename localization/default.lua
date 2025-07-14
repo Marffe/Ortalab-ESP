@@ -2271,6 +2271,7 @@ return {
 				["name"] = "Orange Deck",
 				["text"] = {
 					"{C:red}+#2#{} discards",
+					'{s:0.2} ',
 					"{C:blue}#1#{} hand",
 				}
 			},
@@ -2278,6 +2279,7 @@ return {
 				["name"] = "Cyan Deck",
 				["text"] = {
 					"{C:blue}+#1#{} hands",
+					'{s:0.2} ',
 					"{C:red}#2#{} discard",
 				}
 			},
@@ -2285,7 +2287,8 @@ return {
 				["name"] = "Shady Deck",
 				["text"] = {
 					"Start with an {C:attention}Eternal{},",
-					"{C:dark_edition,T:e_ortalab_greyscale}Greyscale {C:attention}#1#{} and {C:red}$#2#",
+					"{C:dark_edition,T:e_ortalab_greyscale}Greyscale {C:attention,T:j_ortalab_black_friday}#1#{} and {C:red}$#2#",
+					'{s:0.2} ',
 					"{C:attention}+#3#{} Joker slot"
 				}
 			},
@@ -2293,26 +2296,31 @@ return {
 				["name"] = "Neon Deck",
 				["text"] = {
 					"{C:dark_edition}Editions{} spawn {C:attention}#2#X{} as often",
+					'{s:0.2} ',
 					'Start with {C:attention,T:v_ortalab_pulse_wave}#1#',
+					'{s:0.2} ',
 					'{C:attention}Jokers{} with {C:dark_edition}editions{} are {C:green}free'
 				}
 			},
 			['b_ortalab_express'] = {
 				["name"] = "Express Deck",
 				["text"] = {
-					'Start with {C:attention,T:v_ortalab_home_delivery}#1#',
-					'and {C:attention,T:v_ortalab_hoarding}#2#',
-					"You {C:red}must{} skip at least {C:red}#3#{} times",
-					'after Ante 1'
+					'Start with the {C:attention,T:v_ortalab_home_delivery}#1#',
+					'and {C:attention,T:v_ortalab_hoarding}#2#{} vouchers',
+					'{s:0.2} ',
+					"You {C:red}must{} skip at least",
+					'{C:red}#3#{} times after Ante 1'
 				}
 			},
 			['b_ortalab_experimental'] = {
 				["name"] = "Experimental Deck",
 				["text"] = {
 					"{C:white,X:red}X#1#{} Mult",
+					'{s:0.2} ',
 					'Gains {X:red,C:white}X#2#{} Mult when one of',
 					'{C:attention}#4#{C:loteria} Loteria Cards{} are used',
 					'{C:inactive}(Cards change after each ante)',
+					'{s:0.2} ',
 					"{C:red}X#3#{} base Blind size",
 				}
 			},
@@ -2328,6 +2336,7 @@ return {
 				["text"] = {
 					'{C:attention}+#1#{} hand level when a',
 					'{C:Zodiac}Zodiac{} is activated',
+					'{s:0.2} ',
 					'{C:Zodiac}Zodiac effects{} decay',
 					'{C:attention}2{} times slower'
 				}
@@ -2336,8 +2345,10 @@ return {
 				name = 'Sacred Deck',
 				text = {
 					'{C:Mythos,E:1}Mythos Cards{} curse',
-					'{C:attention}1{} fewer cards',
-					'Start with {C:attention,T:v_ortalab_fates_coin}Fate\'s Coin'
+					'{C:attention}#1#{} fewer cards',
+					'{s:0.2} ',
+					'Start with the {C:attention,T:v_ortalab_fates_coin}#2#{}',
+					'voucher'
 				}
 			},
 			['b_ortalab_royal'] = {
@@ -2345,6 +2356,7 @@ return {
 				["text"] = {
 					"Start with only", 
 					"{C:attention}Face Cards{} in your deck",
+					'{s:0.2} ',
 					"{s:0.9}At the end of each",
 					"{s:0.9}round, add a {C:attention,s:0.9}random",
 					"{s:0.9,C:attention}Face Card{s:0.9} to your deck"
@@ -2355,7 +2367,9 @@ return {
 				["text"] = {
 					"All cards act as",
 					"all suits when {C:attention}scored",
-					'Start with {C:attention,T:v_ortalab_chisel}#1#',
+					'{s:0.2} ',
+					'Start with the {C:attention,T:v_ortalab_chisel}#1#{}', 
+					'voucher',
 				}
 			},
 			['b_ortalab_membership'] = {
@@ -2363,13 +2377,15 @@ return {
 				["text"] = {
 					"Start the run with the", 
 					'{C:attention,T:v_ortalab_home_delivery}#1#{}, {C:attention,T:v_ortalab_catalog}#2#',
-					'and {C:attention,T:v_ortalab_window_shopping}#3#{} vouchers'
+					'and {C:attention,T:v_ortalab_window_shopping}#3#{}',
+					'vouchers'
 				}
 			},
 			['b_ortalab_sketched'] = {
 				["name"] = "Sketched Deck",
-				["text"] = {
+				["text"] = { 
 					"{C:red}#1#{} Hand Size",
+					'{s:0.2} ',
 					"{C:attention}+#2#{} Joker Slot",
 				}
 			},
@@ -2392,8 +2408,10 @@ return {
 				["name"] = "Restored? Deck",
 				["text"] = {
 					'Start with {C:attention}2{} copies of each card',
+					'{s:0.2} ',
 					'Your deck {C:red}only reshuffles{} at',
 					'the {C:attention}end{} of each Ante',
+					'{s:0.2} ',
 					'{C:zodiac}Zodiacs{} decay {C:attention}#1#{} times slower'
 				} 
 			},
