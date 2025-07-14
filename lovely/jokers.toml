@@ -320,6 +320,32 @@ payload = '''
 if self.ability.shinku or self.ability.kopi then self.cost = 0; self.sell_cost = 0 end
 '''
 
+# Shinku/Kopi jokers can't receive editions
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+match_indent = true
+position = 'at'
+pattern = '''
+if v.ability.set == 'Joker' and (not v.edition) then
+'''
+payload = '''
+if v.ability.set == 'Joker' and (not v.edition) and not v.ability.kopi and not v.ability.shinku then
+'''
+# Patch SMODS util function
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/game_object.lua"]'
+match_indent = true
+position = 'at'
+pattern = '''
+if (not v.edition and edition) or (v.edition and not edition) then
+'''
+payload = '''
+if (not v.edition and not v.ability.kopi and not v.ability.shinku and edition) or (v.edition and not edition) then
+'''
+
+
 
 # Pinkprint calc_dollar_bonus implementation
 [[patches]]

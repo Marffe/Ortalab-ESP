@@ -300,7 +300,7 @@ SMODS.Consumable({
     can_use = function(self, card)
         if G.STATE ~= G.STATES.HAND_PLAYED and G.STATE ~= G.STATES.DRAW_TO_HAND and G.STATE ~= G.STATES.PLAY_TAROT or any_state then
             for _, v in pairs(G.jokers.cards) do
-                if v.ability.set == 'Joker' and (not v.edition) then
+                if v.ability.set == 'Joker' and (not v.edition) and not v.ability.kopi and not v.ability.shinku then
                     return true
                 end
             end
