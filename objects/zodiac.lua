@@ -114,18 +114,18 @@ function add_zodiac(_tag, silent, from_load, from_patch)
     G.zodiacs = G.zodiacs or {}
     local tag_sprite_ui = _tag:generate_UI()
     G.HUD_zodiac[#G.HUD_zodiac+1] = UIBox{
-        definition = {n=G.UIT.ROOT, config={align = "cm",padding = 0.05, colour = G.C.CLEAR}, nodes={
+        definition = {n=G.UIT.ROOT, config={align = "cl",padding = 0.05, colour = G.C.CLEAR}, nodes={
           tag_sprite_ui
         }},
         config = {
           align = G.HUD_zodiac[1] and 'cm' or 'cr',
-          offset = G.HUD_zodiac[1] and {x=0,y=math.min(0.5, 2.5/#G.HUD_zodiac)} or {x=0,y=-1},
+          offset = G.HUD_zodiac[1] and {x=0,y=math.min(0.5, 4.5/#G.HUD_zodiac)} or {x=0,y=-1},
           major = G.HUD_zodiac[1] and G.HUD_zodiac[#G.HUD_zodiac] or G.consumeables},
           ref_table = _tag
     }
 
     for i, v in ipairs(G.HUD_zodiac) do
-        if i > 1 then G.HUD_zodiac[i].Mid.alignment.offset = {x=0,y=math.min(0.5, 2.5/#G.HUD_zodiac)}; G.HUD_zodiac[i]:recalculate() end
+        if i > 1 then G.HUD_zodiac[i].Mid.alignment.offset = {x=0,y=math.min(0.5, 4.5/#G.HUD_zodiac)}; G.HUD_zodiac[i]:recalculate() end
     end
     G.zodiacs[_tag.key] = _tag
 
@@ -158,8 +158,13 @@ function Zodiac:generate_UI(_size)
     local tag_sprite = Sprite(0,0,_size*1,_size*1,G.ASSET_ATLAS[(not self.hide_ability) and G.ZODIACS[self.key].atlas or "tags"], (self.hide_ability) and G.tag_undiscovered.pos or self.pos)
 
     tag_sprite.T.scale = 1
-    tag_sprite_tab = {n= G.UIT.C, config={align = "cm", ref_table = self, group = self.tally}, nodes={
+    tag_sprite_tab = {n= G.UIT.C, config={align = "cl", ref_table = self, group = self.tally}, nodes={
         {n=G.UIT.O, config={w=_size*1,h=_size*1, colour = G.C.BLUE, object = tag_sprite, focus_with_object = true}},
+        {n=G.UIT.C, config = {align = 'cm'}, nodes = {
+            {n=G.UIT.R, config = {colour = G.C.BLACK, align = 'cm', r=1, padding = 0.1}, nodes = {
+                {n=G.UIT.O, config={object = DynaText({scale = 0.3, string = {{ref_table = self.config.extra, ref_value = 'temp_level', prefix = '+'}}, colours = {G.ZODIACS[self.key].colour}, shadow = true})}},
+            }}
+        }}
     }}
     tag_sprite:define_draw_steps({
         {shader = 'dissolve', shadow_height = 0.05},
@@ -351,10 +356,12 @@ function use_zodiac(card)
     track_usage(card.config.center.set, card.config.center_key)
     if G.zodiacs and G.zodiacs[card.ability.extra.zodiac] then
         G.zodiacs[card.ability.extra.zodiac].config.extra.temp_level = G.zodiacs[card.ability.extra.zodiac].config.extra.temp_level + (G.ZODIACS[card.ability.extra.zodiac].config.extra.temp_level * G.GAME.ortalab.zodiacs.temp_level_mod)
+        local leap_year_proc = false
         if G.GAME.ortalab.vouchers.leap_year then
-            G.zodiacs[card.ability.extra.zodiac].config.extra.temp_level = G.zodiacs[card.ability.extra.zodiac].config.extra.temp_level + (pseudorandom('ortalab_leap_year') > 0.5 and G.GAME.ortalab.vouchers.leap_year or 0)
+            leap_year_proc = SMODS.pseudorandom_probability(_tag, 'ortalab_leap_year', 1, G.GAME.ortalab.vouchers.leap_year[2])
+            G.zodiacs[card.ability.extra.zodiac].config.extra.temp_level = G.zodiacs[card.ability.extra.zodiac].config.extra.temp_level + (leap_year_proc and G.GAME.ortalab.vouchers.leap_year[1] or 0)
         end
-        zodiac_text(zodiac_upgrade_text(card.ability.extra.zodiac), card.ability.extra.zodiac)
+        zodiac_text(zodiac_upgrade_text(card.ability.extra.zodiac), card.ability.extra.zodiac, leap_year_proc)
         G.zodiacs[card.ability.extra.zodiac]:juice_up(1, 1)
         delay(0.7)
     else
