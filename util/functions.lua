@@ -29,6 +29,16 @@ function Ortalab.rank_from_deck(seed)
 	return pseudorandom_element(ranks, pseudoseed(seed))
 end
 
+-- Find a single suit that is contained within the current deck
+function Ortalab.suit_from_deck(seed)
+	local ranks = {}
+	local seed = seed or 'ortalab_rank_from_deck'
+	for _, card in pairs(G.playing_cards) do
+		ranks[card.base.suit] = card.base.suit
+	end
+	return pseudorandom_element(ranks, pseudoseed(seed))
+end
+
 -- Count the number of cursed cards currently in the deck
 function Ortalab.curses_in_deck()
     local count = 0

@@ -15,8 +15,8 @@ SMODS.Joker({
         return {vars = {card.ability.extra.gain, card.ability.extra.mult, localize(card.ability.extra.suit, 'suits_singular'), localize(card.ability.extra.rank..'', 'ranks'), colours = {G.C.SUITS[card.ability.extra.suit]}}}
     end,
     set_ability = function(self, card, initial, delay_sprites)
-        card.ability.extra.suit = pseudorandom_element(SMODS.Suits, pseudoseed('ortalab_trick_suit')).name
-        card.ability.extra.rank = pseudorandom_element(SMODS.Ranks, pseudoseed('ortalab_trick_rank')).key
+        card.ability.extra.suit = Ortalab.suit_from_deck('ortalab_trick_suit')
+        card.ability.extra.rank = Ortalab.rank_from_deck('ortalab_trick_rank')
     end,
     calculate = function(self, card, context)
         if context.before and not context.blueprint then
@@ -36,8 +36,8 @@ SMODS.Joker({
             }
         end
         if context.end_of_round and context.main_eval and not context.blueprint then
-            card.ability.extra.suit = pseudorandom_element(SMODS.Suits, pseudoseed('ortalab_trick_suit')).name
-            card.ability.extra.rank = pseudorandom_element(SMODS.Ranks, pseudoseed('ortalab_trick_rank')).key
+            card.ability.extra.suit = Ortalab.suit_from_deck('ortalab_trick_suit')
+            card.ability.extra.rank = Ortalab.rank_from_deck('ortalab_trick_rank')
             return {
                 message = localize(card.ability.extra.rank ..'', 'ranks') .. ' of ' .. localize(card.ability.extra.suit, 'suits_plural'),
                 no_retrigger = true
