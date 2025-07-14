@@ -173,10 +173,27 @@ SMODS.Back({
 
 function Ortalab.experimental_deck_tooltip(deck)
     local nodes = {}
-    localize{type = 'descriptions', key = 'b_ortalab_experimental_tooltip', set = 'Back', nodes = nodes, vars = SMODS.merge_lists({{deck.effect.config.xmult, deck.effect.config.xmult_gain},deck.effect.config.target_loterias_keys})}
+    Ortalab.loteria_targets = CardArea(G.ROOM.T.x + 0.2 * G.ROOM.T.w / 2, G.ROOM.T.h, 2 * G.CARD_W, 0.7 * G.CARD_H,
+			{card_limit = 4, type = 'title', highlight_limit = 0, collection = true})
+    for key, _ in pairs(deck.effect.config.target_loterias) do
+        local card = Card(Ortalab.loteria_targets.T.x + Ortalab.loteria_targets.T.w / 2, Ortalab.loteria_targets.T.y, 0.6*G.CARD_W, 0.6*G.CARD_H, nil, G.P_CENTERS[key])
+        card.ignore_shadow = {tooltip = true}
+        Ortalab.loteria_targets:emplace(card)
+    end
+    
+    localize{type = 'descriptions', key = 'b_ortalab_experimental_tooltip', set = 'Back', nodes = nodes, vars = {deck.effect.config.xmult, deck.effect.config.xmult_gain}}
     return {n=G.UIT.ROOT, config={align = "cm", minw = 3.5, minh = 1.75, id = deck.name, colour = G.C.CLEAR}, nodes={
-        desc_from_rows(nodes, true, 3.5)
+        desc_from_rows(nodes, true, 3.5),
+        {n = G.UIT.R, config = {align = "cm", padding = 0, no_fill = true}, nodes = {{n = G.UIT.O, config = {object = Ortalab.loteria_targets}}}}
     }}
+end
+
+local card_stop_hover = Card.stop_hover
+function Card:stop_hover()
+    if Ortalab.loteria_targets then
+        Ortalab.loteria_targets:remove()
+    end
+    card_stop_hover(self)
 end
 
 local ortalab_card_hover = Card.hover
@@ -219,28 +236,6 @@ SMODS.Back({
         G.GAME.ortalab.zodiacs.reduction = 2
     end
 })
-
--- local use_consum = Card.use_consumeable
--- function Card:use_consumeable(area, copier)
---     use_consum(self, area, copier)
---     if G.GAME.selected_back.effect.center.key == 'b_ortalab_eclipse' then
---         if self.config.center.set == 'Zodiac' then
---             local hand_type = G.ZODIACS[self.config.center.config.extra.zodiac].config.extra.hand_type
---             update_hand_text({sound = 'button', volume = 0.7, pitch = 0.8, delay = 0.3}, {handname=localize(hand_type, 'poker_hands'),chips = G.GAME.hands[hand_type].chips, mult = G.GAME.hands[hand_type].mult, level=G.GAME.hands[hand_type].level})
---             level_up_hand(self, hand_type, false, G.GAME.selected_back.effect.center.config.hand_level)
---             update_hand_text({sound = 'button', volume = 0.7, pitch = 1.1, delay = 0}, {mult = 0, chips = 0, handname = '', level = ''})
---         elseif self.config.center.set == 'Planet' then
---             local _poker_hands = {}
---             for k, v in pairs(G.GAME.hands) do
---                 if v.visible then _poker_hands[#_poker_hands+1] = k end
---             end
---             local hand_type = pseudorandom_element(_poker_hands, pseudoseed('eclipse_delevel'))
---             update_hand_text({sound = 'button', volume = 0.7, pitch = 0.8, delay = 0.3}, {handname=localize(hand_type, 'poker_hands'),chips = G.GAME.hands[hand_type].chips, mult = G.GAME.hands[hand_type].mult, level=G.GAME.hands[hand_type].level})
---             level_up_hand(self, hand_type, false, -1 * G.GAME.selected_back.effect.center.config.hand_level)
---             update_hand_text({sound = 'button', volume = 0.7, pitch = 1.1, delay = 0}, {mult = 0, chips = 0, handname = '', level = ''})
---         end
---     end
--- end
 
 SMODS.Back({
     key = "sacred", 

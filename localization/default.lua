@@ -2321,8 +2321,6 @@ return {
 				text = {
 					'{X:red,C:white}X#1#{} Mult',
 					'Gains {X:red,C:white}X#2#{} Mult when you use',
-					'{C:loteria}#3#{}, {C:loteria}#4#{},',
-					'{C:loteria}#5#{} or {C:loteria}#6#'
 				}
 			},
 			['b_ortalab_eclipse'] = {
