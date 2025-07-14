@@ -14,16 +14,17 @@ SMODS.Joker({
     calculate = function(self, card, context)
         if context.before then
             for _, playing_card in pairs(context.scoring_hand) do
-                if playing_card.debuff then
+                if playing_card.debuff or playing_card.curse or playing_card.was_flipped then
+                    playing_card.cured_debuff = playing_card.debuff
                     playing_card.debuff = false
-                    playing_card.cured_debuff = true
                     playing_card.cured = true
+                    playing_card.was_flipped = nil
                     G.E_MANAGER:add_event(Event({trigger = 'immediate', func = function ()
                         playing_card.cured_debuff = false
                         card:juice_up()
                         return true
                     end}))
-                    card_eval_status_text(playing_card, 'extra', nil, nil, nil, {message = localize('ortalab_cured')})
+                    SMODS.calculate_effect({message = localize('ortalab_cured'), colour = G.C.PURPLE}, playing_card)
                 end
             end
         end
@@ -32,7 +33,7 @@ SMODS.Joker({
             return {
                 repetitions = card.ability.extra.repetitions,
                 message = localize('k_again_ex'),
-                card = card
+                colour = G.C.PURPLE
             }
         end
     end

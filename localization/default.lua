@@ -935,8 +935,8 @@ return {
 			['j_ortalab_miracle_cure'] = {
 				["name"] = "Miracle Cure",
 				["text"] = {
-					"{C:attention}Debuffed{} cards are",
-					"instead {C:attention}retriggered"
+					"{C:attention}Debuffed{}, {C:attention}flipped{} and {C:mythos}cursed{}",
+					"cards are instead {C:attention}retriggered"
 				}
 			},
 			['j_ortalab_mirage'] = {

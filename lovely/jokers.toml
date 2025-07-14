@@ -333,3 +333,18 @@ if not self:can_calculate() then return end
 payload = '''
 if self.can_calculate and not self:can_calculate() then return end
 '''
+
+# Miracle Cure flipped tracking
+[[patches]]
+[patches.pattern]
+target = 'cardarea.lua'
+match_indent = true
+position = 'after'
+pattern = '''
+if card.facing == 'back' and self.config.type ~= 'discard' and self.config.type ~= 'deck' and not stay_flipped then
+'''
+payload = '''
+if next(SMODS.find_card('j_ortalab_miracle_cure')) and self == G.play then
+    card.was_flipped = true
+end
+'''
