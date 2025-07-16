@@ -15,8 +15,13 @@ SMODS.Joker({
         return {vars = {card.ability.extra.gain, card.ability.extra.mult, localize(card.ability.extra.suit, 'suits_singular'), localize(card.ability.extra.rank..'', 'ranks'), colours = {G.C.SUITS[card.ability.extra.suit]}}}
     end,
     set_ability = function(self, card, initial, delay_sprites)
-        card.ability.extra.suit = Ortalab.suit_from_deck('ortalab_trick_suit')
-        card.ability.extra.rank = Ortalab.rank_from_deck('ortalab_trick_rank')
+        if not G.jokers then
+            card.ability.extra.suit = "Hearts"
+            card.ability.extra.rank = "10"
+        else
+            card.ability.extra.suit = Ortalab.suit_from_deck('ortalab_trick_suit')
+            card.ability.extra.rank = Ortalab.rank_from_deck('ortalab_trick_rank')
+        end
     end,
     calculate = function(self, card, context)
         if context.before and not context.blueprint then
