@@ -197,7 +197,7 @@ position = 'before'
 match_indent = true
 payload = '''
 for _, card in ipairs(scoring_hand) do
-    if card.curse == 'ortalab_infected' then
+    if card.curse == 'ortalab_infected' and not card.cured then
         G.E_MANAGER:add_event(Event({func = function() card.ability.no_score = true; card.ability.no_score_shader = true; return true; end}))
         SMODS.calculate_effect({message = localize({set = 'Curse', type = 'name_text', key = 'ortalab_infected'})..'!', colour = Ortalab.Curses.ortalab_infected.badge_colour}, card)
     end

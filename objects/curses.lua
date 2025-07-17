@@ -40,7 +40,7 @@ SMODS.DrawStep {
     order = 35,
     func = function(self)
         if self.curse then
-            if self.curse == 'ortalab_infected' and ((self.area == G.play or self.config.center.set == 'Joker') and self.ability.no_score_shader) then
+            if self.curse == 'ortalab_infected' and ((self.area == G.play or self.config.center.set == 'Joker') and self.ability.no_score_shader and not self.cured) then
                 self.children.center:draw_shader('ortalab_celadon', nil, self.ARGS.send_to_shader)
                 if self.children.front then
                     self.children.front:draw_shader('ortalab_celadon', nil, self.ARGS.send_to_shader)
@@ -231,7 +231,7 @@ function Card:set_curse(_curse, silent, immediate, spread, message, delay)
 end
 
 function Card:calculate_curse(context)
-    if self.debuff then return nil end
+    if self.debuff or self.cured then return nil end
     local obj = Ortalab.Curses[self.curse] or {}
     if obj.calculate and type(obj.calculate) == 'function' then
     	local o = obj:calculate(self, context)
@@ -443,7 +443,7 @@ Ortalab.Curse({
 
 local ortalab_card_can_calculate = Card.can_calculate
 function Card:can_calculate(ignore_debuff, ignore_sliced)
-    if self.ability.set ~= 'Joker' and self.curse == 'ortalab_infected' and not self.curse_removed then
+    if self.ability.set ~= 'Joker' and self.curse == 'ortalab_infected' and not self.curse_removed and not self.cured then
         return false
     end
     return ortalab_card_can_calculate(self, ignore_debuff, ignore_sliced)
