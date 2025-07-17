@@ -15,7 +15,7 @@ SMODS.Joker({
         return {vars = {card.ability.extra.mult}}
     end,
 	calculate = function(self, card, context) --Frowny Face Logic
-        if context.individual and context.cardarea == G.play and (context.other_card:get_id() == 2 or context.other_card:get_id() == 3 or context.other_card:get_id() == 4 or context.other_card:get_id() == 5) then
+        if context.individual and context.cardarea == G.play and context.other_card:get_id() <= 5 and not SMODS.has_no_rank(context.other_card) then
             return {
                 mult = card.ability.extra.mult,
                 card = card

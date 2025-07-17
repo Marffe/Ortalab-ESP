@@ -725,8 +725,8 @@ return {
 			['j_ortalab_frowny_face'] = {
 				["name"] = "Frowny Face",
 				["text"] = {
-					"Played {C:attention}numbered{} cards",
-					"give {C:mult}+#1#{} Mult",
+					"Each played {C:attention}2{}, {C:attention}3{}, {C:attention}4{},",
+					"or {C:attention}5{} gives {C:mult}+#1#{} Mult",
 					"when scored",
 				}
 			},
@@ -1287,8 +1287,9 @@ return {
 			['j_ortalab_scared_face'] = {
 				["name"] = "Scared Face",
 				["text"] = {
-					"Played numbered cards",
-					"give {C:chips}+#1#{} Chips when scored",
+					"Each played {C:attention}2{}, {C:attention}3{}, {C:attention}4{},",
+					"or {C:attention}5{} gives {C:chips}+#1#{} Chips",
+					"when scored",
 				}
 			},
 			['j_ortalab_scenic'] = {
