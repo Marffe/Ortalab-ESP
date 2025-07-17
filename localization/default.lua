@@ -507,10 +507,9 @@ return {
 			['j_ortalab_collatz'] = {
 				["name"] = "Collatz Conjecture",
 				["text"] = {
-					"{X:mult,C:white}X#1#{} Mult if total chips when this",
-					"Joker is scored are {C:attention}odd{}",
-					"{X:mult,C:white}X#2#{} Mult if total chips when this",
-					"Joker is scored are {C:attention}even{}",
+					"Each played {C:attention}A{}, {C:attention}10{}, {C:attention}9{}, {C:attention}8{},",
+					"{C:attention}6{} or {C:attention}4{} gives {X:mult,C:white}X#1#{} Mult",
+					"when scored",
 				}
 			},
 			j_ortalab_collectors = {
@@ -976,7 +975,8 @@ return {
 				["name"] = "Multiply-ers",
 				["text"] = {
 					"{C:attention}Retrigger{} all played",
-					"{C:attention}numbered{} cards",
+					"and held in hand",
+					"{C:attention}6{}, {C:attention}7{}, {C:attention}8{}, {C:attention}9{}, or {C:attention}10{}",
 				}
 			},
 			['j_ortalab_mysterium'] = {
@@ -1054,9 +1054,9 @@ return {
 			j_ortalab_peasant = {
 				name = 'Peasant',
 				text = {
-					'{C:attention}Numbered{} cards held',
-					'in hand give their',
-					'value as {C:red}Mult{}'
+					"Adds {C:red}#1#{} minus the rank", 
+					"of each card held",
+					"in hand to {C:red}Mult",
 				}
 			},
 			['j_ortalab_pickaxe'] = {
