@@ -9,13 +9,13 @@ SMODS.Joker({
 	blueprint_compat = true,
 	eternal_compat = true,
 	perishable_compat = true,
-	config = {extra = {mult = 3}},
+	config = {extra = {mult = 4}},
 	artist_credits = {'golddisco'},
     loc_vars = function(self, info_queue, card)
         return {vars = {card.ability.extra.mult}}
     end,
 	calculate = function(self, card, context) --Frowny Face Logic
-        if context.individual and context.cardarea == G.play and context.other_card:is_numbered() then
+        if context.individual and context.cardarea == G.play and context.other_card:get_id() <= 5 and not SMODS.has_no_rank(context.other_card) then
             return {
                 mult = card.ability.extra.mult,
                 card = card
