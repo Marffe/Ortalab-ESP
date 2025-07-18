@@ -17,7 +17,7 @@ SMODS.Joker({
         return {vars = {card.ability.extra.gain}}
     end,
     calculate = function(self, card, context)
-        if context.individual and context.cardarea == G.play and SMODS.has_enhancement(context.other_card, 'm_ortalab_rusty') then
+        if context.individual and context.cardarea == G.hand and SMODS.has_enhancement(context.other_card, 'm_ortalab_rusty') then
             local count = calculate_rusty_amount() or 0
             return {
                 xmult = card.ability.extra.xmult + (card.ability.extra.gain * count)
