@@ -178,7 +178,7 @@ SMODS.Enhancement({
     atlas = "ortalab_enhanced",
     pos = {x = 0, y = 1},
     discovered = false,
-    config = {extra = {base_x = 1.25, x_gain = 0.25, rusty_joker_gain = 0.1}},
+    config = {extra = {base_x = 1.25, x_gain = 0.25}},
     artist_credits = {'gappie'},
     loc_vars = function(self, info_queue, card)
         local card_ability = card and card.ability or self.config
