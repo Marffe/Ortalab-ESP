@@ -2,14 +2,14 @@ SMODS.Joker({
 	key = "mill",
 	atlas = "jokers",
 	pos = {x=4,y=10},
-	rarity = 3,
-	cost = 8,
+	rarity = 2,
+	cost = 6,
 	unlocked = true,
 	discovered = false,
 	blueprint_compat = true,
 	eternal_compat = true,
 	perishable_compat = false,
-	config = {extra = {xmult = 1, gain = 0.1}},
+	config = {extra = {xmult = 1, gain = 0.05}},
     artist_credits = {'kosze'},
 	loc_vars = function(self, info_queue, card)
 		return {vars = {card.ability.extra.xmult, card.ability.extra.gain}}

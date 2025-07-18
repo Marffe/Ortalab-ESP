@@ -605,9 +605,9 @@ return {
 			j_ortalab_dropout = {
 				["name"] = "Dropout",
 				["text"] = {
-					'If poker hand contains a',
-					'{C:attention}#1#{}, each played',
-					'{C:attention}#2# {}gives {C:red}+#3#{} Mult'
+					{'{C:attention}Retrigger{} all played {C:attention}#1#s{}',},
+					{'Played {C:attention}#1#s{} give {C:chips}+#2#{} Chips and',
+					'{C:mult}+#3#{} Mult when scored',}
 				}
 			},
 			j_ortalab_drunk_driving = {
@@ -1444,11 +1444,11 @@ return {
 			j_ortalab_storm_6 = {
 				name = 'Storm 6',
 				text = {
-					{'{C:red}+#1#{} Mult for each', 
-					'{C:attention}6{} in your {C:attention}full deck',},
-					{'{C:red}-#2#{} Mult for each', 
+					'{C:red}+#1#{} Mult for each', 
+					'{C:attention}6{} in your {C:attention}full deck',
+					'{C:red}-#2#{} Mult for each', 
 					'{C:attention}9{} in your {C:attention}full deck',
-					'{C:inactive}(Currently {C:red}+#3#{C:inactive} Mult)'}
+					'{C:inactive}(Currently {C:red}+#3#{C:inactive} Mult)'
 				}
 			},
 			j_ortalab_street_rat = {
@@ -1518,6 +1518,11 @@ return {
 					'for every {C:attention}different rank{}',
 					'already scored'
 				}
+				--[[text = {
+					'The last played card gives',
+					'{X:mult,C:white}X#1#{} Mult for each different',
+					'rank already scored'
+				}]]
 			},
 			['j_ortalab_virus'] = {
 				["name"] = "Virus",

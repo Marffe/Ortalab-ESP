@@ -2,23 +2,31 @@ SMODS.Joker({
 	key = "dropout",
 	atlas = "jokers",
 	pos = {x=4,y=13},
-	rarity = 1,
-	cost = 4,
+	rarity = 2,
+	cost = 6,
 	unlocked = true,
 	discovered = false,
 	blueprint_compat = true,
 	eternal_compat = true,
 	perishable_compat = true,
-	config = {extra = {rank = "Ace", mult = 18, hand = 'Straight'}},
+	config = {extra = {rank = "Ace", chips = 10, mult = 2, repetitions = 1}},
 	artist_credits = {'crimson'},
 	loc_vars = function(self, info_queue, card)
-		return {vars = {localize(card.ability.extra.hand, 'poker_hands'), localize(card.ability.extra.rank, 'ranks'), card.ability.extra.mult}}
+		return {vars = {vars = {card.ability.extra.repetitions}, localize(card.ability.extra.rank, 'ranks'), card.ability.extra.chips, card.ability.extra.mult}}
 	end,
 	calculate = function(self, card, context)
-        if context.individual and context.cardarea == G.play and context.other_card.base.value == card.ability.extra.rank and next(context.poker_hands[card.ability.extra.hand]) then
+        if context.repetition and context.cardarea == G.play and context.other_card:get_id() == 14 and not context.other_card.config.center.always_scores then
             return {
-                mult = card.ability.extra.mult,
-                message_card = context.other_card
+                repetitions = card.ability.extra.repetitions,
+                message = localize('k_again_ex'),
+                card = card
+            }
+        end
+		if context.individual and context.cardarea == G.play and context.other_card:get_id() == 14 and not context.other_card.config.center.always_scores then
+            return {
+				mult = card.ability.extra.mult,
+                chips = card.ability.extra.chips,
+                card = card
             }
         end
     end
