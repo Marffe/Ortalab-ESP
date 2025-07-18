@@ -34,3 +34,30 @@ SMODS.Joker({
         end
     end
 })
+
+--[[
+    config = {extra = {Xmult = 1.4}},
+    artist_credits = {'none'},
+    loc_vars = function(self, info_queue, card)
+        return {vars = {card.ability.extra.Xmult}}
+    end,
+	calculate = function (self, card, context)
+        if context.individual and context.cardarea == G.play then
+            local prior_ranks = {}
+            local xMult_mod = 0
+            for i=1, #context.scoring_hand do
+                if context.scoring_hand[i] == context.other_card then
+                    xMult_mod = table.size(prior_ranks)
+                elseif context.scoring_hand[i].base.id ~= context.other_card.base.id then
+                    prior_ranks[context.scoring_hand[i].base.id] = true
+                end
+            end
+            if context.individual and context.cardarea == G.play then
+                return {
+                    Xmult = card.ability.extra.Xmult * xMult_mod,
+                    card = card
+                }
+            end
+        end
+    end
+})]]
