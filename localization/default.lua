@@ -1240,7 +1240,7 @@ return {
 				["name"] = "Rusty Joker",
 				["text"] = {
 					'{C:attention}Rusty Cards{} give an',
-					'additional {X:red,C:white}X#1#{} Mult for each',
+					'extra {X:red,C:white}X#1#{} Mult for each',
 					'{C:attention}Rusty Card{} held in hand'
 				}
 			},
