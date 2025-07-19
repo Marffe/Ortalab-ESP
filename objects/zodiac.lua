@@ -314,7 +314,12 @@ end
 function zodiac_tooltip(_c, info_queue, card, desc_nodes, specific_vars, full_UI_table)
     desc_nodes.tag = true
     desc_nodes.title = localize({type = 'name_text', set = 'Tag', key = _c.key})
-    localize{type = 'descriptions', set = 'Tag', key = _c.key, nodes = desc_nodes, vars = specific_vars or G.ZODIACS[_c.key]:loc_vars(info_queue).vars}
+    local vars = specific_vars or G.ZODIACS[_c.key]:loc_vars(info_queue).vars
+    
+        localize{type = 'descriptions', set = 'Tag', key = 'zodiac_heading', nodes = desc_nodes, vars = vars}
+        localize{type = 'descriptions', set = 'Tag', key = _c.key, nodes = desc_nodes, vars = vars}
+        localize{type = 'descriptions', set = 'Tag', key = 'zodiac_loss', nodes = desc_nodes, vars = {G.GAME.ortalab.zodiacs.reduction}}
+
 end
 
 local start = Game.start_run
@@ -431,7 +436,6 @@ SMODS.Consumable({
     config = {extra = {zodiac = 'zodiac_ortalab_aries'}},
     artist_credits = {'gappie'},
     loc_vars = function(self, info_queue, card)
-        info_queue[#info_queue + 1] = {generate_ui = zodiac_tooltip, key = self.config.extra.zodiac}
         return {vars = {localize(G.ZODIACS[self.config.extra.zodiac].config.extra.hand_type, 'poker_hands')}}
     end,
     can_use = function(self, card)
@@ -485,7 +489,9 @@ SMODS.Consumable({
     config = {extra = {zodiac = 'zodiac_ortalab_taurus'}},
     artist_credits = {'gappie'},
     loc_vars = function(self, info_queue, card)
-        info_queue[#info_queue + 1] = {generate_ui = zodiac_tooltip, key = self.config.extra.zodiac}
+        info_queue[#info_queue+1] = G.P_CENTERS.m_ortalab_rusty
+        info_queue[#info_queue+1] = G.P_CENTERS.m_ortalab_sand
+        info_queue[#info_queue+1] = G.P_CENTERS.m_ortalab_recycled
         return {vars = {localize(G.ZODIACS[self.config.extra.zodiac].config.extra.hand_type, 'poker_hands')}}
     end,
     can_use = function(self, card)
@@ -538,7 +544,8 @@ SMODS.Consumable({
     config = {extra = {zodiac = 'zodiac_ortalab_gemini'}},
     artist_credits = {'gappie'},
     loc_vars = function(self, info_queue, card)
-        info_queue[#info_queue + 1] = {generate_ui = zodiac_tooltip, key = self.config.extra.zodiac}
+        info_queue[#info_queue+1] = G.P_CENTERS.m_ortalab_post
+        info_queue[#info_queue+1] = G.P_CENTERS.m_ortalab_bent
         return {vars = {localize(G.ZODIACS[self.config.extra.zodiac].config.extra.hand_type, 'poker_hands')}}
     end,
     can_use = function(self, card)
@@ -555,6 +562,10 @@ Ortalab.Zodiac{
     colour = HEX('d9c270'),
     config = {extra = {temp_level = 4, hand_type = 'Pair'}},
     loc_vars = function(self, info_queue, card)
+        if not card and info_queue then
+            info_queue[#info_queue+1] = G.P_CENTERS.m_ortalab_post
+            info_queue[#info_queue+1] = G.P_CENTERS.m_ortalab_bent
+        end
         local zodiac = card or self
         local temp_level = (not zodiac.voucher_check and G.GAME.ortalab.zodiacs.temp_level_mod or 1) * zodiac.config.extra.temp_level
         return {vars = {temp_level, localize(zodiac.config.extra.hand_type, 'poker_hands')}}
@@ -590,7 +601,6 @@ SMODS.Consumable({
     config = {extra = {zodiac = 'zodiac_ortalab_cancer'}},
     artist_credits = {'gappie'},
     loc_vars = function(self, info_queue, card)
-        info_queue[#info_queue + 1] = {generate_ui = zodiac_tooltip, key = self.config.extra.zodiac}
         return {vars = {localize(G.ZODIACS[self.config.extra.zodiac].config.extra.hand_type, 'poker_hands')}}
     end,
     can_use = function(self, card)
@@ -659,7 +669,6 @@ SMODS.Consumable({
     config = {extra = {zodiac = 'zodiac_ortalab_leo'}},
     artist_credits = {'gappie'},
     loc_vars = function(self, info_queue, card)
-        info_queue[#info_queue + 1] = {generate_ui = zodiac_tooltip, key = self.config.extra.zodiac}
         return {vars = {localize(G.ZODIACS[self.config.extra.zodiac].config.extra.hand_type, 'poker_hands')}}
     end,
     can_use = function(self, card)
@@ -716,7 +725,6 @@ SMODS.Consumable({
     config = {extra = {zodiac = 'zodiac_ortalab_virgo'}},
     artist_credits = {'gappie'},
     loc_vars = function(self, info_queue, card)
-        info_queue[#info_queue + 1] = {generate_ui = zodiac_tooltip, key = self.config.extra.zodiac}
         return {vars = {localize(G.ZODIACS[self.config.extra.zodiac].config.extra.hand_type, 'poker_hands')}}
     end,
     can_use = function(self, card)
@@ -774,7 +782,6 @@ SMODS.Consumable({
     config = {extra = {zodiac = 'zodiac_ortalab_libra'}},
     artist_credits = {'gappie'},
     loc_vars = function(self, info_queue, card)
-        info_queue[#info_queue + 1] = {generate_ui = zodiac_tooltip, key = self.config.extra.zodiac}
         return {vars = {localize(G.ZODIACS[self.config.extra.zodiac].config.extra.hand_type, 'poker_hands')}}
     end,
     can_use = function(self, card)
@@ -832,7 +839,8 @@ SMODS.Consumable({
     config = {extra = {zodiac = 'zodiac_ortalab_scorpio'}},
     artist_credits = {'gappie'},
     loc_vars = function(self, info_queue, card)
-        info_queue[#info_queue + 1] = {generate_ui = zodiac_tooltip, key = self.config.extra.zodiac}
+        info_queue[#info_queue+1] = G.P_CENTERS.m_stone
+        info_queue[#info_queue+1] = G.P_CENTERS.m_ortalab_ore
         return {vars = {localize(G.ZODIACS[self.config.extra.zodiac].config.extra.hand_type, 'poker_hands')}}
     end,
     can_use = function(self, card)
@@ -849,6 +857,10 @@ Ortalab.Zodiac{
     colour = HEX('669ac0'),
     config = {extra = {temp_level = 4, hand_type = 'High Card', amount = 2}},
     loc_vars = function(self, info_queue, card)
+        if not card and info_queue then
+            info_queue[#info_queue+1] = G.P_CENTERS.m_stone
+            info_queue[#info_queue+1] = G.P_CENTERS.m_ortalab_ore
+        end
         local zodiac = card or self
         local temp_level = (not zodiac.voucher_check and G.GAME.ortalab.zodiacs.temp_level_mod or 1) * zodiac.config.extra.temp_level
         return {vars = {temp_level, localize(zodiac.config.extra.hand_type, 'poker_hands'), zodiac.config.extra.amount}}
@@ -897,7 +909,6 @@ SMODS.Consumable({
     config = {extra = {zodiac = 'zodiac_ortalab_sag'}},
     artist_credits = {'gappie'},
     loc_vars = function(self, info_queue, card)
-        info_queue[#info_queue + 1] = {generate_ui = zodiac_tooltip, key = self.config.extra.zodiac}
         return {vars = {localize(G.ZODIACS[self.config.extra.zodiac].config.extra.hand_type, 'poker_hands')}}
     end,
     can_use = function(self, card)
@@ -954,7 +965,7 @@ SMODS.Consumable({
     config = {extra = {zodiac = 'zodiac_ortalab_capr'}},
     artist_credits = {'gappie'},
     loc_vars = function(self, info_queue, card)
-        info_queue[#info_queue + 1] = {generate_ui = zodiac_tooltip, key = self.config.extra.zodiac}
+        info_queue[#info_queue+1] = G.P_CENTERS.m_ortalab_index
         return {vars = {localize(G.ZODIACS[self.config.extra.zodiac].config.extra.hand_type, 'poker_hands')}}
     end,
     can_use = function(self, card)
@@ -1003,7 +1014,6 @@ SMODS.Consumable({
     config = {extra = {zodiac = 'zodiac_ortalab_aquarius'}},
     artist_credits = {'gappie'},
     loc_vars = function(self, info_queue, card)
-        info_queue[#info_queue + 1] = {generate_ui = zodiac_tooltip, key = self.config.extra.zodiac}
         return {vars = {localize(G.ZODIACS[self.config.extra.zodiac].config.extra.hand_type, 'poker_hands')}}
     end,
     can_use = function(self, card)
@@ -1056,7 +1066,6 @@ SMODS.Consumable({
     config = {extra = {zodiac = 'zodiac_ortalab_pisces'}},
     artist_credits = {'gappie'},
     loc_vars = function(self, info_queue, card)
-        info_queue[#info_queue + 1] = {generate_ui = zodiac_tooltip, key = self.config.extra.zodiac}
         return {vars = {localize(G.ZODIACS[self.config.extra.zodiac].config.extra.hand_type, 'poker_hands')}}
     end,
     can_use = function(self, card)

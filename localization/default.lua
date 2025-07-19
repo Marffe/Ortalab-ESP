@@ -1,7 +1,7 @@
 return {
 	["misc"] = {
 		poker_hands = {
-			Any = "Hand"
+			Any = "any hand"
 		},
 		["dictionary"] = {
 			['ortalab_config_artists_pos'] = 'Artist Credits',
@@ -84,6 +84,7 @@ return {
 			ortalab_loteria_add = '+1 Loteria',
 			ortalab_cardist = '+1 Hand!',
 			ortalab_jackalope = '+1 Discard!',
+			ortalab_jackalope_hand = '+1 Hand Size!',
 			ortalab_forklift = '+2 slots',
 			ortalab_forklift_loss = '-2 slots',
 			ortalab_zodiac_upgraded = ' upgraded!',
@@ -1801,84 +1802,84 @@ return {
 			["c_ortalab_zod_aries"] = {
 				["name"] = "Aries",
 				["text"] = {
-					"{C:Zodiac}Improve{} the next", 
+					"{C:Zodiac}Empower{} the next", 
 					"{C:attention}#1#",
 				},
 			},
 			["c_ortalab_zod_taurus"] = {
 				["name"] = "Taurus",
 				["text"] = {
-					"{C:Zodiac}Improve{} the next", 
+					"{C:Zodiac}Empower{} the next", 
 					"{C:attention}#1#",
 				},
 			},
 			["c_ortalab_zod_gemini"] = {
 				["name"] = "Gemini",
 				["text"] = {
-					"{C:Zodiac}Improve{} the next", 
+					"{C:Zodiac}Empower{} the next", 
 					"{C:attention}#1#",
 				},
 			},
 			["c_ortalab_zod_cancer"] = {
 				["name"] = "Cancer",
 				["text"] = {
-					"{C:Zodiac}Improve{} the next", 
+					"{C:Zodiac}Empower{} the next", 
 					"{C:attention}#1#",
 				},
 			},
 			["c_ortalab_zod_leo"] = {
 				["name"] = "Leo",
 				["text"] = {
-					"{C:Zodiac}Improve{} the next", 
+					"{C:Zodiac}Empower{} the next", 
 					"{C:attention}#1#",
 				},
 			},
 			["c_ortalab_zod_virgo"] = {
 				["name"] = "Virgo",
 				["text"] = {
-					"{C:Zodiac}Improve{} the next", 
+					"{C:Zodiac}Empower{} the next", 
 					"{C:attention}#1#",
 				},
 			},
 			["c_ortalab_zod_libra"] = {
 				["name"] = "Libra",
 				["text"] = {
-					"{C:Zodiac}Improve{} the next", 
+					"{C:Zodiac}Empower{} the next", 
 					"{C:attention}#1#",
 				},
 			},
 			["c_ortalab_zod_scorpio"] = {
 				["name"] = "Scorpio",
 				["text"] = {
-					"{C:Zodiac}Improve{} the next", 
+					"{C:Zodiac}Empower{} the next", 
 					"{C:attention}#1#",
 				},
 			},
 			["c_ortalab_zod_sag"] = {
 				["name"] = "Sagittarius",
 				["text"] = {
-					"{C:Zodiac}Improve{} the next", 
+					"{C:Zodiac}Empower{} the next", 
 					"{C:attention}#1#",
 				},
 			},
 			["c_ortalab_zod_capr"] = {
 				["name"] = "Capricorn",
 				["text"] = {
-					"{C:Zodiac}Improve{} the next", 
+					"{C:Zodiac}Empower{} the next", 
 					"{C:attention}#1#",
 				},
 			},
 			["c_ortalab_zod_aquarius"] = {
 				["name"] = "Aquarius",
 				["text"] = {
-					"{C:Zodiac}Improve{} the next", 
+					"{C:Zodiac}Empower{} the next", 
 					"{C:attention}#1#",
 				},
 			},
 			["c_ortalab_zod_pisces"] = {
 				["name"] = "Pisces",
 				["text"] = {
-					"{C:Zodiac}Improve{} the next", 
+					"{C:Zodiac}Empower{} the next", 
 					"{C:attention}#1#",
 				},
 			},
@@ -2168,14 +2169,14 @@ return {
 			['tag_ortalab_constellation'] = {
                 name = "Constellation Patch",
                 text = {
-					'{C:Zodiac}Improve{} the next',
+					'{C:Zodiac}Empower{} the next',
 					'{C:attention}#1#{} {C:attention}#2#{} times'
                 }
             },
 			['zodiac_ortalab_aries'] = {
                 name = "Aries",
                 text = {
-					"{C:attention}+#1#{} levels to next {C:attention}#2#",
+					"{C:attention}+#1#{} temporary levels",
 					'Destroy up to #3# {C:attention}left-most{} cards',
 					'of a different rank in hand'
                 }
@@ -2183,7 +2184,7 @@ return {
 			['zodiac_ortalab_taurus'] = {
                 name = "Taurus",
                 text = {
-					"{C:attention}+#1#{} levels to next {C:attention}#2#",
+					"{C:attention}+#1#{} temporary levels",
 					'Turn #3# {C:attention}left-most{} cards in hand',
 					'into {C:attention}Rusty{}, {C:attention}Sand {}or{C:attention} Recycled{} cards'
                 }
@@ -2191,7 +2192,7 @@ return {
 			['zodiac_ortalab_gemini'] = {
                 name = "Gemini",
                 text = {
-					"{C:attention}+#1#{} levels to next {C:attention}#2#",
+					"{C:attention}+#1#{} temporary levels",
 					'Turn the {C:attention}played Pair',
 					'into a {C:attention}Post Card{} and',
 					'a {C:attention}Bent Card'
@@ -2200,7 +2201,7 @@ return {
 			['zodiac_ortalab_cancer'] = {
                 name = "Cancer",
                 text = {
-					"{C:attention}+#1#{} levels to next {C:attention}#2#",
+					"{C:attention}+#1#{} temporary levels",
 					'Turn all cards in hand into',
 					'the {C:attention}suit{} and {C:attention}ranks{} of the',
 					'{C:attention}#2#{} and give them a',
@@ -2210,7 +2211,7 @@ return {
 			['zodiac_ortalab_scorpio'] = {
                 name = "Scorpio",
                 text = {
-					"{C:attention}+#1#{} levels to next {C:attention}#2#",
+					"{C:attention}+#1#{} temporary levels",
 					'Turn #3# {C:attention}left-most{} unscored cards',
 					'into {C:attention}Stone Cards{} and {C:attention}Ore Cards'
                 }
@@ -2218,7 +2219,7 @@ return {
 			['zodiac_ortalab_aquarius'] = {
                 name = "Aquarius",
                 text = {
-					"{C:attention}+#1#{} levels to next {C:attention}#2#",
+					"{C:attention}+#1#{} temporary levels",
 					'Add a copy of the {C:attention}first{}',
 					'scoring card to deck'
                 }
@@ -2226,7 +2227,7 @@ return {
 			['zodiac_ortalab_sag'] = {
                 name = "Sagittarius",
                 text = {
-					"{C:attention}+#1#{} levels to next {C:attention}#2#",
+					"{C:attention}+#1#{} temporary levels",
 					'Turn all cards in hand into',
 					'the {C:attention}suit{} of the {C:attention}#2#'
                 }
@@ -2234,7 +2235,7 @@ return {
 			['zodiac_ortalab_capr'] = {
                 name = "Capricorn",
                 text = {
-					"{C:attention}+#1#{} levels to next {C:attention}#2#",
+					"{C:attention}+#1#{} temporary levels",
 					'Turn #3# {C:attention}left-most{} cards in',
 					'hand into {C:attention}Index cards'
                 }
@@ -2242,7 +2243,7 @@ return {
 			['zodiac_ortalab_libra'] = {
                 name = "Libra",
                 text = {
-					"{C:attention}+#1#{} levels to next {C:attention}#2#",
+					"{C:attention}+#1#{} temporary levels",
 					'Turn {C:attention}left-most{} card in hand',
 					'into {C:attention}first{} scoring card'
                 }
@@ -2250,7 +2251,7 @@ return {
 			['zodiac_ortalab_leo'] = {
                 name = "Leo",
                 text = {
-					"{C:attention}+#1#{} levels to next {C:attention}#2#",
+					"{C:attention}+#1#{} temporary levels",
 					'Turn #3# {C:attention}left-most{} cards in hand into',
 					'the {C:attention}central{} scored card'
                 }
@@ -2258,7 +2259,7 @@ return {
 			['zodiac_ortalab_virgo'] = {
                 name = "Virgo",
                 text = {
-					"{C:attention}+#1#{} levels to next {C:attention}#2#",
+					"{C:attention}+#1#{} temporary levels",
 					'Add a {C:attention}copy{} of {C:attention}left-most{} and',
 					'{C:attention}right-most{} scoring cards into your deck'
                 }
@@ -2266,7 +2267,7 @@ return {
 			['zodiac_ortalab_pisces'] = {
                 name = "Pisces",
                 text = {
-					"{C:attention}+#1#{} levels to next {C:attention}#2#",
+					"{C:attention}+#1#{} temporary levels",
 					'Turn all cards in hand into',
 					'the {C:attention}suit{} of the {C:attention}#2#',
 					'and give them a random {C:dark_edition}Edition'
@@ -2280,6 +2281,16 @@ return {
 					'scoring cards of the next hand'
 				}
 			},
+			zodiac_heading = {
+				text = {
+					'{C:zodiac,u:zodiac}When #2# played', 
+				}
+			},
+			zodiac_loss = {
+				text = {
+					'{C:inactive,s:0.7}(Loses #1# temporary levels)', 
+				}
+			}
 		},
 		["Back"] = {
 			['b_ortalab_orange'] = {
@@ -2682,7 +2693,13 @@ return {
 		},
 		['Curse'] = {
 			ortalab_all_curses = {
+				name = "each curse"
+			},
+			ortalab_random_curses = {
 				name = "random curses"
+			},
+			ortalab_wendigo = {
+				name = "Infected or Possessed"
 			},
 			['ortalab_corroded'] = {
                 name = "Corroded",
@@ -3274,9 +3291,21 @@ return {
 			}
 		},
 		["Mythos"] = {
+			c_ortalab_one_joker = {
+				text = {
+					'{C:Mythos,s:0.9}Curse it with',
+					'{V:1,E:2,s:0.9}#2#{}',
+				},
+			},
 			c_ortalab_one_selected = {
 				text = {
-					'{C:Mythos,s:0.9}Curse #1# selected{s:0.9,C:attention} card in hand',
+					'{C:Mythos,s:0.9}Curse #1# random{s:0.9,C:attention} card in hand',
+					'{s:0.9}with {V:1,E:2,s:0.9}#2#{}',
+				},
+			},
+			c_ortalab_one_deck = {
+				text = {
+					'{C:Mythos,s:0.9}Curse #1# random{s:0.9,C:attention} card in deck',
 					'{s:0.9}with {V:1,E:2,s:0.9}#2#{}',
 				},
 			},
@@ -3298,6 +3327,19 @@ return {
 					'{s:0.9}with {V:1,E:2,s:0.9}#2#{}',
 				},
 			},
+			c_ortalab_ya_te_veo_curse = {
+				text = {
+					'{C:Mythos,s:0.9}Curse #1# random{s:0.9,C:attention} Jokers',
+					'{s:0.9}and {C:Mythos,s:0.9}#1# random{s:0.9,C:attention} cards in deck',
+					'{s:0.9}with {V:1,E:2,s:0.9}#2#{}'
+				},
+			},
+			c_ortalab_mult_pandora = {
+				text = {
+					'{C:Mythos,s:0.9}Curse{s:0.9,C:attention} the copies',
+					'{s:0.9}with {V:1,E:2,s:0.9}#2#{}',
+				}
+			},
             c_ortalab_gnome = {
 				name = 'Gnome',
 				text = {
@@ -3317,32 +3359,32 @@ return {
 			c_ortalab_basilisk = {
 				name = 'Basilisk',
 				text = {
-					'Create {C:attention}#1#{} random',
-					'{C:attention}Enhanced Face cards',
-					'with {C:dark_edition}editions'
+					'Create an {C:attention}enhanced{},',
+					'an {C:dark_edition}editioned{}, and a',
+					'{C:attention}sealed{C:attention} Face card'
 				},
 			},
 			c_ortalab_abaia = {
 				name = 'Abaia',
 				text = {
-					'Create {C:attention}#1#{} random',
-					'{C:attention}Enhanced #2#s',
-					'with {C:dark_edition}editions'
+					'Create an {C:attention}enhanced{},',
+					'an {C:dark_edition}editioned{}, and a',
+					'{C:attention}sealed{C:attention} #2#'
 				},
 			},
 			c_ortalab_jormungand = {
 				name = 'Jormungand',
 				text = {
-					'Create {C:attention}#1#{} random',
-					'{C:attention}Enhanced Aces',
-					'with {C:dark_edition}editions'
+					'Create an {C:attention}enhanced{},',
+					'an {C:dark_edition}editioned{}, and a',
+					'{C:attention}sealed{C:attention} Ace'
 				},
 			},
 			c_ortalab_excalibur = {
 				name = 'Excalibur',
 				text = {
-					'{C:zodiac}Improve{} the next',
-					'{C:attention}#1#'
+					'{C:zodiac}Empower{} your {C:attention}last',
+					'{C:attention}played hand {}twice'
 				},
 			},
 			c_ortalab_wendigo = {
@@ -3356,8 +3398,8 @@ return {
 			c_ortalab_genie = {
 				name = 'Genie\'s Lamp',
 				text = {
-					'Add {C:dark_edition}editions{} to',
-					'{C:attention}#1#{} selected playing cards'
+					'Upgrade the level of',
+					'{C:attention}#1#{} random hands by {C:attention}#2#'
 				},
 			},
 			c_ortalab_kraken = {
@@ -3370,29 +3412,29 @@ return {
 			c_ortalab_holy_grail = {
 				name = 'Holy Grail',
 				text = {
-					'Add {C:dark_edition}Overexposed{} to',
+					'Add a random {C:attention}seal{} to',
 					'a selected playing card'
 				},
 			},
 			c_ortalab_jackalope = {
 				name = 'Jackalope',
 				text = {
-					'Gain {C:red}+#1#{} Discard',
-					'permanently'
+					'Permanently gain {C:red}+#1#{} Discard',
+					'{C:attention}or {C:attention}+#1#{} hand size'
 				},
 			},
 			c_ortalab_ya_te_veo = {
 				name = 'Ya Te Veo',
 				text = {
-					'{C:blue}+#1#{} hand size',
-					'permanently'
+					'Create {C:attention}#1#{} random {C:attention}Tags'
 				},
 			},
 			c_ortalab_anubis = {
 				name = 'Anubis',
 				text = {
 					'Move selected {C:attention}Joker{} you own',
-					'to {C:attention}consumable slots'
+					'to {C:attention}consumable slots',
+					'and {C:mythos}curse{} it with {C:attention}Infected'
 				},
 			},
 			c_ortalab_talaria = {
@@ -3412,8 +3454,9 @@ return {
 			c_ortalab_pandora = {
 				name = 'Pandora\'s Box',
 				text = {
-					'Add {C:attention}#1#{} copies of',
-					'selected card to your deck'
+					'{C:red}Destroy{} selected card and',
+					'add {C:attention}#1#{} copies of',
+					'it to your deck'
 				},
 			},
 			c_ortalab_corpus = {
@@ -3425,8 +3468,8 @@ return {
 			c_ortalab_ophiuchus = {
 				name = 'Ophiuchus',
 				text = {
-					'{C:zodiac}Improve{} the next hand',
-				},
+					'{C:zodiac}Empower{} your next {C:attention}hand',
+				}
 			},
 		}
     }

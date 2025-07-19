@@ -87,7 +87,7 @@ function Game:init_game_object()
             extra_select = 0,
             tree_of_life_count = 0,
             ya_te_veo_count = 0,
-            jackalope_count = 1,
+            jackalope_count = 0,
             talaria_count = 0
         },
         secret_hand_list = {}
@@ -305,6 +305,40 @@ function Ortalab.change_suit_no_anim(card, suit)
     end
 end
 
+local ortalab_generate_card_ui = generate_card_ui
+function generate_card_ui(_c, full_UI_table, specific_vars, card_type, badges, hide_desc, main_start, main_end, card)
+    local ui = ortalab_generate_card_ui(_c, full_UI_table, specific_vars, card_type, badges, hide_desc, main_start, main_end, card)
+    if _c.set == 'Mythos' and _c.discovered and card.ability.extra.method then 
+        local colour = Ortalab.Curses[card.ability.extra.curse] and Ortalab.Curses[card.ability.extra.curse].badge_colour or G.ARGS.LOC_COLOURS.Mythos
+        local mythos_nodes = {background_colour = lighten(colour, 0.75)}
+        local vars = {
+            card.ability.extra.select + G.GAME.ortalab.mythos.extra_select,
+            localize({type = 'name_text', set = 'Curse', key = card.ability.extra.curse}),
+            colours = {colour}
+        }
+        if _c.key == 'c_ortalab_jackalope' then
+            vars[1] = vars[1] + G.GAME.ortalab.mythos.jackalope_count
+        elseif _c.key == 'c_ortalab_ya_te_veo' then
+            vars[1] = vars[1] + G.GAME.ortalab.mythos.ya_te_veo_count
+        elseif _c.key == 'c_ortalab_talaria' then
+            vars[1] = vars[1] + G.GAME.ortalab.mythos.talaria_count
+        end
+        localize{type = 'descriptions', set = _c.set, key = card.ability.extra.method, nodes = mythos_nodes, vars = vars}
+        ui.mythos = mythos_nodes
+    end
+    if ((_c.set == 'Zodiac' or _c.key == 'c_ortalab_ophiuchus') and _c.discovered) or (_c.set == 'Tag' and G.ZODIACS[_c.key]) then
+
+        local key = _c.set == 'Tag' and _c.key or card.ability.extra.zodiac
+        local mythos_nodes = {background_colour = lighten(G.ARGS.LOC_COLOURS.zodiac, 0.75)}
+        local vars = specific_vars or G.ZODIACS[card.ability.extra.zodiac]:loc_vars({}).vars
+        localize{type = 'descriptions', set = 'Tag', key = 'zodiac_heading', nodes = mythos_nodes, vars = vars}
+        localize{type = 'descriptions', set = 'Tag', key = key, nodes = mythos_nodes, vars = vars}
+        localize{type = 'descriptions', set = 'Tag', key = 'zodiac_loss', nodes = mythos_nodes, vars = {G.GAME.ortalab.zodiacs.reduction}}
+        ui[_c.set == 'Tag' and 'main' or 'mythos'] = mythos_nodes
+    end
+    return ui
+end
+
 function Ortalab.context(context)
     if context.check_enhancement or context.stay_flipped or context.debuff_card then return end
     local str = ''
@@ -312,4 +346,64 @@ function Ortalab.context(context)
         str = str .. k .. '/'
     end
     print(str)
+end
+
+
+function UIElement:draw_pixellated_under(_type, _parallax, _emboss, _progress)
+    if not self.pixellated_rect or
+        #self.pixellated_rect[_type].vertices < 1 or
+        _parallax ~= self.pixellated_rect.parallax or
+        self.pixellated_rect.w ~= self.VT.w or
+        self.pixellated_rect.h ~= self.VT.h or
+        self.pixellated_rect.sw ~= self.shadow_parrallax.x or
+        self.pixellated_rect.sh ~= self.shadow_parrallax.y or
+        self.pixellated_rect.progress ~= (_progress or 1)
+    then 
+        self.pixellated_rect = {
+            w = self.VT.w,
+            h = self.VT.h,
+            sw = self.shadow_parrallax.x,
+            sh = self.shadow_parrallax.y,
+            progress = (_progress or 1),
+            fill = {vertices = {}},
+            shadow = {vertices = {}},
+            line = {vertices = {}},
+            emboss = {vertices = {}},
+            line_emboss = {vertices = {}},
+            parallax = _parallax
+        }
+        local ext_up = self.config.ext_up and self.config.ext_up*G.TILESIZE or 0
+        local totw, toth = self.VT.w*G.TILESIZE, (self.VT.h + math.abs(ext_up)/G.TILESIZE)*G.TILESIZE
+
+        local vertices = {
+            totw,toth+ext_up,
+            0, toth+ext_up,
+            0, toth+ext_up+0.5,
+            totw,toth+ext_up+0.5
+        }
+        for k, v in ipairs(vertices) do
+            if k%2 == 1 and v > totw*self.pixellated_rect.progress then v = totw*self.pixellated_rect.progress end
+            self.pixellated_rect.fill.vertices[k] = v
+            if k > 4 then
+                self.pixellated_rect.line.vertices[k-4] = v
+                if _emboss then
+                    self.pixellated_rect.line_emboss.vertices[k-4] = v + (k%2 == 0 and -_emboss*self.shadow_parrallax.y or -0.7*_emboss*self.shadow_parrallax.x)
+                end
+            end
+            if k%2 == 0 then
+                self.pixellated_rect.shadow.vertices[k] = v -self.shadow_parrallax.y*_parallax
+                if _emboss then
+                    self.pixellated_rect.emboss.vertices[k] = v + _emboss*G.TILESIZE
+                end
+            else
+                self.pixellated_rect.shadow.vertices[k] = v -self.shadow_parrallax.x*_parallax
+                if _emboss then
+                    self.pixellated_rect.emboss.vertices[k] = v
+                end
+            end
+        end
+    end
+    -- print(self.pixellated_rect.fill.vertices)
+    love.graphics.polygon("fill", self.pixellated_rect.fill.vertices)
+
 end
