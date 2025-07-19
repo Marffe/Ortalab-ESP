@@ -17,16 +17,13 @@ SMODS.Joker({
 	calculate = function(self, card, context)
         if context.repetition and context.cardarea == G.play and context.other_card:get_id() == 14 and not context.other_card.config.center.always_scores then
             return {
-                repetitions = card.ability.extra.repetitions,
-                message = localize('k_again_ex'),
-                card = card
+                repetitions = card.ability.extra.repetitions
             }
         end
 		if context.individual and context.cardarea == G.play and context.other_card:get_id() == 14 and not context.other_card.config.center.always_scores then
             return {
 				mult = card.ability.extra.mult,
-                chips = card.ability.extra.chips,
-                card = card
+                chips = card.ability.extra.chips
             }
         end
     end

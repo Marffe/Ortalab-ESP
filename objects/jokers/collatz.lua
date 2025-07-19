@@ -9,33 +9,16 @@ SMODS.Joker({
 	blueprint_compat = true,
 	eternal_compat = true,
 	perishable_compat = true,
-	config = {extra = {Xmult = 1.15}},
+	config = {extra = {Xmult = 1.15, valid_ranks = {14, 10, 9, 8, 6, 4}}},
 	artist_credits = {'flowwey'},
     loc_vars = function(self, info_queue, card)
         return {vars = {card.ability.extra.Xmult}}
     end,
 	calculate = function(self, card, context) --Logic
-        if context.individual and context.cardarea == G.play and (context.other_card:get_id() == 14 or context.other_card:get_id() == 10 or context.other_card:get_id() == 9 or context.other_card:get_id() == 8 or context.other_card:get_id() == 6 or context.other_card:get_id() == 4) and not SMODS.has_no_rank(context.other_card) then
+        if context.individual and context.cardarea == G.play and table.contains(card.ability.extra.valid_ranks, context.other_card:get_id()) and not SMODS.has_no_rank(context.other_card) then
             return {
-                Xmult = card.ability.extra.Xmult,
-                card = card
+                Xmult = card.ability.extra.Xmult
             }
         end
     end
 })
---[[if context.individual and context.cardarea == G.play and (context.other_card:get_id() == 14 or context.other_card:get_id() <=10 or context.other_card:get_id() >= 8 or context.other_card:get_id() == 6 and context.other_card:get_id() == 4) and not SMODS.has_no_rank(context.other_card) then]]
-
-	--[[
-	config = {extra = {x_mult = 3, x_mult_reduction = 0.5}},
-	artist_credits = {'flowwey'},
-    loc_vars = function(self, info_queue, card)
-        return {vars = {card.ability.extra.x_mult, card.ability.extra.x_mult_reduction}}
-    end,
-    calculate = function(self, card, context) --Collatz Logic
-        if context.joker_main then
-			return {
-				xmult = (hand_chips % 2 > to_big(0)) and card.ability.extra.x_mult or card.ability.extra.x_mult_reduction
-			}
-        end
-    end
-}]]

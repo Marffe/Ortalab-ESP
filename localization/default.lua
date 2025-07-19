@@ -605,9 +605,11 @@ return {
 			j_ortalab_dropout = {
 				["name"] = "Dropout",
 				["text"] = {
-					{'{C:attention}Retrigger{} all played {C:attention}#1#s{}',},
-					{'Played {C:attention}#1#s{} give {C:chips}+#2#{} Chips and',
-					'{C:mult}+#3#{} Mult when scored',}
+					{'{C:attention}Retrigger{} all played',
+					'{C:attention}#1#s{}',},
+					{'Played {C:attention}#1#s{} give',
+					'{C:chips}+#2#{} Chips and{C:mult}+#3#{} Mult',
+					'when scored',}
 				}
 			},
 			j_ortalab_drunk_driving = {
