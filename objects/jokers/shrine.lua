@@ -62,7 +62,6 @@ SMODS.Joker({
                         speed = 6,
                         padding = -1,
                         attach = card,
-                        behind = true,
                         colours = {G.C.SET.Mythos, darken(G.C.SET.Mythos, 0.5), G.C.RED, darken(G.C.SET.Mythos, 0.2), G.ARGS.LOC_COLOURS['mythos_alt']},
                         fill = true
                     })
