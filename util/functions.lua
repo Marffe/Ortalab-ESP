@@ -336,6 +336,15 @@ function generate_card_ui(_c, full_UI_table, specific_vars, card_type, badges, h
         localize{type = 'descriptions', set = 'Tag', key = 'zodiac_loss', nodes = mythos_nodes, vars = {G.GAME.ortalab.zodiacs.reduction}}
         ui[_c.set == 'Tag' and 'main' or 'mythos'] = mythos_nodes
     end
+    if _c.key == 'c_ortalab_corpus' and card.area == G.consumeables then
+        local mythos_nodes = {background_colour = lighten(G.ARGS.LOC_COLOURS.Mythos, 0.75)}
+        for curse, sacrificed in pairs(card.ability.extra.sacrificed) do
+            local curse_name = localize({type = 'name_text', set = 'Curse', key = curse})
+            local text_colour =  sacrificed and Ortalab.Curses[curse] and Ortalab.Curses[curse].badge_colour or G.ARGS.LOC_COLOURS.inactive
+            localize{type = 'descriptions', set = 'Mythos', key = 'corpus_curse', nodes = mythos_nodes, vars = {curse_name, colours = {text_colour}}}
+        end
+        ui.mythos = mythos_nodes
+    end
     return ui
 end
 

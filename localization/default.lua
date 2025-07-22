@@ -3460,10 +3460,14 @@ return {
 				},
 			},
 			c_ortalab_corpus = {
-				name = 'Corpus',
+				name = 'The Corpus',
 				text = {
-					'???'
+					'{C:mythos_alt}Sacrifice{C:mythos} cursed cards',
+					'to empower {C:mythos,E:2}The Corpus'
 				},
+			},
+			corpus_curse = {
+				text = {'{V:1}#1#'}
 			},
 			c_ortalab_ophiuchus = {
 				name = 'Ophiuchus',

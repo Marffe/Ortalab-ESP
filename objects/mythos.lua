@@ -51,6 +51,20 @@ SMODS.DrawStep {
     conditions = { vortex = false, facing = 'front' },
 }
 
+SMODS.DrawStep {
+    key = 'corpus_shine',
+    order = 61,
+    func = function(self)
+        if self.ability.set == 'Mythos' and self.children.floating_sprite then
+            local scale_mod = 0.07 + 0.02*math.sin(1.8*G.TIMERS.REAL) + 0.00*math.sin((G.TIMERS.REAL - math.floor(G.TIMERS.REAL))*math.pi*14)*(1 - (G.TIMERS.REAL - math.floor(G.TIMERS.REAL)))^3
+            local rotate_mod = 0.05*math.sin(1.219*G.TIMERS.REAL) + 0.00*math.sin((G.TIMERS.REAL)*math.pi*5)*(1 - (G.TIMERS.REAL - math.floor(G.TIMERS.REAL)))^2
+
+            self.children.floating_sprite:draw_shader('ortalab_mythos', nil, nil, nil, self.children.center, scale_mod, rotate_mod)
+        end
+    end,
+    conditions = { vortex = false, facing = 'front' },
+}
+
 Ortalab.Mythos_Utils = {}
 
 Ortalab.Mythos_Utils.snakes_modify = {
@@ -887,6 +901,7 @@ SMODS.Consumable({
     end
 })
 
+-- Corpus
 SMODS.Consumable({
     key = 'corpus',
     set = 'Mythos',
@@ -895,17 +910,163 @@ SMODS.Consumable({
     pos = {x=1, y=3},
     soul_pos = {x=2, y=3},
     discovered = false,
-    config = {extra = {select = 2, curse = 'ortalab_corroded', method = 'c_ortalab_mult_random_deck', cards = 4}},
+    config = {extra = {select = 1, sacrificed = {}}},
     artist_credits = {'gappie'},
+    set_ability = function(self, card)
+        for _, curse in ipairs(G.P_CENTER_POOLS.Curse) do
+            card.ability.extra.sacrificed[curse.key] = false
+        end
+    end,
     loc_vars = function(self, info_queue, card)
-        info_queue[#info_queue + 1] = {set = 'Curse', key = card.ability.extra.curse, specific_vars = {Ortalab.Curses[card.ability.extra.curse].config.extra.base, Ortalab.Curses[card.ability.extra.curse].config.extra.gain}}
-        return {vars = {card.ability.extra.cards}}
+        return {vars = {card.ability.extra.select}}
     end,
     can_use = function(self, card)
-        return true
+        local sacrificed = 0
+        for _, v in pairs(card.ability.extra.sacrificed) do if v then sacrificed = sacrificed + 1 end end
+        return sacrificed > 0
+    end,
+    can_sacrifice = function(self, card)
+        local target = G.hand.highlighted[1] or G.jokers.highlighted[1]
+        return target and target.curse and not card.ability.extra.sacrificed[target.curse]
+    end,
+    sacrifice = function(self, card)
+        local state = G.STATE
+        local target = G.hand.highlighted[1] or G.jokers.highlighted[1]
+        
+        local old_colours = {
+            special_colour = copy_table(G.C.BACKGROUND.C),
+            tertiary_colour = copy_table(G.C.BACKGROUND.D),
+            new_colour = copy_table(G.C.BACKGROUND.L),
+        }
+
+        G.E_MANAGER:add_event(Event({
+            trigger = 'immediate',
+            func = function()
+                G.STATE = G.STATES.HAND_PLAYED
+                G.STATE_COMPLETE = true
+                return true
+            end
+        }))
+        draw_card(target.area, G.play, nil, nil, nil, target)
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after', delay = 0.2,
+            func = function()            
+                ease_background_colour{special_colour = darken(G.C.SET.Mythos, 0.5), new_colour = G.C.RED, tertiary_colour = G.C.SET.Mythos, contrast = 1}
+                return true
+            end
+        }))
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after', delay = 0.7,
+            blocking = true,
+            func = function()
+                target.children.particles = Particles(1, 1, 0, 0, {
+                    timer = 0.01, scale = 0.3, initialize = true,
+                    lifespan = 2, speed = 6, padding = -1,
+                    attach = target, fill = true,
+                    colours = {G.C.SET.Mythos, darken(G.C.SET.Mythos, 0.5), G.C.RED, darken(G.C.SET.Mythos, 0.2), G.ARGS.LOC_COLOURS['mythos_alt']},
+                })
+                target.children.particles.fade_alpha = 1
+                target.children.particles:fade(1, 0)
+                local eval = function(target) return target.children.particles end
+                juice_card_until(target, eval, true)
+                return true
+            end
+        }))
+        delay(2)
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after', delay = 4,
+            func = function()
+                target.destroyed = {colours = {G.C.SET.Mythos, darken(G.C.SET.Mythos, 0.5), G.C.RED, darken(G.C.SET.Mythos, 0.2), G.ARGS.LOC_COLOURS['mythos_alt']}}
+                SMODS.destroy_cards({target})             
+                return true
+            end
+        }))
+        delay(2)
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after', delay = 2,
+            func = function()
+                card.ability.extra.sacrificed[target.curse] = true
+                target.children.particles:remove()
+                target.children.particles = nil
+                return true
+            end
+        }))
+        G.E_MANAGER:add_event(Event({
+            trigger = 'immediate',
+            func = function()
+                ease_background_colour({special_colour = old_colours.special_colour, tertiary_colour = old_colours.tertiary_colour, new_colour = old_colours.new_colour})       
+                G.STATE = state
+                G.STATE_COMPLETE = false
+                return true
+            end
+        }))
+
+
+
+        G.consumeables:unhighlight_all()
     end,
     use = function(self, card, area, copier)
-        sendDebugMessage("Not yet implemented")
+        local old_colours = {
+            special_colour = copy_table(G.C.BACKGROUND.C),
+            tertiary_colour = copy_table(G.C.BACKGROUND.D),
+            new_colour = copy_table(G.C.BACKGROUND.L),
+        }
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after', delay = 0.2,
+            func = function()            
+                ease_background_colour{special_colour = darken(G.C.SET.Mythos, 0.5), new_colour = G.C.RED, tertiary_colour = G.C.SET.Mythos, contrast = 1}
+                return true
+            end
+        }))
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after', delay = 0.7,
+            blocking = true,
+            func = function()
+                card.children.particles = Particles(1, 1, 0, 0, {
+                    timer = 0.01, scale = 0.3, initialize = true,
+                    lifespan = 2, speed = 6, padding = -1,
+                    attach = card, fill = true,
+                    colours = {G.C.SET.Mythos, darken(G.C.SET.Mythos, 0.5), G.C.RED, darken(G.C.SET.Mythos, 0.2), G.ARGS.LOC_COLOURS['mythos_alt']},
+                })
+                card.children.particles.fade_alpha = 1
+                card.children.particles:fade(1, 0)
+                local eval = function(card) return card.children.particles end
+                juice_card_until(card, eval, true)
+                return true
+            end
+        }))
+        delay(1)
+        local sacrificed = 0
+        card.jimbo = true
+        for _, v in pairs(card.ability.extra.sacrificed) do if v then sacrificed = sacrificed + 1 end end
+        G.GAME.modifiers.scaling = (G.GAME.modifiers.scaling or 1)
+        for i=1, sacrificed do
+            pseudorandom_element(Ortalab.Mythos_Utils.Corpus_Effects, 'ortalab_corpus_select')(card)
+            G.GAME.modifiers.scaling = G.GAME.modifiers.scaling * 1.2
+        end
+        SMODS.calculate_effect({message = 'You have unleashed the power of The Corpus', colour = G.ARGS.LOC_COLOURS.mythos, delay = 6, blocking = false, sound = 'ortalab_gong', pitch = math.random()}, card)
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after', delay = 2,
+            func = function()
+                card.children.particles:remove()
+                card.children.particles = nil
+                return true
+            end
+        }))
+        G.E_MANAGER:add_event(Event({
+            trigger = 'immediate',
+            func = function()
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'immediate', delay = 0.7,
+                    func = function()                
+                        ease_background_colour({special_colour = old_colours.special_colour, tertiary_colour = old_colours.tertiary_colour, new_colour = old_colours.new_colour})       
+                        return true
+                    end
+                }))
+                return true
+            end
+        }))
+
     end,
     in_pool = function(self, args)
         if pseudorandom('ortalab_corpus_spawn') < 0.3 then
@@ -914,6 +1075,432 @@ SMODS.Consumable({
         return false
     end,
 })
+
+local ortalab_card_highlight = Card.highlight
+function Card:highlight(is_higlighted)
+    self.highlighted = is_higlighted
+    if self.config.center_key == 'c_ortalab_corpus' and self.area and self.area.config.type ~= 'shop' then
+        if self.highlighted then
+            local x_off = (self.ability.consumeable and -0.1 or 0)
+            self.children.use_button = UIBox{
+                definition = Ortalab.Mythos_Utils.Corpus_Buttons(self), 
+                config = {align=
+                        ((self.area == G.jokers) or (self.area == G.consumeables)) and "cr" or
+                        "bmi"
+                    , offset = 
+                        ((self.area == G.jokers) or (self.area == G.consumeables)) and {x=x_off - 0.4,y=0} or
+                        {x=0,y=0.65},
+                    parent =self}
+            }
+        elseif self.children.use_button then
+            self.children.use_button:remove()
+            self.children.use_button = nil
+        end
+    else
+       ortalab_card_highlight(self, is_higlighted) 
+    end
+end
+
+Ortalab.Mythos_Utils.Corpus_Buttons = function(self)
+    local sacrifice = 
+    {n=G.UIT.C, config={align = "cr"}, nodes={
+      
+      {n=G.UIT.C, config={ref_table = self, align = "cr",maxw = 1.25, padding = 0.1, r=0.08, minw = 1.25, minh = (self.area and self.area.config.type == 'joker') and 0 or 1, hover = true, shadow = true, colour = G.C.UI.BACKGROUND_INACTIVE, button = 'sacrifice_card', func = 'can_sacrifice_card'}, nodes={
+        {n=G.UIT.B, config = {w=0.1,h=0.6}},
+        {n=G.UIT.T, config={text = 'SACRIFICE',colour = G.ARGS.LOC_COLOURS.mythos_alt, scale = 0.55, shadow = true}}
+      }}
+    }}
+
+    local use = 
+    {n=G.UIT.C, config={align = "cr"}, nodes={
+      
+      {n=G.UIT.C, config={ref_table = self, align = "cr",maxw = 1.25, padding = 0.1, r=0.08, minw = 1.25, minh = (self.area and self.area.config.type == 'joker') and 0 or 1, hover = true, shadow = true, colour = G.C.UI.BACKGROUND_INACTIVE, one_press = true, button = 'use_card', func = 'can_use_consumeable'}, nodes={
+        {n=G.UIT.B, config = {w=0.1,h=0.6}},
+        {n=G.UIT.T, config={text = localize('b_use'),colour = G.C.UI.TEXT_LIGHT, scale = 0.55, shadow = true}}
+      }}
+    }}
+    local t = {
+    n=G.UIT.ROOT, config = {padding = 0, colour = G.C.CLEAR}, nodes={
+        {n=G.UIT.C, config={padding = 0.15, align = 'cl'}, nodes={
+        {n=G.UIT.R, config={align = 'cl'}, nodes={
+            sacrifice
+        }},
+        {n=G.UIT.R, config={align = 'cl'}, nodes={
+            use
+        }},
+        }},
+    }}
+    return t
+end
+
+G.FUNCS.can_sacrifice_card = function(e)
+    if e.config.ref_table.config.center:can_sacrifice(e.config.ref_table) then 
+        e.config.colour = G.ARGS.LOC_COLOURS.mythos
+        e.config.button = 'sacrifice_card'
+    else
+      e.config.colour = G.C.UI.BACKGROUND_INACTIVE
+      e.config.button = nil
+    end
+end
+
+G.FUNCS.sacrifice_card = function(e, mute, nosave)
+    e.config.ref_table.config.center:sacrifice(e.config.ref_table)
+end
+
+SMODS.Sound({
+    key = 'gong',
+    path = 'gong.ogg'
+})
+
+Ortalab.Mythos_Utils.Corpus_Effects = {}
+
+Ortalab.Mythos_Utils.Corpus_Effects.familiar = function(card)
+    SMODS.calculate_effect({message = localize({set = 'Spectral', key = 'c_familiar', type = 'name_text'})..'?', colour = G.ARGS.LOC_COLOURS.Mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
+    local cards = {}
+    local faces = {}
+    for _, v in ipairs(SMODS.Rank.obj_buffer) do
+        local r = SMODS.Ranks[v]
+        if r.face then table.insert(faces, r) end
+    end
+
+    for i=1, 3 do
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after', delay = 0.7,
+            func = function()
+                local _suit = pseudorandom_element(SMODS.Suits, pseudoseed('corpus_familiar_suit')).card_key
+                local _rank = pseudorandom_element(faces, pseudoseed('corpus_familiar_rank')).card_key
+                local new_card = create_playing_card({front = G.P_CARDS[_suit..'_'.._rank]}, G.hand, nil, i ~= 1, {G.C.SET.Mythos, darken(G.C.SET.Mythos, 0.5), G.C.RED, darken(G.C.SET.Mythos, 0.2), G.ARGS.LOC_COLOURS['mythos_alt']})
+                new_card:set_ability(SMODS.poll_enhancement({guaranteed = true, key = 'corpus_familiar_enhancement', no_replace = true}))
+                new_card:add_to_deck()
+                G.deck.config.card_limit = G.deck.config.card_limit + 1
+                new_card:juice_up()
+                card:juice_up(0.3, 0.5)
+                cards[i] = new_card
+                return true
+            end
+        }))
+    end
+    playing_card_joker_effects(cards)    
+    delay(3)
+end
+
+Ortalab.Mythos_Utils.Corpus_Effects.grim = function(card)
+    SMODS.calculate_effect({message = localize({set = 'Spectral', key = 'c_grim', type = 'name_text'})..'?', colour = G.ARGS.LOC_COLOURS.Mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
+    local cards = {}
+    
+
+    for i=1, 2 do
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after', delay = 0.7,
+            func = function()
+                local _suit = pseudorandom_element(SMODS.Suits, pseudoseed('corpus_grim_suit')).card_key
+                local new_card = create_playing_card({front = G.P_CARDS[_suit..'_A']}, G.hand, nil, i ~= 1, {G.C.SET.Mythos, darken(G.C.SET.Mythos, 0.5), G.C.RED, darken(G.C.SET.Mythos, 0.2), G.ARGS.LOC_COLOURS['mythos_alt']})
+                new_card:set_ability(SMODS.poll_enhancement({guaranteed = true, key = 'corpus_grim_enhancement', no_replace = true}))
+                new_card:add_to_deck()
+                G.deck.config.card_limit = G.deck.config.card_limit + 1
+                new_card:juice_up()
+                card:juice_up(0.3, 0.5)
+                cards[i] = new_card
+                return true
+            end
+        }))
+    end
+    playing_card_joker_effects(cards)  
+    delay(3) 
+end
+
+Ortalab.Mythos_Utils.Corpus_Effects.incantation = function(card)
+    SMODS.calculate_effect({message = localize({set = 'Spectral', key = 'c_incantation', type = 'name_text'})..'?', colour = G.ARGS.LOC_COLOURS.Mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
+    local cards = {}
+    local numbers = {}
+    for _, rank_key in ipairs(SMODS.Rank.obj_buffer) do
+        local rank = SMODS.Ranks[rank_key]
+        if rank_key ~= 'Ace' and not rank.face then table.insert(numbers, rank) end
+    end
+
+    for i=1, 4 do
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after', delay = 0.7,
+            func = function()
+                local _suit = pseudorandom_element(SMODS.Suits, pseudoseed('corpus_incantation_suit')).card_key
+                local _rank = pseudorandom_element(numbers, pseudoseed('corpus_incantation_rank')).card_key
+                local new_card = create_playing_card({front = G.P_CARDS[_suit..'_'.._rank]}, G.hand, nil, i ~= 1, {G.C.SET.Mythos, darken(G.C.SET.Mythos, 0.5), G.C.RED, darken(G.C.SET.Mythos, 0.2), G.ARGS.LOC_COLOURS['mythos_alt']})
+                new_card:set_ability(SMODS.poll_enhancement({guaranteed = true, key = 'corpus_incantation_enhancement', no_replace = true}))
+                new_card:add_to_deck()
+                G.deck.config.card_limit = G.deck.config.card_limit + 1
+                new_card:juice_up()
+                card:juice_up(0.3, 0.5)
+                cards[i] = new_card
+                return true
+            end
+        }))
+    end
+    playing_card_joker_effects(cards)  
+    delay(3)
+end
+
+Ortalab.Mythos_Utils.Corpus_Effects.talisman = function(card)
+    SMODS.calculate_effect({message = localize({set = 'Spectral', key = 'c_talisman', type = 'name_text'})..'?', colour = G.ARGS.LOC_COLOURS.Mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
+    local targets = {}
+    for _, card in ipairs(G.hand.cards) do
+        if not card.seal and not card.getting_sliced then table.insert(targets, card) end
+    end
+    local target = pseudorandom_element(targets or G.hand.cards, 'corpus_talisman')
+    G.E_MANAGER:add_event(Event({
+        trigger = 'after', delay = 0.7,
+        func = function()                
+            target:set_seal('Gold', nil, true)
+            return true
+        end
+    }))
+    delay(3)
+end
+
+Ortalab.Mythos_Utils.Corpus_Effects.aura = function(card)
+    SMODS.calculate_effect({message = localize({set = 'Spectral', key = 'c_aura', type = 'name_text'})..'?', colour = G.ARGS.LOC_COLOURS.Mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
+    G.E_MANAGER:add_event(Event({
+        trigger = 'after', delay = 0.7,
+        func = function()                
+            local targets = SMODS.Edition:get_edition_cards(G.hand, true)
+            local target = pseudorandom_element(next(targets) and targets or G.hand.cards, 'corpus_aura')
+            if target.getting_sliced then target = pseudorandom_element(next(targets) and targets or G.hand.cards, 'corpus_aura_re') end
+            target:set_edition(poll_edition('corpus_aura_edition', nil, nil, true, {'e_foil', 'e_holo', 'e_polychrome'}), true, false)
+            return true
+        end
+    }))
+    delay(3)
+end
+
+Ortalab.Mythos_Utils.Corpus_Effects.wraith = function(card)
+    SMODS.calculate_effect({message = localize({set = 'Spectral', key = 'c_wraith', type = 'name_text'})..'?', colour = G.ARGS.LOC_COLOURS.Mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
+    G.E_MANAGER:add_event(Event({
+        trigger = 'after', delay = 0.7,
+        func = function()                
+            local card = SMODS.add_card({set = 'Joker', rarity = 3, no_edition = true})
+            card:start_materialize({G.C.SET.Mythos, darken(G.C.SET.Mythos, 0.5), G.C.RED, darken(G.C.SET.Mythos, 0.2), G.ARGS.LOC_COLOURS['mythos_alt']})
+            return true
+        end
+    }))
+    delay(3)
+end
+
+Ortalab.Mythos_Utils.Corpus_Effects.sigil = function(card)
+    SMODS.calculate_effect({message = localize({set = 'Spectral', key = 'c_sigil', type = 'name_text'})..'?', colour = G.ARGS.LOC_COLOURS.Mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
+
+    local rank = SMODS.Ranks[pseudorandom_element(SMODS.Rank.obj_buffer, 'corpus_sigil')].card_key
+
+    for _, playing_card in ipairs(G.hand.cards) do
+        if not playing_card.getting_sliced then
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after', delay = 0.7,
+                func = function()
+                    SMODS.change_base(playing_card, nil, rank)
+                    playing_card:juice_up()
+                    card:juice_up(0.3, 0.5)
+                    return true
+                end
+            }))
+        end
+    end
+    delay(3)
+end
+
+Ortalab.Mythos_Utils.Corpus_Effects.ouija = function(card)
+    SMODS.calculate_effect({message = localize({set = 'Spectral', key = 'c_ouija', type = 'name_text'})..'?', colour = G.ARGS.LOC_COLOURS.Mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
+
+    local suit = pseudorandom_element(SMODS.Suits, 'corpus_ouija').key
+
+    for _, playing_card in ipairs(G.hand.cards) do
+        if not playing_card.getting_sliced then
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after', delay = 0.7,
+                func = function()
+                    SMODS.change_base(playing_card, suit)
+                    playing_card:juice_up()
+                    card:juice_up(0.3, 0.5)
+                    return true
+                end
+            }))
+        end
+    end
+    delay(3)
+end
+
+Ortalab.Mythos_Utils.Corpus_Effects.ectoplasm = function(card)
+    SMODS.calculate_effect({message = localize({set = 'Spectral', key = 'c_ectoplasm', type = 'name_text'})..'?', colour = G.ARGS.LOC_COLOURS.Mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
+    G.E_MANAGER:add_event(Event({
+        trigger = 'after', delay = 0.7,
+        func = function()                
+            local targets = SMODS.Edition:get_edition_cards(G.jokers, true)
+            local target = pseudorandom_element(next(targets) and targets or G.jokers.cards, 'corpus_ectoplasm')
+            target:set_edition('e_negative', true, false)
+            return true
+        end
+    }))
+    delay(3)
+end
+
+Ortalab.Mythos_Utils.Corpus_Effects.immolate = function(card)
+    SMODS.calculate_effect({message = localize({set = 'Spectral', key = 'c_immolate', type = 'name_text'})..'?', colour = G.ARGS.LOC_COLOURS.Mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
+    local removed = {}
+    for i=1, math.min(5, #G.hand.cards) do
+        local target, pos = pseudorandom_element(G.hand.cards, 'corpus_immolate')
+        while table.contains(removed, target) do
+            target = pseudorandom_element(G.hand.cards, 'corpus_immolate_re')
+        end
+        table.insert(removed, target)
+    end
+    SMODS.destroy_cards(removed)
+    ease_dollars(20)
+    delay(3)
+end
+
+Ortalab.Mythos_Utils.Corpus_Effects.ankh = function(card)
+    SMODS.calculate_effect({message = localize({set = 'Spectral', key = 'c_ankh', type = 'name_text'})..'?', colour = G.ARGS.LOC_COLOURS.Mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
+    local target = pseudorandom_element(G.jokers.cards, 'corpus_ankh')
+    local new_joker = copy_card(target)
+    G.E_MANAGER:add_event(Event({
+        trigger = 'after', delay = 0.7,
+        func = function()                
+            G.jokers:emplace(new_joker)
+            new_joker:start_materialize({G.C.SET.Mythos, darken(G.C.SET.Mythos, 0.5), G.C.RED, darken(G.C.SET.Mythos, 0.2), G.ARGS.LOC_COLOURS['mythos_alt']})
+            return true
+        end
+    }))
+    new_joker:add_to_deck()
+    delay(3)
+end
+
+Ortalab.Mythos_Utils.Corpus_Effects.deja_vu = function(card)
+    SMODS.calculate_effect({message = localize({set = 'Spectral', key = 'c_deja_vu', type = 'name_text'})..'?', colour = G.ARGS.LOC_COLOURS.Mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
+    local targets = {}
+    for _, card in ipairs(G.hand.cards) do
+        if not card.seal and not card.getting_sliced then table.insert(targets, card) end
+    end
+    local target = pseudorandom_element(targets or G.hand.cards, 'corpus_deja_vu')
+    G.E_MANAGER:add_event(Event({
+        trigger = 'after', delay = 0.7,
+        func = function()                
+            target:set_seal('Red', nil, true)
+            return true
+        end
+    }))
+    delay(3)
+end
+
+Ortalab.Mythos_Utils.Corpus_Effects.hex = function(card)
+    SMODS.calculate_effect({message = localize({set = 'Spectral', key = 'c_hex', type = 'name_text'})..'?', colour = G.ARGS.LOC_COLOURS.Mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
+    G.E_MANAGER:add_event(Event({
+        trigger = 'after', delay = 0.7,
+        func = function()                
+            local targets = SMODS.Edition:get_edition_cards(G.jokers, true)
+            local target = pseudorandom_element(next(targets) and targets or G.jokers.cards, 'corpus_hex')
+            target:set_edition('e_polychrome', true, false)
+            return true
+        end
+    }))
+    delay(3)
+end
+
+Ortalab.Mythos_Utils.Corpus_Effects.trance = function(card)
+    SMODS.calculate_effect({message = localize({set = 'Spectral', key = 'c_trance', type = 'name_text'})..'?', colour = G.ARGS.LOC_COLOURS.Mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
+    local targets = {}
+    for _, card in ipairs(G.hand.cards) do
+        if not card.seal and not card.getting_sliced then table.insert(targets, card) end
+    end
+    local target = pseudorandom_element(targets or G.hand.cards, 'corpus_trance')
+    G.E_MANAGER:add_event(Event({
+        trigger = 'after', delay = 0.7,
+        func = function()                
+            target:set_seal('ortalab_cyan', nil, true)
+            return true
+        end
+    }))
+    delay(3)
+end
+
+Ortalab.Mythos_Utils.Corpus_Effects.medium = function(card)
+    SMODS.calculate_effect({message = localize({set = 'Spectral', key = 'c_medium', type = 'name_text'})..'?', colour = G.ARGS.LOC_COLOURS.Mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
+    local targets = {}
+    for _, card in ipairs(G.hand.cards) do
+        if not card.seal and not card.getting_sliced then table.insert(targets, card) end
+    end
+    local target = pseudorandom_element(targets or G.hand.cards, 'corpus_medium')
+    G.E_MANAGER:add_event(Event({
+        trigger = 'after', delay = 0.7,
+        func = function()                
+            target:set_seal('ortalab_fuchsia', nil, true)
+            return true
+        end
+    }))
+    delay(3)
+end
+
+Ortalab.Mythos_Utils.Corpus_Effects.cryptid = function(card)
+    SMODS.calculate_effect({message = localize({set = 'Spectral', key = 'c_cryptid', type = 'name_text'})..'?', colour = G.ARGS.LOC_COLOURS.Mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
+    local target = pseudorandom_element(G.hand.cards, 'corpus_soul')
+    if target.getting_sliced then target = pseudorandom_element(G.hand.cards, 'corpus_soul_re') end
+    local copies = {}
+    for i=1, 2 do
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after', delay = 0.7,
+            func = function()                
+                local new_card = copy_card(target, nil, nil, G.playing_card)
+                new_card:add_to_deck()
+                G.deck.config.card_limit = G.deck.config.card_limit + 1
+                table.insert(G.playing_cards, new_card)
+                G.hand:emplace(new_card)
+                new_card:start_materialize({G.C.SET.Mythos, darken(G.C.SET.Mythos, 0.5), G.C.RED, darken(G.C.SET.Mythos, 0.2), G.ARGS.LOC_COLOURS['mythos_alt']})
+                card:juice_up(0.3, 0.5)
+                copies[i] = new_card
+                return true
+            end
+        }))
+    end
+    playing_card_joker_effects(copies)
+    delay(3)
+end
+
+Ortalab.Mythos_Utils.Corpus_Effects.soul = function(card)
+    SMODS.calculate_effect({message = localize({set = 'Spectral', key = 'c_soul', type = 'name_text'})..'?', colour = G.ARGS.LOC_COLOURS.Mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
+    G.E_MANAGER:add_event(Event({
+        trigger = 'after', delay = 0.7,
+        func = function()                
+            local card = SMODS.add_card({set = 'Joker', rarity = 4, legendary = true, no_edition = true})
+            card:start_materialize({G.C.SET.Mythos, darken(G.C.SET.Mythos, 0.5), G.C.RED, darken(G.C.SET.Mythos, 0.2), G.ARGS.LOC_COLOURS['mythos_alt']})
+            return true
+        end
+    }))
+    delay(3)
+end
+
+Ortalab.Mythos_Utils.Corpus_Effects.black_hole = function(card)
+    SMODS.calculate_effect({message = localize({set = 'Spectral', key = 'c_black_hole', type = 'name_text'})..'?', colour = G.ARGS.LOC_COLOURS.Mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
+    update_hand_text({sound = 'button', volume = 0.7, pitch = 0.8, delay = 0.3}, {handname=localize('k_all_hands'),chips = '...', mult = '...', level=''})
+        G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.2, func = function()
+            play_sound('tarot1')
+            card:juice_up(0.8, 0.5)
+            G.TAROT_INTERRUPT_PULSE = true
+            return true end }))
+        update_hand_text({delay = 0}, {mult = '+', StatusText = true})
+        G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.9, func = function()
+            play_sound('tarot1')
+            card:juice_up(0.8, 0.5)
+            return true end }))
+        update_hand_text({delay = 0}, {chips = '+', StatusText = true})
+        G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.9, func = function()
+            play_sound('tarot1')
+            card:juice_up(0.8, 0.5)
+            G.TAROT_INTERRUPT_PULSE = nil
+            return true end }))
+        update_hand_text({sound = 'button', volume = 0.7, pitch = 0.9, delay = 0}, {level='+1'})
+        delay(1.3)
+        for k, v in pairs(G.GAME.hands) do
+            level_up_hand(card, k, true)
+        end
+        update_hand_text({sound = 'button', volume = 0.7, pitch = 1.1, delay = 0}, {mult = 0, chips = 0, handname = '', level = ''})
+    delay(3)
+end
 
 -- Ophiuchus
 SMODS.Consumable({
