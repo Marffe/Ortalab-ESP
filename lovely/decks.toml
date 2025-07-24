@@ -134,3 +134,36 @@ G.GAME.blind:load(saveTable.BLIND)
 payload = '''
 G.GAME.selected_back:load(saveTable.BACK)
 '''
+
+# No reshuffle mid ante - Restored? Deck
+[[patches]]
+[patches.pattern]
+target = 'functions/state_events.lua'
+match_indent = true
+position = 'at'
+pattern = '''
+G.FUNCS.draw_from_hand_to_discard()
+'''
+payload = '''
+if G.GAME.round_resets.blind_states.Boss ~= 'Current' and G.GAME.ortalab.no_reshuffle then
+    G.FUNCS.draw_from_hand_to_deck()
+else
+    G.FUNCS.draw_from_hand_to_discard()
+end
+'''
+
+# No reshuffle mid ante - Restored? Deck
+[[patches]]
+[patches.pattern]
+target = 'functions/state_events.lua'
+match_indent = true
+position = 'at'
+pattern = '''
+G.FUNCS.draw_from_discard_to_deck()
+'''
+payload = '''
+if G.GAME.round_resets.blind_states.Boss ~= 'Current' and G.GAME.ortalab.no_reshuffle then
+else
+    G.FUNCS.draw_from_discard_to_deck()
+end
+'''
