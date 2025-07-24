@@ -271,11 +271,11 @@ SMODS.Enhancement({
     config = {extra = {discard_chance = 5, tag_chance = 15, discards = 1, tags = 1, chips = 100}},
     artist_credits = {'kosze'},
     loc_vars = function(self, info_queue, card)
-        local card_ability = card and card.ability or self.config
-        local a, b = SMODS.get_probability_vars(card, 1, card_ability.extra.discard_chance)
-        local c, d = SMODS.get_probability_vars(card, 1, card_ability.extra.tag_chance)
+        local a, b = SMODS.get_probability_vars(card, 1, card.ability.extra.discard_chance)
+        local c, d = SMODS.get_probability_vars(card, 1, card.ability.extra.tag_chance)
+        print(a,b,c,d)
         return {
-            vars = { a, b, card_ability.extra.discards, c, d, card_ability.extra.tags, card_ability.extra.chips }
+            vars = { a, b, card.ability.extra.discards, c, d, card.ability.extra.tags, card.ability.extra.chips }
         }
     end,
     calculate = function(self, card, context)
