@@ -81,7 +81,7 @@ SMODS.Seal({
 })
 
 SMODS.Seal({
-    key = 'fuchsia',
+    key = 'magenta',
     atlas = 'seals',
     pos = {x=1,y=0},
     config = {},
