@@ -2771,8 +2771,7 @@ return {
 				text = {
 					'Upgrade a {C:attention}random{} poker hand',
 					'by {C:attention}#1#{} if {C:attention}held{} in hand',
-					'at end of round',
-					'{C:inactive,s:0.8}(Must have room)'
+					'at end of round'
 				},
 			},
 			ortalab_magenta_seal = {

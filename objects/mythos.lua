@@ -1429,7 +1429,7 @@ Ortalab.Mythos_Utils.Corpus_Effects.medium = function(card)
     G.E_MANAGER:add_event(Event({
         trigger = 'after', delay = 0.7,
         func = function()                
-            target:set_seal('ortalab_fuchsia', nil, true)
+            target:set_seal('ortalab_magenta', nil, true)
             return true
         end
     }))
