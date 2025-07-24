@@ -1441,7 +1441,7 @@ return {
 				text = {
 					'{C:attention}Rankless{} cards count as',
 					'the card to their {C:attention}left',
-					'when making a {C:attention}poker hand'
+					'for making {C:attention}poker hands'
 				}
 			},
 			j_ortalab_storm_6 = {
