@@ -2431,14 +2431,12 @@ return {
 				}
 			},
 			['b_ortalab_restored'] = {
-				["name"] = "Restored? Deck",
+				["name"] = "Crumbling Deck",
 				["text"] = {
-					'Start with {C:attention}2{} copies of each card',
-					'{s:0.2} ',
-					'Your deck {C:red}only reshuffles{} at',
-					'the {C:attention}end{} of each Ante',
-					'{s:0.2} ',
-					'{C:zodiac}Zodiacs{} decay {C:attention}#1#{} times slower'
+					'Played and discarded',
+					'cards {C:red}only reshuffle{}',
+					'at the {C:attention}end{} of each Ante',
+					'{C:attention}+1{} Joker Slot',
 				} 
 			},
 		},
@@ -3029,7 +3027,7 @@ return {
 				}
 			},
 			['stake_ortalab_seven'] = {
-				["name"] = 'Dimaond Stake',
+				["name"] = 'Diamond Stake',
 				["text"] = {
 					'{C:attention}Ante 5{} has a {C:dark_edition}Finisher Blind',
 					"{s:0.8}Applies {C:Ortalab,s:0.8}Ruby Stake"
