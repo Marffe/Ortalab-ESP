@@ -113,6 +113,7 @@ return {
 			ortalab_kopi = 'Kopi\'d!',
 			ortalab_kopi_no = 'No target!',
 			ortalab_enabled = 'Enabled!',
+			ortalab_disabled = 'Disabled!',
 		},
 		['labels'] = {
 			ortalab_greyscale = 'Greyscale',
@@ -1563,26 +1564,9 @@ return {
 			j_ortalab_woo_all_1 = {
 				["name"] = "Woo! All 1s",
 				["text"] = {
-					{"All other {C:attention}listed{} {C:green,E:1,S:1.1}probabilities{}",
-					"are {C:attention}guaranteed",},
-					{'{C:green}#1#%{} chance to',
-					'be {C:attention}disabled{} when',
-					'selecting a {C:attention}Blind',
-					'until the next {C:attention}Blind',
-					'{C:inactive,s:0.7}{Unaffected by probability changes}'}
-				}
-			},
-			j_ortalab_woo_all_1_disabled = {
-				["name"] = "Woo! All 1s",
-				["text"] = {
-					{"{C:Ortalab}DISABLED",
-					"{C:inactive,s:0.8}All other listed probabilities",
-					"{C:inactive,s:0.8}are guaranteed",},
-					{'{C:green}#1#%{} chance to',
-					'be {C:attention}disabled{} when',
-					'selecting a {C:attention}Blind',
-					'until the next {C:attention}Blind',
-					'{C:inactive,s:0.7}{Unaffected by probability changes}'}
+					"When {C:attention}Boss Blind{} is selected,",
+					"all {C:attention}listed {C:green,E:1,S:1.1}probabilities{} succeed",
+					"until another {C:attention}Blind{} is selected"
 				}
 			},
 			j_ortalab_yellow = {
