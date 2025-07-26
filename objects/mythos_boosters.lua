@@ -11,9 +11,6 @@ local small_boosters = {keys = {'small_mythos_1', 'small_mythos_2'}, info = {
     atlas = 'mythos_booster',
     config = {choose = 1, extra = 2},
     artist_credits = {'kosze'},
-    loc_vars = function(self, info_queue, card)
-        return {vars = {card and card.ability.choose or self.config.choose, (card and card.ability.extra or self.config.extra)}}
-    end,
     ease_background_colour = function(self)
         ease_colour(G.C.DYN_UI.MAIN, G.C.SET.Mythos)
         ease_background_colour{new_colour = mix_colours(G.C.RED,darken(G.C.SET.Mythos,0.5),0.3), special_colour = darken(G.ARGS.LOC_COLOURS['mythos_alt'],0.2), contrast = 2}
@@ -61,9 +58,6 @@ SMODS.Booster({
     pos = {x = 2, y = 0},
     config = {choose = 1, extra = 4},
     artist_credits = {'kosze'},
-    loc_vars = function(self, info_queue, card)
-        return {vars = {card and card.ability.choose or self.config.choose, (card and card.ability.extra or self.config.extra)}}
-    end,
     ease_background_colour = function(self)
         ease_colour(G.C.DYN_UI.MAIN, G.C.SET.Mythos)
         ease_background_colour{new_colour = mix_colours(G.C.RED,darken(G.C.SET.Mythos,0.5),0.3), special_colour = darken(G.ARGS.LOC_COLOURS['mythos_alt'],0.2), contrast = 2}
@@ -100,9 +94,6 @@ SMODS.Booster({
     pos = {x = 3, y = 0},
     config = {choose = 2, extra = 4},
     artist_credits = {'kosze'},
-    loc_vars = function(self, info_queue, card)
-        return {vars = {card and card.ability.choose or self.config.choose, (card and card.ability.extra or self.config.extra)}}
-    end,
     ease_background_colour = function(self)
         ease_colour(G.C.DYN_UI.MAIN, G.C.SET.Mythos)
         ease_background_colour{new_colour = mix_colours(G.C.RED,darken(G.C.SET.Mythos,0.5),0.3), special_colour = darken(G.ARGS.LOC_COLOURS['mythos_alt'],0.2), contrast = 2}

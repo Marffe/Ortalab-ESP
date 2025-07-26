@@ -644,11 +644,6 @@ SMODS.Voucher({
 
 local CardOpen_ref = Card.open
 function Card.open(self)
-	if G.GAME.ortalab.vouchers.booster_pack_bonus then
-		if self.ability.set == "Booster" then
-			self.ability.extra = self.ability.extra + G.GAME.ortalab.vouchers.booster_pack_bonus
-		end
-	end
     local free_pack = SMODS.find_card('v_ortalab_anti_inv')
     if next(free_pack) and free_pack[1].ability.extra.active and self.cost > 0 then
         free_pack[1].ability.extra.active = false

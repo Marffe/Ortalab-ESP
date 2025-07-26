@@ -11,9 +11,6 @@ local small_boosters = {keys = {'small_loteria_1', 'small_loteria_2', 'small_lot
     atlas = 'loteria_booster',
     config = {choose = 1, extra = 3},
     artist_credits = {'kosze'},
-    loc_vars = function(self, info_queue, card)
-        return {vars = {(card and card.ability.choose or self.config.choose) + (G.GAME and G.GAME.ortalab.vouchers.cantor), card and card.ability.extra or self.config.extra}}
-    end,
     create_card = function(self, card)
         return create_card("Loteria", G.pack_cards, nil, nil, true,  true, nil, "lotpack")
     end,
@@ -57,9 +54,6 @@ local mid_boosters = {keys = {'mid_loteria_1', 'mid_loteria_2'}, info = {
     atlas = 'loteria_booster',
     config = {choose = 1, extra = 5},
     artist_credits = {'kosze'},
-    loc_vars = function(self, info_queue, card)
-        return {vars = {(card and card.ability.choose or self.config.choose) + (G.GAME and G.GAME.ortalab.vouchers.cantor), card and card.ability.extra or self.config.extra}}
-    end,
     create_card = function(self, card)
         return create_card("Loteria", G.pack_cards, nil, nil, true,  true, nil, "lotpack")
     end,
@@ -103,9 +97,6 @@ local large_boosters = {keys = {'big_loteria_1', 'big_loteria_2'}, info = {
     atlas = 'loteria_booster',
     config = {choose = 2, extra = 5},
     artist_credits = {'kosze'},
-    loc_vars = function(self, info_queue, card)
-        return {vars = {(card and card.ability.choose or self.config.choose) + (G.GAME and G.GAME.ortalab.vouchers.cantor), card and card.ability.extra or self.config.extra}}
-    end,
     create_card = function(self, card)
         return create_card("Loteria", G.pack_cards, nil, nil, true,  true, nil, "lotpack")
     end,

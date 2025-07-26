@@ -664,3 +664,51 @@ pattern = '''
 payload = '''
 base_numerator = base_numerator + 1
 '''
+
+# Blank Inverse +1 card in boosters
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+match_indent = true
+position = 'after'
+pattern = '''
+local _size = self.ability.extra
+'''
+payload = '''
+if G.GAME.ortalab.vouchers.booster_pack_bonus then _size = _size + G.GAME.ortalab.vouchers.booster_pack_bonus end
+'''
+# pt2
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/game_object.lua"]'
+match_indent = true
+position = 'after'
+pattern = '''
+local _size = SMODS.OPENED_BOOSTER.ability.extra
+'''
+payload = '''
+if G.GAME.ortalab.vouchers.booster_pack_bonus then _size = _size + G.GAME.ortalab.vouchers.booster_pack_bonus end
+'''
+# Blank Inverse automatic loc vars adjustment
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/game_object.lua"]'
+match_indent = true
+position = 'at'
+pattern = '''
+return { vars = {card.ability.choose, card.ability.extra} }
+'''
+payload = '''
+return { vars = {card.ability.choose, card.ability.extra + G.GAME.ortalab.vouchers.booster_pack_bonus} }
+'''
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/game_object.lua"]'
+match_indent = true
+position = 'at'
+pattern = '''
+vars = { cfg.choose, cfg.extra },
+'''
+payload = '''
+vars = { cfg.choose, cfg.extra + G.GAME.ortalab.vouchers.booster_pack_bonus},
+'''
