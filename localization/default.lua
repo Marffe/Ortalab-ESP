@@ -1060,9 +1060,9 @@ return {
 			j_ortalab_peasant = {
 				name = 'Peasant',
 				text = {
-					"Adds {C:red}#1#{} minus the rank", 
-					"of each card held",
-					"in hand to {C:red}Mult",
+					"Each card {C:attention}held in hand",
+					"adds {C:red}#1#{} minus the rank", 
+					"of the card to {C:red}Mult{}",
 				}
 			},
 			['j_ortalab_pickaxe'] = {
