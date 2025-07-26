@@ -9,55 +9,22 @@ SMODS.Joker({
 	blueprint_compat = true,
 	eternal_compat = true,
 	perishable_compat = true,
-	config = {extra = {chips = 15}},
+	config = {extra = {xmult = 1, gain = 0.4}},
     artist_credits = {'gappie'},
     loc_vars = function(self, info_queue, card)
-        return {vars = {card.ability.extra.chips}}
+        return {vars = {card.ability.extra.gain}}
     end,
 	calculate = function (self, card, context)
-        if context.individual and context.cardarea == G.play and context.other_card:is_numbered() then
+        if context.individual and context.cardarea == G.play and context.other_card == context.scoring_hand[#context.scoring_hand] then
             local prior_ranks = {}
-            local chip_mod = 0
             for i=1, #context.scoring_hand do
-                if context.scoring_hand[i] == context.other_card then
-                    chip_mod = table.size(prior_ranks)
-                elseif context.scoring_hand[i].base.id ~= context.other_card.base.id then
+                if context.scoring_hand[i].base.id ~= context.other_card.base.id then
                     prior_ranks[context.scoring_hand[i].base.id] = true
                 end
             end
-            if chip_mod > 0 then
-                return {
-                    chips = card.ability.extra.chips * chip_mod,
-                    card = card
-                }
-            end
+            return {
+                xmult = card.ability.extra.xmult + (card.ability.extra.gain * table.size(prior_ranks))
+            }
         end
     end
 })
-
---[[
-    config = {extra = {Xmult = 1.4}},
-    artist_credits = {'none'},
-    loc_vars = function(self, info_queue, card)
-        return {vars = {card.ability.extra.Xmult}}
-    end,
-	calculate = function (self, card, context)
-        if context.individual and context.cardarea == G.play then
-            local prior_ranks = {}
-            local xMult_mod = 0
-            for i=1, #context.scoring_hand do
-                if context.scoring_hand[i] == context.other_card then
-                    xMult_mod = table.size(prior_ranks)
-                elseif context.scoring_hand[i].base.id ~= context.other_card.base.id then
-                    prior_ranks[context.scoring_hand[i].base.id] = true
-                end
-            end
-            if context.individual and context.cardarea == G.play then
-                return {
-                    Xmult = card.ability.extra.Xmult * xMult_mod,
-                    card = card
-                }
-            end
-        end
-    end
-})]]

@@ -1518,15 +1518,11 @@ return {
 			['j_ortalab_vinyl'] = {
 				["name"] = "Vinyl",
 				["text"] = {
-					'{C:attention}Numbered{} cards give {C:chips}+#1#{} Chips',
-					'for every {C:attention}different rank{}',
+					'{C:attention}Last{} played card used in',
+					'scoring gives {X:mult,C:white}X#1#{} Mult',
+					'for each different rank',
 					'already scored'
 				}
-				--[[text = {
-					'The last played card gives',
-					'{X:mult,C:white}X#1#{} Mult for each different',
-					'rank already scored'
-				}]]
 			},
 			['j_ortalab_virus'] = {
 				["name"] = "Virus",
