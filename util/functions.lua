@@ -75,7 +75,8 @@ function Game:init_game_object()
             tabla = 0,
             leap_year = nil,
             tags_in_shop = 0,
-            mythos_shop_slot = false
+            mythos_shop_slot = false,
+            booster_pack_bonus = 0
         },
         zodiacs = {
             reduction = 4,
