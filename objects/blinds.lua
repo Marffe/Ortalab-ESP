@@ -953,20 +953,12 @@ SMODS.Blind({
     boss_colour = HEX('22857b'),
     artist_credits = {'flare'},
     set_blind = function(self)
-        -- Count ranks
-        local ranks = {}
-        for _, pcard in ipairs(G.playing_cards) do
-            ranks[pcard.base.value] = (ranks[pcard.base.value] or 0) + 1
-        end
         -- Find most abundant
-        local max_amount = 0
+        local max_amount = G.GAME.ortalab.ranks_in_deck[1].count
         local ranks_to_debuff = {}
-        for rank, amount in pairs(ranks) do
-            if amount > max_amount then
-                ranks_to_debuff = {rank}
-                max_amount = amount
-            elseif amount == max_amount then
-                ranks_to_debuff[#ranks_to_debuff+1] = rank
+        for _, rank in ipairs(G.GAME.ortalab.ranks_in_deck) do
+            if rank.count == max_amount then
+                ranks_to_debuff[#ranks_to_debuff+1] = rank.rank
             end
         end
         -- Sort table in rank order (highest to lowest)
@@ -1069,15 +1061,13 @@ SMODS.Blind({
     config = {extra = {chance = 2}},
     artist_credits = {'flare'},
     loc_vars = function(self, info_queue, card)
-        local suits = Ortalab.count_suits()
-        return {vars = {localize(suits[#suits].suit, 'suits_plural'), colours = {G.C.SUITS[suits[#suits].suit]}}}
+        return {vars = {localize(G.GAME.ortalab.suits_in_deck[#G.GAME.ortalab.suits_in_deck].suit, 'suits_plural'), colours = {G.C.SUITS[G.GAME.ortalab.suits_in_deck[#G.GAME.ortalab.suits_in_deck].suit]}}}
     end,
     collection_loc_vars = function(self)
         return {vars = {localize('ortalab_saffron'), colours = {G.ARGS.LOC_COLOURS.attention}}}
     end,
     set_blind = function(self)
-        local suits = Ortalab.count_suits()
-        self.config.extra.suit = suits[#suits].suit
+        self.config.extra.suit = G.GAME.ortalab.suits_in_deck[#G.GAME.ortalab.suits_in_deck].suit
     end,
     debuff_hand = function(self, cards, hands, handname, check)
         for _, card in pairs(hands[handname][1]) do
@@ -1086,20 +1076,6 @@ SMODS.Blind({
         return true
     end,
 })
-
-function Ortalab.count_suits()
-    -- Count suits
-    local suits = {}
-    for _, pcard in ipairs(G.playing_cards) do
-        suits[pcard.base.suit] = (suits[pcard.base.suit] or 0) + 1
-    end
-    local suits_by_count = {}
-    for suit, count in pairs(suits) do
-        table.insert(suits_by_count, {suit = suit, count = count})
-    end
-    table.sort(suits_by_count, function(a, b) return a.count > b.count end)
-    return suits_by_count
-end
 
 SMODS.Blind({
     key = 'rouge_rose',

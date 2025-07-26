@@ -39,6 +39,36 @@ function Ortalab.suit_from_deck(seed)
 	return pseudorandom_element(ranks, pseudoseed(seed))
 end
 
+-- Counts the ranks in the deck and returns an ordered table
+function Ortalab.count_ranks()
+    -- Count suits
+    local ranks = {}
+    for _, pcard in ipairs(G.playing_cards) do
+        ranks[pcard.base.value] = (ranks[pcard.base.value] or 0) + 1
+    end
+    local ranks_by_count = {}
+    for rank, count in pairs(ranks) do
+        table.insert(ranks_by_count, {rank = rank, count = count})
+    end
+    table.sort(ranks_by_count, function(a, b) return a.count > b.count end)
+    return ranks_by_count
+end
+
+-- Counts the suits in the deck and returns an ordered table
+function Ortalab.count_suits()
+    -- Count suits
+    local suits = {}
+    for _, pcard in ipairs(G.playing_cards) do
+        suits[pcard.base.suit] = (suits[pcard.base.suit] or 0) + 1
+    end
+    local suits_by_count = {}
+    for suit, count in pairs(suits) do
+        table.insert(suits_by_count, {suit = suit, count = count})
+    end
+    table.sort(suits_by_count, function(a, b) return a.count > b.count end)
+    return suits_by_count
+end
+
 -- Count the number of cursed cards currently in the deck
 function Ortalab.curses_in_deck()
     local count = 0
@@ -67,6 +97,8 @@ function Game:init_game_object()
         extra_discard_size = 0,
         blind_rewards = 0,
         alt_boss = nil,
+        ranks_in_deck = nil,
+        suits_in_deck = nil,
         vouchers = {
             reroll_on_skip = false,
             double_boss = false,
@@ -150,6 +182,12 @@ function Ortalab.reset_game_globals(first_pass)
             SMODS.destroy_cards(joker)
             G.jokers.config.card_limit = G.jokers.config.card_limit - 1
         end
+    end
+    -- set most played rank and suit
+    if G.GAME.blind.boss then
+        print('boss')
+        G.GAME.ortalab.suits_in_deck = Ortalab.count_suits()
+        G.GAME.ortalab.ranks_in_deck = Ortalab.count_ranks()
     end
 end
 

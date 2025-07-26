@@ -3237,7 +3237,7 @@ return {
 				name = 'Celadon Clubs',
 				text = {
 					'Debuff the most',
-					'common rank in',
+					'common ranks in',
 					'your deck'
 				}
 			},
