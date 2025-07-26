@@ -3418,7 +3418,7 @@ return {
 				name = 'Jackalope',
 				text = {
 					'Permanently gain {C:red}+#1#{} Discard',
-					'{C:attention}or {C:attention}+#1#{} hand size'
+					'{C:blue}or {C:attention}+#1#{} hand size'
 				},
 			},
 			c_ortalab_ya_te_veo = {
