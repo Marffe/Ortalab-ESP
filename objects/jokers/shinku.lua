@@ -19,50 +19,44 @@ SMODS.Joker({
         if context.end_of_round and context.main_eval and context.beat_boss then
             self.remove_shinku_jokers(card)
             delay(0.7)
-            return self.add_shinku_jokers(card) 
+            self.add_shinku_jokers(card)
         end
     end,
     add_to_deck = function(self, card, from_debuff)
-        self.add_shinku_jokers(card).func()
+        self.add_shinku_jokers(card)
     end,
     remove_from_deck = function(self, card, from_debuff)
         self.remove_shinku_jokers(card)
     end,
     add_shinku_jokers = function(card)
-        local new_joker_pool = get_current_pool('Joker')
-        local final_pool = {}
-        for _, v in ipairs(new_joker_pool) do
-            if v ~= 'UNAVAILABLE' and ((G.P_CENTERS[v].mod and G.P_CENTERS[v].mod.id == 'ortalab') or table.contains(Ortalab.ortalab_only_inclusion, v)) and G.P_CENTERS[v].perishable_compat then
-                table.insert(final_pool, v)
-            end
-        end
-        return {
-            func = function()
-                for i=1, card.ability.extra.cards_to_create do
-                    G.E_MANAGER:add_event(Event({
-                        trigger = 'after',
-                        delay = 0.4,
-                        func = function() 
-                        local new_joker = create_card('Joker', G.jokers, nil, nil, nil, nil, pseudorandom_element(final_pool, pseudoseed('shinku_spawn')))
-                        new_joker:set_edition(nil, true, true)
-                        new_joker:add_to_deck()
-                        G.jokers:emplace(new_joker)
-                        new_joker:start_materialize()
-                        new_joker.ability.shinku = card.ID
-                        new_joker.ignore_base_shader = {shinku = true}
-                        new_joker.ignore_shadow = {shinku = true}
-                        new_joker:set_cost()
-                        G.jokers.config.card_limit = G.jokers.config.card_limit + 1
-                        return true
-                    end}))  
-                end 
-            end
-        }
+        for i=1, card.ability.extra.cards_to_create do
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                delay = 0.4,
+                func = function() 
+                    local pool = get_current_pool('Joker')
+                    local selected = pseudorandom_element(pool, 'shinku_spawn')
+                    while selected == 'UNAVAILABLE' do
+                        selected = pseudorandom_element(pool, 'shinku_spawn_re')
+                    end
+                local new_joker = create_card('Joker', G.jokers, nil, nil, nil, nil, selected)
+                new_joker:set_edition(nil, true, true)
+                new_joker:add_to_deck()
+                G.jokers:emplace(new_joker)
+                new_joker:start_materialize()
+                new_joker.ability.shinku = card.sort_id
+                new_joker.ignore_base_shader = {shinku = true}
+                new_joker.ignore_shadow = {shinku = true}
+                new_joker:set_cost()
+                G.jokers.config.card_limit = G.jokers.config.card_limit + 1
+                return true
+            end}))  
+        end 
     end,
     remove_shinku_jokers = function(card)
         local old_shinku_jokers = {}
         for _, joker in pairs(G.jokers.cards) do
-            if joker.ability.shinku == card.ID then
+            if joker.ability.shinku == card.sort_id then
                 table.insert(old_shinku_jokers, joker)
             end
         end
