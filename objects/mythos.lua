@@ -764,20 +764,13 @@ SMODS.Consumable({
     cost = 5,
     pos = {x=2, y=2},
     discovered = false,
-    config = {extra = {select = 4, curse = 'ortalab_possessed', method = 'c_ortalab_mult_random_deck', mod = 1, inc = 2}},
+    config = {extra = {select = 4, curse = 'ortalab_possessed', method = 'c_ortalab_mult_random', mod = 1, inc = 2}},
     artist_credits = {'kosze'},
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = {set = 'Curse', key = card.ability.extra.curse}
         return {vars = {card.ability.extra.mod}}
     end,
     can_use = function(self, card)
-        local uncursed_cards = 0
-        for _, card in pairs(G.hand.cards) do
-            if not card.curse then uncursed_cards = uncursed_cards + 1 end
-        end
-        if uncursed_cards >= math.min(G.hand.config.card_limit, card.ability.extra.select * G.GAME.ortalab.mythos.jackalope_count + G.GAME.ortalab.mythos.extra_select) then
-            return true
-        end
         return Ortalab.Mythos_Utils.can_curse_in_area(G.hand.cards, card.ability.extra.select, G.GAME.ortalab.mythos.jackalope_count)
     end,
     use = function(self, card, area, copier)
