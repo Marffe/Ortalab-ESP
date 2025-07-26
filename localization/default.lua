@@ -274,9 +274,10 @@ return {
 			['j_ortalab_televangelist'] = {
 				["name"] = "Televangelist",
 				["text"] = {
-					"Gains {X:mult,C:white}X#1#{} Mult when",
-					"a {C:loteria}Loteria Card{} is used",
-					"{C:inactive,s:0.9}(Currently {C:white,X:mult,s:0.9}X#2#{C:inactive,s:0.9})"
+					"{C:green}#1# in #2#{} chance for",
+					"{C:loteria}Loteria Cards{} to be",
+					"kept when used",
+					"{C:inactive,s:0.8}(Each card can only be kept once)"
 				}
 			},
 			
@@ -427,10 +428,11 @@ return {
 			['j_ortalab_black_cat'] = {
 				["name"] = "Black Cat",
 				["text"] = {
-					"{C:green}#1# in #2#{} chance for",
-					"{C:loteria}Loteria Cards{} to be",
-					"kept when used",
-					"{C:inactive,s:0.8}(Each card can only be kept once)"
+					"This joker gains {C:white,X:red}#1#X{} Mult",
+					"each time a {C:attention}played card",
+					"scores over {C:blue}#3# Chips",
+					"or a {C:attention}Tag{} is collected",
+					"{C:inactive,s:0.8}(Currently {C:white,X:red,s:0.8}#2#X{C:inactive,s:0.8} Mult)"
 				}
 			},
 			['j_ortalab_black_friday'] = {
@@ -1148,8 +1150,7 @@ return {
 				name = 'Prolétaire',
 				text = {
 					'Gains {C:white,X:red}X#1#{} Mult for',
-					'each played card that is',
-					'{C:attention}debuffed{} or {C:attention}face down',
+					'each {C:mythos}cursed{C:attention} Joker',
 					'{C:inactive}(Currently {X:red,C:white}X#2#{C:inactive} Mult)'
 				}
 			},

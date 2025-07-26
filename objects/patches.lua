@@ -361,6 +361,7 @@ SMODS.Tag({
                 end
                 return true
             end)
+            tag.triggered = true
         end
     end
 })
@@ -378,6 +379,7 @@ SMODS.Tag({
     end,
     apply = function(self, tag, context)
         if context.type == self.config.type then
+            tag.triggered = true
             tag:yep('+', G.C.GREEN,function()
                 for i=1, tag.config.packs do
                     local pack = Card(G.shop_booster.T.x + G.shop_booster.T.w/2,
@@ -430,9 +432,9 @@ SMODS.Tag({
     apply = function(self, tag, context)
         if context.type == self.config.type then
             tag:yep('+', G.C.GREEN,function()
-                tag.triggered = true
                 return true
             end)
+            tag.triggered = true
             local key = tag.ability.zodiac_hands[1]
             G.E_MANAGER:add_event(Event({
                     trigger = 'after',
@@ -538,6 +540,7 @@ SMODS.Tag({
                 end
                 return true
             end)
+            tag.triggered = true
             return true
         end
         
@@ -601,6 +604,7 @@ SMODS.Tag({
                 end
                 return true
             end)
+            tag.triggered = true
         end 
     end
 })
@@ -675,6 +679,7 @@ SMODS.Tag({
                 }))
                 return true
             end)
+            tag.triggered = true
             return true
         end 
     end
@@ -714,6 +719,7 @@ SMODS.Tag({
                 end
                 return true
             end)
+            tag.triggered = true
             return true
         end 
     end
@@ -747,6 +753,7 @@ SMODS.Tag({
                 end
                 return true
             end)
+            tag.triggered = true
             return true
         end 
     end
@@ -826,6 +833,7 @@ SMODS.Tag({
                 }))
                 return true
             end)
+            tag.triggered = true
             return true
         end 
     end
@@ -939,6 +947,7 @@ SMODS.Tag({
                 end
                 return true
             end)
+            tag.triggered = true
         end 
     end
 })

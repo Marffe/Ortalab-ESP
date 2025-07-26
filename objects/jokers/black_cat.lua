@@ -9,9 +9,25 @@ SMODS.Joker({
 	blueprint_compat = true,
 	eternal_compat = true,
 	perishable_compat = true,
-	config = {extra = {chance = 4}},
+	config = {extra = {xmult = 1, gain = 0.2, chips = 100}},
 	artist_credits = {'kosze'},
 	loc_vars = function(self, info_queue, card)
-		return {vars = {SMODS.get_probability_vars(card, 1, card.ability.extra.chance)}}
+		return {vars = {card.ability.extra.gain, card.ability.extra.xmult, card.ability.extra.chips}}
+	end,
+	calculate = function(self, card, context)
+		if context.joker_main then
+			return {
+				xmult = card.ability.extra.xmult
+			}
+		end
+		if (context.tag_added and not context.tag_added.from_recycled) or ((context.ortalab_black_cat_scale or 0) >= card.ability.extra.chips) or (context.individual and context.other_card.recycled_tag) then
+			card.ability.extra.xmult = card.ability.extra.xmult + card.ability.extra.gain
+			return {
+				message = localize('k_upgrade_ex'),
+				colour = G.C.RED,
+				message_card = card,
+				juice_card = context.other_card
+			}
+		end
 	end
 })

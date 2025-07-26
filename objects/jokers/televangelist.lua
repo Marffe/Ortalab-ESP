@@ -9,10 +9,10 @@ SMODS.Joker({
 	blueprint_compat = true,
 	eternal_compat = true,
 	perishable_compat = false,
-	config = {extra = {xmult = 1.0, gain = 0.1}},
+	config = {extra = {chance = 4}},
 	artist_credits = {'gappie'},
 	loc_vars = function(self, info_queue, card)
-		return {vars = {card.ability.extra.gain, card.ability.extra.xmult}}
+		return {vars = {SMODS.get_probability_vars(card, 1, card.ability.extra.chance)}}
 	end,
 	calculate = function(self, card, context)
 		if context.using_consumeable and context.consumeable.ability.set == 'Loteria' and not context.blueprint then

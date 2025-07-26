@@ -34,9 +34,11 @@ SMODS.Joker({
                         new_card.ability.temporary = localize({set = 'Joker', key = self.key, type = 'name_text'})
                     end
                     card:juice_up()
+                    save_run()
                     return true
                 end
             }))
+            
             return nil, true            
         end
         if context.end_of_round and context.main_eval then
