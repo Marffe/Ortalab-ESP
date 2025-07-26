@@ -2314,9 +2314,9 @@ return {
 				["name"] = "Shady Deck",
 				["text"] = {
 					"Start with an {C:attention}Eternal{},",
-					"{C:dark_edition,T:e_ortalab_greyscale}Greyscale {C:attention,T:j_ortalab_black_friday}#1#{} and {C:red}$#2#",
+					"{C:dark_edition,T:e_ortalab_greyscale}Greyscale {C:attention,T:j_ortalab_black_friday}#1#{}",
 					'{s:0.2} ',
-					"{C:attention}+#3#{} Joker slot"
+					" and a {C:red,T:tag_coupon}#2#{}"
 				}
 			},
 			['b_ortalab_neon'] = {
@@ -2345,10 +2345,9 @@ return {
 					"{C:white,X:red}X#1#{} Mult",
 					'{s:0.2} ',
 					'Gains {X:red,C:white}X#2#{} Mult when one of',
-					'{C:attention}#4#{C:loteria} Loteria Cards{} are used',
+					'{C:attention}#3#{C:loteria} Loteria Cards{} are used',
 					'{C:inactive}(Cards change after each ante)',
 					'{s:0.2} ',
-					"{C:red}X#3#{} base Blind size",
 				}
 			},
 			b_ortalab_experimental_tooltip = {
@@ -2402,9 +2401,9 @@ return {
 			['b_ortalab_membership'] = {
 				["name"] = "Membership Deck",
 				["text"] = {
-					"Start the run with the", 
-					'{C:attention,T:v_ortalab_home_delivery}#1#{}, {C:attention,T:v_ortalab_catalog}#2#',
-					'and {C:attention,T:v_ortalab_window_shopping}#3#{}',
+					"Start the run", 
+					'with the {C:attention,T:v_ortalab_catalog}#1#',
+					'and {C:attention,T:v_ortalab_window_shopping}#2#{}',
 					'vouchers'
 				}
 			},
