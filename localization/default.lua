@@ -600,10 +600,9 @@ return {
 			j_ortalab_driver = {
 				name = 'Driver',
 				text = {
-					'Gain {C:red}+#1#{} Mult if',
-					'played hand only contains',
-					'multiple cards of the {C:attention}same rank',
-					'{C:inactive}(Currently {C:red}+#2#{C:inactive} Mult)'
+					'{C:attention}Numbered{} cards give {C:chips}+#1#{} Chips',
+					'for every {C:attention}different rank{}',
+					'already scored'
 				}
 			},
 			j_ortalab_dropout = {

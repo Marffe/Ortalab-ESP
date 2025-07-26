@@ -9,28 +9,28 @@ SMODS.Joker({
     blueprint_compat = true,
     eternal_compat = true,
     perishable_compat = false,
-    config = {extra = {gain = 1, mult = 0}},
-    artist_credits = {'no_demo'},
+    config = {extra = {chips = 15}},
+    artist_credits = {'gappie'},
     loc_vars = function(self, info_queue, card)
-        return {vars = {card.ability.extra.gain, card.ability.extra.mult}}
+        return {vars = {card.ability.extra.chips}}
     end,
-    calculate = function(self, card, context)
-        if context.before and #context.full_hand > 1 then
-            local rank = context.full_hand[1]:get_id()
-            for i=2, #context.full_hand do
-                if rank ~= context.full_hand[i]:get_id() then
-                    return
+	calculate = function (self, card, context)
+        if context.individual and context.cardarea == G.play and context.other_card:is_numbered() then
+            local prior_ranks = {}
+            local chip_mod = 0
+            for i=1, #context.scoring_hand do
+                if context.scoring_hand[i] == context.other_card then
+                    chip_mod = table.size(prior_ranks)
+                elseif context.scoring_hand[i].base.id ~= context.other_card.base.id then
+                    prior_ranks[context.scoring_hand[i].base.id] = true
                 end
             end
-            card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.gain
-            return {
-                message = localize('k_upgrade_ex')
-            }
+            if chip_mod > 0 then
+                return {
+                    chips = card.ability.extra.chips * chip_mod,
+                    card = card
+                }
+            end
         end
-        if context.joker_main then
-            return {
-                mult = card.ability.extra.mult
-            }
-        end
-    end    
+    end  
 })
