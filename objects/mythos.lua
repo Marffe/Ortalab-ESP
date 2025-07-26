@@ -340,7 +340,6 @@ SMODS.Consumable({
             func = function()
                 for _, copy in ipairs(copies) do
                     draw_card(G.play, G.deck, nil, nil, nil, copy)
-                    print('pla')
                 end
                 return true
             end

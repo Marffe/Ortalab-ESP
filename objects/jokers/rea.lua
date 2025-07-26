@@ -39,7 +39,6 @@ SMODS.Joker({
             for _, t in pairs(modifiers) do
                 card.ability.extra.modifier_count = card.ability.extra.modifier_count + table.size(t)
             end
-            print(card.ability.extra.modifier_count)
         end
         if context.individual and context.cardarea == G.play then
             return {
