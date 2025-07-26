@@ -2316,7 +2316,7 @@ return {
 					"Start with an {C:attention}Eternal{},",
 					"{C:dark_edition,T:e_ortalab_greyscale}Greyscale {C:attention,T:j_ortalab_black_friday}#1#{}",
 					'{s:0.2} ',
-					" and a {C:red,T:tag_coupon}#2#{}"
+					" and a {C:red,T:tag_ortalab_stock}#2#{}"
 				}
 			},
 			['b_ortalab_neon'] = {
@@ -2373,8 +2373,8 @@ return {
 					'{C:Mythos,E:1}Mythos Cards{} curse',
 					'{C:attention}#1#{} fewer cards',
 					'{s:0.2} ',
-					'Start with the {C:attention,T:v_ortalab_fates_coin}#2#{}',
-					'voucher'
+					'Start with the',
+					' {C:attention,T:v_ortalab_fates_coin}#2#{} voucher'
 				}
 			},
 			['b_ortalab_royal'] = {
@@ -2383,8 +2383,8 @@ return {
 					"Start with only", 
 					"{C:attention}Face Cards{} in your deck",
 					'{s:0.2} ',
-					"{s:0.9}At the end of each",
-					"{s:0.9}round, add a {C:attention,s:0.9}random",
+					"{s:0.9}At end of {s:0.9}round,",
+					"add a {C:attention,s:0.9}random",
 					"{s:0.9,C:attention}Face Card{s:0.9} to your deck"
 				}
 			},

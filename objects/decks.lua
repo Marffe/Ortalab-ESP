@@ -33,13 +33,13 @@ SMODS.Back({
     key = "shady", 
     atlas = "decks",
     pos = {x = 2, y = 0}, 
-    config = {joker = 'j_ortalab_black_friday', tag = 'tag_coupon'}, 
+    config = {joker = 'j_ortalab_black_friday', tag = 'tag_ortalab_stock'}, 
     apply = function(self)
         G.E_MANAGER:add_event(Event({
             func = function()
                 SMODS.add_card({key = self.config.joker, stickers = {'eternal'}, edition = 'e_ortalab_greyscale'})
-                local coup_tag = Tag(self.config.tag, false, 'Small')
-                add_tag(coup_tag)
+                local stock_tag = Tag(self.config.tag, false, 'Small')
+                add_tag(stock_tag)
                 play_sound('generic1', 0.9 + math.random()*0.1, 0.8)
                 play_sound('holo1', 1.2 + math.random()*0.1, 0.4)
                 return true
