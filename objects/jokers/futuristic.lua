@@ -9,7 +9,7 @@ SMODS.Joker({
 	blueprint_compat = true,
 	eternal_compat = true,
 	perishable_compat = true,
-	config = {extra = {xmult = 1.5}},
+	config = {extra = {xmult = 1.4}},
     artist_credits = {'kosze'},
 	loc_vars = function(self, info_queue, card)
 		return {vars = {card.ability.extra.xmult, card.ability.extra.rank and localize(card.ability.extra.rank, 'ranks') or localize('ortalab_rank'), localize('Straight', 'poker_hands')}}

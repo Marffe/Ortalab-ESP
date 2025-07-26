@@ -428,8 +428,8 @@ return {
 			['j_ortalab_black_cat'] = {
 				["name"] = "Black Cat",
 				["text"] = {
-					"This joker gains {C:white,X:red}#1#X{} Mult",
-					"each time a {C:attention}played card",
+					"Gains {C:white,X:red}#1#X{} Mult",
+					"each time a played card",
 					"scores over {C:blue}#3# Chips",
 					"or a {C:attention}Tag{} is collected",
 					"{C:inactive,s:0.8}(Currently {C:white,X:red,s:0.8}#2#X{C:inactive,s:0.8} Mult)"
@@ -1442,7 +1442,7 @@ return {
 				text = {
 					'{C:attention}Rankless{} cards count as',
 					'the card to their {C:attention}left',
-					'when making a {C:attention}poker hand'
+					'for making {C:attention}poker hands'
 				}
 			},
 			j_ortalab_storm_6 = {
@@ -2432,14 +2432,12 @@ return {
 				}
 			},
 			['b_ortalab_restored'] = {
-				["name"] = "Restored? Deck",
+				["name"] = "Crumbling Deck",
 				["text"] = {
-					'Start with {C:attention}2{} copies of each card',
-					'{s:0.2} ',
-					'Your deck {C:red}only reshuffles{} at',
-					'the {C:attention}end{} of each Ante',
-					'{s:0.2} ',
-					'{C:zodiac}Zodiacs{} decay {C:attention}#1#{} times slower'
+					'Played and discarded',
+					'cards {C:red}only reshuffle{}',
+					'at the {C:attention}end{} of each Ante',
+					'{C:attention}+1{} Joker Slot',
 				} 
 			},
 		},
@@ -3030,7 +3028,7 @@ return {
 				}
 			},
 			['stake_ortalab_seven'] = {
-				["name"] = 'Dimaond Stake',
+				["name"] = 'Diamond Stake',
 				["text"] = {
 					'{C:attention}Ante 5{} has a {C:dark_edition}Finisher Blind',
 					"{s:0.8}Applies {C:Ortalab,s:0.8}Ruby Stake"
@@ -3420,7 +3418,7 @@ return {
 				name = 'Jackalope',
 				text = {
 					'Permanently gain {C:red}+#1#{} Discard',
-					'{C:attention}or {C:attention}+#1#{} hand size'
+					'{C:blue}or {C:attention}+#1#{} hand size'
 				},
 			},
 			c_ortalab_ya_te_veo = {
