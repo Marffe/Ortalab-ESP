@@ -853,24 +853,27 @@ SMODS.Tag({
                 return true
             end)
             local cards = {}
+            local _,_,_,scoring_hand,_ = G.FUNCS.get_poker_hand_info(G.play.cards)
             for i=1, #G.play.cards do
-                G.E_MANAGER:add_event(Event({
-                    trigger = 'after',
-                    delay = 0.5,
-                    func = function()                
-                        G.playing_card = (G.playing_card and G.playing_card + 1) or 1
-                        local _card = copy_card(G.play.cards[i], nil, nil, G.playing_card)
-                        G.play.cards[i]:juice_up()
-                        table.insert(cards, _card)
-                        _card:add_to_deck()
-                        G.deck.config.card_limit = G.deck.config.card_limit + 1
-                        table.insert(G.playing_cards, _card)
-                        G.deck:emplace(_card)
-                        _card.states.visible = nil
-                        _card:start_materialize({G.C.SET.Mythos})
-                        return true
-                    end
-                }))
+                if SMODS.in_scoring(G.play.cards[i], scoring_hand) then
+                    G.E_MANAGER:add_event(Event({
+                        trigger = 'after',
+                        delay = 0.5,
+                        func = function()                
+                            G.playing_card = (G.playing_card and G.playing_card + 1) or 1
+                            local _card = copy_card(G.play.cards[i], nil, nil, G.playing_card)
+                            G.play.cards[i]:juice_up()
+                            table.insert(cards, _card)
+                            _card:add_to_deck()
+                            G.deck.config.card_limit = G.deck.config.card_limit + 1
+                            table.insert(G.playing_cards, _card)
+                            G.deck:emplace(_card)
+                            _card.states.visible = nil
+                            _card:start_materialize({G.C.SET.Mythos})
+                            return true
+                        end
+                    }))
+                end
             end
             playing_card_joker_effects(cards)
             tag.triggered = true
@@ -941,9 +944,12 @@ SMODS.Tag({
     apply = function(self, tag, context)
         if context.type == self.config.type then
             tag:yep('+', G.C.GREEN,function()
+                local _,_,_,scoring_hand,_ = G.FUNCS.get_poker_hand_info(G.play.cards)
                 for _, card in ipairs(G.play.cards) do
-                    card.ability.perma_x_mult = card.ability.perma_x_mult + tag.config.xmult_change
-                    SMODS.calculate_effect({message = '+X'..tag.config.xmult_change, colour = G.C.RED}, card)
+                    if SMODS.in_scoring(card, scoring_hand) then
+                        card.ability.perma_x_mult = card.ability.perma_x_mult + tag.config.xmult_change
+                        SMODS.calculate_effect({message = '+X'..tag.config.xmult_change, colour = G.C.RED}, card)
+                    end
                 end
                 return true
             end)

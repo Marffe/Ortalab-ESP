@@ -2023,8 +2023,8 @@ return {
 				name = 'Phantom Patch',
 				text = {
 					'Add a {C:attention}copy{} of your',
-					'{C:attention}next played hand{} to',
-					'your deck'
+					'{C:attention}next played poker hand',
+					'to your deck'
 				}
 			},
 			tag_ortalab_singularity = {
