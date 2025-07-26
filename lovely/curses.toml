@@ -217,3 +217,15 @@ payload = '''
 for i, card in ipairs(G.jokers and G.jokers.cards or {}) do if card.ability.curse and card.ability.curse.extra.possessed then table.remove(G.jokers.cards, i); table.insert(G.jokers.cards, math.min(card.ability.curse.extra.possessed, #G.jokers.cards+1), card) end end
 '''
 
+# Stop possessed cards being double highlighted
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+match_indent = true
+position = 'before'
+pattern = '''
+self.highlighted = is_higlighted
+'''
+payload = '''
+if self.base.name and self.curse and self.curse == 'ortalab_possessed' and self.area == G.hand and #G.hand.highlighted < G.hand.config.highlighted_limit then is_higlighted = true end
+'''
