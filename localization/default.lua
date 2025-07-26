@@ -1150,8 +1150,7 @@ return {
 				name = 'Prolétaire',
 				text = {
 					'Gains {C:white,X:red}X#1#{} Mult for',
-					'each played card that is',
-					'{C:attention}debuffed{} or {C:attention}face down',
+					'each {C:mythos}cursed{C:attention} Joker',
 					'{C:inactive}(Currently {X:red,C:white}X#2#{C:inactive} Mult)'
 				}
 			},

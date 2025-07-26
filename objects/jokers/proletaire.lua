@@ -9,27 +9,23 @@ SMODS.Joker({
     blueprint_compat = true,
     eternal_compat = true,
     perishable_compat = false,
-    config = {extra = {xmult = 1, gain = 0.1}},
+    config = {extra = {xmult = 1, gain = 0.5}},
     artist_credits = {'kosze'},
     loc_vars = function(self, info_queue, card)
-        return {vars = {card.ability.extra.gain, card.ability.extra.xmult}}
+        return {vars = {card.ability.extra.gain, card.ability.extra.xmult + (self.count_cursed_jokers()*card.ability.extra.gain)}}
     end,
     calculate = function(self, card, context)
-        if context.before and not context.blueprint then
-            local upgrade = false
-            for _, pcard in pairs(G.play.cards) do
-                if pcard.ability.was_flipped or pcard.debuff then
-                    pcard.ability.was_flipped = nil
-                    card.ability.extra.xmult = card.ability.extra.xmult + card.ability.extra.gain
-                    upgrade = true
-                end
-            end
-            if upgrade then return {message = localize('k_upgrade_ex'), colour = G.C.RED} end
-        end
         if context.joker_main then
             return {
-                xmult = card.ability.extra.xmult
+                xmult = card.ability.extra.xmult + (self.count_cursed_jokers()*card.ability.extra.gain)
             }
         end
+    end,
+    count_cursed_jokers = function()
+        local cursed_cards = 0
+        for _, card in pairs(SMODS.merge_lists({G.jokers.cards, G.consumeables.cards})) do
+            if card.ability.set == 'Joker' and card.curse then cursed_cards = cursed_cards + 1 end
+        end
+        return cursed_cards
     end    
 })
