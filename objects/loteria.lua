@@ -1195,7 +1195,7 @@ function Card:highlight(is_highlighted)
             self.ability.extra.highlight_limit = G.hand.config.highlighted_limit
             G.hand.config.highlighted_limit = self.ability.extra.selected + (G.GAME and G.GAME.ortalab.vouchers.tabla)
         end
-        if not is_highlighted then
+        if not is_highlighted and G.hand then
             G.hand.config.highlighted_limit = self.ability.extra.highlight_limit or 5
         end
     end
