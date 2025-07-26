@@ -400,7 +400,7 @@ Blind.defeat = function(silent)
         obj:after_round(args)
     end
 end
-
+--[[
 SMODS.Back({
     key = "restored", 
     atlas = "decks",
@@ -427,5 +427,24 @@ SMODS.Back({
         -- info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'salad'}
         return {vars = {self.config.extra.reduction}}
     end,
-})
+})]]
 
+SMODS.Back({
+    key = "restored", 
+    atlas = "decks",
+    pos = {x = 4, y = 2}, 
+    config = {bonus_slots = 1}, 
+    apply = function(self)
+        G.GAME.ortalab.no_reshuffle = true
+        --[[local card_protos = {}]]
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                G.jokers.config.card_limit = G.jokers.config.card_limit + self.config.bonus_slots
+                return true
+            end,}))
+    end,
+    loc_vars = function(self, info_queue, card)
+        -- info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'salad'}
+        return {vars = {self.config.bonus_slots}}
+    end,
+})
