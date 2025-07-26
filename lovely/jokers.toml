@@ -383,3 +383,30 @@ if not self:can_calculate() then return end
 payload = '''
 if self.can_calculate and not self:can_calculate() then return end
 '''
+
+# Black Cat
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/utils.lua"]'
+match_indent = true
+position = 'after'
+pattern = '''
+-- Playing cards in scoring
+'''
+payload = '''
+local current_chips = hand_chips
+'''
+# Black Cat pt2
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/utils.lua"]'
+match_indent = true
+position = 'before'
+pattern = '''
+-- Jokers
+'''
+payload = '''
+if hand_chips and hand_chips > current_chips and next(SMODS.find_card('j_ortalab_black_cat')) then
+    SMODS.calculate_context({ortalab_black_cat_scale = hand_chips - current_chips, other_card = card})
+end
+'''

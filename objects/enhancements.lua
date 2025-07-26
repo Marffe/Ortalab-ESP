@@ -273,7 +273,6 @@ SMODS.Enhancement({
     loc_vars = function(self, info_queue, card)
         local a, b = SMODS.get_probability_vars(card, 1, card.ability.extra.discard_chance)
         local c, d = SMODS.get_probability_vars(card, 1, card.ability.extra.tag_chance)
-        print(a,b,c,d)
         return {
             vars = { a, b, card.ability.extra.discards, c, d, card.ability.extra.tags, card.ability.extra.chips }
         }
@@ -290,6 +289,7 @@ SMODS.Enhancement({
                 }
             end
             if SMODS.pseudorandom_probability(card, 'recycled_tag', 1, card.ability.extra.tag_chance) then
+                card.recycled_tag = true
                 local tag_pool = get_current_pool('Tag')
                 local selected_tag = pseudorandom_element(tag_pool, pseudoseed('ortalab_hoarder'))
                 local it = 1
@@ -300,7 +300,9 @@ SMODS.Enhancement({
                 G.E_MANAGER:add_event(Event({
                     trigger = 'after', delay = 0.4,
                     func = (function()
-                        add_tag(Tag(selected_tag, false, 'Small'))
+                        local tag = Tag(selected_tag, false, 'Small')
+                        tag.from_recycled = true
+                        add_tag(tag)
                         play_sound('generic1', 0.9 + math.random()*0.1, 0.8)
                         play_sound('holo1', 1.2 + math.random()*0.1, 0.4)
                         return true
@@ -309,7 +311,8 @@ SMODS.Enhancement({
                 if next(ret) then
                     ret.extra = {
                         message = localize('ortalab_moldy_tag'),
-                        colour = G.C.BLUE
+                        colour = G.C.BLUE,
+                        
                     }
                 else
                     ret = {
@@ -322,6 +325,7 @@ SMODS.Enhancement({
         end
     end
 })
+
 
 local card_highlight = Card.highlight
 function Card:highlight(highlighted)
