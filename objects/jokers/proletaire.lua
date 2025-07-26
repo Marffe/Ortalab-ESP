@@ -23,6 +23,7 @@ SMODS.Joker({
     end,
     count_cursed_jokers = function()
         local cursed_cards = 0
+        if not G.jokers then return cursed_cards end
         for _, card in pairs(SMODS.merge_lists({G.jokers.cards, G.consumeables.cards})) do
             if card.ability.set == 'Joker' and card.curse then cursed_cards = cursed_cards + 1 end
         end
