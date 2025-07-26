@@ -428,8 +428,8 @@ return {
 			['j_ortalab_black_cat'] = {
 				["name"] = "Black Cat",
 				["text"] = {
-					"This joker gains {C:white,X:red}#1#X{} Mult",
-					"each time a {C:attention}played card",
+					"Gains {C:white,X:red}#1#X{} Mult",
+					"each time a played card",
 					"scores over {C:blue}#3# Chips",
 					"or a {C:attention}Tag{} is collected",
 					"{C:inactive,s:0.8}(Currently {C:white,X:red,s:0.8}#2#X{C:inactive,s:0.8} Mult)"
