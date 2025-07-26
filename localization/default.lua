@@ -925,7 +925,8 @@ return {
 				["name"] = "Mill",
 				["text"] = {
 					"Gains {X:mult,C:white}X#2#{} Mult when",
-					"a {C:attention}Card{} changes {C:attention}Suit",
+					"at least {C:attention}#3#{} cards", 
+					"change {C:attention}suit{} at once",
 					"{C:inactive,s:0.9}(Currently {C:white,X:mult,s:0.9}X#1#{C:inactive,s:0.9})"
 				}
 			},

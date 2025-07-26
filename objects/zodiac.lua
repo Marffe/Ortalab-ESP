@@ -939,7 +939,6 @@ Ortalab.Zodiac{
         for _, card in pairs(G.hand.cards) do
             if not card.base.suit ~= new_suit then
                 Ortalab.change_suit_no_anim(card, new_suit)
-                card.base.suit = new_suit
                 G.E_MANAGER:add_event(Event({
                     trigger = 'before', delay = 0.2, func = function()
                         zodiac:juice_up()

@@ -296,14 +296,8 @@ end
 -- Util function to allow cards to change suit for calculations but animation properly
 function Ortalab.change_suit_no_anim(card, suit)
     local change = suit and card.base.suit ~= suit
+    SMODS.calculate_context({change_suit = true, other_card = card, new_suit = suit, old_suit = card.base.suit})
     card.base.suit = suit
-    if change and not Ortalab.harp_usage then
-        local scaling_joker = SMODS.find_card('j_ortalab_mill')
-        for _, card in pairs(scaling_joker) do        
-            card.ability.extra.xmult = card.ability.extra.xmult + card.ability.extra.gain
-            SMODS.calculate_effect({message = localize{type = 'variable', key = 'a_xmult', vars = {card.ability.extra.xmult}}}, card)
-        end
-    end
 end
 
 local ortalab_generate_card_ui = generate_card_ui
