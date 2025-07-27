@@ -1071,7 +1071,7 @@ SMODS.Consumable({
 local ortalab_card_highlight = Card.highlight
 function Card:highlight(is_higlighted)
     self.highlighted = is_higlighted
-    if self.config.center_key == 'c_ortalab_corpus' and self.area and self.area.config.type ~= 'shop' then
+    if self.config.center_key == 'c_ortalab_corpus' and self.area and self.area == G.consumeables then
         if self.highlighted then
             local x_off = (self.ability.consumeable and -0.1 or 0)
             self.children.use_button = UIBox{
