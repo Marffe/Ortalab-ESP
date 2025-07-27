@@ -1136,7 +1136,7 @@ return {
 				["text"] = {
 					"{C:mult}+#1#{} Mult",
 					"{C:mult}+#2#{} Mult per round played",
-					"Explodes when greater than {C:mult}+#3#{}",
+					"Expires when greater than {C:mult}+#3#{}",
 				}
 			},
 			['j_ortalab_prediction_dice'] = {
@@ -1315,10 +1315,10 @@ return {
 			['j_ortalab_sedimentation'] = {
 				["name"] = "Sedimentation",
 				["text"] = {
-					"{C:red}+#1#{} Mult for each",
+					"{C:white,X:red}X#1#{} xMult for each",
 					"card above {C:attention}#3#{}",
 					"in your full deck",
-					"{C:inactive}(Currently {C:red}+#2#{C:inactive} Mult)",
+					"{C:inactive}(Currently {X:red,C:white}X#2#{C:inactive} Mult)",
 				}
 			},
 			['j_ortalab_serious'] = {
@@ -2748,8 +2748,8 @@ return {
 				name = 'Cyan Seal',
 				text = {
 					'Upgrade a {C:attention}random{} poker hand',
-					'by {C:attention}#1#{} if {C:attention}held{} in hand',
-					'at end of round'
+					'by {C:attention}#1#{} levels if {C:attention}held{}',
+					'in hand at end of round'
 				},
 			},
 			ortalab_magenta_seal = {
