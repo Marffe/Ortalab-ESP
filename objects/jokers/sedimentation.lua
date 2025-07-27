@@ -22,3 +22,19 @@ SMODS.Joker({
         end
     end
 })
+--[[
+	config = {extra = {xmult = 1, gain = 0.2}},
+	artist_credits = {'gappie'},
+	loc_vars = function(self, info_queue, card)
+        return {vars = {card.ability.xmult, card.ability.extra.gain, math.max(0,card.ability.xmult + (G.playing_cards and ((#G.playing_cards - G.GAME.starting_deck_size)*card.ability.extra.gain) or 0)), G.GAME.starting_deck_size}}
+    end,
+    calculate = function(self, card, context) --Sedimentation Logic
+        if context.joker_main and (#G.playing_cards - G.GAME.starting_deck_size) > 0 then
+            return {
+                xmult = card.ability.extra.xmult + ((#G.playing_cards - G.GAME.starting_deck_size)*card.ability.extra.gain)
+            }
+        end
+    end
+})]]
+
+
