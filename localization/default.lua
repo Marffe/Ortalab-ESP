@@ -1252,9 +1252,11 @@ return {
 			['j_ortalab_salad'] = {
 				["name"] = "Salad",
 				["text"] = {
-					"{C:blue}+#1#{} Chips,",
-					"loses {C:blue}#2#{} Chips",
-                    "per {C:attention}card{} discarded",
+					{"Gains {X:mult,C:white}X#1#{} Mult for",
+					"each remaining {C:red}discard",
+					'{C:inactive,s:0.9}(Currently {X:mult,C:white,s:0.9}X#2#{C:inactive,s:0.9})'},
+					{"{C:green}#3# in #4#{} chance this Joker",
+					"is destroyed when you {C:red}discard"}
 				}
 			},
 			['j_ortalab_sandstone'] = {
