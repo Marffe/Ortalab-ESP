@@ -15,12 +15,12 @@ SMODS.Joker({
         return {vars = {card.ability.extra.chips, localize('Clubs', 'suits_plural'), localize('Spades', 'suits_plural'), colours = {G.C.SUITS.Clubs, G.C.SUITS.Spades}}}
     end,
     calculate = function(self, card, context)
-        if context.joker_main then
+        if context.joker_main and #context.scoring_hand > 1 then
 			local suits = {}
 			for _, _card in pairs(context.scoring_hand) do
-				suits[_card.base.suit] = true
+				suits[not SMODS.has_no_suit(_card) and _card.base.suit] = true
 			end
-			if suits['Spades'] and suits['Clubs'] then
+			if (suits['Spades'] and suits['Clubs']) or Ortalab.suit_smear() then
 				return {
 					chips = card.ability.extra.chips
 				}
