@@ -15,14 +15,14 @@ SMODS.Joker({
 		return {vars = {card.ability.extra.xmult_gain, card.ability.extra.xmult + (card.ability.extra.xmult_gain * card.ability.extra.used)}}
 	end,
 	calculate = function(self, card, context)
-		if context.end_of_round and context.main_eval then
+		if context.end_of_round and context.main_eval and not context.retrigger_joker then
 			card.ability.extra.used = 0
 			return {
 				message = localize('ortalab_joker_miles_reset'),
 				colour = G.C.RED
 			}
 		end
-		if context.using_consumeable and G.GAME.blind.in_blind then
+		if context.using_consumeable and G.GAME.blind.in_blind and not context.retrigger_joker then
 			card.ability.extra.used = card.ability.extra.used + 1
 			return {
 				message = localize{type='variable',key='a_xmult',vars={card.ability.extra.xmult_gain}},
