@@ -6,7 +6,7 @@ SMODS.Joker({
 	cost = 4,
 	unlocked = true,
 	discovered = false,
-	blueprint_compat = true,
+	blueprint_compat = false,
 	eternal_compat = true,
 	perishable_compat = false,
 	config = {extra = {chance = 4}},

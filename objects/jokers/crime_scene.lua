@@ -8,7 +8,7 @@ SMODS.Joker({
 	discovered = false,
 	blueprint_compat = false,
 	eternal_compat = true,
-	perishable_compat = true,
+	perishable_compat = false,
 	config = {extra = {banned_cards = {}}},
 	artist_credits = {'grassy'},
 	remove_from_deck = function(self, card, from_debuff)
