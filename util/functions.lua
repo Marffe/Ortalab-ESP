@@ -449,3 +449,9 @@ function UIElement:draw_pixellated_under(_type, _parallax, _emboss, _progress)
     love.graphics.polygon("fill", self.pixellated_rect.fill.vertices)
 
 end
+
+function Ortalab.suit_smear(card)
+    if next(SMODS.find_card('j_ortalab_monochrome')) or G.GAME.selected_back.effect.center.key == 'b_ortalab_prismatic' or SMODS.has_enhancement(card, 'm_wild') then
+        return true
+    end
+end
