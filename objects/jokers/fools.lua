@@ -16,7 +16,8 @@ SMODS.Joker({
     end,
     calculate = function(self, card, context)
         if context.end_of_round and context.main_eval then
-            card.sell_cost = card.sell_cost + (#G.jokers.cards - 1) * card.ability.extra.gain
+            card.ability.extra_value = card.ability.extra_value + (#G.jokers.cards - 1) * card.ability.extra.gain
+            card:set_cost() 
             juice_card(card)
         end
     end    
