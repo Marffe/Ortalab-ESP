@@ -15,14 +15,14 @@ SMODS.Joker({
 		return {vars = {card.ability.extra.xmult, card.ability.extra.count}}
 	end,
     calculate = function(self, card, context)
-        if context.joker_main then
+        if context.joker_main and #context.scoring_hand >= card.ability.extra.count then
             local suits = {}
             local ranks = {}
             for _, played_card in ipairs(context.scoring_hand) do
                 local suit = played_card.base.suit
                 local rank = played_card.base.value
-                suits[suit] = suit
-                ranks[rank] = rank
+                if not SMODS.has_no_suit(played_card) then suits[suit] = suit end
+                if not SMODS.has_no_rank(played_card) then ranks[rank] = rank end
             end
             if table.size(suits) >= card.ability.extra.count and table.size(ranks) >= card.ability.extra.count then
                 return {
