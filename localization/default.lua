@@ -887,10 +887,8 @@ return {
 				name = 'Koko',
 				text = {
 					'When {C:attention}Blind{} is selected,', 
-					'{C:zodiac}improve{} all future hands',
-					'that are not {C:zodiac}improved',
-					'and add {C:zodiac}#1#{} level to',
-					'hands that are {C:zodiac}improved'
+					'{C:zodiac}empower{} all hands',
+					'by {C:attention}#1#{} levels'
 				}
 			},
 			j_ortalab_kopi = {

@@ -10,7 +10,7 @@ SMODS.Joker({
     blueprint_compat = true,
     eternal_compat = true,
     perishable_compat = true,
-    config = {extra = {zodiacs = {}, increase = 1}},
+    config = {extra = {zodiacs = {}, increase = 2}},
     artist_credits = {'gappie'},
     loc_vars = function(self, info_queue, card)
         return {vars = {card.ability.extra.increase}}
@@ -46,7 +46,9 @@ SMODS.Joker({
                                     if G.zodiacs and G.zodiacs[key] then
                                         G.zodiacs[key].config.extra.temp_level = G.zodiacs[key].config.extra.temp_level + (card.ability.extra.increase * G.GAME.ortalab.zodiacs.temp_level_mod)
                                     else
-                                        add_zodiac(Zodiac(key), true)
+                                        local zod = Zodiac(key)
+                                        zod.config.extra.temp_level = 2
+                                        add_zodiac(zod, true)
                                     end
                                     return true
                                 end
