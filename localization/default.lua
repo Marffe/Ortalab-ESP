@@ -3092,8 +3092,8 @@ return {
 			['bl_ortalab_oil'] = {
 				name = 'The Oil',
 				text = {
-					'Discarded cards are',
-					'returned to your deck'
+					'Discards half',
+					'your deck'
 				}
 			},
 			['bl_ortalab_bellows'] = {
