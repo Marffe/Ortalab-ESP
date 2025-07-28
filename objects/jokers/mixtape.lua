@@ -20,7 +20,7 @@ SMODS.Joker({
                 xmult = card.ability.extra.xmult,
             }
         end
-        if context.end_of_round and not context.repetition and not context.individual and not context.blueprint and G.GAME.current_round.hands_played == 1 then
+        if context.end_of_round and context.main_eval and not context.retrigger_joker and not context.blueprint and G.GAME.current_round.hands_played == 1 then
             card.ability.extra.xmult = card.ability.extra.xmult + card.ability.extra.gain
             return {
                 message = localize('k_upgrade_ex')
