@@ -471,7 +471,7 @@ Ortalab.Zodiac{
         if zodiac.config.extra.destroyed == zodiac.config.extra.count then
             return false
         else
-            if context.other_card.base.value ~= zodiac.config.extra.four_oak_rank then
+            if context.other_card.base.value ~= zodiac.config.extra.four_oak_rank or context.other_card.config.center.always_scores then
                 zodiac.config.extra.destroyed = zodiac.config.extra.destroyed + 1
                 return true
             end
