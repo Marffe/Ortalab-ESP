@@ -2609,7 +2609,7 @@ return {
 				text = {
 					'{C:dark_edition}Editions{} on {C:attention}Jokers',
 					'that give {C:money}money{} or {C:red}score{}',
-					'trigger {C:attention}4 times{}',
+					'trigger {C:attention}3 times{}',
 				}
 			},
 			v_ortalab_one_mans_trash = {

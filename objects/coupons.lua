@@ -378,7 +378,7 @@ SMODS.Voucher({
 	discovered = false,
 	available = false,
     requires = {'v_ortalab_pulse_wave'},
-    config = {extra = {edition_reps = 2}},
+    config = {extra = {edition_reps = 1}},
     artist_credits = {'joey'},
     loc_vars = function(self, info_queue, card)
         return {vars = {card.ability.extra.edition_reps}}
