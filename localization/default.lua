@@ -644,8 +644,8 @@ return {
 			j_ortalab_false_phd = {
 				name = 'False PHD',
 				text = {
-					'When round begins, add',
-					'{C:attention}#1#{} identical {C:attention}temporary playing cards', 
+					'When round begins, add {C:attention}#1#{} ',
+					'identical {C:attention}temporary playing cards', 
 					'with an {C:attention}enhancement{}, {C:dark_edition}edition',
 					' and {C:attention}seal{} to your hand'
 				}
@@ -754,7 +754,7 @@ return {
 				name = 'Gloomy Gus',
 				text = {
 					{'{C:attention}+#1#{} hand size',},
-					{'Only {C:red}#2#{} card can be',
+					{'Only {C:red}#2#{} cards can be',
 					'discarded at a time'}
 				}
 			},
@@ -915,10 +915,9 @@ return {
 			j_ortalab_memorial = {
 				name = 'Memorial',
 				text = {
-					'The first time you {C:red}discard',
-					'{C:attention}#1# Enhanced{} cards in a round',
-					'give {C:attention}1{} a random {C:dark_edition}edition',
-					'and {C:attention}seal'
+					'When {C:attention}sold{},',
+					'{C:attention}upgrade{} most played',
+					'poker hand',
 				}
 			},
 			['j_ortalab_mill'] = {
@@ -966,8 +965,8 @@ return {
 				["name"] = "Mixtape",
 				["text"] = {
 					'Gains {X:mult,C:white}X#1#{} Mult for',
-					'each {C:attention}Blind{} beaten in a',
-					'single hand',
+					'each {C:attention}Blind{} beaten',
+					' in a single hand',
 					'{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive})'
 				}
 			},
@@ -1315,10 +1314,10 @@ return {
 			['j_ortalab_sedimentation'] = {
 				["name"] = "Sedimentation",
 				["text"] = {
-					"{C:white,X:red}X#1#{} xMult for each",
+					"{C:red}+#1#{} Mult for each",
 					"card above {C:attention}#3#{}",
 					"in your full deck",
-					"{C:inactive}(Currently {X:red,C:white}X#2#{C:inactive} Mult)",
+					"{C:inactive}(Currently {C:red}+#1#{C:inactive} Mult)",
 				}
 			},
 			['j_ortalab_serious'] = {
@@ -1460,9 +1459,9 @@ return {
 				name = 'Street Rat',
 				text = {
 					'When {C:attention}Blind{} is defeated,',
-					'destroy {C:blue}Common{} Joker to the',
-					'right and gain {C:gold}#1#X{} it\'s',
-					'{C:gold}sell value'
+					'destroy {C:blue}Common{} Joker',
+					'to the right and gain',
+					'{C:gold}#1#X{} it\'s {C:gold}sell value'
 				}
 			},
 			['j_ortalab_sun_sign'] = {
@@ -3098,6 +3097,7 @@ return {
 			['bl_ortalab_bellows'] = {
 				name = 'The Bellows',
 				text = {
+					'Extra large blind',
 					'+#1# hand size'
 				}
 			},
