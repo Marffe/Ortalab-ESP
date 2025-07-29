@@ -1251,7 +1251,7 @@ return {
 				["text"] = {
 					{"Gains {X:mult,C:white}X#1#{} Mult for",
 					"each remaining {C:red}discard",
-					'{C:inactive,s:0.9}(Currently {X:mult,C:white,s:0.9}X#2#{C:inactive,s:0.9})'},
+					'{C:inactive,s:0.9}(Currently {X:mult,C:white,s:0.9}X#2#{C:inactive,s:0.9})',},
 					{"{C:green}#3# in #4#{} chance this Joker",
 					"is destroyed when you {C:red}discard"}
 				}
@@ -1259,11 +1259,11 @@ return {
 			['j_ortalab_sandstone'] = {
 				["name"] = "Sandstone Joker",
 				["text"] = {
-					{"Played {C:attention}Sand Cards{}",
-					"do not lose Mult",},
 					{"Gains {X:mult,C:white}X#2#{} Mult when",
 					"a {C:attention}Sand Card{} is played",
-					"{C:inactive,s:0.9}(Currently {C:white,X:mult,s:0.9}X#1#{C:inactive,s:0.9})"}
+					"{C:inactive,s:0.9}(Currently {C:white,X:mult,s:0.9}X#1#{C:inactive,s:0.9})",},
+					{"Played {C:attention}Sand Cards{}",
+					"do not lose Mult"}
 				}
 			},
 			['j_ortalab_sane'] = {
@@ -1871,7 +1871,7 @@ return {
 					{"{X:mult,C:white}X#1#{} Mult",},
                     {"Loses {X:mult,C:white}X#2#{} Mult when", 
 					"played or held in hand",
-                    "{C:inactive,s:0.7}(Destroyed when held at {X:mult,C:white,s:0.7}X1{C:inactive,s:0.7} Mult)",}
+                    "{C:inactive,s:0.7}(Destroyed after {X:mult,C:white,s:0.7}X1{C:inactive,s:0.7} Mult)",}
 				},
 			},
 			["m_ortalab_rusty"] = {
