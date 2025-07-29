@@ -33,22 +33,22 @@ SMODS.Back({
     key = "shady", 
     atlas = "decks",
     pos = {x = 2, y = 0}, 
-    config = {joker = 'j_ortalab_black_friday', dollars = 0, bonus_slots = 1}, 
+    config = {joker = 'j_ortalab_black_friday', tag = 'tag_ortalab_stock'}, 
     apply = function(self)
         G.E_MANAGER:add_event(Event({
             func = function()
                 SMODS.add_card({key = self.config.joker, stickers = {'eternal'}, edition = 'e_ortalab_greyscale'})
-                G.jokers.config.card_limit = G.jokers.config.card_limit + self.config.bonus_slots
-                G.GAME.dollars = self.config.dollars
+                local stock_tag = Tag(self.config.tag, false, 'Small')
+                add_tag(stock_tag)
+                play_sound('generic1', 0.9 + math.random()*0.1, 0.8)
+                play_sound('holo1', 1.2 + math.random()*0.1, 0.4)
                 return true
-            end
-        }))
-        
+            end}))
     end,
     loc_vars = function(self, info_queue, card)
         -- info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'flare'}
-        return {vars = {localize({key = self.config.joker, set = 'Joker', type = 'name_text'}), self.config.dollars, self.config.bonus_slots}}
-    end,
+        return {vars = {localize({key = self.config.joker, set = 'Joker', type = 'name_text'}), localize({key = self.config.tag, set = 'Tag', type = 'name_text'})}}
+    end
 })
 
 SMODS.Back({
@@ -109,10 +109,10 @@ SMODS.Back({
     key = "experimental", 
     atlas = "decks",
     pos = {x = 0, y = 1}, 
-    config = {ante_scaling = 1.25, xmult = 1, xmult_gain = 0.1, loterias = 4, target_loterias_keys = {}}, 
+    config = {xmult = 1, xmult_gain = 0.1, loterias = 4, target_loterias_keys = {}}, 
     loc_vars = function(self, info_queue, card)
         -- info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'crimson'}
-        return {vars = {self.config.xmult, self.config.xmult_gain, self.config.ante_scaling, self.config.loterias}}
+        return {vars = {self.config.xmult, self.config.xmult_gain, self.config.loterias}}
     end,
     apply = function(self, card)
         card.effect.config.target_loterias = {}
@@ -310,7 +310,7 @@ SMODS.Back({
     key = "membership", 
     atlas = "decks",
     pos = {x = 0, y = 2}, 
-    config = {vouchers = {'v_ortalab_home_delivery', 'v_ortalab_catalog', 'v_ortalab_window_shopping'}}, 
+    config = {vouchers = {'v_ortalab_catalog', 'v_ortalab_window_shopping'}}, 
     loc_vars = function(self, info_queue, card)
         -- info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'crimson'}
         return {vars = {localize({type = 'name_text', set = 'Voucher', key = self.config.vouchers[1]}), localize({type = 'name_text', set = 'Voucher', key = self.config.vouchers[2]}), localize({type = 'name_text', set = 'Voucher', key = self.config.vouchers[3]})}}

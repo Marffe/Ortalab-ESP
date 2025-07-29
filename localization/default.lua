@@ -1134,7 +1134,7 @@ return {
 				["text"] = {
 					"{C:mult}+#1#{} Mult",
 					"{C:mult}+#2#{} Mult per round played",
-					"Explodes when greater than {C:mult}+#3#{}",
+					"Expires when greater than {C:mult}+#3#{}",
 				}
 			},
 			['j_ortalab_prediction_dice'] = {
@@ -1315,10 +1315,10 @@ return {
 			['j_ortalab_sedimentation'] = {
 				["name"] = "Sedimentation",
 				["text"] = {
-					"{C:red}+#1#{} Mult for each",
+					"{C:white,X:red}X#1#{} xMult for each",
 					"card above {C:attention}#3#{}",
 					"in your full deck",
-					"{C:inactive}(Currently {C:red}+#2#{C:inactive} Mult)",
+					"{C:inactive}(Currently {X:red,C:white}X#2#{C:inactive} Mult)",
 				}
 			},
 			['j_ortalab_serious'] = {
@@ -2294,9 +2294,9 @@ return {
 				["name"] = "Shady Deck",
 				["text"] = {
 					"Start with an {C:attention}Eternal{},",
-					"{C:dark_edition,T:e_ortalab_greyscale}Greyscale {C:attention,T:j_ortalab_black_friday}#1#{} and {C:red}$#2#",
+					"{C:dark_edition,T:e_ortalab_greyscale}Greyscale {C:attention,T:j_ortalab_black_friday}#1#{}",
 					'{s:0.2} ',
-					"{C:attention}+#3#{} Joker slot"
+					" and a {C:red,T:tag_ortalab_stock}#2#{}"
 				}
 			},
 			['b_ortalab_neon'] = {
@@ -2325,10 +2325,9 @@ return {
 					"{C:white,X:red}X#1#{} Mult",
 					'{s:0.2} ',
 					'Gains {X:red,C:white}X#2#{} Mult when one of',
-					'{C:attention}#4#{C:loteria} Loteria Cards{} are used',
+					'{C:attention}#3#{C:loteria} Loteria Cards{} are used',
 					'{C:inactive}(Cards change after each ante)',
 					'{s:0.2} ',
-					"{C:red}X#3#{} base Blind size",
 				}
 			},
 			b_ortalab_experimental_tooltip = {
@@ -2354,8 +2353,8 @@ return {
 					'{C:Mythos,E:1}Mythos Cards{} curse',
 					'{C:attention}#1#{} fewer cards',
 					'{s:0.2} ',
-					'Start with the {C:attention,T:v_ortalab_fates_coin}#2#{}',
-					'voucher'
+					'Start with the',
+					' {C:attention,T:v_ortalab_fates_coin}#2#{} voucher'
 				}
 			},
 			['b_ortalab_royal'] = {
@@ -2364,8 +2363,8 @@ return {
 					"Start with only", 
 					"{C:attention}Face Cards{} in your deck",
 					'{s:0.2} ',
-					"{s:0.9}At the end of each",
-					"{s:0.9}round, add a {C:attention,s:0.9}random",
+					"{s:0.9}At end of {s:0.9}round,",
+					"add a {C:attention,s:0.9}random",
 					"{s:0.9,C:attention}Face Card{s:0.9} to your deck"
 				}
 			},
@@ -2382,9 +2381,9 @@ return {
 			['b_ortalab_membership'] = {
 				["name"] = "Membership Deck",
 				["text"] = {
-					"Start the run with the", 
-					'{C:attention,T:v_ortalab_home_delivery}#1#{}, {C:attention,T:v_ortalab_catalog}#2#',
-					'and {C:attention,T:v_ortalab_window_shopping}#3#{}',
+					"Start the run", 
+					'with the {C:attention,T:v_ortalab_catalog}#1#',
+					'and {C:attention,T:v_ortalab_window_shopping}#2#{}',
 					'vouchers'
 				}
 			},
@@ -2749,8 +2748,8 @@ return {
 				name = 'Cyan Seal',
 				text = {
 					'Upgrade a {C:attention}random{} poker hand',
-					'by {C:attention}#1#{} if {C:attention}held{} in hand',
-					'at end of round'
+					'by {C:attention}#1#{} levels if {C:attention}held{}',
+					'in hand at end of round'
 				},
 			},
 			ortalab_magenta_seal = {
