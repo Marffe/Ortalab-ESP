@@ -154,7 +154,7 @@ SMODS.Consumable({
     cost = 5,
     pos = {x=0, y=0},
     discovered = false,
-    config = {extra = {select = 1, curse = 'ortalab_infected', method = 'c_ortalab_one_deck', multiplier = 2}},
+    config = {extra = {select = 2, curse = 'ortalab_infected', method = 'c_ortalab_one_deck', multiplier = 2}},
     artist_credits = {'gappie'},
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = {set = 'Curse', key = card.ability.extra.curse}
@@ -260,7 +260,7 @@ SMODS.Consumable({
     cost = 5,
     pos = {x=2, y=0},
     discovered = false,
-    config = {extra = {select = 3, curse = 'ortalab_corroded', method = 'c_ortalab_mult_random_deck', hands = 3, levels = 2}},
+    config = {extra = {select = 2, curse = 'ortalab_corroded', method = 'c_ortalab_mult_random_deck', hands = 3, levels = 2}},
     artist_credits = {'gappie'},
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = {set = 'Curse', key = card.ability.extra.curse, specific_vars = {Ortalab.Curses[card.ability.extra.curse].config.extra.base, Ortalab.Curses[card.ability.extra.curse].config.extra.gain}}
@@ -356,7 +356,7 @@ SMODS.Consumable({
     cost = 5,
     pos = {x=4, y=0},
     discovered = false,
-    config = {extra = {select = 2, curse = 'ortalab_infected', method = 'c_ortalab_mult_random', cards = 1}},
+    config = {extra = {select = 1, curse = 'ortalab_infected', method = 'c_ortalab_mult_random', cards = 1}},
     artist_credits = {'gappie'},
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = {set = 'Curse', key = card.ability.extra.curse}

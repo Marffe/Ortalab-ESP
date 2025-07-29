@@ -2,11 +2,46 @@ SMODS.Joker({
 	key = "memorial",
 	atlas = "jokers",
 	pos = {x=2,y=1},
-	rarity = 2,
-	cost = 5,
+	rarity = 1,
+	cost = 4,
 	unlocked = true,
 	discovered = false,
 	blueprint_compat = true,
+    eternal_compat = false,
+    perishable_compat = true,
+    artist_credits = {'flare', 'gappie'},
+    loc_vars = function(self, info_queue, card)
+        local pokerhands = Ortalab.pokerhands_by_played()
+        return {vars = {localize(pokerhands[1].key, 'poker_hands')}}
+    end,
+    calculate = function(self, card, context)
+        if context.selling_self then
+            local pokerhands = Ortalab.pokerhands_by_played()
+            return {
+                level_up_hand = pokerhands[1].key,
+                level_up = true
+            }
+        end
+    end    
+})
+--[[
+function Ortalab.pokerhands_by_played()
+    local pokerhands = {}
+    for k,v in pairs(G.GAME.hands) do
+        v.key = k
+        pokerhands[#pokerhands + 1] = v 
+    end
+    table.sort(pokerhands, function(x, y)
+        if x.played == y.played then
+            return x.order < y.order
+        else 
+            return (x.played or 0) > (y.played or 0)
+        end
+    end)
+
+    return pokerhands
+end
+    
 	eternal_compat = true,
 	perishable_compat = true,
 	config = {extra = {cards = 3, triggered = false}},
@@ -34,4 +69,4 @@ SMODS.Joker({
             end
         end
     end
-})
+})]]
