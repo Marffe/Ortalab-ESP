@@ -9,7 +9,7 @@ SMODS.Joker({
     blueprint_compat = false,
     eternal_compat = true,
     perishable_compat = true,
-    artist_credits = {'no_demo'},
+    artist_credits = {'gappie'},
     loc_vars = function(self, info_queue, card)
         local pokerhands = Ortalab.pokerhands_by_played()
         return {vars = {localize(pokerhands[3].key, 'poker_hands')}}

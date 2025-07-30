@@ -10,7 +10,7 @@ SMODS.Joker({
     eternal_compat = true,
     perishable_compat = false,
     config = {extra = {mult = 0, gain = 2}},
-    artist_credits = {'no_demo'},
+    artist_credits = {'crimson'},
     loc_vars = function(self, info_queue, card)
         return {vars = {card.ability.extra.gain, card.ability.extra.mult, localize(card.ability.extra.suit, 'suits_singular'), localize(card.ability.extra.rank..'', 'ranks'), colours = {G.C.SUITS[card.ability.extra.suit]}}}
     end,

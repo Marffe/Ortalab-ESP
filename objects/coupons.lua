@@ -608,7 +608,7 @@ SMODS.Voucher({
 	discovered = false,
 	available = false,
     config = {extra = {bonus_slots = 1}},
-    artist_credits = {'no_demo'},
+    artist_credits = {'flare'},
 	redeem = function(self, card)
         G.GAME.ortalab.vouchers.booster_pack_bonus = card.ability.extra.bonus_slots
     end,
@@ -627,7 +627,7 @@ SMODS.Voucher({
 	available = false,
     requires = {'v_ortalab_blank_inv'},
     config = {extra = {active = true}},
-    artist_credits = {'no_demo'},
+    artist_credits = {'flare'},
     redeem = function(self, card)
         if G.shop_booster and G.shop_booster.cards and next(G.shop_booster.cards) then
             for _, booster in pairs(G.shop_booster.cards) do

@@ -12,10 +12,8 @@ SMODS.Edition({
     in_shop = true,
     weight = 20,
     extra_cost = 2,
-    apply_to_float = true,
     artist_credits = {'eremel'},
     loc_vars = function(self, info_queue, card)
-        -- if Ortalab.config.artist_credits and (not card.fake_card or Ortalab.config.full_credits) then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'eremel', title = 'Shader'} end
         return { vars = {self.config.chips, self.config.mult}}
     end,
     calculate = function(self, card, context)
@@ -37,7 +35,6 @@ SMODS.Edition({
     in_shop = true,
     weight = 12,
     extra_cost = 4,
-    apply_to_float = true,
     artist_credits = {'eremel'},
     loc_vars = function(self, info_queue, card)
         return { vars = {self.config.p_dollars}, key = card and card.config and card.config.center.set == 'Joker' and 'e_ortalab_fluorescent_joker'}
@@ -62,7 +59,6 @@ SMODS.Edition({
     extra_cost = 3,
     badge_colour = HEX("858585"),
     artist_credits = {'eremel'},
-    apply_to_float = true,
     loc_vars = function(self, info_queue, card)
         return { vars = { self.config.chips, self.config.mult, self.config.x_mult } }
     end,
@@ -77,7 +73,6 @@ SMODS.Edition({
     end
 })
 
--- Awaiting retrigger API
 SMODS.Edition({
     key = "overexposed",
     discovered = false,
@@ -87,7 +82,6 @@ SMODS.Edition({
     in_shop = true,
     weight = 3,
     extra_cost = 5,
-    apply_to_float = true,
     artist_credits = {'eremel'},
     loc_vars = function(self, info_queue, card)
         return { vars = { self.config.extra.retriggers } }

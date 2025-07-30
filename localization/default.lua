@@ -394,7 +394,7 @@ return {
 				}
 			},
 			j_ortalab_belmont = {
-				name = 'Belmont',
+				name = 'Priest',
 				text = {
 					'Gain {C:red}+#1#{} Mult per',
 					'{C:mythos}cursed card{} in your deck',
@@ -509,7 +509,7 @@ return {
 				}
 			},
 			['j_ortalab_collatz'] = {
-				["name"] = "Collatz Conjecture",
+				["name"] = "\"Prime\" Joker",
 				["text"] = {
 					"Each played {C:attention}A{}, {C:attention}10{}, {C:attention}9{}, {C:attention}8{},",
 					"{C:attention}6{} or {C:attention}4{} gives {X:mult,C:white}X#1#{} Mult",
@@ -606,7 +606,7 @@ return {
 				}
 			},
 			j_ortalab_dropout = {
-				["name"] = "Dropout",
+				["name"] = "Professor",
 				["text"] = {
 					{'{C:attention}Retrigger{} all played',
 					'{C:attention}#1#s{}',},
@@ -1098,7 +1098,7 @@ return {
 				}
 			},
 			j_ortalab_priest = {
-				name = 'Priest',
+				name = 'Card Collector',
 				text = {
 					'Gain {C:white,X:red}X#1#{} Mult for each',
 					'{C:money}$1{} of sell value of all',

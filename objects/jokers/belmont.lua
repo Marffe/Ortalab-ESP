@@ -10,7 +10,7 @@ SMODS.Joker({
     eternal_compat = true,
     perishable_compat = true,
     config = {extra = {mult = 4}},
-    artist_credits = {'no_demo'},
+    artist_credits = {'gappie'},
     loc_vars = function(self, info_queue, card)
         local count = 0
         if G.playing_cards then count = Ortalab.curses_in_deck() end

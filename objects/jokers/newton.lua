@@ -10,7 +10,7 @@ SMODS.Joker({
     eternal_compat = true,
     perishable_compat = true,
     config = {extra = {gain = 100, loss = -100}},
-    artist_credits = {'no_demo'},
+    artist_credits = {'gappie'},
     loc_vars = function(self, info_queue, card)
         return {vars = {card.ability.extra.gain, card.ability.extra.loss}}
     end,

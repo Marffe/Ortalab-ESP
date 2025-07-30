@@ -12,7 +12,6 @@ SMODS.Joker({
     config = {extra = {xmult = 1, gain = 1}},
     artist_credits = {'no_demo'},
     loc_vars = function(self, info_queue, card)
-        if card and not card.fake_card and Ortalab.config.artist_credits then info_queue[#info_queue+1] = {generate_ui = ortalab_artist_tooltip, key = 'no_demo'} end
         local handsize = G.hand and G.hand.config.card_limit - count_negatives(G.hand.cards) or G.GAME.starting_params.hand_size
         return {vars = {card.ability.extra.gain, card.ability.extra.xmult + (math.abs(G.GAME.starting_params.hand_size - handsize) * card.ability.extra.gain), G.GAME.starting_params.hand_size}}
     end,

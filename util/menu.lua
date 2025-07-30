@@ -33,7 +33,7 @@ SMODS.current_mod.config_tab = function()
         {n=G.UIT.R, config = {minh = 0.04, minw = 4, colour = G.C.L_BLACK}},
         {n=G.UIT.R, config = {align = 'cm'}, nodes = {
             {n=G.UIT.C, config={padding=0.2, align = 'cm'}, nodes={
-                EremelUtility.create_toggle({active_colour = G.ARGS.LOC_COLOURS.Zodiac,
+                EremelUtility.create_toggle({active_colour = Ortalab.badge_colour,
                         left = true, label = localize('ortalab_toggle_intro'), ref_table = Ortalab.config, ref_value = 'initial_setup_demo_3'}),
             }},
             {n=G.UIT.C, config={padding=0.2, align = 'cm'}, nodes={

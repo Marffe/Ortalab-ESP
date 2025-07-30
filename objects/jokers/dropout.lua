@@ -1,7 +1,7 @@
 SMODS.Joker({
 	key = "dropout",
 	atlas = "jokers",
-	pos = {x=4,y=13},
+	pos = {x=0,y=2},
 	rarity = 2,
 	cost = 6,
 	unlocked = true,
@@ -10,7 +10,7 @@ SMODS.Joker({
 	eternal_compat = true,
 	perishable_compat = true,
 	config = {extra = {rank = "Ace", chips = 10, mult = 2, repetitions = 1}},
-	artist_credits = {'crimson'},
+	artist_credits = {'no_demo'},
 	loc_vars = function(self, info_queue, card)
 		return {vars = {vars = {card.ability.extra.repetitions}, localize(card.ability.extra.rank, 'ranks'), card.ability.extra.chips, card.ability.extra.mult}}
 	end,

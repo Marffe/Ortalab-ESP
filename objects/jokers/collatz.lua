@@ -1,7 +1,7 @@
 SMODS.Joker({
 	key = "collatz",
 	atlas = "jokers",
-	pos = {x = 0, y = 2},
+	pos = {x = 4, y = 13},
 	rarity = 2,
 	cost = 6,
 	unlocked = true,
@@ -10,7 +10,7 @@ SMODS.Joker({
 	eternal_compat = true,
 	perishable_compat = true,
 	config = {extra = {Xmult = 1.15, valid_ranks = {14, 10, 9, 8, 6, 4}}},
-	artist_credits = {'flowwey'},
+	artist_credits = {'crimson'},
     loc_vars = function(self, info_queue, card)
         return {vars = {card.ability.extra.Xmult}}
     end,

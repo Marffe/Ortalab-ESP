@@ -10,7 +10,7 @@ SMODS.Joker({
     eternal_compat = true,
     perishable_compat = false,
     config = {extra = {xmult = 1.35, sticker = 'eternal'}},
-    artist_credits = {'no_demo'},
+    artist_credits = {'gappie'},
     loc_vars = function(self, info_queue, card)
         return {vars = {card.ability.extra.xmult, localize({type = 'name_text', set = 'Other', key = card.ability.extra.sticker})}}
     end,
