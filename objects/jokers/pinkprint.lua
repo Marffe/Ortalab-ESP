@@ -12,16 +12,16 @@ SMODS.Joker({
     config = {extra = {}},
     artist_credits = {'crimson'},
     loc_vars = function(self, info_queue, card)
-        if card.ability.extra.last_joker then
+        if card.ability.pinkprint then
             local vars = {}
             if card.ability.pinkprint.config.center.loc_vars then
                 vars = card.ability.pinkprint.config.center:loc_vars({}, card.ability.pinkprint).vars
             else
                 vars = Card.generate_UIBox_ability_table({ability = card.ability.pinkprint.ability, config = card.ability.pinkprint.config, bypass_lock = true}, true)
             end
-            info_queue[#info_queue+1] = {pinkprint = true, set = 'Joker', key = card.ability.extra.last_joker, vars = vars}
+            info_queue[#info_queue+1] = {pinkprint = true, set = 'Joker', key = card.ability.pinkprint.key, vars = vars}
         end
-        return {vars = {card.ability.extra.last_joker and localize({type = 'name_text', set = 'Joker', key = card.ability.extra.last_joker}) or localize('ortalab_none')}}
+        return {vars = {card.ability.pinkprint and localize({type = 'name_text', set = 'Joker', key = card.ability.pinkprint.key}) or localize('ortalab_none')}}
     end,
     calculate = function(self, card, context)
         if context.selling_card and context.card.ability.set == 'Joker' and context.card.config.center_key ~= 'j_ortalab_pinkprint' then
@@ -29,13 +29,14 @@ SMODS.Joker({
                 Card.remove_from_deck(card.ability.pinkprint)
             end
             card.ability = copy_table(context.card.ability)
-            card.ability.extra.last_joker = context.card.config.center_key
+            card.ability.extra = card.ability.extra or {}
             card.ability.pinkprint = Pinkprint({
                 fake_card = true,
                 pinkprint = card,
+                key = context.card.config.center_key,
                 ability = copy_table(context.card.ability),
                 config = {
-                    center = G.P_CENTERS[card.ability.extra.last_joker]
+                    center = G.P_CENTERS[context.card.config.center_key]
                 },
             })
             return {
@@ -54,7 +55,7 @@ SMODS.Joker({
                 colour = G.C.PALE_GREEN
             }
         end
-        if card.ability.extra.last_joker then
+        if card.ability.pinkprint then
             local ret, trig = Card.calculate_joker(card.ability.pinkprint, context)
             if ret and ret.card and ret.card == card.ability.pinkprint then
                 ret.card = card
@@ -63,7 +64,7 @@ SMODS.Joker({
         end
     end,
     calc_dollar_bonus = function(self, card)
-        if card.ability.extra.last_joker then
+        if card.ability.pinkprint then
             return Card.calculate_dollar_bonus(card.ability.pinkprint)
         end
 	end,
@@ -89,7 +90,7 @@ function SMODS.find_card(key, count_debuffed)
     for _, area in ipairs(SMODS.get_card_areas('jokers')) do
         if area.cards then
             for _, v in pairs(area.cards) do
-                if v and type(v) == 'table' and v.ability and v.ability.pinkprint and v.ability.extra.last_joker == key and (count_debuffed or not v.debuff) then
+                if v and type(v) == 'table' and v.ability and v.ability.pinkprint and v.ability.pinkprint.key == key and (count_debuffed or not v.debuff) then
                     table.insert(results, v)
                 end
             end
@@ -119,7 +120,7 @@ function Pinkprint:init(args)
     self.sell_cost_label = args.sell_cost_label or 0
     self.area = args.pinkprint.area
 
-
+    self.key = args.key
     self.fake_card = true
     self.pinkprint = args.pinkprint
     self.ability = args.ability
