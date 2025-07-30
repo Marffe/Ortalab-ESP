@@ -75,7 +75,7 @@ local ortalab_card_for_shop = create_card_for_shop
 function create_card_for_shop(area)
     local card = ortalab_card_for_shop(area)
     if G.GAME.modifiers.neon_deck and card.edition then
-        card.ability.couponed = true
+        card.ability.extra_cost = -1 * math.floor(card.cost / 2)
         G.E_MANAGER:add_event(Event({
             func = function()
                 card:set_cost()

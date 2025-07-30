@@ -2307,7 +2307,7 @@ return {
 					'{s:0.2} ',
 					'Start with {C:attention,T:v_ortalab_pulse_wave}#1#',
 					'{s:0.2} ',
-					'{C:attention}Jokers{} with {C:dark_edition}editions{} are {C:green}free'
+					'{C:attention}Jokers{} with {C:dark_edition}editions{} are {C:green}half price'
 				}
 			},
 			['b_ortalab_express'] = {

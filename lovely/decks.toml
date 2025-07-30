@@ -167,3 +167,18 @@ else
     G.FUNCS.draw_from_discard_to_deck()
 end
 '''
+
+# Neon Deck - cost manipulation
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+match_indent = true
+position = 'after'
+pattern = '''
+self.cost = math.max(1, math.floor((self.base_cost + self.extra_cost + 0.5)*(100-G.GAME.discount_percent)/100))
+'''
+payload = '''
+if G.GAME.modifiers.neon_deck and self.edition then
+    self.cost = math.ceil(self.cost / 2)
+end
+'''
