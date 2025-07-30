@@ -55,7 +55,6 @@ SMODS.Seal({
     atlas = 'seals',
     pos = {x=0,y=0},
     config = {extra = {levels = 2}},
-    no_collection = true,
     badge_colour = HEX('7e94ba'),
     in_pool = function(self)
         return G.GAME.modifiers.ortalab_only
@@ -85,7 +84,6 @@ SMODS.Seal({
     atlas = 'seals',
     pos = {x=1,y=0},
     config = {},
-    no_collection = true,
     badge_colour = HEX('A85D7C'),
     in_pool = function(self)
         return G.GAME.modifiers.ortalab_only
