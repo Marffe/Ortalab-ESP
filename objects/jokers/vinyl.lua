@@ -18,7 +18,7 @@ SMODS.Joker({
         if context.individual and context.cardarea == G.play and context.other_card == context.scoring_hand[#context.scoring_hand] then
             local prior_ranks = {}
             for i=1, #context.scoring_hand do
-                if context.scoring_hand[i].base.id ~= context.other_card.base.id then
+                if context.scoring_hand[i].base.id ~= context.other_card.base.id and not SMODS.has_no_rank(context.other_card) then
                     prior_ranks[context.scoring_hand[i].base.id] = true
                 end
             end
