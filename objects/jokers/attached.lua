@@ -16,19 +16,22 @@ SMODS.Joker({
     end,
     calculate = function(self, card, context)
         if context.setting_blind then
-            local cards = card.area.cards
-            if cards[#cards] == card then return end
-            local to_eternal = G.jokers.cards[#G.jokers.cards]
-            if not to_eternal.ability[card.ability.extra.sticker] then
-                return {
-                    message = 'Attached!',
-                    message_card = to_eternal,
-                    func = function()
-                        card:juice_up()
-                        to_eternal:add_sticker(card.ability.extra.sticker, true)
-                        if to_eternal.ability.perishable then to_eternal.ability.perishable = false end
+            local area = SMODS.merge_lists({G.jokers.cards, G.consumeables.cards})
+            for i=#area, 1, -1 do
+                if area[i].ability.set == 'Joker' then
+                    if area[i] ~= card and not area[i].ability[card.ability.extra.sticker] then
+                        return {
+                            message = 'Attached!',
+                            message_card = area[i],
+                            func = function()
+                                card:juice_up()
+                                area[i]:add_sticker(card.ability.extra.sticker, true)
+                                if area[i].ability.perishable then area[i].ability.perishable = false end
+                            end
+                        }
                     end
-                }
+                    return
+                end
             end
         end
         if context.other_joker and context.other_joker.ability.eternal then
