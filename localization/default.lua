@@ -854,6 +854,7 @@ return {
 					'{C:white,X:mult}X#1#{} Mult',
 					'Gains {X:mult,C:white}X#2#{} for each', 
 					'unique face card scored',
+					'{C:inactive}(Resets after each hand)'
 				}
 			},
 			['j_ortalab_joker_miles'] = {
@@ -1393,7 +1394,8 @@ return {
 					'{C:white,X:mult}X#1#{} Mult',
 					'Gains {X:mult,C:white}X#2#{} for each', 
 					'consecutive triggered card',
-					'of the same rank'
+					'of the same rank',
+					'{C:inactive}(Resets at {C:attention}end of round)'
 				}
 			},
 			['j_ortalab_solo'] = {
