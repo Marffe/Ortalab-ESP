@@ -30,22 +30,22 @@ SMODS.Joker({
             end
             card.ability = copy_table(context.card.ability)
             card.ability.extra.last_joker = context.card.config.center_key
-            card.ability.pinkprint = {
+            card.ability.pinkprint = Pinkprint({
                 fake_card = true,
-                pinkprint = card.ID,
-                ID = card.ID,
+                pinkprint = card,
                 ability = copy_table(context.card.ability),
                 config = {
                     center = G.P_CENTERS[card.ability.extra.last_joker]
                 },
-            }
+            })
             return {
                 func = function()
                     G.E_MANAGER:add_event(Event({
                         trigger = 'after',
                         delay = 0.7,
                         func = function()
-                            Card.add_to_deck(card.ability.pinkprint)        
+                            Card.add_to_deck(card.ability.pinkprint)
+                            card:set_cost()        
                             return true
                         end
                     }))
@@ -68,7 +68,12 @@ SMODS.Joker({
         end
 	end,
     load = function(self, card, table, other)
-        if table.ability.pinkprint then table.ability.pinkprint.config.center = G.P_CENTERS[table.ability.extra.last_joker] end
+        if table.pinkprint then 
+            local args = table.pinkprint
+            args.pinkprint = card
+            args.config.center = G.P_CENTERS[args.config.center]
+            table.ability.pinkprint = Pinkprint(args)
+        end
     end,
     remove_from_deck = function(self, card, from_debuff)
         if card.ability.pinkprint then
@@ -91,4 +96,56 @@ function SMODS.find_card(key, count_debuffed)
         end
     end
     return results
+end
+
+
+Pinkprint = Card:extend()
+
+for key, func in pairs(Card) do
+    print(key)
+    if type(func) == 'function' then
+        Pinkprint[key] = function(self, ...)
+            return Card[key](self.pinkprint, ...)
+        end
+    end
+end
+
+function Pinkprint:init(args)
+    
+    self.base_cost = args.base_cost or 0
+    self.extra_cost = args.extra_cost or 0
+    self.cost = args.cost or 0
+    self.sell_cost = args.sell_cost or 0
+    self.sell_cost_label = args.sell_cost_label or 0
+    self.area = args.pinkprint.area
+
+
+    self.fake_card = true
+    self.pinkprint = args.pinkprint
+    self.ability = args.ability
+    self.config = args.config
+end
+
+function Pinkprint:save()
+    local cardTable = {
+        base_cost = self.base_cost,
+        extra_cost = self.extra_cost,
+        cost = self.cost,
+        sell_cost = self.sell_cost,
+        ability = self.ability,
+        fake_card = true,
+        config = {
+            center = self.config.center.key
+        },
+    }
+    return cardTable
+end
+
+local ortalab_card_save = Card.save
+function Card:save()
+    local cardTable = ortalab_card_save(self)
+    if self.ability.pinkprint and type(self.ability.pinkprint) ~= 'string' then
+        cardTable.pinkprint = Pinkprint.save(self.ability.pinkprint)
+    end
+    return cardTable
 end
