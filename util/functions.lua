@@ -185,7 +185,6 @@ function Ortalab.reset_game_globals(first_pass)
     end
     -- set most played rank and suit
     if G.GAME.blind.boss then
-        print('boss')
         G.GAME.ortalab.suits_in_deck = Ortalab.count_suits()
         G.GAME.ortalab.ranks_in_deck = Ortalab.count_ranks()
     end
