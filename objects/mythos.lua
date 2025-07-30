@@ -918,6 +918,7 @@ SMODS.Consumable({
         return sacrificed > 0
     end,
     can_sacrifice = function(self, card)
+        if G.STATE == G.STATES.SMODS_BOOSTER_OPENED then return false end
         local target = G.hand.highlighted[1] or G.jokers.highlighted[1]
         return target and target.curse and not card.ability.extra.sacrificed[target.curse]
     end,
