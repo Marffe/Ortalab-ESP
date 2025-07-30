@@ -20,7 +20,7 @@ SMODS.Joker({
 			for _, _card in pairs(context.scoring_hand) do
 				suits[not SMODS.has_no_suit(_card) and _card.base.suit] = true
 			end
-			if (suits['Hearts'] and suits['Diamonds']) or Ortalab.suit_smear() then
+			if (suits['Hearts'] and suits['Diamonds']) or Ortalab.suit_smear(card) then
 				return {
 					mult = card.ability.extra.mult
 				}
