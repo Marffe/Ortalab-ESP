@@ -361,7 +361,8 @@ return {
 				text = {
 					'When {C:attention}Blind{} is selected,',
 					'add {C:dark_edition}#2#{} to {C:attention}right-most Joker',
-					'{C:dark_edition}#2#{} Jokers each give {X:red,C:white}X#1#{} Mult'
+					'{C:dark_edition}#2#{} Jokers each give {X:red,C:white}X#1#{} Mult',
+					'{C:inactive,s:0.7}Can\'t be attached to itself'
 				}
 			},
 			['j_ortalab_bank_loan'] = {
