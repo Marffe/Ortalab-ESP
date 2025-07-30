@@ -23,7 +23,9 @@ SMODS.Joker({
         if context.before then
             card.ability.extra.ranks = {}
             for _, pcard in ipairs(context.scoring_hand) do
-                card.ability.extra.ranks[#card.ability.extra.ranks+1] = pcard.base.value
+                if not SMODS.has_no_rank(card) then
+                    card.ability.extra.ranks[#card.ability.extra.ranks+1] = pcard.base.value
+                end
             end
         end
         if context.cardarea == G.play and context.individual and Ortalab.futuristic_check(SMODS.merge_lists({SMODS.Ranks[context.other_card.base.value].next, SMODS.Ranks[context.other_card.base.value].prev}), card.ability.extra.ranks) then
