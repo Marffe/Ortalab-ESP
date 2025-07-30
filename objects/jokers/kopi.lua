@@ -31,6 +31,7 @@ SMODS.Joker({
                     delay = 0.7,
                     func = function()
                         local copy = copy_card(joker, nil, nil, nil, true) -- strips edition
+                        copy:remove_sticker('eternal')
                         copy:set_curse()
                         G.jokers:emplace(copy)
                         copy:add_to_deck()
