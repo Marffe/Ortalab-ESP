@@ -64,7 +64,7 @@ function G.UIDEF.card_h_popup(card)
     local AUT = card.ability_UIBox_table
     local obj = card.config.center or (card.config.tag and G.P_TAGS[card.config.tag.key])
     if AUT.mythos then
-        table.insert(ret_val.nodes[1].nodes[1].nodes[1].nodes, #ret_val.nodes[1].nodes[1].nodes[1].nodes, desc_from_rows(AUT.mythos))
+        table.insert(ret_val.nodes[1].nodes[1].nodes[1].nodes, #ret_val.nodes[1].nodes[1].nodes[1].nodes+(card.config.center.discovered and 0 or 1), desc_from_rows(AUT.mythos))
     end
     if obj and obj.mod and Ortalab.config.reduced_mod_badge then
         local badge = {n=G.UIT.R, config = {align = 'tm'}, nodes = {
@@ -88,6 +88,7 @@ function G.UIDEF.card_h_popup(card)
         }}
         table.insert(ret_val.nodes[1].nodes[1].nodes[1].nodes, badge)
     end
+    if card.area.config.collection and not card.config.center.discovered then return ret_val end
     if obj and obj.artist_credits and Ortalab.config.credit_pos == 1 then
         table.insert(ret_val.nodes[1].nodes[1].nodes[1].nodes, artist_node(obj.artist_credits, "Art by "))
     end

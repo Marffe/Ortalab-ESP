@@ -340,7 +340,7 @@ end
 local ortalab_generate_card_ui = generate_card_ui
 function generate_card_ui(_c, full_UI_table, specific_vars, card_type, badges, hide_desc, main_start, main_end, card)
     local ui = ortalab_generate_card_ui(_c, full_UI_table, specific_vars, card_type, badges, hide_desc, main_start, main_end, card)
-    if _c.set == 'Mythos' and _c.discovered and card.ability.extra.method then 
+    if _c.set == 'Mythos' and (not card.area.config.collection or _c.discovered) and card.ability.extra.method then 
         local colour = Ortalab.Curses[card.ability.extra.curse] and Ortalab.Curses[card.ability.extra.curse].badge_colour or G.ARGS.LOC_COLOURS.Mythos
         local mythos_nodes = {background_colour = lighten(colour, 0.75)}
         local vars = {
@@ -358,7 +358,7 @@ function generate_card_ui(_c, full_UI_table, specific_vars, card_type, badges, h
         localize{type = 'descriptions', set = _c.set, key = card.ability.extra.method, nodes = mythos_nodes, vars = vars}
         ui.mythos = mythos_nodes
     end
-    if ((_c.set == 'Zodiac' or _c.key == 'c_ortalab_ophiuchus') and _c.discovered) or (_c.set == 'Tag' and G.ZODIACS[_c.key]) then
+    if ((_c.set == 'Zodiac' or _c.key == 'c_ortalab_ophiuchus') and (not card.area.config.collection or _c.discovered)) or (_c.set == 'Tag' and G.ZODIACS[_c.key]) then
 
         local key = _c.set == 'Tag' and _c.key or card.ability.extra.zodiac
         local mythos_nodes = {background_colour = lighten(G.ARGS.LOC_COLOURS.zodiac, 0.75)}
