@@ -1318,7 +1318,7 @@ return {
 					"{C:red}+#1#{} Mult for each",
 					"card above {C:attention}#3#{}",
 					"in your full deck",
-					"{C:inactive}(Currently {C:red}+#1#{C:inactive} Mult)",
+					"{C:inactive}(Currently {C:red}+#2#{C:inactive} Mult)",
 				}
 			},
 			['j_ortalab_serious'] = {
@@ -1395,7 +1395,7 @@ return {
 					'Gains {X:mult,C:white}X#2#{} for each', 
 					'consecutive triggered card',
 					'of the same rank',
-					'{C:inactive}(Resets at {C:attention}end of round)'
+					'{C:inactive}(Resets after each hand)'
 				}
 			},
 			['j_ortalab_solo'] = {
