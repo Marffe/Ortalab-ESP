@@ -9,16 +9,17 @@ SMODS.Joker({
     blueprint_compat = true,
     eternal_compat = true,
     perishable_compat = false,
-    config = {extra = {xmult = 1.5, sticker = 'eternal'}},
+    config = {extra = {xmult = 1.35, sticker = 'eternal'}},
     artist_credits = {'no_demo'},
     loc_vars = function(self, info_queue, card)
         return {vars = {card.ability.extra.xmult, localize({type = 'name_text', set = 'Other', key = card.ability.extra.sticker})}}
     end,
     calculate = function(self, card, context)
         if context.setting_blind then
+            local cards = card.area.cards
+            if cards[#cards] == card then return end
             local to_eternal = G.jokers.cards[#G.jokers.cards]
             if not to_eternal.ability[card.ability.extra.sticker] then
-                
                 return {
                     message = 'Attached!',
                     message_card = to_eternal,

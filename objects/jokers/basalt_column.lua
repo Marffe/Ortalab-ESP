@@ -9,7 +9,7 @@ SMODS.Joker({
 	blueprint_compat = true,
 	eternal_compat = true,
 	perishable_compat = true,
-	config = {extra = {mult = 8, suit = 'Clubs'}},
+	config = {extra = {mult = 10, suit = 'Clubs'}},
 	artist_credits = {'alex'},
 	loc_vars = function(self, info_queue, card)
         return {vars = {card.ability.extra.mult, localize(card.ability.extra.suit, 'suits_singular'), colours = {G.C.SUITS[card.ability.extra.suit]}}}

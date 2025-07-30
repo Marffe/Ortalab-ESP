@@ -731,7 +731,7 @@ SMODS.Tag({
     pos = {x = 2, y = 0},
     discovered = false,
     min_ante = 2,
-    config = {type = 'immediate', hands = 4},
+    config = {type = 'immediate', hands = 3},
     artist_credits = {'hat','kosze'},
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS.c_ortalab_lot_hand
