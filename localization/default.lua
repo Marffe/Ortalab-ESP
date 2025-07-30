@@ -2943,28 +2943,77 @@ return {
                     "add to your consumables"
                 }
             },
-			['ortalab_1_sticker'] = {
-                name = "Ortalab Sticker",
-                text = {
-					"Used this Joker",
-                    "to win on {C:Ortalab}Ortalab",
-                    "{C:Ortalab}Stake{} difficulty"
-                }
-            },
-			['ortalab_2_sticker'] = {
-                name = "Ortalab II Sticker",
-                text = {
-					"Used this Joker",
-                    "to win on {C:Ortalab}Ortalab",
-                    "{C:Ortalab}Stake II{} difficulty"
-                }
-            },
+			ortalab_one_sticker = {
+				name = 'Quartz Sticker',
+				text = {
+					'Used this Joker',
+					'to win on {C:Ortalab}Quartz',
+					'{C:Ortalab}Stake{} difficulty'
+				}
+			},
+			ortalab_two_sticker = {
+				name = 'Topaz Sticker',
+				text = {
+					'Used this Joker',
+					'to win on {C:Ortalab}Topaz',
+					'{C:Ortalab}Stake{} difficulty'
+				}
+			},
+			ortalab_three_sticker = {
+				name = 'Amethyst Sticker',
+				text = {
+					'Used this Joker',
+					'to win on {C:Ortalab}Amethyst',
+					'{C:Ortalab}Stake{} difficulty'
+				}
+			},
+			ortalab_four_sticker = {
+				name = 'Sapphire Sticker',
+				text = {
+					'Used this Joker',
+					'to win on {C:Ortalab}Sapphire',
+					'{C:Ortalab}Stake{} difficulty'
+				}
+			},
+			ortalab_five_sticker = {
+				name = 'Emerald Sticker',
+				text = {
+					'Used this Joker',
+					'to win on {C:Ortalab}Emerald',
+					'{C:Ortalab}Stake{} difficulty'
+				}
+			},
+			ortalab_six_sticker = {
+				name = 'Ruby Sticker',
+				text = {
+					'Used this Joker',
+					'to win on {C:Ortalab}Ruby',
+					'{C:Ortalab}Stake{} difficulty'
+				}
+			},
+			ortalab_seven_sticker = {
+				name = 'Diamond Sticker',
+				text = {
+					'Used this Joker',
+					'to win on {C:Ortalab}Diamond',
+					'{C:Ortalab}Stake{} difficulty'
+				}
+			},
+			ortalab_eight_sticker = {
+				name = 'Obsidian Sticker',
+				text = {
+					'Used this Joker',
+					'to win on {C:Ortalab}Obsidian',
+					'{C:Ortalab}Stake{} difficulty'
+				}
+			},
 		},
 		['Stake'] = {
 			['stake_ortalab_one'] = {
 				name = "Quartz Stake",
 				text = {
 				"Experience {C:Ortalab}Ortalab{} as intended",
+				"You can choose between {C:attention}2{} Blinds",
 				"{C:inactive,s:0.7}You can enable other content in this mode in the {C:Ortalab,s:0.7}Ortalab{C:inactive,s:0.7} config"
 				}
 			},
