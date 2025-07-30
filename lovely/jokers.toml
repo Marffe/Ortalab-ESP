@@ -410,3 +410,16 @@ if hand_chips and hand_chips > current_chips and next(SMODS.find_card('j_ortalab
     SMODS.calculate_context({ortalab_black_cat_scale = hand_chips - current_chips, other_card = card})
 end
 '''
+
+# Allow Blackboard(vanilla) to work with prismatic effects
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+match_indent = true
+position = 'at'
+pattern = '''
+if v:is_suit('Clubs', nil, true) or v:is_suit('Spades', nil, true) then
+'''
+payload = '''
+if v:is_suit('Clubs') or v:is_suit('Spades') then
+'''
