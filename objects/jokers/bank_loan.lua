@@ -26,7 +26,7 @@ SMODS.Joker({
 local set_cost = Card.set_cost
 function Card:set_cost()
     set_cost(self)
-    if self.config.center_key == 'j_ortalab_bank_loan' then
+    if (self.config.center_key == 'j_ortalab_bank_loan' or (self.ability.pinkprint and self.ability.extra.last_joker == 'j_ortalab_bank_loan')) then
         self.sell_cost = -1 * self.ability.extra.money
         self.sell_cost_label = self.ability.extra.money
     end
