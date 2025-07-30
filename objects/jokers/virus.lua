@@ -19,49 +19,46 @@ SMODS.Joker({
             local eval = function() return G.GAME.current_round.hands_played == 0 end
             juice_card_until(card, eval, true)
         end
-        if context.destroying_card and not context.blueprint and card.ability.extra.joker_triggered == true then
-            card.ability.extra.joker_triggered = false
-            return true
-        end
-        if context.cardarea == G.jokers and context.before and G.GAME.current_round.hands_played == 0 then
+        if context.destroying_card and not context.blueprint and G.GAME.current_round.hands_played == 0 then
             if #context.full_hand == 1 then
-                local card_to_dupe = context.full_hand[1]
-                local hand = {}
-                for i=1, #G.hand.cards do
-                    if not (G.hand.cards[i]:get_id() == card_to_dupe:get_id() and G.hand.cards[i].ability.name == card_to_dupe.ability.name and G.hand.cards[i].edition == card_to_dupe.edition) and G.hand.cards[i].infected ~= true then hand[#hand+1] = G.hand.cards[i] end
-                end
-                card.ability.extra.joker_triggered = true
-                local infected_card_1
-                local infected_card_2
-                if hand[1] ~= nil then 
-                    infected_card_1 = pseudorandom_element(hand, pseudoseed('virus'))
-                    hand[infected_card_1] = nil
-                    infected_card_1.infected = true
-                    infected_card_1:flip()
-                    if hand[1] ~= nil then 
-                        infected_card_2 = pseudorandom_element(hand, pseudoseed('virus'))
-                        hand[infected_card_2] = nil
-                        infected_card_2.infected = true
-                        infected_card_2:flip()
-                    end
-                    if infected_card_1 then
-                        G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.15,func = function()
-                            if infected_card_2 then
-                                copy_card(card_to_dupe, infected_card_2)
-                                infected_card_2:flip()
-                            end
-                            copy_card(card_to_dupe, infected_card_1)
-                            infected_card_1:flip()
-                            return true 
-                            end 
-                        }))
+                local played_card = context.full_hand[1]
+                local targets = {}
+                targets[#targets+1] = pseudorandom_element(G.hand.cards, 'ortalab_virus')
+                if #G.hand.cards > 1 then
+                    targets[#targets+1] = pseudorandom_element(G.hand.cards, 'ortalab_virus')
+                    while targets[2] == targets[1] do
+                        targets[2] = pseudorandom_element(G.hand.cards, 'ortalab_virus_reroll')
                     end
                 end
+                for _, _card in ipairs(targets) do 
+                    G.E_MANAGER:add_event(Event({
+                        trigger = 'after', delay = 0.7,
+                        func = function()
+                            _card:flip()
+                            copy_card(played_card, _card, nil, G.playing_card)
+                            return true
+                        end
+                    }))
+                    G.E_MANAGER:add_event(Event({
+                        trigger = 'after', delay = 0.3,
+                        func = function()
+                            context.destroying_card:juice_up()                
+                            return true
+                        end
+                    }))
+                    SMODS.calculate_effect({message = localize('ortalab_infected'), colour = G.C.GREEN}, _card)
+                end                
+
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'after', delay = 0.7,
+                    func = function()
+                        for _, _card in ipairs(targets) do _card:flip() end                
+                        return true
+                    end
+                }))
+
                 return {
-                    message = localize('ortalab_infect'),
-                    colour = G.C.CHIPS,
-                    delay = 1, 
-                    card = card
+                    remove = true
                 }
             end
         end
