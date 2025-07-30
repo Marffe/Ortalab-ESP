@@ -88,7 +88,7 @@ function G.UIDEF.card_h_popup(card)
         }}
         table.insert(ret_val.nodes[1].nodes[1].nodes[1].nodes, badge)
     end
-    if card.area.config.collection and not card.config.center.discovered then return ret_val end
+    if card.area and card.area.config.collection and not card.config.center.discovered then return ret_val end
     if obj and obj.artist_credits and Ortalab.config.credit_pos == 1 then
         table.insert(ret_val.nodes[1].nodes[1].nodes[1].nodes, artist_node(obj.artist_credits, "Art by "))
     end
