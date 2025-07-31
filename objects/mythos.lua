@@ -451,7 +451,7 @@ SMODS.Consumable({
         return {vars = {card.ability.extra.cards}}
     end,
     can_use = function(self, card)
-        return Ortalab.Mythos_Utils.can_curse_in_area(G.hand, card.ability.extra.select)
+        return #G.hand.cards > 0 and Ortalab.Mythos_Utils.can_curse_in_area(G.hand, card.ability.extra.select)
     end,
     use = function(self, card, area, copier)
         -- add 3 enhanced/editioned Face cards
@@ -501,7 +501,7 @@ SMODS.Consumable({
         return {vars = {card.ability.extra.cards, card.ability.extra.rank}}
     end,
     can_use = function(self, card)
-        return Ortalab.Mythos_Utils.can_curse_in_area(G.hand, card.ability.extra.select)
+        return #G.hand.cards > 0 and Ortalab.Mythos_Utils.can_curse_in_area(G.hand, card.ability.extra.select)
     end,
     use = function(self, card, area, copier)
         -- add 3 enhanced/editioned Face cards
@@ -544,7 +544,7 @@ SMODS.Consumable({
         return {vars = {card.ability.extra.cards}}
     end,
     can_use = function(self, card)
-        return Ortalab.Mythos_Utils.can_curse_in_area(G.hand, card.ability.extra.select)
+        return #G.hand.cards > 0 and Ortalab.Mythos_Utils.can_curse_in_area(G.hand, card.ability.extra.select)
     end,
     use = function(self, card, area, copier)
         -- add 3 enhanced/editioned Face cards
