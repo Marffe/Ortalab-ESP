@@ -150,3 +150,9 @@ function Card:save()
     end
     return cardTable
 end
+
+local ortalab_card_eval_status_text = card_eval_status_text
+function card_eval_status_text(card, eval_type, amt, percent, dir, extra)
+    if card.pinkprint then card = card.pinkprint end
+    ortalab_card_eval_status_text(card, eval_type, amt, percent, dir, extra)
+end
