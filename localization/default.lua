@@ -114,6 +114,7 @@ return {
 			ortalab_kopi_no = 'No target!',
 			ortalab_enabled = 'Enabled!',
 			ortalab_disabled = 'Disabled!',
+			ortalab_corpus_no_cards = 'No cards!'
 		},
 		['labels'] = {
 			ortalab_greyscale = 'Greyscale',
