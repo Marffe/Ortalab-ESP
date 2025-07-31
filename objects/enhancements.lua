@@ -335,16 +335,18 @@ function Card:highlight(highlighted)
             definition = G.UIDEF.use_index_buttons(self), 
             config = {align = 'cl', offset = {x=0.5, y=0}, parent = self, id = 'ortalab_index'}
         }
-    elseif self.area and #self.area.highlighted > 0 and not G.booster_pack then
+    elseif self.area and self.area == G.hand and #self.area.highlighted > 0 and not G.booster_pack then
         for _, card in ipairs(self.area.highlighted) do
-            if SMODS.has_enhancement(self, 'm_ortalab_index') then
+            if SMODS.has_enhancement(card, 'm_ortalab_index') then
                 card.children.use_button = #self.area.highlighted == 1 and UIBox{
                     definition = G.UIDEF.use_index_buttons(card), 
-                    config = {align = 'cl', offset = {x=0.5, y=0}, parent = card}
+                    config = {align = 'cl', offset = {x=0.5, y=0}, parent = card, id = 'ortalab_index'}
                 } or nil
             end
         end
         -- self.children.use_button = nil
+    elseif self.children.use_button and self.children.use_button.config.id == 'ortalab_index' then
+        self.children.use_button:remove()
     end
     if highlighted and self.children.use_button and self.children.use_button.config.id == 'ortalab_index' and not SMODS.has_enhancement(self, 'm_ortalab_index') then
         self.children.use_button:remove()
