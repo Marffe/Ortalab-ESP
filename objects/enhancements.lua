@@ -408,7 +408,11 @@ G.FUNCS.increase_index = function(e, mute, nosave)
     local change = 1
     if card.ability.index_state == 'DOWN' then change = 2 end
     card.ability.index_state = 'UP'
-    if not card.ability.chiselled or card.config.center_key == 'm_ortalab_index' then card.children.center:set_sprite_pos({x = 1, y = 2}) end
+    if not card.ability.chiselled or card.config.center_key == 'm_ortalab_index' then
+        card.children.center.atlas.name = 'ortalab_enhanced'
+        card.children.center.sprite_pos = {x = 1, y = 2}
+        card.children.center:reset()
+    end
     card.base.id = card.base.id + change
     SMODS.change_base(card, nil, get_rank_suffix(card)) 
 end
@@ -430,7 +434,11 @@ G.FUNCS.mid_index = function(e, mute, nosave)
     local change = 1
     if card.ability.index_state == 'UP' then change = -1 end
     card.ability.index_state = 'MID'
-    if not card.ability.chiselled or card.config.center_key == 'm_ortalab_index' then card.children.center:set_sprite_pos({x = 2, y = 0}) end
+    if not card.ability.chiselled or card.config.center_key == 'm_ortalab_index' then
+        card.children.center.atlas.name = 'ortalab_enhanced'
+        card.children.center.sprite_pos = {x = 2, y = 0}
+        card.children.center:reset()
+    end
     card.base.id = card.base.id + change
     SMODS.change_base(card, nil, get_rank_suffix(card)) 
 end
@@ -452,7 +460,11 @@ G.FUNCS.decrease_index = function(e, mute, nosave)
     local change = 1
     if card.ability.index_state == 'UP' then change = 2 end
     card.ability.index_state = 'DOWN'
-    if not card.ability.chiselled or card.config.center_key == 'm_ortalab_index' then card.children.center:set_sprite_pos({x = 0, y = 2}) end
+    if not card.ability.chiselled or card.config.center_key == 'm_ortalab_index' then
+        card.children.center.atlas.name = 'ortalab_enhanced'
+        card.children.center.sprite_pos = {x = 0, y = 2}
+        card.children.center:reset()
+    end
     card.base.id = card.base.id - change
     SMODS.change_base(card, nil, get_rank_suffix(card))
 end
