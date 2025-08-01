@@ -29,8 +29,8 @@ SMODS.Stake({
         if Ortalab.config.ortalab_only then
             G.GAME.planet_rate = 0
             G.GAME.tarot_rate = 0
-            G.GAME.loteria_rate = 4
-            G.GAME.zodiac_rate = 2.1
+            G.GAME.ortalab_loteria_rate = 4
+            G.GAME.ortalab_zodiac_rate = 2.1
             G.GAME.joker_rate = 20.7
             -- G.GAME.mythos_rate = 1.2
         end
