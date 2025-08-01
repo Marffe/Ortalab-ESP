@@ -386,7 +386,7 @@ if _type == 'Tag' then
     SMODS.merge_defaults(card.config, card.tag.config)
     card.base_cost = 8
     card:set_cost()
-    card.children.center = Sprite(0,0,0.8,0.8,G.ASSET_ATLAS[center.atlas or "Tags"], center.pos)
+    card.children.center = Sprite(0,0,0.8,0.8,G.ASSET_ATLAS[center.atlas or "tags"], center.pos)
     card.children.center.states.hover = card.states.hover
     card.children.center.states.click = card.states.click
     card.children.center.states.drag = card.states.drag

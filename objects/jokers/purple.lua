@@ -15,7 +15,7 @@ SMODS.Joker({
         return {vars = {card.ability.extra.chip_change, card.ability.extra.mult_change, card.ability.extra.chips, card.ability.extra.mult}}
     end,
     calculate = function(self, card, context)
-        if context.pre_discard and card.ability.extra.mult > 0 then
+        if context.pre_discard and card.ability.extra.mult > 0 and not context.blueprint and not context.retrigger_joker then
             card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.chip_change
             card.ability.extra.mult = card.ability.extra.mult - card.ability.extra.mult_change
             return {
@@ -27,7 +27,7 @@ SMODS.Joker({
                 }
             }
         end
-        if context.after and card.ability.extra.chips > 0 then
+        if context.after and card.ability.extra.chips > 0 and not context.blueprint and not context.retrigger_joker then
             card.ability.extra.chips = card.ability.extra.chips - card.ability.extra.chip_change
             card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_change
             return {

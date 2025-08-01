@@ -23,7 +23,7 @@ SMODS.Joker({
         if context.using_consumeable or context.press_play then
             card.ability.extra.count = 0
         end
-        if context.change_suit then
+        if context.change_suit and not context.blueprint and not context.retrigger_joker then
             card.ability.extra.count = card.ability.extra.count + 1
             if card.ability.extra.count == card.ability.extra.target then
                 card.ability.extra.xmult = card.ability.extra.xmult + card.ability.extra.gain

@@ -114,6 +114,7 @@ return {
 			ortalab_kopi_no = 'No target!',
 			ortalab_enabled = 'Enabled!',
 			ortalab_disabled = 'Disabled!',
+			ortalab_corpus_no_cards = 'No cards!'
 		},
 		['labels'] = {
 			ortalab_greyscale = 'Greyscale',
@@ -1260,11 +1261,11 @@ return {
 			['j_ortalab_sandstone'] = {
 				["name"] = "Sandstone Joker",
 				["text"] = {
+					{"Played {C:attention}Sand Cards{}",
+					"do not lose Mult"},
 					{"Gains {X:mult,C:white}X#2#{} Mult when",
 					"a {C:attention}Sand Card{} is played",
-					"{C:inactive,s:0.9}(Currently {C:white,X:mult,s:0.9}X#1#{C:inactive,s:0.9})",},
-					{"Played {C:attention}Sand Cards{}",
-					"do not lose Mult"}
+					"{C:inactive,s:0.9}(Currently {C:white,X:mult,s:0.9}X#1#{C:inactive,s:0.9})",}
 				}
 			},
 			['j_ortalab_sane'] = {

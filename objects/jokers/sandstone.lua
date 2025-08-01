@@ -13,7 +13,7 @@ SMODS.Joker({
 	config = {extra = {xmult = 1, gain = 0.1}},
     artist_credits = {'gappie'},
 	loc_vars = function(self, info_queue, card)
-        info_queue[#info_queue + 1] = G.P_CENTERS['m_ortalab_sand']
+        -- info_queue[#info_queue + 1] = G.P_CENTERS['m_ortalab_sand']
         return {vars = {card.ability.extra.xmult, card.ability.extra.gain}}
     end,
     calculate = function(self, card, context)

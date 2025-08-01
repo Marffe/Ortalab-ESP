@@ -40,7 +40,7 @@ function evaluate_poker_hand(hand)
 		table.sort(hand, function (a, b) return a.T.x + a.T.w/2 < b.T.x + b.T.w/2 end)
 		local new_hand = {hand[1]}
 		for i=2, #hand do
-			if hand[i].config.center.no_rank then
+			if hand[i].config.center.no_rank or SMODS.has_enhancement(hand[i], 'm_stone') then
 				new_hand[i] = Ortalab.find_card_to_left_with_rank(hand, i)
 			else
 				new_hand[i] = hand[i]
@@ -53,7 +53,7 @@ end
 
 function Ortalab.find_card_to_left_with_rank(hand, index)
 	for i=index, 1, -1 do
-		if not hand[i].config.center.no_rank then return hand[i] end
+		if not (hand[i].config.center.no_rank or SMODS.has_enhancement(hand[i], 'm_stone')) then return hand[i] end
 	end
 	return hand[index]
 end
@@ -63,7 +63,7 @@ function CardArea:align_cards()
 	ortalab_align_cards(self)
 	if self.config.type == 'hand' and not (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK or G.STATE == G.STATES.PLANET_PACK or G.STATE == G.STATES.SMODS_BOOSTER_OPENED) then
 		for k, card in ipairs(self.cards) do
-            if card.states.drag.is and card.config.center.no_rank then
+            if card.states.drag.is and (card.config.center.no_rank or SMODS.has_enhancement(card, 'm_stone')) then
 				self:parse_highlighted()
 			end
 		end

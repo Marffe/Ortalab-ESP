@@ -20,7 +20,7 @@ SMODS.Joker({
 				xmult = card.ability.extra.xmult
 			}
 		end
-		if (context.tag_added and not context.tag_added.from_recycled) or ((context.ortalab_black_cat_scale or 0) >= card.ability.extra.chips) or (context.individual and context.other_card.recycled_tag) then
+		if (context.tag_added and not context.tag_added.from_recycled) or (to_big(context.ortalab_black_cat_scale or 0) >= to_big(card.ability.extra.chips)) or (context.individual and context.other_card.recycled_tag) then
 			card.ability.extra.xmult = card.ability.extra.xmult + card.ability.extra.gain
 			return {
 				message = localize('k_upgrade_ex'),

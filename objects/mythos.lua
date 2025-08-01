@@ -451,7 +451,7 @@ SMODS.Consumable({
         return {vars = {card.ability.extra.cards}}
     end,
     can_use = function(self, card)
-        return Ortalab.Mythos_Utils.can_curse_in_area(G.hand, card.ability.extra.select)
+        return #G.hand.cards > 0 and Ortalab.Mythos_Utils.can_curse_in_area(G.hand, card.ability.extra.select)
     end,
     use = function(self, card, area, copier)
         -- add 3 enhanced/editioned Face cards
@@ -501,7 +501,7 @@ SMODS.Consumable({
         return {vars = {card.ability.extra.cards, card.ability.extra.rank}}
     end,
     can_use = function(self, card)
-        return Ortalab.Mythos_Utils.can_curse_in_area(G.hand, card.ability.extra.select)
+        return #G.hand.cards > 0 and Ortalab.Mythos_Utils.can_curse_in_area(G.hand, card.ability.extra.select)
     end,
     use = function(self, card, area, copier)
         -- add 3 enhanced/editioned Face cards
@@ -544,7 +544,7 @@ SMODS.Consumable({
         return {vars = {card.ability.extra.cards}}
     end,
     can_use = function(self, card)
-        return Ortalab.Mythos_Utils.can_curse_in_area(G.hand, card.ability.extra.select)
+        return #G.hand.cards > 0 and Ortalab.Mythos_Utils.can_curse_in_area(G.hand, card.ability.extra.select)
     end,
     use = function(self, card, area, copier)
         -- add 3 enhanced/editioned Face cards
@@ -1034,6 +1034,8 @@ SMODS.Consumable({
         for _, v in pairs(card.ability.extra.sacrificed) do if v then sacrificed = sacrificed + 1 end end
         G.GAME.modifiers.scaling = (G.GAME.modifiers.scaling or 1)
         for i=1, sacrificed do
+            Ortalab.Mythos_Utils.Corpus_Effects.immolate(card)
+            Ortalab.Mythos_Utils.Corpus_Effects.talisman(card)
             pseudorandom_element(Ortalab.Mythos_Utils.Corpus_Effects, 'ortalab_corpus_select')(card)
             G.GAME.modifiers.scaling = G.GAME.modifiers.scaling * 1.2
         end
@@ -1174,7 +1176,7 @@ Ortalab.Mythos_Utils.Corpus_Effects.familiar = function(card)
         }))
     end
     playing_card_joker_effects(cards)    
-    delay(3)
+    delay(4)
 end
 
 Ortalab.Mythos_Utils.Corpus_Effects.grim = function(card)
@@ -1199,7 +1201,7 @@ Ortalab.Mythos_Utils.Corpus_Effects.grim = function(card)
         }))
     end
     playing_card_joker_effects(cards)  
-    delay(3) 
+    delay(4) 
 end
 
 Ortalab.Mythos_Utils.Corpus_Effects.incantation = function(card)
@@ -1229,7 +1231,7 @@ Ortalab.Mythos_Utils.Corpus_Effects.incantation = function(card)
         }))
     end
     playing_card_joker_effects(cards)  
-    delay(3)
+    delay(4)
 end
 
 Ortalab.Mythos_Utils.Corpus_Effects.talisman = function(card)
@@ -1237,6 +1239,12 @@ Ortalab.Mythos_Utils.Corpus_Effects.talisman = function(card)
     local targets = {}
     for _, card in ipairs(G.hand.cards) do
         if not card.seal and not card.getting_sliced then table.insert(targets, card) end
+    end
+    if #targets == 0 then
+        delay(4)
+        SMODS.calculate_effect({message = localize('ortalab_corpus_no_cards'), colour = G.ARGS.LOC_COLOURS.Mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
+        delay(4)
+        return
     end
     local target = pseudorandom_element(targets or G.hand.cards, 'corpus_talisman')
     G.E_MANAGER:add_event(Event({
@@ -1246,22 +1254,28 @@ Ortalab.Mythos_Utils.Corpus_Effects.talisman = function(card)
             return true
         end
     }))
-    delay(3)
+    delay(4)
 end
 
 Ortalab.Mythos_Utils.Corpus_Effects.aura = function(card)
     SMODS.calculate_effect({message = localize({set = 'Spectral', key = 'c_aura', type = 'name_text'})..'?', colour = G.ARGS.LOC_COLOURS.Mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
+    local targets = SMODS.Edition:get_edition_cards(G.hand, true)
+    if #targets == 0 then
+        delay(4)
+        SMODS.calculate_effect({message = localize('ortalab_corpus_no_cards'), colour = G.ARGS.LOC_COLOURS.Mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
+        delay(4)
+        return
+    end
     G.E_MANAGER:add_event(Event({
         trigger = 'after', delay = 0.7,
         func = function()                
-            local targets = SMODS.Edition:get_edition_cards(G.hand, true)
             local target = pseudorandom_element(next(targets) and targets or G.hand.cards, 'corpus_aura')
             if target.getting_sliced then target = pseudorandom_element(next(targets) and targets or G.hand.cards, 'corpus_aura_re') end
             target:set_edition(poll_edition('corpus_aura_edition', nil, nil, true, {'e_foil', 'e_holo', 'e_polychrome'}), true, false)
             return true
         end
     }))
-    delay(3)
+    delay(4)
 end
 
 Ortalab.Mythos_Utils.Corpus_Effects.wraith = function(card)
@@ -1274,7 +1288,7 @@ Ortalab.Mythos_Utils.Corpus_Effects.wraith = function(card)
             return true
         end
     }))
-    delay(3)
+    delay(4)
 end
 
 Ortalab.Mythos_Utils.Corpus_Effects.sigil = function(card)
@@ -1295,7 +1309,7 @@ Ortalab.Mythos_Utils.Corpus_Effects.sigil = function(card)
             }))
         end
     end
-    delay(3)
+    delay(4)
 end
 
 Ortalab.Mythos_Utils.Corpus_Effects.ouija = function(card)
@@ -1316,21 +1330,27 @@ Ortalab.Mythos_Utils.Corpus_Effects.ouija = function(card)
             }))
         end
     end
-    delay(3)
+    delay(4)
 end
 
 Ortalab.Mythos_Utils.Corpus_Effects.ectoplasm = function(card)
     SMODS.calculate_effect({message = localize({set = 'Spectral', key = 'c_ectoplasm', type = 'name_text'})..'?', colour = G.ARGS.LOC_COLOURS.Mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
+    local targets = SMODS.Edition:get_edition_cards(G.jokers, true)
+    if #targets == 0 then
+        delay(4)
+        SMODS.calculate_effect({message = localize('ortalab_corpus_no_cards'), colour = G.ARGS.LOC_COLOURS.Mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
+        delay(4)
+        return
+    end
     G.E_MANAGER:add_event(Event({
         trigger = 'after', delay = 0.7,
         func = function()                
-            local targets = SMODS.Edition:get_edition_cards(G.jokers, true)
             local target = pseudorandom_element(next(targets) and targets or G.jokers.cards, 'corpus_ectoplasm')
             target:set_edition('e_negative', true, false)
             return true
         end
     }))
-    delay(3)
+    delay(4)
 end
 
 Ortalab.Mythos_Utils.Corpus_Effects.immolate = function(card)
@@ -1345,7 +1365,7 @@ Ortalab.Mythos_Utils.Corpus_Effects.immolate = function(card)
     end
     SMODS.destroy_cards(removed)
     ease_dollars(20)
-    delay(3)
+    delay(4)
 end
 
 Ortalab.Mythos_Utils.Corpus_Effects.ankh = function(card)
@@ -1361,7 +1381,7 @@ Ortalab.Mythos_Utils.Corpus_Effects.ankh = function(card)
         end
     }))
     new_joker:add_to_deck()
-    delay(3)
+    delay(4)
 end
 
 Ortalab.Mythos_Utils.Corpus_Effects.deja_vu = function(card)
@@ -1369,6 +1389,12 @@ Ortalab.Mythos_Utils.Corpus_Effects.deja_vu = function(card)
     local targets = {}
     for _, card in ipairs(G.hand.cards) do
         if not card.seal and not card.getting_sliced then table.insert(targets, card) end
+    end
+    if #targets == 0 then
+        delay(4)
+        SMODS.calculate_effect({message = localize('ortalab_corpus_no_cards'), colour = G.ARGS.LOC_COLOURS.Mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
+        delay(4)
+        return
     end
     local target = pseudorandom_element(targets or G.hand.cards, 'corpus_deja_vu')
     G.E_MANAGER:add_event(Event({
@@ -1378,21 +1404,27 @@ Ortalab.Mythos_Utils.Corpus_Effects.deja_vu = function(card)
             return true
         end
     }))
-    delay(3)
+    delay(4)
 end
 
 Ortalab.Mythos_Utils.Corpus_Effects.hex = function(card)
     SMODS.calculate_effect({message = localize({set = 'Spectral', key = 'c_hex', type = 'name_text'})..'?', colour = G.ARGS.LOC_COLOURS.Mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
+    local targets = SMODS.Edition:get_edition_cards(G.jokers, true)
+    if #targets == 0 then
+        delay(4)
+        SMODS.calculate_effect({message = localize('ortalab_corpus_no_cards'), colour = G.ARGS.LOC_COLOURS.Mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
+        delay(4)
+        return
+    end
     G.E_MANAGER:add_event(Event({
         trigger = 'after', delay = 0.7,
         func = function()                
-            local targets = SMODS.Edition:get_edition_cards(G.jokers, true)
             local target = pseudorandom_element(next(targets) and targets or G.jokers.cards, 'corpus_hex')
             target:set_edition('e_polychrome', true, false)
             return true
         end
     }))
-    delay(3)
+    delay(4)
 end
 
 Ortalab.Mythos_Utils.Corpus_Effects.trance = function(card)
@@ -1400,6 +1432,12 @@ Ortalab.Mythos_Utils.Corpus_Effects.trance = function(card)
     local targets = {}
     for _, card in ipairs(G.hand.cards) do
         if not card.seal and not card.getting_sliced then table.insert(targets, card) end
+    end
+    if #targets == 0 then
+        delay(4)
+        SMODS.calculate_effect({message = localize('ortalab_corpus_no_cards'), colour = G.ARGS.LOC_COLOURS.Mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
+        delay(4)
+        return
     end
     local target = pseudorandom_element(targets or G.hand.cards, 'corpus_trance')
     G.E_MANAGER:add_event(Event({
@@ -1409,7 +1447,7 @@ Ortalab.Mythos_Utils.Corpus_Effects.trance = function(card)
             return true
         end
     }))
-    delay(3)
+    delay(4)
 end
 
 Ortalab.Mythos_Utils.Corpus_Effects.medium = function(card)
@@ -1417,6 +1455,12 @@ Ortalab.Mythos_Utils.Corpus_Effects.medium = function(card)
     local targets = {}
     for _, card in ipairs(G.hand.cards) do
         if not card.seal and not card.getting_sliced then table.insert(targets, card) end
+    end
+    if #targets == 0 then
+        delay(4)
+        SMODS.calculate_effect({message = localize('ortalab_corpus_no_cards'), colour = G.ARGS.LOC_COLOURS.Mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
+        delay(4)
+        return
     end
     local target = pseudorandom_element(targets or G.hand.cards, 'corpus_medium')
     G.E_MANAGER:add_event(Event({
@@ -1426,11 +1470,17 @@ Ortalab.Mythos_Utils.Corpus_Effects.medium = function(card)
             return true
         end
     }))
-    delay(3)
+    delay(4)
 end
 
 Ortalab.Mythos_Utils.Corpus_Effects.cryptid = function(card)
     SMODS.calculate_effect({message = localize({set = 'Spectral', key = 'c_cryptid', type = 'name_text'})..'?', colour = G.ARGS.LOC_COLOURS.Mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
+    if #G.hand.cards == 0 then
+        delay(4)
+        SMODS.calculate_effect({message = localize('ortalab_corpus_no_cards'), colour = G.ARGS.LOC_COLOURS.Mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
+        delay(4)
+        return
+    end
     local target = pseudorandom_element(G.hand.cards, 'corpus_soul')
     if target.getting_sliced then target = pseudorandom_element(G.hand.cards, 'corpus_soul_re') end
     local copies = {}
@@ -1451,7 +1501,7 @@ Ortalab.Mythos_Utils.Corpus_Effects.cryptid = function(card)
         }))
     end
     playing_card_joker_effects(copies)
-    delay(3)
+    delay(4)
 end
 
 Ortalab.Mythos_Utils.Corpus_Effects.soul = function(card)
@@ -1464,7 +1514,7 @@ Ortalab.Mythos_Utils.Corpus_Effects.soul = function(card)
             return true
         end
     }))
-    delay(3)
+    delay(4)
 end
 
 Ortalab.Mythos_Utils.Corpus_Effects.black_hole = function(card)
@@ -1492,7 +1542,7 @@ Ortalab.Mythos_Utils.Corpus_Effects.black_hole = function(card)
             level_up_hand(card, k, true)
         end
         update_hand_text({sound = 'button', volume = 0.7, pitch = 1.1, delay = 0}, {mult = 0, chips = 0, handname = '', level = ''})
-    delay(3)
+    delay(4)
 end
 
 -- Ophiuchus
