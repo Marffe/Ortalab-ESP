@@ -8,8 +8,8 @@ SMODS.Joker({
     discovered = false,
     blueprint_compat = true,
     eternal_compat = true,
-    perishable_compat = false,
-    config = {extra = {xmult = 1.35, sticker = 'eternal'}},
+    perishable_compat = true,
+    config = {extra = {xmult = 1.25, sticker = 'eternal'}},
     artist_credits = {'gappie'},
     loc_vars = function(self, info_queue, card)
         return {vars = {card.ability.extra.xmult, localize({type = 'name_text', set = 'Other', key = card.ability.extra.sticker})}}
@@ -19,7 +19,8 @@ SMODS.Joker({
             local area = SMODS.merge_lists({G.jokers.cards, G.consumeables.cards})
             for i=#area, 1, -1 do
                 if area[i].ability.set == 'Joker' then
-                    if area[i] ~= card and not area[i].ability[card.ability.extra.sticker] then
+                    --[[if area[i] ~= card and not area[i].ability[card.ability.extra.sticker] then]]
+                    if not area[i].ability[card.ability.extra.sticker] then
                         return {
                             message = 'Attached!',
                             message_card = area[i],
