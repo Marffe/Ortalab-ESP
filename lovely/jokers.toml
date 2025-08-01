@@ -219,10 +219,26 @@ payload = '''
 local wallets = SMODS.find_card('j_ortalab_wallet')
 if next(wallets) and context.cardarea == G.play then
     context.cardarea = G.hand
-    SMODS.calculate_effect({message = 'Wallet', juice_card = wallets[1], message_card = card}, card)
+    card.wallet = wallets[1]
     SMODS.score_card(card, context)
 end
 '''
+# Wallet - scored cards trigger end of round in hand effects
+[[patches]]
+[patches.pattern]
+target = 'functions/state_events.lua'
+match_indent = true
+position = 'after'
+pattern = '''
+hand_chips = mod_chips(nu_chip or hand_chips)
+'''
+payload = '''
+local wallets = SMODS.find_card('j_ortalab_wallet')
+if next(wallets) then
+    Ortalab.wallet_end_of_round({cardarea = G.hand, end_of_round = true, beat_boss = G.GAME.blind.boss }, G.play.cards, wallets[1])
+end
+'''
+
 
 # Wallet/Raised Fist compat
 [[patches]]
