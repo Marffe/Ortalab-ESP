@@ -188,6 +188,11 @@ function Ortalab.reset_game_globals(first_pass)
         G.GAME.ortalab.suits_in_deck = Ortalab.count_suits()
         G.GAME.ortalab.ranks_in_deck = Ortalab.count_ranks()
     end
+    -- Reset handsize
+    if G.GAME.ortalab.hand_size then
+        G.hand:change_size(G.GAME.ortalab.hand_size)
+        G.GAME.ortalab.hand_size = 0
+    end
 end
 
 -- Function modify the amount of joker slots with an animation

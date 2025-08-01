@@ -21,10 +21,5 @@ SMODS.Joker({
             ease_hands_played(card.ability.extra.hands)
             return nil, true
         end
-        if context.end_of_round and context.main_eval then
-            G.hand:change_size(G.GAME.ortalab.hand_size)
-            G.GAME.ortalab.hand_size = 0
-            return nil, true
-        end
     end
 })
