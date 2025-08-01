@@ -622,12 +622,18 @@ SMODS.Consumable({
         -- Curse a random joker
         Ortalab.Mythos_Utils.curse_random_cards(card, G.jokers.cards, {card.ability.extra.curse})
     end,
-    total_value = function(card)
+    total_value = function(card) 
+        local temp_total = 0
         local total_value = 0
         if not G.jokers then return total_value end
         for k=1, #G.jokers.cards + #G.consumeables.cards do
             local _card = G.jokers.cards[k] or G.consumeables.cards[k - #G.jokers.cards]
             if _card.config.center.set == 'Joker' then
+                temp_total = total_value + _card.sell_cost
+            end
+            if temp_total >= 100 then
+                total_value = 100
+            else
                 total_value = total_value + _card.sell_cost
             end
         end
