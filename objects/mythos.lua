@@ -468,7 +468,13 @@ SMODS.Consumable({
                 end
             }))
         end
-        playing_card_joker_effects(cards)    
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after', delay = 0.7,
+            func = function()                
+                playing_card_joker_effects(cards)  
+                return true
+            end
+        }))
 
         -- set the curse
         Ortalab.Mythos_Utils.curse_random_hand(card, {card.ability.extra.curse})            
@@ -511,7 +517,13 @@ SMODS.Consumable({
                 end
             }))
         end
-        playing_card_joker_effects(cards)  
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after', delay = 0.7,
+            func = function()                
+                playing_card_joker_effects(cards)  
+                return true
+            end
+        }))
 
         -- set the curse
         Ortalab.Mythos_Utils.curse_random_hand(card, {card.ability.extra.curse})              
@@ -555,7 +567,13 @@ SMODS.Consumable({
                 end
             }))
         end
-        playing_card_joker_effects(cards)  
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after', delay = 0.7,
+            func = function()                
+                playing_card_joker_effects(cards)  
+                return true
+            end
+        }))
         
         -- set the curse
         Ortalab.Mythos_Utils.curse_random_hand(card, {card.ability.extra.curse})
@@ -1162,7 +1180,13 @@ Ortalab.Mythos_Utils.Corpus_Effects.familiar = function(card)
             end
         }))
     end
-    playing_card_joker_effects(cards)    
+    G.E_MANAGER:add_event(Event({
+            trigger = 'after', delay = 0.7,
+            func = function()                
+                playing_card_joker_effects(cards)  
+                return true
+            end
+        }))    
     delay(4)
 end
 
@@ -1187,7 +1211,13 @@ Ortalab.Mythos_Utils.Corpus_Effects.grim = function(card)
             end
         }))
     end
-    playing_card_joker_effects(cards)  
+    G.E_MANAGER:add_event(Event({
+            trigger = 'after', delay = 0.7,
+            func = function()                
+                playing_card_joker_effects(cards)  
+                return true
+            end
+        }))
     delay(4) 
 end
 
@@ -1217,7 +1247,13 @@ Ortalab.Mythos_Utils.Corpus_Effects.incantation = function(card)
             end
         }))
     end
-    playing_card_joker_effects(cards)  
+    G.E_MANAGER:add_event(Event({
+            trigger = 'after', delay = 0.7,
+            func = function()                
+                playing_card_joker_effects(cards)  
+                return true
+            end
+        }))
     delay(4)
 end
 
