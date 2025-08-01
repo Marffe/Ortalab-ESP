@@ -3,7 +3,7 @@ SMODS.Joker({
     atlas = "jokers",
     pos = {x = 1, y = 1},
     rarity = 2,
-    cost = 5,
+    cost = 6,
     unlocked = true,
     discovered = false,
     blueprint_compat = false,
