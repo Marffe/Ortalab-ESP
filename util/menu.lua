@@ -21,6 +21,9 @@ SMODS.current_mod.config_tab = function()
             }},
             {n=G.UIT.C, config = {padding = 0.2, align = 'cm'}, nodes = {
                 EremelUtility.create_toggle({label = localize('ortalab_config_zodiac_skip'), ref_table = Ortalab.config, ref_value = 'zodiac_skip', info = localize('ortalab_config_zodiac_skip_desc'), active_colour = Ortalab.badge_colour, left = true}),
+            }},
+            {n=G.UIT.C, config = {padding = 0.2, align = 'cm'}, nodes = {
+                EremelUtility.create_toggle({label = localize('ortalab_config_wide_joker'), ref_table = Ortalab.config, ref_value = 'wide_joker', info = localize('ortalab_config_wide_joker_desc'), active_colour = Ortalab.badge_colour, left = true}),
             }}
         }},
         {n=G.UIT.R, config = {minh = 0.04, minw = 4, colour = G.C.L_BLACK}},

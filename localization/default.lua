@@ -41,6 +41,11 @@ return {
 				'Skip the animations of',
 				'most Zodiac effects'
 			},
+			ortalab_config_wide_joker = 'Wide Joker',
+			ortalab_config_wide_joker_desc = {
+				'Disable the stretching',
+				'of Wide Joker'
+			},
 			ortalab_hide_intro = 'Don\'t show again',
 			ortalab_toggle_intro = 'Skip Intro Screen',
 			ortalab_toggle_menu = 'Toggle Menu Alterations',

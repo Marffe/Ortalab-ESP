@@ -36,7 +36,7 @@ SMODS.Joker({
 local hover = Card.hover
 function Card:hover()
     hover(self)
-    if self.config.center_key == 'j_ortalab_wide' and self.T.w == G.CARD_W then
+    if self.config.center_key == 'j_ortalab_wide' and self.T.w == G.CARD_W and not Ortalab.config.wide_joker then
         ease_value(self.T, 'w', self.T.w, nil, nil, nil, nil, 'elastic')
         ease_value(self.T, 'h', -(self.T.h/2), nil, nil, nil, nil, 'elastic')
     end
@@ -45,7 +45,7 @@ end
 local stop_hover = Card.stop_hover
 function Card:stop_hover()
     stop_hover(self)
-    if self.config.center_key == 'j_ortalab_wide' and self.T.w > G.CARD_W then
+    if self.config.center_key == 'j_ortalab_wide' and self.T.w > G.CARD_W and not Ortalab.config.wide_joker then
         ease_value(self.T, 'w', G.CARD_W - self.T.w)
         ease_value(self.T, 'h', G.CARD_H - self.T.h)
     end
