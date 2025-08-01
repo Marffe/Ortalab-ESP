@@ -20,7 +20,7 @@ SMODS.Joker({
             ease_dollars(-card.ability.extra.money_loss)
 			G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
             G.E_MANAGER:add_event(Event({func = function()
-                local card = SMODS.create_card({set = 'Loteria', key_append = 'loteria_joker'})
+                local card = SMODS.create_card({set = 'ortalab_loteria', key_append = 'loteria_joker'})
                 card:add_to_deck()
                 G.consumeables:emplace(card)
 				G.GAME.consumeable_buffer = math.max(0, G.GAME.consumeable_buffer - 1)

@@ -6,27 +6,16 @@ SMODS.Atlas({
 })
 
 SMODS.UndiscoveredSprite({
-    key = "Loteria",
+    key = 'ortalab_loteria',
     atlas = "loteria_cards",
     pos = { x = 0, y = 4 },
     no_overlay = true
 })
 
 SMODS.ConsumableType({
-    key = "Loteria",
+    key = "ortalab_loteria",
     primary_colour = HEX("CC56CC"),
     secondary_colour = HEX("A85D7C"),
-    loc_txt = {
-        name = "Loteria",
-        collection = "Loteria Cards",
-        undiscovered = {
-            name = 'Unknown Loteria Card',
-            text = {
-                'Find this card in an unseeded',
-                'run to find out what it does'
-            }
-        }
-    },
     collection_rows = {6, 5},
     shop_rate = 2,
     default = 'c_ortalab_lot_rooster'
@@ -34,11 +23,11 @@ SMODS.ConsumableType({
 
 SMODS.Consumable({
     key = 'lot_rooster',
-    set = 'Loteria',
+    set = 'ortalab_loteria',
     atlas = 'loteria_cards',
     pos = {x=3, y=0},
     discovered = false,
-    config = {extra = {sets = {'Loteria', 'Zodiac'}}},
+    config = {extra = {sets = {'ortalab_loteria', 'ortalab_zodiac'}}},
     artist_credits = {'parchment'},
     can_use = function(self, card)
         if G.GAME.Ortalab and G.STATE ~= G.STATES.HAND_PLAYED and G.STATE ~= G.STATES.DRAW_TO_HAND and G.STATE ~= G.STATES.PLAY_TAROT or any_state then
@@ -73,7 +62,7 @@ SMODS.Consumable({
 
 SMODS.Consumable({
     key = 'lot_melon',
-    set = 'Loteria',
+    set = 'ortalab_loteria',
     atlas = 'loteria_cards',
     pos = {x=3, y=4},
     discovered = false,
@@ -97,11 +86,11 @@ SMODS.Consumable({
 
 SMODS.Consumable({
     key = 'lot_scorpion',
-    set = 'Loteria',
+    set = 'ortalab_loteria',
     atlas = 'loteria_cards',
     pos = {x=1, y=3},
     discovered = false,
-    config = {extra = {type = 'Zodiac', amount = 2}},
+    config = {extra = {type = 'ortalab_zodiac', amount = 2}},
     artist_credits = {'kosze'},
     loc_vars = function(self, info_queue, card)
         return {vars = {card.ability.extra.amount + (G.GAME and G.GAME.ortalab.vouchers.tabla)}}
@@ -120,7 +109,7 @@ SMODS.Consumable({
 
 SMODS.Consumable({
     key = 'lot_umbrella',
-    set = 'Loteria',
+    set = 'ortalab_loteria',
     atlas = 'loteria_cards',
     pos = {x=0, y=0},
     discovered = false,
@@ -144,11 +133,11 @@ SMODS.Consumable({
 
 SMODS.Consumable({
     key = 'lot_barrel',
-    set = 'Loteria',
+    set = 'ortalab_loteria',
     atlas = 'loteria_cards',
     pos = {x=0, y=3},
     discovered = false,
-    config = {extra = {type = 'Loteria', amount = 2}},
+    config = {extra = {type = 'ortalab_loteria', amount = 2}},
     artist_credits = {'parchment'},
     loc_vars = function(self, info_queue, card)
         return {vars = {card and (card.ability.extra.amount + (G.GAME and G.GAME.ortalab.vouchers.tabla)) or self.config.extra.amount}}
@@ -167,7 +156,7 @@ SMODS.Consumable({
 
 SMODS.Consumable({
     key = 'lot_mandolin',
-    set = 'Loteria',
+    set = 'ortalab_loteria',
     atlas = 'loteria_cards',
     pos = {x=4, y=3},
     discovered = false,
@@ -191,7 +180,7 @@ SMODS.Consumable({
 
 SMODS.Consumable({
     key = 'lot_ladder',
-    set = 'Loteria',
+    set = 'ortalab_loteria',
     atlas = 'loteria_cards',
     pos = {x=1, y=1},
     discovered = false,
@@ -215,7 +204,7 @@ SMODS.Consumable({
 
 SMODS.Consumable({
     key = 'lot_siren',
-    set = 'Loteria',
+    set = 'ortalab_loteria',
     atlas = 'loteria_cards',
     pos = {x=2, y=0},
     discovered = false,
@@ -239,7 +228,7 @@ SMODS.Consumable({
 
 SMODS.Consumable({
     key = 'lot_bird',
-    set = 'Loteria',
+    set = 'ortalab_loteria',
     atlas = 'loteria_cards',
     pos = {x=2, y=3},
     discovered = false,
@@ -263,7 +252,7 @@ SMODS.Consumable({
 
 SMODS.Consumable({
     key = 'lot_bonnet',
-    set = 'Loteria',
+    set = 'ortalab_loteria',
     atlas = 'loteria_cards',
     pos = {x=2, y=4},
     discovered = false,
@@ -288,7 +277,7 @@ SMODS.Consumable({
 
 SMODS.Consumable({
     key = 'lot_pear',
-    set = 'Loteria',
+    set = 'ortalab_loteria',
     atlas = 'loteria_cards',
     pos = {x=4, y=0},
     discovered = false,
@@ -333,7 +322,7 @@ SMODS.Consumable({
                     scale = 1.3, 
                     hold = 1.4,
                     major = card,
-                    backdrop_colour = G.C.SECONDARY_SET.Loteria,
+                    backdrop_colour = G.C.SECONDARY_SET.ortalab_loteria,
                     align = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and 'tm' or 'cm',
                     offset = {x = 0, y = (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK) and -0.2 or 0},
                     silent = true
@@ -350,7 +339,7 @@ SMODS.Consumable({
 
 SMODS.Consumable({
     key = 'lot_flag',
-    set = 'Loteria',
+    set = 'ortalab_loteria',
     atlas = 'loteria_cards',
     pos = {x=1, y=2},
     discovered = false,
@@ -397,7 +386,7 @@ SMODS.Consumable({
 
 SMODS.Consumable({
     key = 'lot_bottle',
-    set = 'Loteria',
+    set = 'ortalab_loteria',
     atlas = 'loteria_cards',
     pos = {x=3, y=2},
     discovered = false,
@@ -472,7 +461,7 @@ SMODS.Consumable({
 
 SMODS.Consumable({
     key = 'lot_harp',
-    set = 'Loteria',
+    set = 'ortalab_loteria',
     atlas = 'loteria_cards',
     pos = {x=4, y=1},
     discovered = false,
@@ -532,7 +521,7 @@ SMODS.Consumable({
                         speed = 3,
                         padding = -1,
                         attach = card,
-                        colours = {G.ARGS.LOC_COLOURS.loteria, lighten(G.ARGS.LOC_COLOURS.loteria, 0.4), lighten(G.ARGS.LOC_COLOURS.loteria, 0.2), darken(G.ARGS.LOC_COLOURS.loteria, 0.2)},
+                        colours = {G.ARGS.LOC_COLOURS.ortalab_loteria, lighten(G.ARGS.LOC_COLOURS.ortalab_loteria, 0.4), lighten(G.ARGS.LOC_COLOURS.ortalab_loteria, 0.2), darken(G.ARGS.LOC_COLOURS.ortalab_loteria, 0.2)},
                         fill = true
                     })
                     card.particles.fade_alpha = 1
@@ -579,7 +568,7 @@ end
 
 SMODS.Consumable({
     key = 'lot_heron',
-    set = 'Loteria',
+    set = 'ortalab_loteria',
     atlas = 'loteria_cards',
     pos = {x=2, y=1},
     discovered = false,
@@ -670,7 +659,7 @@ end
 
 SMODS.Consumable({
     key = 'lot_rose',
-    set = 'Loteria',
+    set = 'ortalab_loteria',
     atlas = 'loteria_cards',
     pos = {x=1, y=4},
     discovered = false,
@@ -694,7 +683,7 @@ SMODS.Consumable({
 
 SMODS.Consumable({
     key = 'lot_dandy',
-    set = 'Loteria',
+    set = 'ortalab_loteria',
     atlas = 'loteria_cards',
     pos = {x=2, y=2},
     discovered = false,
@@ -718,7 +707,7 @@ SMODS.Consumable({
 
 SMODS.Consumable({
     key = 'lot_boot',
-    set = 'Loteria',
+    set = 'ortalab_loteria',
     atlas = 'loteria_cards',
     pos = {x=4, y=2},
     discovered = false,
@@ -744,7 +733,7 @@ SMODS.Consumable({
 
 SMODS.Consumable({
     key = 'lot_parrot',
-    set = 'Loteria',
+    set = 'ortalab_loteria',
     atlas = 'loteria_cards',
     pos = {x=0, y=1},
     discovered = false,
@@ -770,7 +759,7 @@ SMODS.Consumable({
 
 SMODS.Consumable({
     key = 'lot_heart',
-    set = 'Loteria',
+    set = 'ortalab_loteria',
     atlas = 'loteria_cards',
     pos = {x=3, y=1},
     discovered = false,
@@ -796,7 +785,7 @@ SMODS.Consumable({
 
 SMODS.Consumable({
     key = 'lot_hand',
-    set = 'Loteria',
+    set = 'ortalab_loteria',
     atlas = 'loteria_cards',
     pos = {x=0, y=2},
     discovered = false,
@@ -887,7 +876,7 @@ end
 
 SMODS.Consumable({
     key = 'lot_tree',
-    set = 'Loteria',
+    set = 'ortalab_loteria',
     atlas = 'loteria_cards',
     pos = {x=1, y=0},
     discovered = false,

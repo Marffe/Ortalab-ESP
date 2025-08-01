@@ -25,6 +25,7 @@ return {
 				'stakes contain only Ortalab',
 				'content or not'
 			},
+			ortalab_config_skip_animations = 'Skip Animations',
 			ortalab_config_loteria_skip = 'Loteria',
 			ortalab_config_loteria_skip_desc = {
 				'Skip the animations of',
@@ -100,6 +101,12 @@ return {
 			ortalab_infected_safe = 'Safe!',
 			ortalab_edition_plus = 'an edition',
 			k_tag = 'Tag',
+			k_ortalab_zodiac = 'Zodiac',
+			b_ortalab_zodiac_cards = 'Zodiac Cards',
+			k_ortalab_loteria = 'Loteria',
+			b_ortalab_loteria_cards = 'Loteria Cards',
+			k_ortalab_mythos = 'Mythos',
+			b_ortalab_mythos_cards = 'Mythos Cards',
 			ortalab_chisel = 'Chiselled!',
 			ortalab_statue = 'Statue!',
 			ortalab = 'Ortalab',
@@ -114,7 +121,11 @@ return {
 			ortalab_kopi_no = 'No target!',
 			ortalab_enabled = 'Enabled!',
 			ortalab_disabled = 'Disabled!',
-			ortalab_corpus_no_cards = 'No cards!'
+			ortalab_corpus_no_cards = 'No cards!',
+			ortalab_art_credit = "Art by ",
+			ortalab_shader_credit = 'Shader by ',
+			ortalab_curse_credit = 'Curse art by ',
+			ortalab_mod_badge = 'Added by ',
 		},
 		['labels'] = {
 			ortalab_greyscale = 'Greyscale',
@@ -277,7 +288,7 @@ return {
 				["name"] = "Televangelist",
 				["text"] = {
 					"{C:green}#1# in #2#{} chance for",
-					"{C:loteria}Loteria Cards{} to be",
+					"{C:ortalab_loteria}Loteria Cards{} to be",
 					"kept when used",
 					"{C:inactive,s:0.8}(Each card can only be kept once)"
 				}
@@ -287,7 +298,7 @@ return {
 				["name"] = "Pictographer",
 				["text"] = {
 					"Gain {C:money}$#1#{} after playing",
-					"{C:attention}#2#{C:loteria} Loteria Cards",
+					"{C:attention}#2#{C:ortalab_loteria} Loteria Cards",
 					"Resets when {C:attention}Blind{} is defeated",
 					"{C:inactive,s:0.9}(Currently #3#/#2#)"
 				},
@@ -352,7 +363,7 @@ return {
 			['j_ortalab_astrologist'] = {
 				["name"] = "Astrologist",
 				["text"] = {
-					'{C:zodiac}Zodiac Cards{} give {C:attention}#1#{} times',
+					'{C:ortalab_zodiac}Zodiac Cards{} give {C:attention}#1#{} times',
 					'as many temporary levels but',
 					'decay {C:attention}#1#{} times faster'
 				}
@@ -399,7 +410,7 @@ return {
 				name = 'Priest',
 				text = {
 					'Gain {C:red}+#1#{} Mult per',
-					'{C:mythos}cursed card{} in your deck',
+					'{C:ortalab_mythos}cursed card{} in your deck',
 					'{C:inactive}(Currently {C:red}+#2#{C:inactive} Mult)'
 				}
 			},
@@ -457,7 +468,7 @@ return {
 			['j_ortalab_bowling_ball'] = {
 				["name"] = "Horoscope",
 				["text"] = {
-					"Create a random {C:Zodiac}Zodiac",
+					"Create a random {C:ortalab_zodiac}Zodiac",
 					"card if a {C:attention}10",
 					"is held in hand",
 				}
@@ -802,7 +813,7 @@ return {
 				["name"] = "Head Honcho",
 				["text"] = {
 					"Create a random",
-					"{C:loteria}Loteria Card{} and",
+					"{C:ortalab_loteria}Loteria Card{} and",
 					"lose {C:red}$#1#{} when a",
 					"{C:blue}Hand{} is played"
 				}
@@ -890,7 +901,7 @@ return {
 				name = 'Koko',
 				text = {
 					'When {C:attention}Blind{} is selected,', 
-					'{C:zodiac}empower{} all hands',
+					'{C:ortalab_zodiac}empower{} all hands',
 					'by {C:attention}#1#{} levels'
 				}
 			},
@@ -907,8 +918,8 @@ return {
 			['j_ortalab_mathmagician'] = {
 				["name"] = "Mathmagician",
 				["text"] = {
-					"Creates a random {C:loteria}Loteria{}",
-					"or {C:zodiac}Zodiac {}card if discarded",
+					"Creates a random {C:ortalab_loteria}Loteria{}",
+					"or {C:ortalab_zodiac}Zodiac {}card if discarded",
 					"hand contains 2 {C:attention}odd cards",
 					"and 2 {C:attention}even cards",
 				}
@@ -942,7 +953,7 @@ return {
 				["name"] = "Miracle Cure",
 				["text"] = {
 					"{C:attention}Debuffed{}, {C:attention}flipped{} and",
-					"{C:mythos}cursed{} cards are instead",
+					"{C:ortalab_mythos}cursed{} cards are instead",
 					"{C:attention}retriggered{} when {C:attention}played"
 				}
 			},
@@ -1078,7 +1089,7 @@ return {
 			['j_ortalab_pin_point'] = {
 				["name"] = "Pin Point",
 				["text"] = {
-					"Create the {C:zodiac}Zodiac Card{} for", 
+					"Create the {C:ortalab_zodiac}Zodiac Card{} for", 
 					"the {C:attention}poker hand{} that",
 					"defeats the {C:attention}Blind"
 				}
@@ -1143,7 +1154,7 @@ return {
 				["name"] = "Prediction Dice",
 				["text"] = {
 					"{C:green}#1# in #2#{} chance for",
-					"{C:zodiac}Zodiacs{} to not decay",
+					"{C:ortalab_zodiac}Zodiacs{} to not decay",
 					"when activated"
 				}
 			},
@@ -1151,7 +1162,7 @@ return {
 				name = 'Prolétaire',
 				text = {
 					'Gains {C:white,X:red}X#1#{} Mult for',
-					'each {C:mythos}cursed{C:attention} Joker',
+					'each {C:ortalab_mythos}cursed{C:attention} Joker',
 					'{C:inactive}(Currently {X:red,C:white}X#2#{C:inactive} Mult)'
 				}
 			},
@@ -1179,7 +1190,7 @@ return {
 				text = {
 					'Played cards give {X:red,C:white}X#2#{} Mult',
 					'for each {C:attention}unique enhancement{}, {C:dark_edition}edition{},',
-					' {C:attention}seal{} and {C:mythos}curse{} in scoring hand'
+					' {C:attention}seal{} and {C:ortalab_mythos}curse{} in scoring hand'
 				}
 			},
 			['j_ortalab_red_fred'] = {
@@ -1334,9 +1345,9 @@ return {
 			['j_ortalab_shrine'] = {
 				["name"] = "Shrine",
 				["text"] = {
-					{"Create a {C:Mythos,E:1}Mythos Card{} if",
+					{"Create a {C:ortalab_mythos,E:1}Mythos Card{} if",
 					'played hand is a {C:dark_edition,E:1}Secret Hand',},
-					{'{C:Mythos,E:1}Mythos Cards{} curse {C:attention}#1#',
+					{'{C:ortalab_mythos,E:1}Mythos Cards{} curse {C:attention}#1#',
 					'extra card'}
 				}
 			},
@@ -1371,7 +1382,7 @@ return {
 					'If {C:attention}second{} hand of round',
 					'is a single {C:attention}#1#{},',
 					'destroy it and spawn a',
-					'random {C:mythos}Mythos Card'
+					'random {C:ortalab_mythos}Mythos Card'
 				}
 			},
 			['j_ortalab_shelter'] = {
@@ -1437,7 +1448,7 @@ return {
 				["name"] = "Stargazing",
 				["text"] = {
 					"Gains {X:mult,C:white}X#1#{} Mult",
-					"per {C:zodiac}Zodiac{} activated",
+					"per {C:ortalab_zodiac}Zodiac{} activated",
 					"{C:inactive}(Currently {C:white,X:mult}X#2#{C:inactive})"
 				}
 			},
@@ -1473,7 +1484,7 @@ return {
 				["text"] = {
 					"Earn {C:gold}$#1#{} at the end",
 					"of each round for each unique",
-					"{C:zodiac}Zodiac{} activated this run",
+					"{C:ortalab_zodiac}Zodiac{} activated this run",
 					"{C:inactive}(Currently {C:gold}$#2#{C:inactive})"
 				}
 			},
@@ -1587,7 +1598,7 @@ return {
 				}
 			}
 		},
-        ["Loteria"] = {
+        ["ortalab_loteria"] = {
             ["c_ortalab_lot_umbrella"] = {
 				["name"] = "The Umbrella",
 				["text"] = {
@@ -1654,7 +1665,7 @@ return {
 				["name"] = "The Rooster",
 				["text"] = {
 					"Creates a copy of a",
-                    "{C:loteria}Loteria{} or {C:Zodiac}Zodiac{} card",
+                    "{C:ortalab_loteria}Loteria{} or {C:ortalab_zodiac}Zodiac{} card",
                     "used during this run",
                     "{s:0.8,C:inactive}The Rooster excluded"
 				},
@@ -1752,7 +1763,7 @@ return {
 				["name"] = "The Barrel",
 				["text"] = {
 					"Create up to {C:attention}#1#",
-                    "random {C:loteria}Loteria{} cards",
+                    "random {C:ortalab_loteria}Loteria{} cards",
                     "{S:0.8,C:inactive}(Must have room)"
 				},
 			},
@@ -1760,7 +1771,7 @@ return {
 				["name"] = "The Scorpion",
 				["text"] = {
 					"Create up to {C:attention}#1#",
-                    "random {C:Zodiac}Zodiac{} cards",
+                    "random {C:ortalab_zodiac}Zodiac{} cards",
                     "{S:0.8,C:inactive}(Must have room)",
 				},
 			},
@@ -1782,88 +1793,88 @@ return {
 				},
 			},
         },
-		["Zodiac"] = {
+		["ortalab_zodiac"] = {
 			["c_ortalab_zod_aries"] = {
 				["name"] = "Aries",
 				["text"] = {
-					"{C:Zodiac}Empower{} the next", 
+					"{C:ortalab_zodiac}Empower{} the next", 
 					"{C:attention}#1#",
 				},
 			},
 			["c_ortalab_zod_taurus"] = {
 				["name"] = "Taurus",
 				["text"] = {
-					"{C:Zodiac}Empower{} the next", 
+					"{C:ortalab_zodiac}Empower{} the next", 
 					"{C:attention}#1#",
 				},
 			},
 			["c_ortalab_zod_gemini"] = {
 				["name"] = "Gemini",
 				["text"] = {
-					"{C:Zodiac}Empower{} the next", 
+					"{C:ortalab_zodiac}Empower{} the next", 
 					"{C:attention}#1#",
 				},
 			},
 			["c_ortalab_zod_cancer"] = {
 				["name"] = "Cancer",
 				["text"] = {
-					"{C:Zodiac}Empower{} the next", 
+					"{C:ortalab_zodiac}Empower{} the next", 
 					"{C:attention}#1#",
 				},
 			},
 			["c_ortalab_zod_leo"] = {
 				["name"] = "Leo",
 				["text"] = {
-					"{C:Zodiac}Empower{} the next", 
+					"{C:ortalab_zodiac}Empower{} the next", 
 					"{C:attention}#1#",
 				},
 			},
 			["c_ortalab_zod_virgo"] = {
 				["name"] = "Virgo",
 				["text"] = {
-					"{C:Zodiac}Empower{} the next", 
+					"{C:ortalab_zodiac}Empower{} the next", 
 					"{C:attention}#1#",
 				},
 			},
 			["c_ortalab_zod_libra"] = {
 				["name"] = "Libra",
 				["text"] = {
-					"{C:Zodiac}Empower{} the next", 
+					"{C:ortalab_zodiac}Empower{} the next", 
 					"{C:attention}#1#",
 				},
 			},
 			["c_ortalab_zod_scorpio"] = {
 				["name"] = "Scorpio",
 				["text"] = {
-					"{C:Zodiac}Empower{} the next", 
+					"{C:ortalab_zodiac}Empower{} the next", 
 					"{C:attention}#1#",
 				},
 			},
 			["c_ortalab_zod_sag"] = {
 				["name"] = "Sagittarius",
 				["text"] = {
-					"{C:Zodiac}Empower{} the next", 
+					"{C:ortalab_zodiac}Empower{} the next", 
 					"{C:attention}#1#",
 				},
 			},
 			["c_ortalab_zod_capr"] = {
 				["name"] = "Capricorn",
 				["text"] = {
-					"{C:Zodiac}Empower{} the next", 
+					"{C:ortalab_zodiac}Empower{} the next", 
 					"{C:attention}#1#",
 				},
 			},
 			["c_ortalab_zod_aquarius"] = {
 				["name"] = "Aquarius",
 				["text"] = {
-					"{C:Zodiac}Empower{} the next", 
+					"{C:ortalab_zodiac}Empower{} the next", 
 					"{C:attention}#1#",
 				},
 			},
 			["c_ortalab_zod_pisces"] = {
 				["name"] = "Pisces",
 				["text"] = {
-					"{C:Zodiac}Empower{} the next", 
+					"{C:ortalab_zodiac}Empower{} the next", 
 					"{C:attention}#1#",
 				},
 			},
@@ -1989,8 +2000,8 @@ return {
 			tag_ortalab_mythical = {
 				name = 'Mythical Patch',
 				text = {
-					"Add {C:attention}#1#{} free {C:Mythos}Giga", 
-					"{C:Mythos}Mythos Packs{}",
+					"Add {C:attention}#1#{} free {C:ortalab_mythos}Giga", 
+					"{C:ortalab_mythos}Mythos Packs{}",
 					"to the next shop"
                 }
 			},
@@ -2013,7 +2024,7 @@ return {
 				name = 'Gambler\'s Patch',
 				text = {
 					'Obtain {C:attention}#1#{C:dark_edition} negative', 
-					'copies of {C:loteria}The Hand',
+					'copies of {C:ortalab_loteria}The Hand',
 				}
 			},
 			tag_ortalab_777 = {
@@ -2137,23 +2148,23 @@ return {
 			['tag_ortalab_loteria'] = {
                 name = "Strange Patch",
                 text = {
-					"Add {C:attention}#1#{} free {C:loteria}Giga", 
-					"{C:loteria}Chalupa Packs{}",
+					"Add {C:attention}#1#{} free {C:ortalab_loteria}Giga", 
+					"{C:ortalab_loteria}Chalupa Packs{}",
 					"to the next shop"
                 }
             },
 			['tag_ortalab_crater'] = {
                 name = "Crater Patch",
                 text = {
-					"Add {C:attention}#1#{} free {C:Zodiac}Giga", 
-					"{C:Zodiac}Astral Packs{}",
+					"Add {C:attention}#1#{} free {C:ortalab_zodiac}Giga", 
+					"{C:ortalab_zodiac}Astral Packs{}",
 					"to the next shop"
                 }
             },
 			['tag_ortalab_constellation'] = {
                 name = "Constellation Patch",
                 text = {
-					'{C:Zodiac}Empower{} the next',
+					'{C:ortalab_zodiac}Empower{} the next',
 					'{C:attention}#1#{} {C:attention}#2#{} times'
                 }
             },
@@ -2267,7 +2278,7 @@ return {
 			},
 			zodiac_heading = {
 				text = {
-					'{C:zodiac,u:zodiac}When #2# played', 
+					'{C:ortalab_zodiac,u:ortalab_zodiac}When #2# played', 
 				}
 			},
 			zodiac_loss = {
@@ -2328,7 +2339,7 @@ return {
 					"{C:white,X:red}X#1#{} Mult",
 					'{s:0.2} ',
 					'Gains {X:red,C:white}X#2#{} Mult when one of',
-					'{C:attention}#3#{C:loteria} Loteria Cards{} are used',
+					'{C:attention}#3#{C:ortalab_loteria} Loteria Cards{} are used',
 					'{C:inactive}(Cards change after each ante)',
 					'{s:0.2} ',
 				}
@@ -2344,16 +2355,16 @@ return {
 				["name"] = "Eclipse Deck",
 				["text"] = {
 					'{C:attention}+#1#{} hand level when a',
-					'{C:Zodiac}Zodiac{} is activated',
+					'{C:ortalab_zodiac}Zodiac{} is activated',
 					'{s:0.2} ',
-					'{C:Zodiac}Zodiac effects{} decay',
+					'{C:ortalab_zodiac}Zodiac effects{} decay',
 					'{C:attention}2{} times slower'
 				}
 			},
 			b_ortalab_sacred = {
 				name = 'Sacred Deck',
 				text = {
-					'{C:Mythos,E:1}Mythos Cards{} curse',
+					'{C:ortalab_mythos,E:1}Mythos Cards{} curse',
 					'{C:attention}#1#{} fewer cards',
 					'{s:0.2} ',
 					'Start with the',
@@ -2458,14 +2469,14 @@ return {
 			v_ortalab_fates_coin = {
 				name = 'Fate\'s Coin',
 				text = {
-					'Add a {C:Mythos}Mythos{} card slot',
+					'Add a {C:ortalab_mythos}Mythos{} card slot',
 					'to future shops'
 				}
 			},
 			v_ortalab_arcane_archive = {
 				name = 'Arcane Archive',
 				text = {
-					'{C:Mythos}Mythos Cards{} can', 
+					'{C:ortalab_mythos}Mythos Cards{} can', 
 					'appear in the main shop'
 				}
 			},
@@ -2488,21 +2499,21 @@ return {
 				["name"] = "Horoscope",
 				["text"] = {
 					"When {C:attention}entering{} a shop,",
-					'{C:zodiac}improve{} a random hand,',
+					'{C:ortalab_zodiac}improve{} a random hand,',
 					'by {C:attention}#1#{} level'
 				}
 			},
 			['v_ortalab_natal_sign'] = {
 				["name"] = "Natal Chart",
 				["text"] = {
-					'{C:zodiac}Zodiacs{} give {C:white,X:red}X#1#{} Mult',
+					'{C:ortalab_zodiac}Zodiacs{} give {C:white,X:red}X#1#{} Mult',
 					'per {C:attention}#2#{} temporary levels'
 				}
 			},
 			['v_ortalab_leap_year'] = {
 				["name"] = "Leap Year",
 				["text"] = {
-					'{C:zodiac}Zodiac cards{} have a',
+					'{C:ortalab_zodiac}Zodiac cards{} have a',
 					'{C:green}#2# in #3#{} chance to give',
 					'{C:attention}+#1#{} temporary levels'
 				}
@@ -2510,7 +2521,7 @@ return {
 			['v_ortalab_chronomancy'] = {
 				["name"] = "Chronomancy",
 				["text"] = {
-					'{C:zodiac}Zodiac effects{} decay',
+					'{C:ortalab_zodiac}Zodiac effects{} decay',
 					'{C:attention}#1#{} times slower'
 				}
 			},
@@ -2519,13 +2530,13 @@ return {
 				["text"] = {
 					"You can select", 
 					"{C:attention}#1#{} extra card",
-					"from {C:loteria}Chalupa Packs"
+					"from {C:ortalab_loteria}Chalupa Packs"
 				}
 			},
 			['v_ortalab_tabla'] = {
 				["name"] = "Tabla Loteria",
 				["text"] = {
-					"{C:loteria}Loteria Cards{} affect", 
+					"{C:ortalab_loteria}Loteria Cards{} affect", 
 					"{C:attention}#1#{} extra card"
 				}
 			},
@@ -2747,6 +2758,27 @@ return {
             },
 		},
 		['Other'] = {
+			undiscovered_ortalab_zodiac = {
+				name = 'Unknown Zodiac Card',
+				text = {
+					'Find this card in an unseeded',
+					'run to find out what it does'
+				}
+			},
+			undiscovered_ortalab_loteria = {
+				name = 'Unknown Loteria Card',
+				text = {
+					'Find this card in an unseeded',
+					'run to find out what it does'
+				}
+			},
+			undiscovered_ortalab_mythos = {
+				name = 'Unknown Mythos Card',
+				text = {
+					'Find this card in an unseeded',
+					'run to find out what it does'
+				}
+			},
 			ortalab_cyan_seal = {
 				name = 'Cyan Seal',
 				text = {
@@ -2758,7 +2790,7 @@ return {
 			ortalab_magenta_seal = {
 				name = 'Magenta Seal',
 				text = {
-					'Creates a {C:loteria}Loteria{} card',
+					'Creates a {C:ortalab_loteria}Loteria{} card',
 					'when {C:attention}discarded',
 					'{C:inactive,s:0.8}(Must have room)'
 				},
@@ -2789,7 +2821,7 @@ return {
                 name = "Chalupa Pack",
                 text = {
                     "Choose {C:attention}#1#{} of up to",
-                    "{C:attention}#2#{C:loteria} Loteria{} cards to",
+                    "{C:attention}#2#{C:ortalab_loteria} Loteria{} cards to",
                     "be used immediately"
                 }
             },
@@ -2797,7 +2829,7 @@ return {
                 name = "Chalupa Pack",
                 text = {
                     "Choose {C:attention}#1#{} of up to",
-                    "{C:attention}#2#{C:loteria} Loteria{} cards to",
+                    "{C:attention}#2#{C:ortalab_loteria} Loteria{} cards to",
                     "be used immediately"
                 }
             },
@@ -2805,7 +2837,7 @@ return {
                 name = "Chalupa Pack",
                 text = {
                     "Choose {C:attention}#1#{} of up to",
-                    "{C:attention}#2#{C:loteria} Loteria{} cards to",
+                    "{C:attention}#2#{C:ortalab_loteria} Loteria{} cards to",
                     "be used immediately"
                 }
             },
@@ -2813,7 +2845,7 @@ return {
                 name = "Chalupa Pack",
                 text = {
                     "Choose {C:attention}#1#{} of up to",
-                    "{C:attention}#2#{C:loteria} Loteria{} cards to",
+                    "{C:attention}#2#{C:ortalab_loteria} Loteria{} cards to",
                     "be used immediately"
                 }
             },
@@ -2821,7 +2853,7 @@ return {
                 name = "Wumbo Chalupa Pack",
                 text = {
                     "Choose {C:attention}#1#{} of up to",
-                    "{C:attention}#2#{C:loteria} Loteria{} cards to",
+                    "{C:attention}#2#{C:ortalab_loteria} Loteria{} cards to",
                     "be used immediately"
                 }
             },
@@ -2829,7 +2861,7 @@ return {
                 name = "Wumbo Chalupa Pack",
                 text = {
                     "Choose {C:attention}#1#{} of up to",
-                    "{C:attention}#2#{C:loteria} Loteria{} cards to",
+                    "{C:attention}#2#{C:ortalab_loteria} Loteria{} cards to",
                     "be used immediately"
                 }
             },
@@ -2837,7 +2869,7 @@ return {
                 name = "Giga Chalupa Pack",
                 text = {
                     "Choose {C:attention}#1#{} of up to",
-                    "{C:attention}#2#{C:loteria} Loteria{} cards to",
+                    "{C:attention}#2#{C:ortalab_loteria} Loteria{} cards to",
                     "be used immediately"
                 }
             },
@@ -2845,7 +2877,7 @@ return {
                 name = "Giga Chalupa Pack",
                 text = {
                     "Choose {C:attention}#1#{} of up to",
-                    "{C:attention}#2#{C:loteria} Loteria{} cards to",
+                    "{C:attention}#2#{C:ortalab_loteria} Loteria{} cards to",
                     "be used immediately"
                 }
             },
@@ -2853,7 +2885,7 @@ return {
                 name = "Astral Pack",
                 text = {
                     "Choose {C:attention}#1#{} of up to",
-                    "{C:attention}#2#{C:zodiac} Zodiac{} cards to",
+                    "{C:attention}#2#{C:ortalab_zodiac} Zodiac{} cards to",
                     "be used immediately"
                 }
             },
@@ -2861,7 +2893,7 @@ return {
                 name = "Astral Pack",
                 text = {
                     "Choose {C:attention}#1#{} of up to",
-                    "{C:attention}#2#{C:zodiac} Zodiac{} cards to",
+                    "{C:attention}#2#{C:ortalab_zodiac} Zodiac{} cards to",
                     "be used immediately"
                 }
             },
@@ -2869,7 +2901,7 @@ return {
                 name = "Astral Pack",
                 text = {
                     "Choose {C:attention}#1#{} of up to",
-                    "{C:attention}#2#{C:zodiac} Zodiac{} cards to",
+                    "{C:attention}#2#{C:ortalab_zodiac} Zodiac{} cards to",
                     "be used immediately"
                 }
             },
@@ -2877,7 +2909,7 @@ return {
                 name = "Astral Pack",
                 text = {
                     "Choose {C:attention}#1#{} of up to",
-                    "{C:attention}#2#{C:zodiac} Zodiac{} cards to",
+                    "{C:attention}#2#{C:ortalab_zodiac} Zodiac{} cards to",
                     "be used immediately"
                 }
             },
@@ -2885,7 +2917,7 @@ return {
                 name = "Wumbo Astral Pack",
                 text = {
                     "Choose {C:attention}#1#{} of up to",
-                    "{C:attention}#2#{C:zodiac} Zodiac{} cards to",
+                    "{C:attention}#2#{C:ortalab_zodiac} Zodiac{} cards to",
                     "be used immediately"
                 }
             },
@@ -2893,7 +2925,7 @@ return {
                 name = "Wumbo Astral Pack",
                 text = {
                     "Choose {C:attention}#1#{} of up to",
-                    "{C:attention}#2#{C:zodiac} Zodiac{} cards to",
+                    "{C:attention}#2#{C:ortalab_zodiac} Zodiac{} cards to",
                     "be used immediately"
                 }
             },
@@ -2901,7 +2933,7 @@ return {
                 name = "Giga Astral Pack",
                 text = {
                     "Choose {C:attention}#1#{} of up to",
-                    "{C:attention}#2#{C:zodiac} Zodiac{} cards to",
+                    "{C:attention}#2#{C:ortalab_zodiac} Zodiac{} cards to",
                     "be used immediately"
                 }
             },
@@ -2909,7 +2941,7 @@ return {
                 name = "Giga Astral Pack",
                 text = {
                     "Choose {C:attention}#1#{} of up to",
-                    "{C:attention}#2#{C:zodiac} Zodiac{} cards to",
+                    "{C:attention}#2#{C:ortalab_zodiac} Zodiac{} cards to",
                     "be used immediately"
                 }
             },
@@ -2917,7 +2949,7 @@ return {
                 name = "Mythos Pack",
                 text = {
                     "Choose {C:attention}#1#{} of up to",
-                    "{C:attention}#2#{C:mythos} Mythos{} cards to",
+                    "{C:attention}#2#{C:ortalab_mythos} Mythos{} cards to",
                     "add to your consumables"
                 }
             },
@@ -2925,7 +2957,7 @@ return {
                 name = "Mythos Pack",
                 text = {
                     "Choose {C:attention}#1#{} of up to",
-                    "{C:attention}#2#{C:mythos} Mythos{} cards to",
+                    "{C:attention}#2#{C:ortalab_mythos} Mythos{} cards to",
                     "add to your consumables"
                 }
             },
@@ -2933,7 +2965,7 @@ return {
                 name = "Wumbo Mythos Pack",
                 text = {
                     "Choose {C:attention}#1#{} of up to",
-                    "{C:attention}#2#{C:mythos} Mythos{} cards to",
+                    "{C:attention}#2#{C:ortalab_mythos} Mythos{} cards to",
                     "add to your consumables"
                 }
             },
@@ -2941,7 +2973,7 @@ return {
                 name = "Giga Mythos Pack",
                 text = {
                     "Choose {C:attention}#1#{} of up to",
-                    "{C:attention}#2#{C:mythos} Mythos{} cards to",
+                    "{C:attention}#2#{C:ortalab_mythos} Mythos{} cards to",
                     "add to your consumables"
                 }
             },
@@ -3045,7 +3077,7 @@ return {
 			['stake_ortalab_five'] = {
 				["name"] = 'Emerald Stake',
 				["text"] = {
-					'Active {C:zodiac}Zodiacs{} lose {C:attention}1{} level',
+					'Active {C:ortalab_zodiac}Zodiacs{} lose {C:attention}1{} level',
 					'after defeating a {C:attention}Blind',
 					'{C:inactive,s:0.9}Required score scales faster for each {C:attention,s:0.9}Ante',
 					"{s:0.8}Applies {C:Ortalab,s:0.8}Sapphire Stake"
@@ -3054,7 +3086,7 @@ return {
 			['stake_ortalab_six'] = {
 				["name"] = 'Ruby Stake',
 				["text"] = {
-					'{C:attention}Jokers{} in the shop can be {C:mythos}cursed',
+					'{C:attention}Jokers{} in the shop can be {C:ortalab_mythos}cursed',
 					"{s:0.8}Applies {C:Ortalab,s:0.8}Emerald Stake"
 				}
 			},
@@ -3320,53 +3352,53 @@ return {
 				}
 			}
 		},
-		["Mythos"] = {
+		["ortalab_mythos"] = {
 			c_ortalab_one_joker = {
 				text = {
-					'{C:Mythos,s:0.9}Curse it with',
+					'{C:ortalab_mythos,s:0.9}Curse it with',
 					'{V:1,E:2,s:0.9}#2#{}',
 				},
 			},
 			c_ortalab_one_selected = {
 				text = {
-					'{C:Mythos,s:0.9}Curse #1# random{s:0.9,C:attention} card in hand',
+					'{C:ortalab_mythos,s:0.9}Curse #1# random{s:0.9,C:attention} card in hand',
 					'{s:0.9}with {V:1,E:2,s:0.9}#2#{}',
 				},
 			},
 			c_ortalab_one_deck = {
 				text = {
-					'{C:Mythos,s:0.9}Curse #1# random{s:0.9,C:attention} card in deck',
+					'{C:ortalab_mythos,s:0.9}Curse #1# random{s:0.9,C:attention} card in deck',
 					'{s:0.9}with {V:1,E:2,s:0.9}#2#{}',
 				},
 			},
 			c_ortalab_mult_random = {
 				text = {
-					'{C:Mythos,s:0.9}Curse #1# random{s:0.9,C:attention} cards in hand',
+					'{C:ortalab_mythos,s:0.9}Curse #1# random{s:0.9,C:attention} cards in hand',
 					'{s:0.9}with {V:1,E:2,s:0.9}#2#{}',
 				},
 			},
 			c_ortalab_mult_random_deck = {
 				text = {
-					'{C:Mythos,s:0.9}Curse #1# random{s:0.9,C:attention} cards in deck',
+					'{C:ortalab_mythos,s:0.9}Curse #1# random{s:0.9,C:attention} cards in deck',
 					'{s:0.9}with {V:1,E:2,s:0.9}#2#{}',
 				},
 			},
 			c_ortalab_mult_random_joker = {
 				text = {
-					'{C:Mythos,s:0.9}Curse #1# random{s:0.9,C:attention} Joker',
+					'{C:ortalab_mythos,s:0.9}Curse #1# random{s:0.9,C:attention} Joker',
 					'{s:0.9}with {V:1,E:2,s:0.9}#2#{}',
 				},
 			},
 			c_ortalab_ya_te_veo_curse = {
 				text = {
-					'{C:Mythos,s:0.9}Curse #1# random{s:0.9,C:attention} Jokers',
-					'{s:0.9}and {C:Mythos,s:0.9}#1# random{s:0.9,C:attention} cards in deck',
+					'{C:ortalab_mythos,s:0.9}Curse #1# random{s:0.9,C:attention} Jokers',
+					'{s:0.9}and {C:ortalab_mythos,s:0.9}#1# random{s:0.9,C:attention} cards in deck',
 					'{s:0.9}with {V:1,E:2,s:0.9}#2#{}'
 				},
 			},
 			c_ortalab_mult_pandora = {
 				text = {
-					'{C:Mythos,s:0.9}Curse{s:0.9,C:attention} the copies',
+					'{C:ortalab_mythos,s:0.9}Curse{s:0.9,C:attention} the copies',
 					'{s:0.9}with {V:1,E:2,s:0.9}#2#{}',
 				}
 			},
@@ -3413,7 +3445,7 @@ return {
 			c_ortalab_excalibur = {
 				name = 'Excalibur',
 				text = {
-					'{C:zodiac}Empower{} your {C:attention}last',
+					'{C:ortalab_zodiac}Empower{} your {C:attention}last',
 					'{C:attention}played hand {}twice'
 				},
 			},
@@ -3464,7 +3496,7 @@ return {
 				text = {
 					'Move selected {C:attention}Joker{} you own',
 					'to {C:attention}consumable slots',
-					'and {C:mythos}curse{} it with {C:attention}Infected'
+					'and {C:ortalab_mythos}curse{} it with {C:attention}Infected'
 				},
 			},
 			c_ortalab_talaria = {
@@ -3492,8 +3524,8 @@ return {
 			c_ortalab_corpus = {
 				name = 'The Corpus',
 				text = {
-					'{C:mythos_alt}Sacrifice{C:mythos} cursed cards',
-					'to empower {C:mythos,E:2}The Corpus'
+					'{C:ortalab_mythos_alt}Sacrifice{C:ortalab_mythos} cursed cards',
+					'to empower {C:ortalab_mythos,E:2}The Corpus'
 				},
 			},
 			corpus_curse = {
@@ -3502,7 +3534,7 @@ return {
 			c_ortalab_ophiuchus = {
 				name = 'Ophiuchus',
 				text = {
-					'{C:zodiac}Empower{} your next {C:attention}hand',
+					'{C:ortalab_zodiac}Empower{} your next {C:attention}hand',
 				}
 			},
 		}

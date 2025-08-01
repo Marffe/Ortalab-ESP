@@ -340,8 +340,8 @@ end
 local ortalab_generate_card_ui = generate_card_ui
 function generate_card_ui(_c, full_UI_table, specific_vars, card_type, badges, hide_desc, main_start, main_end, card)
     local ui = ortalab_generate_card_ui(_c, full_UI_table, specific_vars, card_type, badges, hide_desc, main_start, main_end, card)
-    if _c.set == 'Mythos' and (not card.area.config.collection or _c.discovered) and card.ability.extra.method then 
-        local colour = Ortalab.Curses[card.ability.extra.curse] and Ortalab.Curses[card.ability.extra.curse].badge_colour or G.ARGS.LOC_COLOURS.Mythos
+    if _c.set == 'ortalab_mythos' and (not card.area.config.collection or _c.discovered) and card.ability.extra.method then 
+        local colour = Ortalab.Curses[card.ability.extra.curse] and Ortalab.Curses[card.ability.extra.curse].badge_colour or G.ARGS.LOC_COLOURS.ortalab_mythos
         local mythos_nodes = {background_colour = lighten(colour, 0.75)}
         local vars = {
             card.ability.extra.select + G.GAME.ortalab.mythos.extra_select,
@@ -358,22 +358,22 @@ function generate_card_ui(_c, full_UI_table, specific_vars, card_type, badges, h
         localize{type = 'descriptions', set = _c.set, key = card.ability.extra.method, nodes = mythos_nodes, vars = vars}
         ui.mythos = mythos_nodes
     end
-    if ((_c.set == 'Zodiac' or _c.key == 'c_ortalab_ophiuchus') and (not card.area.config.collection or _c.discovered)) or (_c.set == 'Tag' and G.ZODIACS[_c.key]) then
+    if ((_c.set == 'ortalab_zodiac' or _c.key == 'c_ortalab_ophiuchus') and (not card.area.config.collection or _c.discovered)) or (_c.set == 'Tag' and G.ZODIACS[_c.key]) then
 
         local key = _c.set == 'Tag' and _c.key or card.ability.extra.zodiac
-        local mythos_nodes = {background_colour = lighten(G.ARGS.LOC_COLOURS.zodiac, 0.75)}
+        local mythos_nodes = {background_colour = lighten(G.ARGS.LOC_COLOURS.ortalab_zodiac, 0.75)}
         local vars = specific_vars or G.ZODIACS[card.ability.extra.zodiac]:loc_vars({}).vars
         localize{type = 'descriptions', set = 'Tag', key = 'zodiac_heading', nodes = mythos_nodes, vars = vars}
         localize{type = 'descriptions', set = 'Tag', key = key, nodes = mythos_nodes, vars = vars}
         localize{type = 'descriptions', set = 'Tag', key = 'zodiac_loss', nodes = mythos_nodes, vars = {G.GAME.ortalab.zodiacs.reduction}}
-        ui[_c.set == 'Tag' and 'main' or 'mythos'] = mythos_nodes
+        ui[_c.set == 'Tag' and 'main' or 'ortalab_mythos'] = mythos_nodes
     end
     if _c.key == 'c_ortalab_corpus' and card.area == G.consumeables then
-        local mythos_nodes = {background_colour = lighten(G.ARGS.LOC_COLOURS.Mythos, 0.75)}
+        local mythos_nodes = {background_colour = lighten(G.ARGS.LOC_COLOURS.ortalab_mythos, 0.75)}
         for curse, sacrificed in pairs(card.ability.extra.sacrificed) do
             local curse_name = localize({type = 'name_text', set = 'Curse', key = curse})
             local text_colour =  sacrificed and Ortalab.Curses[curse] and Ortalab.Curses[curse].badge_colour or G.ARGS.LOC_COLOURS.inactive
-            localize{type = 'descriptions', set = 'Mythos', key = 'corpus_curse', nodes = mythos_nodes, vars = {curse_name, colours = {text_colour}}}
+            localize{type = 'descriptions', set = 'ortalab_mythos', key = 'corpus_curse', nodes = mythos_nodes, vars = {curse_name, colours = {text_colour}}}
         end
         ui.mythos = mythos_nodes
     end

@@ -28,7 +28,7 @@ SMODS.Joker({
                     local edition = poll_edition('ortalab_false_phd_edition', nil, nil, true)
                     
                     for i=1, card.ability.extra.cards do
-                        local new_card = create_playing_card({front = G.P_CARDS[_suit..'_'.._rank], center = G.P_CENTERS[enhancement]}, G.hand, nil, nil, {G.C.SET.Mythos, darken(G.C.SET.Mythos, 0.5), G.C.RED, darken(G.C.SET.Mythos, 0.2), G.ARGS.LOC_COLOURS['mythos_alt']})
+                        local new_card = create_playing_card({front = G.P_CARDS[_suit..'_'.._rank], center = G.P_CENTERS[enhancement]}, G.hand, nil, nil, {G.C.SET.ortalab_mythos, darken(G.C.SET.ortalab_mythos, 0.5), G.C.RED, darken(G.C.SET.ortalab_mythos, 0.2), G.ARGS.LOC_COLOURS['ortalab_mythos_alt']})
                         new_card:set_edition(edition, true)
                         new_card:set_seal(seal, true)
                         new_card.ability.temporary = localize({set = 'Joker', key = self.key, type = 'name_text'})

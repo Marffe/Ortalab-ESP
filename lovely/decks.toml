@@ -63,7 +63,7 @@ if G.GAME.selected_back.effect.center.key == 'b_ortalab_experimental' and G.GAME
         G.GAME.selected_back.effect.config.target_loterias[new_loteria.key] = true
     end
     for key, _ in pairs(G.GAME.selected_back.effect.config.target_loterias) do
-        table.insert(G.GAME.selected_back.effect.config.target_loterias_keys, localize({key = key, set = 'Loteria', type = 'name_text'}))
+        table.insert(G.GAME.selected_back.effect.config.target_loterias_keys, localize({key = key, set = 'ortalab_loteria', type = 'name_text'}))
         G.E_MANAGER:add_event(Event({
             trigger = 'after',
             delay = 0.7,

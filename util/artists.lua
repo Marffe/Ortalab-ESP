@@ -69,7 +69,7 @@ function G.UIDEF.card_h_popup(card)
     if obj and obj.mod and Ortalab.config.reduced_mod_badge then
         local badge = {n=G.UIT.R, config = {align = 'tm'}, nodes = {
             {n=G.UIT.T, config={
-              text = "Added by ",
+              text = localize('ortalab_mod_badge'),
               shadow = true,
               colour = G.C.UI.BACKGROUND_WHITE,
               scale = 0.27}},
@@ -90,13 +90,13 @@ function G.UIDEF.card_h_popup(card)
     end
     if card.area and card.area.config.collection and not card.config.center.discovered then return ret_val end
     if obj and obj.artist_credits and Ortalab.config.credit_pos == 1 then
-        table.insert(ret_val.nodes[1].nodes[1].nodes[1].nodes, artist_node(obj.artist_credits, "Art by "))
+        table.insert(ret_val.nodes[1].nodes[1].nodes[1].nodes, artist_node(obj.artist_credits, localize('ortalab_art_credit')))
     end
     if card.edition and G.P_CENTERS[card.edition.key].artist_credits and Ortalab.config.credit_pos == 1 then
-        table.insert(ret_val.nodes[1].nodes[1].nodes[1].nodes, artist_node(G.P_CENTERS[card.edition.key].artist_credits, 'Shader by '))
+        table.insert(ret_val.nodes[1].nodes[1].nodes[1].nodes, artist_node(G.P_CENTERS[card.edition.key].artist_credits, localize('ortalab_shader_credit')))
     end
     if card.curse and Ortalab.Curses[card.curse].artist_credits and Ortalab.config.credit_pos == 1 then
-        table.insert(ret_val.nodes[1].nodes[1].nodes[1].nodes, artist_node(Ortalab.Curses[card.curse].artist_credits, 'Curse art by '))
+        table.insert(ret_val.nodes[1].nodes[1].nodes[1].nodes, artist_node(Ortalab.Curses[card.curse].artist_credits, localize('ortalab_curse_credit')))
     end
     
     return ret_val

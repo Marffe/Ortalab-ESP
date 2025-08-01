@@ -6,7 +6,7 @@ SMODS.Atlas({
 })
 
 SMODS.UndiscoveredSprite({
-    key = "Mythos",
+    key = 'ortalab_mythos',
     atlas = "mythos_cards",
     pos = { x = 4, y = 3 },
     no_overlay = true
@@ -17,34 +17,23 @@ SMODS.Shader({
     path = 'mythos.fs'
 })
 
-G.ARGS.LOC_COLOURS['Mythos'] = HEX("57405f")
-G.ARGS.LOC_COLOURS['mythos_alt'] = HEX('ecde33')
+G.ARGS.LOC_COLOURS['ortalab_mythos'] = HEX("57405f")
+G.ARGS.LOC_COLOURS['ortalab_mythos_alt'] = HEX('ecde33')
 
 SMODS.ConsumableType({
-    key = "Mythos",
+    key = 'ortalab_mythos',
     primary_colour = HEX("57405f"),
     secondary_colour = HEX("57405f"),
-    loc_txt = {
-        name = "Mythos",
-        collection = "Mythos Cards",
-        undiscovered = {
-            name = 'Unknown Mythos Card',
-            text = {
-                'Find this card in an unseeded',
-                'run to find out what it does'
-            }
-        }
-    },
     collection_rows = {5, 4},
     shop_rate = 0,
-    default = 'c_ortalab_zod_aries',
+    default = 'c_ortalab_excalibur',
 })
 
 SMODS.DrawStep {
     key = 'mythos_shine',
     order = 10,
     func = function(self)
-        if self.ability.set == 'Mythos' or self.config.center.group_key == 'ortalab_mythos_pack' then
+        if self.ability.set == 'ortalab_mythos' or self.config.center.group_key == 'ortalab_mythos_pack' then
             self.children.center:draw_shader('ortalab_mythos', nil, self.ARGS.send_to_shader)
         end
     end,
@@ -55,7 +44,7 @@ SMODS.DrawStep {
     key = 'corpus_shine',
     order = 61,
     func = function(self)
-        if self.ability.set == 'Mythos' and self.children.floating_sprite and self.config.center.discovered then
+        if self.ability.set == 'ortalab_mythos' and self.children.floating_sprite and self.config.center.discovered then
             local scale_mod = 0.07 + 0.02*math.sin(1.8*G.TIMERS.REAL) + 0.00*math.sin((G.TIMERS.REAL - math.floor(G.TIMERS.REAL))*math.pi*14)*(1 - (G.TIMERS.REAL - math.floor(G.TIMERS.REAL)))^3
             local rotate_mod = 0.05*math.sin(1.219*G.TIMERS.REAL) + 0.00*math.sin((G.TIMERS.REAL)*math.pi*5)*(1 - (G.TIMERS.REAL - math.floor(G.TIMERS.REAL)))^2
 
@@ -149,7 +138,7 @@ end
 -- Excalibur
 SMODS.Consumable({
     key = 'excalibur',
-    set = 'Mythos',
+    set = 'ortalab_mythos',
     atlas = 'mythos_cards',
     cost = 5,
     pos = {x=0, y=0},
@@ -193,7 +182,7 @@ SMODS.Consumable({
 -- Tree of Life
 SMODS.Consumable({
     key = 'tree_of_life',
-    set = 'Mythos',
+    set = 'ortalab_mythos',
     atlas = 'mythos_cards',
     cost = 5,
     pos = {x=1, y=0},
@@ -255,7 +244,7 @@ SMODS.Consumable({
 -- Genie's Lamp
 SMODS.Consumable({
     key = 'genie',
-    set = 'Mythos',
+    set = 'ortalab_mythos',
     atlas = 'mythos_cards',
     cost = 5,
     pos = {x=2, y=0},
@@ -282,7 +271,7 @@ SMODS.Consumable({
         for i=1, card.ability.extra.hands do
             local hand, pos = pseudorandom_element(visible_hands, 'ortalab_genie_hand')
             table.remove(visible_hands, pos)
-            SMODS.calculate_effect({message = localize(hand, 'poker_hands'), colour = G.ARGS.LOC_COLOURS.mythos_alt}, card)
+            SMODS.calculate_effect({message = localize(hand, 'poker_hands'), colour = G.ARGS.LOC_COLOURS.ortalab_mythos_alt}, card)
             SMODS.smart_level_up_hand(card, hand, nil, card.ability.extra.levels)
         end
 
@@ -294,7 +283,7 @@ SMODS.Consumable({
 -- Pandora's Box
 SMODS.Consumable({
     key = 'pandora',
-    set = 'Mythos',
+    set = 'ortalab_mythos',
     atlas = 'mythos_cards',
     cost = 5,
     pos = {x=3, y=0},
@@ -319,7 +308,7 @@ SMODS.Consumable({
                     G.deck.config.card_limit = G.deck.config.card_limit + 1
                     table.insert(G.playing_cards, new_card)
                     G.play:emplace(new_card)
-                    new_card:start_materialize({G.C.SET.Mythos})
+                    new_card:start_materialize({G.C.SET.ortalab_mythos})
                     card:juice_up(0.3, 0.5)
                     copies[i] = new_card
                     return true
@@ -351,7 +340,7 @@ SMODS.Consumable({
 -- Holy Grail
 SMODS.Consumable({
     key = 'holy_grail',
-    set = 'Mythos',
+    set = 'ortalab_mythos',
     atlas = 'mythos_cards',
     cost = 5,
     pos = {x=4, y=0},
@@ -393,7 +382,7 @@ SMODS.Consumable({
 -- Talaria
 SMODS.Consumable({
     key = 'talaria',
-    set = 'Mythos',
+    set = 'ortalab_mythos',
     atlas = 'mythos_cards',
     cost = 5,
     pos = {x=0, y=3},
@@ -417,7 +406,7 @@ SMODS.Consumable({
             func = function()
                 local voucher = get_next_voucher_key(true)
                 local voucher_card = SMODS.create_card({area = G.play, key = voucher})
-                voucher_card:start_materialize({G.C.SET.Mythos})
+                voucher_card:start_materialize({G.C.SET.ortalab_mythos})
                 voucher_card.cost = 0
                 G.play:emplace(voucher_card)
                 delay(0.8)
@@ -439,7 +428,7 @@ SMODS.Consumable({
 -- Basilisk
 SMODS.Consumable({
     key = 'basilisk',
-    set = 'Mythos',
+    set = 'ortalab_mythos',
     atlas = 'mythos_cards',
     cost = 5,
     pos = {x=0, y=1},
@@ -468,7 +457,7 @@ SMODS.Consumable({
                 func = function()
                     local _suit = pseudorandom_element(SMODS.Suits, pseudoseed('ortalab_basilisk_suit')).card_key
                     local _rank = pseudorandom_element(faces, pseudoseed('ortalab_basilisk_rank')).card_key
-                    local new_card = create_playing_card({front = G.P_CARDS[_suit..'_'.._rank]}, G.hand, nil, i ~= 1, {G.C.SET.Mythos, darken(G.C.SET.Mythos, 0.5), G.C.RED, darken(G.C.SET.Mythos, 0.2), G.ARGS.LOC_COLOURS['mythos_alt']})
+                    local new_card = create_playing_card({front = G.P_CARDS[_suit..'_'.._rank]}, G.hand, nil, i ~= 1, {G.C.SET.ortalab_mythos, darken(G.C.SET.ortalab_mythos, 0.5), G.C.RED, darken(G.C.SET.ortalab_mythos, 0.2), G.ARGS.LOC_COLOURS['ortalab_mythos_alt']})
                     Ortalab.Mythos_Utils.snakes_modify[i](new_card, 'ortalab_basilisk')
                     new_card:add_to_deck()
                     G.deck.config.card_limit = G.deck.config.card_limit + 1
@@ -489,7 +478,7 @@ SMODS.Consumable({
 -- Abaia
 SMODS.Consumable({
     key = 'abaia',
-    set = 'Mythos',
+    set = 'ortalab_mythos',
     atlas = 'mythos_cards',
     cost = 5,
     pos = {x=4, y=2},
@@ -511,7 +500,7 @@ SMODS.Consumable({
             trigger = 'after', delay = 0.7,
             func = function()
                 local _suit = pseudorandom_element(SMODS.Suits, pseudoseed('ortalab_abaia_suit')).card_key
-                local new_card = create_playing_card({front = G.P_CARDS[_suit..'_7']}, G.hand, nil, i ~= 1, {G.C.SET.Mythos, darken(G.C.SET.Mythos, 0.5), G.C.RED, darken(G.C.SET.Mythos, 0.2), G.ARGS.LOC_COLOURS['mythos_alt']})
+                local new_card = create_playing_card({front = G.P_CARDS[_suit..'_7']}, G.hand, nil, i ~= 1, {G.C.SET.ortalab_mythos, darken(G.C.SET.ortalab_mythos, 0.5), G.C.RED, darken(G.C.SET.ortalab_mythos, 0.2), G.ARGS.LOC_COLOURS['ortalab_mythos_alt']})
                 Ortalab.Mythos_Utils.snakes_modify[i](new_card, 'ortalab_abaia')
                 new_card:add_to_deck()
                 G.deck.config.card_limit = G.deck.config.card_limit + 1
@@ -532,7 +521,7 @@ SMODS.Consumable({
 -- Jormungand
 SMODS.Consumable({
     key = 'jormungand',
-    set = 'Mythos',
+    set = 'ortalab_mythos',
     atlas = 'mythos_cards',
     cost = 5,
     pos = {x=1, y=2},
@@ -555,7 +544,7 @@ SMODS.Consumable({
             delay = 0.7,
             func = function()
                 local _suit = pseudorandom_element(SMODS.Suits, pseudoseed('ortalab_jormungand_suit')).card_key
-                local new_card = create_playing_card({front = G.P_CARDS[_suit..'_A']}, G.hand, nil, i ~= 1, {G.C.SET.Mythos, darken(G.C.SET.Mythos, 0.5), G.C.RED, darken(G.C.SET.Mythos, 0.2), G.ARGS.LOC_COLOURS['mythos_alt']})
+                local new_card = create_playing_card({front = G.P_CARDS[_suit..'_A']}, G.hand, nil, i ~= 1, {G.C.SET.ortalab_mythos, darken(G.C.SET.ortalab_mythos, 0.5), G.C.RED, darken(G.C.SET.ortalab_mythos, 0.2), G.ARGS.LOC_COLOURS['ortalab_mythos_alt']})
                 Ortalab.Mythos_Utils.snakes_modify[i](new_card, 'ortalab_jormungand')
                 new_card:add_to_deck()
                 G.deck.config.card_limit = G.deck.config.card_limit + 1
@@ -576,7 +565,7 @@ SMODS.Consumable({
 -- Gnome
 SMODS.Consumable({
     key = 'gnome',
-    set = 'Mythos',
+    set = 'ortalab_mythos',
     atlas = 'mythos_cards',
     cost = 5,
     pos = {x=3, y=2},
@@ -638,7 +627,7 @@ SMODS.Consumable({
 -- Crawler
 SMODS.Consumable({
     key = 'crawler',
-    set = 'Mythos',
+    set = 'ortalab_mythos',
     atlas = 'mythos_cards',
     cost = 5,
     pos = {x=3, y=1},
@@ -674,7 +663,7 @@ SMODS.Consumable({
 -- Kraken
 SMODS.Consumable({
     key = 'kraken',
-    set = 'Mythos',
+    set = 'ortalab_mythos',
     atlas = 'mythos_cards',
     cost = 5,
     pos = {x=2, y=1},
@@ -721,7 +710,7 @@ SMODS.Consumable({
 -- Wendigo
 SMODS.Consumable({
     key = 'wendigo',
-    set = 'Mythos',
+    set = 'ortalab_mythos',
     atlas = 'mythos_cards',
     cost = 5,
     pos = {x=1, y=1},
@@ -759,7 +748,7 @@ SMODS.Consumable({
 -- Jackalope
 SMODS.Consumable({
     key = 'jackalope',
-    set = 'Mythos',
+    set = 'ortalab_mythos',
     atlas = 'mythos_cards',
     cost = 5,
     pos = {x=2, y=2},
@@ -802,7 +791,7 @@ SMODS.Consumable({
 -- Ya Te Veo
 SMODS.Consumable({
     key = 'ya_te_veo',
-    set = 'Mythos',
+    set = 'ortalab_mythos',
     atlas = 'mythos_cards',
     cost = 5,
     pos = {x=0, y=2},
@@ -834,7 +823,7 @@ SMODS.Consumable({
                     final_pool[index] = nil
                     table.insert(selected, tag)
                     cards[i] = SMODS.add_card({set = 'Tag', key = tag, area = G.play, skip_materialize = true})
-                    cards[i]:start_materialize({G.C.SET.Mythos})
+                    cards[i]:start_materialize({G.C.SET.ortalab_mythos})
                     SMODS.calculate_effect({message = localize({type = 'name_text', set = 'Tag', key = tag}), instant = true, delay = 1.5}, cards[i])
                     return true
                 end
@@ -861,7 +850,7 @@ SMODS.Consumable({
 -- Anubis
 SMODS.Consumable({
     key = 'anubis',
-    set = 'Mythos',
+    set = 'ortalab_mythos',
     atlas = 'mythos_cards',
     cost = 5,
     pos = {x=4, y=1},
@@ -896,7 +885,7 @@ SMODS.Consumable({
 -- Corpus
 SMODS.Consumable({
     key = 'corpus',
-    set = 'Mythos',
+    set = 'ortalab_mythos',
     atlas = 'mythos_cards',
     cost = 5,
     pos = {x=1, y=3},
@@ -944,7 +933,7 @@ SMODS.Consumable({
         G.E_MANAGER:add_event(Event({
             trigger = 'after', delay = 0.2,
             func = function()            
-                ease_background_colour{special_colour = darken(G.C.SET.Mythos, 0.5), new_colour = G.C.RED, tertiary_colour = G.C.SET.Mythos, contrast = 1}
+                ease_background_colour{special_colour = darken(G.C.SET.ortalab_mythos, 0.5), new_colour = G.C.RED, tertiary_colour = G.C.SET.ortalab_mythos, contrast = 1}
                 return true
             end
         }))
@@ -956,7 +945,7 @@ SMODS.Consumable({
                     timer = 0.01, scale = 0.3, initialize = true,
                     lifespan = 2, speed = 6, padding = -1,
                     attach = target, fill = true,
-                    colours = {G.C.SET.Mythos, darken(G.C.SET.Mythos, 0.5), G.C.RED, darken(G.C.SET.Mythos, 0.2), G.ARGS.LOC_COLOURS['mythos_alt']},
+                    colours = {G.C.SET.ortalab_mythos, darken(G.C.SET.ortalab_mythos, 0.5), G.C.RED, darken(G.C.SET.ortalab_mythos, 0.2), G.ARGS.LOC_COLOURS['ortalab_mythos_alt']},
                 })
                 target.children.particles.fade_alpha = 1
                 target.children.particles:fade(1, 0)
@@ -969,7 +958,7 @@ SMODS.Consumable({
         G.E_MANAGER:add_event(Event({
             trigger = 'after', delay = 4,
             func = function()
-                target.destroyed = {colours = {G.C.SET.Mythos, darken(G.C.SET.Mythos, 0.5), G.C.RED, darken(G.C.SET.Mythos, 0.2), G.ARGS.LOC_COLOURS['mythos_alt']}}
+                target.destroyed = {colours = {G.C.SET.ortalab_mythos, darken(G.C.SET.ortalab_mythos, 0.5), G.C.RED, darken(G.C.SET.ortalab_mythos, 0.2), G.ARGS.LOC_COLOURS['ortalab_mythos_alt']}}
                 SMODS.destroy_cards({target})             
                 return true
             end
@@ -1007,7 +996,7 @@ SMODS.Consumable({
         G.E_MANAGER:add_event(Event({
             trigger = 'after', delay = 0.2,
             func = function()            
-                ease_background_colour{special_colour = darken(G.C.SET.Mythos, 0.5), new_colour = G.C.RED, tertiary_colour = G.C.SET.Mythos, contrast = 1}
+                ease_background_colour{special_colour = darken(G.C.SET.ortalab_mythos, 0.5), new_colour = G.C.RED, tertiary_colour = G.C.SET.ortalab_mythos, contrast = 1}
                 return true
             end
         }))
@@ -1019,7 +1008,7 @@ SMODS.Consumable({
                     timer = 0.01, scale = 0.3, initialize = true,
                     lifespan = 2, speed = 6, padding = -1,
                     attach = card, fill = true,
-                    colours = {G.C.SET.Mythos, darken(G.C.SET.Mythos, 0.5), G.C.RED, darken(G.C.SET.Mythos, 0.2), G.ARGS.LOC_COLOURS['mythos_alt']},
+                    colours = {G.C.SET.ortalab_mythos, darken(G.C.SET.ortalab_mythos, 0.5), G.C.RED, darken(G.C.SET.ortalab_mythos, 0.2), G.ARGS.LOC_COLOURS['ortalab_mythos_alt']},
                 })
                 card.children.particles.fade_alpha = 1
                 card.children.particles:fade(1, 0)
@@ -1034,12 +1023,10 @@ SMODS.Consumable({
         for _, v in pairs(card.ability.extra.sacrificed) do if v then sacrificed = sacrificed + 1 end end
         G.GAME.modifiers.scaling = (G.GAME.modifiers.scaling or 1)
         for i=1, sacrificed do
-            Ortalab.Mythos_Utils.Corpus_Effects.immolate(card)
-            Ortalab.Mythos_Utils.Corpus_Effects.talisman(card)
             pseudorandom_element(Ortalab.Mythos_Utils.Corpus_Effects, 'ortalab_corpus_select')(card)
             G.GAME.modifiers.scaling = G.GAME.modifiers.scaling * 1.2
         end
-        SMODS.calculate_effect({message = 'You have unleashed the power of The Corpus', colour = G.ARGS.LOC_COLOURS.mythos, delay = 6, blocking = false, sound = 'ortalab_gong', pitch = math.random()}, card)
+        SMODS.calculate_effect({message = 'You have unleashed the power of The Corpus', colour = G.ARGS.LOC_COLOURS.ortalab_mythos, delay = 6, blocking = false, sound = 'ortalab_gong', pitch = math.random()}, card)
         G.E_MANAGER:add_event(Event({
             trigger = 'after', delay = 2,
             func = function()
@@ -1102,7 +1089,7 @@ Ortalab.Mythos_Utils.Corpus_Buttons = function(self)
       
       {n=G.UIT.C, config={ref_table = self, align = "cr",maxw = 1.25, padding = 0.1, r=0.08, minw = 1.25, minh = (self.area and self.area.config.type == 'joker') and 0 or 1, hover = true, shadow = true, colour = G.C.UI.BACKGROUND_INACTIVE, button = 'sacrifice_card', func = 'can_sacrifice_card'}, nodes={
         {n=G.UIT.B, config = {w=0.1,h=0.6}},
-        {n=G.UIT.T, config={text = 'SACRIFICE',colour = G.ARGS.LOC_COLOURS.mythos_alt, scale = 0.55, shadow = true}}
+        {n=G.UIT.T, config={text = 'SACRIFICE',colour = G.ARGS.LOC_COLOURS.ortalab_mythos_alt, scale = 0.55, shadow = true}}
       }}
     }}
 
@@ -1130,7 +1117,7 @@ end
 
 G.FUNCS.can_sacrifice_card = function(e)
     if e.config.ref_table.config.center:can_sacrifice(e.config.ref_table) then 
-        e.config.colour = G.ARGS.LOC_COLOURS.mythos
+        e.config.colour = G.ARGS.LOC_COLOURS.ortalab_mythos
         e.config.button = 'sacrifice_card'
     else
       e.config.colour = G.C.UI.BACKGROUND_INACTIVE
@@ -1150,7 +1137,7 @@ SMODS.Sound({
 Ortalab.Mythos_Utils.Corpus_Effects = {}
 
 Ortalab.Mythos_Utils.Corpus_Effects.familiar = function(card)
-    SMODS.calculate_effect({message = localize({set = 'Spectral', key = 'c_familiar', type = 'name_text'})..'?', colour = G.ARGS.LOC_COLOURS.Mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
+    SMODS.calculate_effect({message = localize({set = 'Spectral', key = 'c_familiar', type = 'name_text'})..'?', colour = G.ARGS.LOC_COLOURS.ortalab_mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
     local cards = {}
     local faces = {}
     for _, v in ipairs(SMODS.Rank.obj_buffer) do
@@ -1164,7 +1151,7 @@ Ortalab.Mythos_Utils.Corpus_Effects.familiar = function(card)
             func = function()
                 local _suit = pseudorandom_element(SMODS.Suits, pseudoseed('corpus_familiar_suit')).card_key
                 local _rank = pseudorandom_element(faces, pseudoseed('corpus_familiar_rank')).card_key
-                local new_card = create_playing_card({front = G.P_CARDS[_suit..'_'.._rank]}, G.hand, nil, i ~= 1, {G.C.SET.Mythos, darken(G.C.SET.Mythos, 0.5), G.C.RED, darken(G.C.SET.Mythos, 0.2), G.ARGS.LOC_COLOURS['mythos_alt']})
+                local new_card = create_playing_card({front = G.P_CARDS[_suit..'_'.._rank]}, G.hand, nil, i ~= 1, {G.C.SET.ortalab_mythos, darken(G.C.SET.ortalab_mythos, 0.5), G.C.RED, darken(G.C.SET.ortalab_mythos, 0.2), G.ARGS.LOC_COLOURS['ortalab_mythos_alt']})
                 new_card:set_ability(SMODS.poll_enhancement({guaranteed = true, key = 'corpus_familiar_enhancement', no_replace = true}))
                 new_card:add_to_deck()
                 G.deck.config.card_limit = G.deck.config.card_limit + 1
@@ -1180,7 +1167,7 @@ Ortalab.Mythos_Utils.Corpus_Effects.familiar = function(card)
 end
 
 Ortalab.Mythos_Utils.Corpus_Effects.grim = function(card)
-    SMODS.calculate_effect({message = localize({set = 'Spectral', key = 'c_grim', type = 'name_text'})..'?', colour = G.ARGS.LOC_COLOURS.Mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
+    SMODS.calculate_effect({message = localize({set = 'Spectral', key = 'c_grim', type = 'name_text'})..'?', colour = G.ARGS.LOC_COLOURS.ortalab_mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
     local cards = {}
     
 
@@ -1189,7 +1176,7 @@ Ortalab.Mythos_Utils.Corpus_Effects.grim = function(card)
             trigger = 'after', delay = 0.7,
             func = function()
                 local _suit = pseudorandom_element(SMODS.Suits, pseudoseed('corpus_grim_suit')).card_key
-                local new_card = create_playing_card({front = G.P_CARDS[_suit..'_A']}, G.hand, nil, i ~= 1, {G.C.SET.Mythos, darken(G.C.SET.Mythos, 0.5), G.C.RED, darken(G.C.SET.Mythos, 0.2), G.ARGS.LOC_COLOURS['mythos_alt']})
+                local new_card = create_playing_card({front = G.P_CARDS[_suit..'_A']}, G.hand, nil, i ~= 1, {G.C.SET.ortalab_mythos, darken(G.C.SET.ortalab_mythos, 0.5), G.C.RED, darken(G.C.SET.ortalab_mythos, 0.2), G.ARGS.LOC_COLOURS['ortalab_mythos_alt']})
                 new_card:set_ability(SMODS.poll_enhancement({guaranteed = true, key = 'corpus_grim_enhancement', no_replace = true}))
                 new_card:add_to_deck()
                 G.deck.config.card_limit = G.deck.config.card_limit + 1
@@ -1205,7 +1192,7 @@ Ortalab.Mythos_Utils.Corpus_Effects.grim = function(card)
 end
 
 Ortalab.Mythos_Utils.Corpus_Effects.incantation = function(card)
-    SMODS.calculate_effect({message = localize({set = 'Spectral', key = 'c_incantation', type = 'name_text'})..'?', colour = G.ARGS.LOC_COLOURS.Mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
+    SMODS.calculate_effect({message = localize({set = 'Spectral', key = 'c_incantation', type = 'name_text'})..'?', colour = G.ARGS.LOC_COLOURS.ortalab_mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
     local cards = {}
     local numbers = {}
     for _, rank_key in ipairs(SMODS.Rank.obj_buffer) do
@@ -1219,7 +1206,7 @@ Ortalab.Mythos_Utils.Corpus_Effects.incantation = function(card)
             func = function()
                 local _suit = pseudorandom_element(SMODS.Suits, pseudoseed('corpus_incantation_suit')).card_key
                 local _rank = pseudorandom_element(numbers, pseudoseed('corpus_incantation_rank')).card_key
-                local new_card = create_playing_card({front = G.P_CARDS[_suit..'_'.._rank]}, G.hand, nil, i ~= 1, {G.C.SET.Mythos, darken(G.C.SET.Mythos, 0.5), G.C.RED, darken(G.C.SET.Mythos, 0.2), G.ARGS.LOC_COLOURS['mythos_alt']})
+                local new_card = create_playing_card({front = G.P_CARDS[_suit..'_'.._rank]}, G.hand, nil, i ~= 1, {G.C.SET.ortalab_mythos, darken(G.C.SET.ortalab_mythos, 0.5), G.C.RED, darken(G.C.SET.ortalab_mythos, 0.2), G.ARGS.LOC_COLOURS['ortalab_mythos_alt']})
                 new_card:set_ability(SMODS.poll_enhancement({guaranteed = true, key = 'corpus_incantation_enhancement', no_replace = true}))
                 new_card:add_to_deck()
                 G.deck.config.card_limit = G.deck.config.card_limit + 1
@@ -1235,14 +1222,14 @@ Ortalab.Mythos_Utils.Corpus_Effects.incantation = function(card)
 end
 
 Ortalab.Mythos_Utils.Corpus_Effects.talisman = function(card)
-    SMODS.calculate_effect({message = localize({set = 'Spectral', key = 'c_talisman', type = 'name_text'})..'?', colour = G.ARGS.LOC_COLOURS.Mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
+    SMODS.calculate_effect({message = localize({set = 'Spectral', key = 'c_talisman', type = 'name_text'})..'?', colour = G.ARGS.LOC_COLOURS.ortalab_mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
     local targets = {}
     for _, card in ipairs(G.hand.cards) do
         if not card.seal and not card.getting_sliced then table.insert(targets, card) end
     end
     if #targets == 0 then
         delay(4)
-        SMODS.calculate_effect({message = localize('ortalab_corpus_no_cards'), colour = G.ARGS.LOC_COLOURS.Mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
+        SMODS.calculate_effect({message = localize('ortalab_corpus_no_cards'), colour = G.ARGS.LOC_COLOURS.ortalab_mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
         delay(4)
         return
     end
@@ -1258,11 +1245,11 @@ Ortalab.Mythos_Utils.Corpus_Effects.talisman = function(card)
 end
 
 Ortalab.Mythos_Utils.Corpus_Effects.aura = function(card)
-    SMODS.calculate_effect({message = localize({set = 'Spectral', key = 'c_aura', type = 'name_text'})..'?', colour = G.ARGS.LOC_COLOURS.Mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
+    SMODS.calculate_effect({message = localize({set = 'Spectral', key = 'c_aura', type = 'name_text'})..'?', colour = G.ARGS.LOC_COLOURS.ortalab_mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
     local targets = SMODS.Edition:get_edition_cards(G.hand, true)
     if #targets == 0 then
         delay(4)
-        SMODS.calculate_effect({message = localize('ortalab_corpus_no_cards'), colour = G.ARGS.LOC_COLOURS.Mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
+        SMODS.calculate_effect({message = localize('ortalab_corpus_no_cards'), colour = G.ARGS.LOC_COLOURS.ortalab_mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
         delay(4)
         return
     end
@@ -1279,12 +1266,12 @@ Ortalab.Mythos_Utils.Corpus_Effects.aura = function(card)
 end
 
 Ortalab.Mythos_Utils.Corpus_Effects.wraith = function(card)
-    SMODS.calculate_effect({message = localize({set = 'Spectral', key = 'c_wraith', type = 'name_text'})..'?', colour = G.ARGS.LOC_COLOURS.Mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
+    SMODS.calculate_effect({message = localize({set = 'Spectral', key = 'c_wraith', type = 'name_text'})..'?', colour = G.ARGS.LOC_COLOURS.ortalab_mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
     G.E_MANAGER:add_event(Event({
         trigger = 'after', delay = 0.7,
         func = function()                
             local card = SMODS.add_card({set = 'Joker', rarity = 3, no_edition = true})
-            card:start_materialize({G.C.SET.Mythos, darken(G.C.SET.Mythos, 0.5), G.C.RED, darken(G.C.SET.Mythos, 0.2), G.ARGS.LOC_COLOURS['mythos_alt']})
+            card:start_materialize({G.C.SET.ortalab_mythos, darken(G.C.SET.ortalab_mythos, 0.5), G.C.RED, darken(G.C.SET.ortalab_mythos, 0.2), G.ARGS.LOC_COLOURS['ortalab_mythos_alt']})
             return true
         end
     }))
@@ -1292,7 +1279,7 @@ Ortalab.Mythos_Utils.Corpus_Effects.wraith = function(card)
 end
 
 Ortalab.Mythos_Utils.Corpus_Effects.sigil = function(card)
-    SMODS.calculate_effect({message = localize({set = 'Spectral', key = 'c_sigil', type = 'name_text'})..'?', colour = G.ARGS.LOC_COLOURS.Mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
+    SMODS.calculate_effect({message = localize({set = 'Spectral', key = 'c_sigil', type = 'name_text'})..'?', colour = G.ARGS.LOC_COLOURS.ortalab_mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
 
     local rank = SMODS.Ranks[pseudorandom_element(SMODS.Rank.obj_buffer, 'corpus_sigil')].card_key
 
@@ -1313,7 +1300,7 @@ Ortalab.Mythos_Utils.Corpus_Effects.sigil = function(card)
 end
 
 Ortalab.Mythos_Utils.Corpus_Effects.ouija = function(card)
-    SMODS.calculate_effect({message = localize({set = 'Spectral', key = 'c_ouija', type = 'name_text'})..'?', colour = G.ARGS.LOC_COLOURS.Mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
+    SMODS.calculate_effect({message = localize({set = 'Spectral', key = 'c_ouija', type = 'name_text'})..'?', colour = G.ARGS.LOC_COLOURS.ortalab_mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
 
     local suit = pseudorandom_element(SMODS.Suits, 'corpus_ouija').key
 
@@ -1334,11 +1321,11 @@ Ortalab.Mythos_Utils.Corpus_Effects.ouija = function(card)
 end
 
 Ortalab.Mythos_Utils.Corpus_Effects.ectoplasm = function(card)
-    SMODS.calculate_effect({message = localize({set = 'Spectral', key = 'c_ectoplasm', type = 'name_text'})..'?', colour = G.ARGS.LOC_COLOURS.Mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
+    SMODS.calculate_effect({message = localize({set = 'Spectral', key = 'c_ectoplasm', type = 'name_text'})..'?', colour = G.ARGS.LOC_COLOURS.ortalab_mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
     local targets = SMODS.Edition:get_edition_cards(G.jokers, true)
     if #targets == 0 then
         delay(4)
-        SMODS.calculate_effect({message = localize('ortalab_corpus_no_cards'), colour = G.ARGS.LOC_COLOURS.Mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
+        SMODS.calculate_effect({message = localize('ortalab_corpus_no_cards'), colour = G.ARGS.LOC_COLOURS.ortalab_mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
         delay(4)
         return
     end
@@ -1354,7 +1341,7 @@ Ortalab.Mythos_Utils.Corpus_Effects.ectoplasm = function(card)
 end
 
 Ortalab.Mythos_Utils.Corpus_Effects.immolate = function(card)
-    SMODS.calculate_effect({message = localize({set = 'Spectral', key = 'c_immolate', type = 'name_text'})..'?', colour = G.ARGS.LOC_COLOURS.Mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
+    SMODS.calculate_effect({message = localize({set = 'Spectral', key = 'c_immolate', type = 'name_text'})..'?', colour = G.ARGS.LOC_COLOURS.ortalab_mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
     local removed = {}
     for i=1, math.min(5, #G.hand.cards) do
         local target, pos = pseudorandom_element(G.hand.cards, 'corpus_immolate')
@@ -1369,14 +1356,14 @@ Ortalab.Mythos_Utils.Corpus_Effects.immolate = function(card)
 end
 
 Ortalab.Mythos_Utils.Corpus_Effects.ankh = function(card)
-    SMODS.calculate_effect({message = localize({set = 'Spectral', key = 'c_ankh', type = 'name_text'})..'?', colour = G.ARGS.LOC_COLOURS.Mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
+    SMODS.calculate_effect({message = localize({set = 'Spectral', key = 'c_ankh', type = 'name_text'})..'?', colour = G.ARGS.LOC_COLOURS.ortalab_mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
     local target = pseudorandom_element(G.jokers.cards, 'corpus_ankh')
     local new_joker = copy_card(target)
     G.E_MANAGER:add_event(Event({
         trigger = 'after', delay = 0.7,
         func = function()                
             G.jokers:emplace(new_joker)
-            new_joker:start_materialize({G.C.SET.Mythos, darken(G.C.SET.Mythos, 0.5), G.C.RED, darken(G.C.SET.Mythos, 0.2), G.ARGS.LOC_COLOURS['mythos_alt']})
+            new_joker:start_materialize({G.C.SET.ortalab_mythos, darken(G.C.SET.ortalab_mythos, 0.5), G.C.RED, darken(G.C.SET.ortalab_mythos, 0.2), G.ARGS.LOC_COLOURS['ortalab_mythos_alt']})
             return true
         end
     }))
@@ -1385,14 +1372,14 @@ Ortalab.Mythos_Utils.Corpus_Effects.ankh = function(card)
 end
 
 Ortalab.Mythos_Utils.Corpus_Effects.deja_vu = function(card)
-    SMODS.calculate_effect({message = localize({set = 'Spectral', key = 'c_deja_vu', type = 'name_text'})..'?', colour = G.ARGS.LOC_COLOURS.Mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
+    SMODS.calculate_effect({message = localize({set = 'Spectral', key = 'c_deja_vu', type = 'name_text'})..'?', colour = G.ARGS.LOC_COLOURS.ortalab_mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
     local targets = {}
     for _, card in ipairs(G.hand.cards) do
         if not card.seal and not card.getting_sliced then table.insert(targets, card) end
     end
     if #targets == 0 then
         delay(4)
-        SMODS.calculate_effect({message = localize('ortalab_corpus_no_cards'), colour = G.ARGS.LOC_COLOURS.Mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
+        SMODS.calculate_effect({message = localize('ortalab_corpus_no_cards'), colour = G.ARGS.LOC_COLOURS.ortalab_mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
         delay(4)
         return
     end
@@ -1408,11 +1395,11 @@ Ortalab.Mythos_Utils.Corpus_Effects.deja_vu = function(card)
 end
 
 Ortalab.Mythos_Utils.Corpus_Effects.hex = function(card)
-    SMODS.calculate_effect({message = localize({set = 'Spectral', key = 'c_hex', type = 'name_text'})..'?', colour = G.ARGS.LOC_COLOURS.Mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
+    SMODS.calculate_effect({message = localize({set = 'Spectral', key = 'c_hex', type = 'name_text'})..'?', colour = G.ARGS.LOC_COLOURS.ortalab_mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
     local targets = SMODS.Edition:get_edition_cards(G.jokers, true)
     if #targets == 0 then
         delay(4)
-        SMODS.calculate_effect({message = localize('ortalab_corpus_no_cards'), colour = G.ARGS.LOC_COLOURS.Mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
+        SMODS.calculate_effect({message = localize('ortalab_corpus_no_cards'), colour = G.ARGS.LOC_COLOURS.ortalab_mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
         delay(4)
         return
     end
@@ -1428,14 +1415,14 @@ Ortalab.Mythos_Utils.Corpus_Effects.hex = function(card)
 end
 
 Ortalab.Mythos_Utils.Corpus_Effects.trance = function(card)
-    SMODS.calculate_effect({message = localize({set = 'Spectral', key = 'c_trance', type = 'name_text'})..'?', colour = G.ARGS.LOC_COLOURS.Mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
+    SMODS.calculate_effect({message = localize({set = 'Spectral', key = 'c_trance', type = 'name_text'})..'?', colour = G.ARGS.LOC_COLOURS.ortalab_mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
     local targets = {}
     for _, card in ipairs(G.hand.cards) do
         if not card.seal and not card.getting_sliced then table.insert(targets, card) end
     end
     if #targets == 0 then
         delay(4)
-        SMODS.calculate_effect({message = localize('ortalab_corpus_no_cards'), colour = G.ARGS.LOC_COLOURS.Mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
+        SMODS.calculate_effect({message = localize('ortalab_corpus_no_cards'), colour = G.ARGS.LOC_COLOURS.ortalab_mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
         delay(4)
         return
     end
@@ -1451,14 +1438,14 @@ Ortalab.Mythos_Utils.Corpus_Effects.trance = function(card)
 end
 
 Ortalab.Mythos_Utils.Corpus_Effects.medium = function(card)
-    SMODS.calculate_effect({message = localize({set = 'Spectral', key = 'c_medium', type = 'name_text'})..'?', colour = G.ARGS.LOC_COLOURS.Mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
+    SMODS.calculate_effect({message = localize({set = 'Spectral', key = 'c_medium', type = 'name_text'})..'?', colour = G.ARGS.LOC_COLOURS.ortalab_mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
     local targets = {}
     for _, card in ipairs(G.hand.cards) do
         if not card.seal and not card.getting_sliced then table.insert(targets, card) end
     end
     if #targets == 0 then
         delay(4)
-        SMODS.calculate_effect({message = localize('ortalab_corpus_no_cards'), colour = G.ARGS.LOC_COLOURS.Mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
+        SMODS.calculate_effect({message = localize('ortalab_corpus_no_cards'), colour = G.ARGS.LOC_COLOURS.ortalab_mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
         delay(4)
         return
     end
@@ -1474,10 +1461,10 @@ Ortalab.Mythos_Utils.Corpus_Effects.medium = function(card)
 end
 
 Ortalab.Mythos_Utils.Corpus_Effects.cryptid = function(card)
-    SMODS.calculate_effect({message = localize({set = 'Spectral', key = 'c_cryptid', type = 'name_text'})..'?', colour = G.ARGS.LOC_COLOURS.Mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
+    SMODS.calculate_effect({message = localize({set = 'Spectral', key = 'c_cryptid', type = 'name_text'})..'?', colour = G.ARGS.LOC_COLOURS.ortalab_mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
     if #G.hand.cards == 0 then
         delay(4)
-        SMODS.calculate_effect({message = localize('ortalab_corpus_no_cards'), colour = G.ARGS.LOC_COLOURS.Mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
+        SMODS.calculate_effect({message = localize('ortalab_corpus_no_cards'), colour = G.ARGS.LOC_COLOURS.ortalab_mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
         delay(4)
         return
     end
@@ -1493,7 +1480,7 @@ Ortalab.Mythos_Utils.Corpus_Effects.cryptid = function(card)
                 G.deck.config.card_limit = G.deck.config.card_limit + 1
                 table.insert(G.playing_cards, new_card)
                 G.hand:emplace(new_card)
-                new_card:start_materialize({G.C.SET.Mythos, darken(G.C.SET.Mythos, 0.5), G.C.RED, darken(G.C.SET.Mythos, 0.2), G.ARGS.LOC_COLOURS['mythos_alt']})
+                new_card:start_materialize({G.C.SET.ortalab_mythos, darken(G.C.SET.ortalab_mythos, 0.5), G.C.RED, darken(G.C.SET.ortalab_mythos, 0.2), G.ARGS.LOC_COLOURS['ortalab_mythos_alt']})
                 card:juice_up(0.3, 0.5)
                 copies[i] = new_card
                 return true
@@ -1505,12 +1492,12 @@ Ortalab.Mythos_Utils.Corpus_Effects.cryptid = function(card)
 end
 
 Ortalab.Mythos_Utils.Corpus_Effects.soul = function(card)
-    SMODS.calculate_effect({message = localize({set = 'Spectral', key = 'c_soul', type = 'name_text'})..'?', colour = G.ARGS.LOC_COLOURS.Mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
+    SMODS.calculate_effect({message = localize({set = 'Spectral', key = 'c_soul', type = 'name_text'})..'?', colour = G.ARGS.LOC_COLOURS.ortalab_mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
     G.E_MANAGER:add_event(Event({
         trigger = 'after', delay = 0.7,
         func = function()                
             local card = SMODS.add_card({set = 'Joker', rarity = 4, legendary = true, no_edition = true})
-            card:start_materialize({G.C.SET.Mythos, darken(G.C.SET.Mythos, 0.5), G.C.RED, darken(G.C.SET.Mythos, 0.2), G.ARGS.LOC_COLOURS['mythos_alt']})
+            card:start_materialize({G.C.SET.ortalab_mythos, darken(G.C.SET.ortalab_mythos, 0.5), G.C.RED, darken(G.C.SET.ortalab_mythos, 0.2), G.ARGS.LOC_COLOURS['ortalab_mythos_alt']})
             return true
         end
     }))
@@ -1518,7 +1505,7 @@ Ortalab.Mythos_Utils.Corpus_Effects.soul = function(card)
 end
 
 Ortalab.Mythos_Utils.Corpus_Effects.black_hole = function(card)
-    SMODS.calculate_effect({message = localize({set = 'Spectral', key = 'c_black_hole', type = 'name_text'})..'?', colour = G.ARGS.LOC_COLOURS.Mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
+    SMODS.calculate_effect({message = localize({set = 'Spectral', key = 'c_black_hole', type = 'name_text'})..'?', colour = G.ARGS.LOC_COLOURS.ortalab_mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
     update_hand_text({sound = 'button', volume = 0.7, pitch = 0.8, delay = 0.3}, {handname=localize('k_all_hands'),chips = '...', mult = '...', level=''})
         G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.2, func = function()
             play_sound('tarot1')
@@ -1548,13 +1535,13 @@ end
 -- Ophiuchus
 SMODS.Consumable({
     key = 'ophiuchus',
-    set = 'Mythos',
+    set = 'ortalab_mythos',
     atlas = 'mythos_cards',
     cost = 5,
     pos = {x=3, y=3},
     discovered = false,
     hidden = true,
-    soul_set = 'Zodiac',
+    soul_set = 'ortalab_zodiac',
     soul_rate = 0.03,
     config = {extra = {cards = 4, zodiac = 'zodiac_ortalab_ophiuchus'}},
     artist_credits = {'gappie'},

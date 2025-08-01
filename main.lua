@@ -61,11 +61,11 @@ SMODS.Shader({
 })
 
 if (SMODS.Mods['malverk'] or {}).can_load then
-    AltTextures_Utils.default_atlas['Zodiac'] = 'ortalab_zodiac_cards'
-    AltTextures_Utils.loc_keys['Zodiac'] = 'b_zodiac_cards'
+    AltTextures_Utils.default_atlas['ortalab_zodiac'] = 'ortalab_zodiac_cards'
+    AltTextures_Utils.loc_keys['ortalab_zodiac'] = 'b_zodiac_cards'
     AltTexture({
         key = 'alt_zodiac',
-        set = 'Zodiac',
+        set = 'ortalab_zodiac',
         path = 'zodiac_coloured.png',
         display_pos = 'c_ortalab_zod_virgo',
         loc_txt = {

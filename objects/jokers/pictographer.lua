@@ -15,10 +15,10 @@ SMODS.Joker({
 		return {vars = {card.ability.extra.money, card.ability.extra.count, card.ability.extra.current%card.ability.extra.count}}
 	end,
 	calculate = function(self, card, context)
-        if context.using_consumeable and context.consumeable.ability.set == 'Loteria' and not context.blueprint then
+        if context.using_consumeable and context.consumeable.ability.set == 'ortalab_loteria' and not context.blueprint then
             if not context.retrigger_joker and not context.blueprint then 
                 card.ability.extra.current = (card.ability.extra.current%card.ability.extra.count) + 1
-                SMODS.calculate_effect({message = card.ability.extra.current..'/'..card.ability.extra.count, colour = G.ARGS.LOC_COLOURS.loteria}, card)
+                SMODS.calculate_effect({message = card.ability.extra.current..'/'..card.ability.extra.count, colour = G.ARGS.LOC_COLOURS.ortalab_loteria}, card)
             end
             if card.ability.extra.current >= card.ability.extra.count then
                 if not context.retrigger_joker then
@@ -28,7 +28,7 @@ SMODS.Joker({
                         func = function()                
                             SMODS.calculate_effect({
                                 message = localize('ortalab_joker_miles_reset'),
-                                colour = G.ARGS.LOC_COLOURS.loteria
+                                colour = G.ARGS.LOC_COLOURS.ortalab_loteria
                             }, card)
                             return true
                         end
@@ -43,7 +43,7 @@ SMODS.Joker({
             card.ability.extra.current = 0
             return {
                 message = localize('ortalab_joker_miles_reset'),
-                colour = G.ARGS.LOC_COLOURS.loteria
+                colour = G.ARGS.LOC_COLOURS.ortalab_loteria
             }
         end
     end

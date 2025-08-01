@@ -746,7 +746,7 @@ SMODS.Tag({
                         delay = 0.7,
                         func = function()
                             local card = SMODS.add_card({key = 'c_ortalab_lot_hand', area = G.consumeables, skip_materialize = true, edition = 'e_negative'})
-                            card:start_materialize({G.C.SET.Loteria}) 
+                            card:start_materialize({G.C.SET.ortalab_loteria}) 
                             return true
                         end
                     }))
@@ -795,7 +795,7 @@ SMODS.Tag({
                             final_pool[index] = nil
                             table.insert(selected, tag)
                             cards[i] = SMODS.add_card({set = 'Tag', key = tag, area = G.play, skip_materialize = true})
-                            cards[i]:start_materialize({G.C.SET.Mythos})
+                            cards[i]:start_materialize({G.C.SET.ortalab_mythos})
                             SMODS.calculate_effect({message = localize({type = 'name_text', set = 'Tag', key = tag}), instant = true, delay = 1.5}, cards[i])
                             return true
                         end
@@ -869,7 +869,7 @@ SMODS.Tag({
                             table.insert(G.playing_cards, _card)
                             G.deck:emplace(_card)
                             _card.states.visible = nil
-                            _card:start_materialize({G.C.SET.Mythos})
+                            _card:start_materialize({G.C.SET.ortalab_mythos})
                             return true
                         end
                     }))

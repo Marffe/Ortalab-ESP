@@ -10,8 +10,8 @@ local small_boosters = {keys = {'small_zodiac_1', 'small_zodiac_2', 'small_zodia
     config = {choose = 1, extra = 2},
     artist_credits = {'gappie'},
     ease_background_colour = function(self)
-        ease_colour(G.C.DYN_UI.MAIN, G.C.SET.Zodiac)
-        ease_background_colour{new_colour = G.C.SET.Zodiac, special_colour = G.C.BLACK, contrast = 2}
+        ease_colour(G.C.DYN_UI.MAIN, G.C.SET.ortalab_zodiac)
+        ease_background_colour{new_colour = G.C.SET.ortalab_zodiac, special_colour = G.C.BLACK, contrast = 2}
     end,
     draw_hand = false,
     group_key = 'ortalab_astral_pack',
@@ -26,14 +26,14 @@ local small_boosters = {keys = {'small_zodiac_1', 'small_zodiac_2', 'small_zodia
             speed = 1.1,
             padding = -1,
             attach = G.ROOM_ATTACH,
-            colours = {G.ARGS.LOC_COLOURS.zodiac, lighten(G.ARGS.LOC_COLOURS.zodiac, 0.4), lighten(G.ARGS.LOC_COLOURS.zodiac, 0.2), darken(G.ARGS.LOC_COLOURS.zodiac, 0.2)},
+            colours = {G.ARGS.LOC_COLOURS.ortalab_zodiac, lighten(G.ARGS.LOC_COLOURS.ortalab_zodiac, 0.4), lighten(G.ARGS.LOC_COLOURS.ortalab_zodiac, 0.2), darken(G.ARGS.LOC_COLOURS.ortalab_zodiac, 0.2)},
             fill = true
         })
         G.booster_pack_sparkles.fade_alpha = 1
         G.booster_pack_sparkles:fade(1, 0)
     end,
     create_card = function(self, card, i)
-        return create_card("Zodiac", G.pack_cards, nil, nil, true, true, nil, "zodpack")
+        return create_card('ortalab_zodiac', G.pack_cards, nil, nil, true, true, nil, "zodpack")
     end,
     }
 }
@@ -45,7 +45,7 @@ for i, key in ipairs(small_boosters.keys) do
     end
     booster_args.key = key
     booster_args.pos = { x = i - 1, y = 0 }
-    booster_args.ortalab_type = 'Zodiac'
+    booster_args.ortalab_type = 'ortalab_zodiac'
     SMODS.Booster(booster_args)
 end
 
@@ -54,11 +54,11 @@ local mid_boosters = {keys = {'mid_zodiac_1', 'mid_zodiac_2'}, info = {
     config = {choose = 1, extra = 4},
     artist_credits = {'gappie'},
     create_card = function(self, card, i)
-        return create_card("Zodiac", G.pack_cards, nil, nil, true, true, nil, "zodpack")
+        return create_card('ortalab_zodiac', G.pack_cards, nil, nil, true, true, nil, "zodpack")
     end,
     ease_background_colour = function(self)
-        ease_colour(G.C.DYN_UI.MAIN, G.C.SET.Zodiac)
-        ease_background_colour{new_colour = G.C.SET.Zodiac, special_colour = G.C.BLACK, contrast = 2}
+        ease_colour(G.C.DYN_UI.MAIN, G.C.SET.ortalab_zodiac)
+        ease_background_colour{new_colour = G.C.SET.ortalab_zodiac, special_colour = G.C.BLACK, contrast = 2}
     end,
     group_key = 'ortalab_astral_pack',
     draw_hand = false,
@@ -73,7 +73,7 @@ local mid_boosters = {keys = {'mid_zodiac_1', 'mid_zodiac_2'}, info = {
             speed = 1.1,
             padding = -1,
             attach = G.ROOM_ATTACH,
-            colours = {G.ARGS.LOC_COLOURS.zodiac, lighten(G.ARGS.LOC_COLOURS.zodiac, 0.4), lighten(G.ARGS.LOC_COLOURS.zodiac, 0.2), darken(G.ARGS.LOC_COLOURS.zodiac, 0.2)},
+            colours = {G.ARGS.LOC_COLOURS.ortalab_zodiac, lighten(G.ARGS.LOC_COLOURS.ortalab_zodiac, 0.4), lighten(G.ARGS.LOC_COLOURS.ortalab_zodiac, 0.2), darken(G.ARGS.LOC_COLOURS.ortalab_zodiac, 0.2)},
             fill = true
         })
         G.booster_pack_sparkles.fade_alpha = 1
@@ -88,7 +88,7 @@ for i, key in ipairs(mid_boosters.keys) do
     end
     booster_args.key = key
     booster_args.pos = { x = i - 1, y = 1 }
-    booster_args.ortalab_type = 'Zodiac'
+    booster_args.ortalab_type = 'ortalab_zodiac'
     SMODS.Booster(booster_args)
 end
 
@@ -97,11 +97,11 @@ local large_boosters = {keys = {'big_zodiac_1', 'big_zodiac_2'}, info = {
     config = {choose = 2, extra = 4},
     artist_credits = {'gappie'},
     create_card = function(self, card, i)
-        return create_card("Zodiac", G.pack_cards, nil, nil, true, true, nil, "zodpack")
+        return create_card('ortalab_zodiac', G.pack_cards, nil, nil, true, true, nil, "zodpack")
     end,
     ease_background_colour = function(self)
-        ease_colour(G.C.DYN_UI.MAIN, G.C.SET.Zodiac)
-        ease_background_colour{new_colour = G.C.SET.Zodiac, special_colour = G.C.BLACK, contrast = 2}
+        ease_colour(G.C.DYN_UI.MAIN, G.C.SET.ortalab_zodiac)
+        ease_background_colour{new_colour = G.C.SET.ortalab_zodiac, special_colour = G.C.BLACK, contrast = 2}
     end,
     group_key = 'ortalab_astral_pack',
     draw_hand = false,
@@ -116,7 +116,7 @@ local large_boosters = {keys = {'big_zodiac_1', 'big_zodiac_2'}, info = {
             speed = 1.1,
             padding = -1,
             attach = G.ROOM_ATTACH,
-            colours = {G.ARGS.LOC_COLOURS.zodiac, lighten(G.ARGS.LOC_COLOURS.zodiac, 0.4), lighten(G.ARGS.LOC_COLOURS.zodiac, 0.2), darken(G.ARGS.LOC_COLOURS.zodiac, 0.2)},
+            colours = {G.ARGS.LOC_COLOURS.ortalab_zodiac, lighten(G.ARGS.LOC_COLOURS.ortalab_zodiac, 0.4), lighten(G.ARGS.LOC_COLOURS.ortalab_zodiac, 0.2), darken(G.ARGS.LOC_COLOURS.ortalab_zodiac, 0.2)},
             fill = true
         })
         G.booster_pack_sparkles.fade_alpha = 1
@@ -131,7 +131,7 @@ for i, key in ipairs(large_boosters.keys) do
     end
     booster_args.key = key
     booster_args.pos = { x = i + 1, y = 1 }
-    booster_args.ortalab_type = 'Zodiac'
+    booster_args.ortalab_type = 'ortalab_zodiac'
     SMODS.Booster(booster_args)
 end
 

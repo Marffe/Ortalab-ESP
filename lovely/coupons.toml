@@ -19,7 +19,7 @@ pattern = '''G.GAME.pack_choices = self.ability.choose or self.config.center.con
 position = 'after'
 match_indent = true
 payload = '''
-if self.config.center.ortalab_type == 'Loteria' then
+if self.config.center.ortalab_type == 'ortalab_loteria' then
     G.GAME.pack_choices = G.GAME.pack_choices + G.GAME.ortalab.vouchers.cantor
 end'''
 
@@ -482,7 +482,7 @@ if G.load_shop_ortalab_mythos then
     end
     G.load_shop_ortalab_mythos = nil
 elseif G.GAME.ortalab.vouchers.mythos_shop_slot then
-    local mythos_pool = get_current_pool('Mythos')
+    local mythos_pool = get_current_pool('ortalab_mythos')
     local selection = pseudorandom_element(mythos_pool, pseudoseed('ortalab_mythos_shop'))
     while selection == "UNAVAILABLE" do
         selection = pseudorandom_element(mythos_pool, pseudoseed('ortalab_mythos_shop_re'))
@@ -550,8 +550,8 @@ pattern = '''
 }},
 '''
 payload = '''
-G.GAME.ortalab.vouchers.mythos_shop_slot and {n=G.UIT.C, config={align = "cm", padding = 0.15, r=0.2, colour = G.C.SET.Zodiac, emboss = 0.05}, nodes={
-    {n=G.UIT.C, config={align = "cm", padding = 0.2, r=0.2, colour = darken(G.C.SET.Mythos, 0.4), maxh = G.shop_ortalab_mythos.T.h+0.4}, nodes={
+G.GAME.ortalab.vouchers.mythos_shop_slot and {n=G.UIT.C, config={align = "cm", padding = 0.15, r=0.2, colour = G.ARGS.LOC_COLOURS.ortalab_mythos_alt, emboss = 0.05}, nodes={
+    {n=G.UIT.C, config={align = "cm", padding = 0.2, r=0.2, colour = darken(G.C.SET.ortalab_mythos, 0.6), maxh = G.shop_ortalab_mythos.T.h+0.4}, nodes={
         {n=G.UIT.O, config={object = G.shop_ortalab_mythos}},
     }},
 }} or nil,

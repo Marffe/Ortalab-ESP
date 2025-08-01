@@ -23,7 +23,7 @@ SMODS.Joker({
             end
             if numbered_even >= 2 and numbered_odd >= 2 and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
                 G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
-                local choice = pseudorandom('mathmagician') > 0.5 and 'Loteria' or 'Zodiac'
+                local choice = pseudorandom('mathmagician') > 0.5 and 'ortalab_loteria' or 'ortalab_zodiac'
                 G.E_MANAGER:add_event(Event({
                     func = (function()
                         G.E_MANAGER:add_event(Event({
@@ -38,7 +38,7 @@ SMODS.Joker({
                     end)}))
                 return {
                     message = localize('ortalab_'..string.lower(choice)..'_add'), 
-                    colour = G.C.SET.Loteria,
+                    colour = G.C.SET.ortalab_loteria,
                     card = context.blueprint_card or card,
                 }
             end

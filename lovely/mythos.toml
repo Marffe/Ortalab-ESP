@@ -11,7 +11,7 @@ pattern = '''if (self.ability.set == 'Voucher' or self.config.center.demo) and (
 position = 'before'
 match_indent = true
 payload = '''
-if self.ability.set == 'Mythos' or self.config.center.group_key == 'ortalab_mythos_pack' then
+if self.ability.set == 'ortalab_mythos' or self.config.center.group_key == 'ortalab_mythos_pack' then
     self.children.center:draw_shader('ortalab_mythos', nil, self.ARGS.send_to_shader)
 end
 '''
@@ -37,7 +37,7 @@ pattern = '''self.children.floating_sprite:draw_shader('dissolve', nil, nil, nil
 position = 'after'
 match_indent = true
 payload = '''
-if self.ability.set == 'Mythos' then
+if self.ability.set == 'ortalab_mythos' then
     self.children.floating_sprite:draw_shader('ortalab_mythos', nil, nil, nil, self.children.center, scale_mod, rotate_mod)
 end
 '''

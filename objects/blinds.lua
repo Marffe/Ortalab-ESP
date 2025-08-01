@@ -224,10 +224,10 @@ SMODS.Blind({
     config = {extra = {suit = 'Clubs'}},
     artist_credits = {'flare'},
     loc_vars = function(self, info_queue, card)
-        return {vars = {self.config.extra.suit}}
+        return {vars = {localize(self.config.extra.suit, 'suits_plural')}}
     end,
     collection_loc_vars = function(self)
-        return {vars = {self.config.extra.suit}}
+        return {vars = {localize(self.config.extra.suit, 'suits_plural')}}
     end,
     debuff_hand = function(self, cards, hands, handname, check)
         for _, card in pairs(hands[handname][1]) do
@@ -304,10 +304,10 @@ SMODS.Blind({
     config = {extra = {suit = 'Spades'}},
     artist_credits = {'flare'},
     loc_vars = function(self, info_queue, card)
-        return {vars = {self.config.extra.suit}}
+        return {vars = {localize(self.config.extra.suit, 'suits_plural')}}
     end,
     collection_loc_vars = function(self)
-        return {vars = {self.config.extra.suit}}
+        return {vars = {localize(self.config.extra.suit, 'suits_plural')}}
     end,
     debuff_hand = function(self, cards, hands, handname, check)
         for _, card in pairs(hands[handname][1]) do
@@ -351,10 +351,10 @@ SMODS.Blind({
     config = {extra = {suit = 'Diamonds'}},
     artist_credits = {'flare'},
     loc_vars = function(self, info_queue, card)
-        return {vars = {self.config.extra.suit}}
+        return {vars = {localize(self.config.extra.suit, 'suits_plural')}}
     end,
     collection_loc_vars = function(self)
-        return {vars = {self.config.extra.suit}}
+        return {vars = {localize(self.config.extra.suit, 'suits_plural')}}
     end,
     debuff_hand = function(self, cards, hands, handname, check)
         for _, card in pairs(hands[handname][1]) do
@@ -696,10 +696,10 @@ SMODS.Blind({
     config = {extra = {suit = 'Hearts'}},
     artist_credits = {'flare'},
     loc_vars = function(self, info_queue, card)
-        return {vars = {self.config.extra.suit}}
+        return {vars = {localize(self.config.extra.suit, 'suits_plural')}}
     end,
     collection_loc_vars = function(self)
-        return {vars = {self.config.extra.suit}}
+        return {vars = {localize(self.config.extra.suit, 'suits_plural')}}
     end,
     debuff_hand = function(self, cards, hands, handname, check)
         for _, card in pairs(hands[handname][1]) do

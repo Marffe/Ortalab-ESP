@@ -872,7 +872,7 @@ SMODS.ConsumableType({
     primary_colour = HEX("666666"),
     secondary_colour = HEX("666666"),
     loc_txt = {
-        name = "Loteria",
+        name = 'ortalab_loteria',
         collection = "Loteria Cards",
     },
     collection_rows = {2, 1},

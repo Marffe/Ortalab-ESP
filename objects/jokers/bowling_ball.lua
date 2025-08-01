@@ -23,7 +23,7 @@ SMODS.Joker({
                     trigger = 'before',
                     delay = 0.0,
                     func = (function()
-                            local card = create_card('Zodiac',G.consumeables, nil, nil, nil, nil, nil, 'bowling_ball')
+                            local card = create_card('ortalab_zodiac',G.consumeables, nil, nil, nil, nil, nil, 'bowling_ball')
                             card:add_to_deck()
                             G.consumeables:emplace(card)
                             G.GAME.consumeable_buffer = G.GAME.consumeable_buffer - 1
@@ -31,7 +31,7 @@ SMODS.Joker({
                     end)}))
                 return {
                     message = localize('ortalab_zodiac_add'),
-                    colour = G.C.SET.Zodiac,
+                    colour = G.C.SET.ortalab_zodiac,
                     card = card
                 }
             end

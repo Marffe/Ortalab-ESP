@@ -10,7 +10,7 @@ SMODS.current_mod.config_tab = function()
         }},
         {n=G.UIT.R, config = {minh = 0.04, minw = 4, colour = G.C.L_BLACK}},
         {n=G.UIT.R, config = {align = 'cm', padding = 0.2}, nodes = {
-            {n=G.UIT.T, config = {scale = 0.5, text = "Skip Animations", colour = G.C.WHITE}}
+            {n=G.UIT.T, config = {scale = 0.5, text = localize('ortalab_config_skip_animations'), colour = G.C.WHITE}}
         }},
         {n=G.UIT.R, config = {align = 'cm'}, nodes={
             {n=G.UIT.C, config = {padding = 0.2, align = 'cm'}, nodes = {

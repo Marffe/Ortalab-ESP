@@ -124,7 +124,7 @@ SMODS.Back({
             card.effect.config.target_loterias[new_loteria.key] = true
         end
         for key, _ in pairs(card.effect.config.target_loterias) do
-            table.insert(card.effect.config.target_loterias_keys, localize({key = key, set = 'Loteria', type = 'name_text'}))
+            table.insert(card.effect.config.target_loterias_keys, localize({key = key, set = 'ortalab_loteria', type = 'name_text'}))
             G.E_MANAGER:add_event(Event({
                 trigger = 'after',
                 delay = 0.7,

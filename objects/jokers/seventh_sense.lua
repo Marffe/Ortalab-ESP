@@ -32,7 +32,7 @@ SMODS.Joker({
                 delay = 0.2,
                 func = function()            
                     play_sound('ortalab_shrine', nil, 2)
-                    ease_background_colour{special_colour = darken(G.C.SET.Mythos, 0.5), new_colour = G.C.RED, tertiary_colour = G.C.SET.Mythos, contrast = 1}
+                    ease_background_colour{special_colour = darken(G.C.SET.ortalab_mythos, 0.5), new_colour = G.C.RED, tertiary_colour = G.C.SET.ortalab_mythos, contrast = 1}
                     return true
                 end
             }))
@@ -50,7 +50,7 @@ SMODS.Joker({
                         speed = 6,
                         padding = -1,
                         attach = context.destroying_card,
-                        colours = {G.C.SET.Mythos, darken(G.C.SET.Mythos, 0.5), G.C.RED, darken(G.C.SET.Mythos, 0.2), G.ARGS.LOC_COLOURS['mythos_alt']},
+                        colours = {G.C.SET.ortalab_mythos, darken(G.C.SET.ortalab_mythos, 0.5), G.C.RED, darken(G.C.SET.ortalab_mythos, 0.2), G.ARGS.LOC_COLOURS['ortalab_mythos_alt']},
                         fill = true
                     })
                     context.destroying_card.children.particles.fade_alpha = 1
@@ -65,7 +65,7 @@ SMODS.Joker({
                 trigger = 'after',
                 delay = 4,
                 func = function()
-                    mythos = SMODS.create_card({set = 'Mythos', area = G.consumeables})
+                    mythos = SMODS.create_card({set = 'ortalab_mythos', area = G.consumeables})
                     G.consumeables:emplace(mythos)
                     mythos.stay_in_middle = true
                     local eval = function(card) return card.stay_in_middle end
@@ -102,7 +102,7 @@ SMODS.Joker({
             card.ability.extra.rank = Ortalab.rank_from_deck('ortalab_seventh_sense')
             return {
                 message = card.ability.extra.rank,
-                colour = G.C.SET.Mythos
+                colour = G.C.SET.ortalab_mythos
             }
         end
     end,
@@ -111,7 +111,7 @@ SMODS.Joker({
             card.ability.extra.rank = Ortalab.rank_from_deck('ortalab_seventh_sense')
             SMODS.calculate_effect({
                 message = card.ability.extra.rank,
-                colour = G.C.SET.Mythos
+                colour = G.C.SET.ortalab_mythos
             }, card)
         end
     end

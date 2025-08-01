@@ -20,29 +20,18 @@ SMODS.Atlas{
 }
 
 SMODS.UndiscoveredSprite({ -- undiscovered sprite
-    key = "Zodiac",
+    key = 'ortalab_zodiac',
     atlas = "zodiac_cards",
     pos = { x = 0, y = 3 },
     no_overlay = true
 })
 
-G.ARGS.LOC_COLOURS['Zodiac'] = HEX("7e94ba")
+G.ARGS.LOC_COLOURS['ortalab_zodiac'] = HEX("7e94ba")
 
 SMODS.ConsumableType({ -- Zodiac Card ConsumableType creation
-    key = "Zodiac",
+    key = "ortalab_zodiac",
     primary_colour = HEX("7e94ba"),
     secondary_colour = HEX("7e94ba"),
-    loc_txt = { -- move to localization
-        name = "Zodiac",
-        collection = "Zodiac Cards",
-        undiscovered = {
-            name = 'Unknown Zodiac Card',
-            text = {
-                'Find this card in an unseeded',
-                'run to find out what it does'
-            }
-        }
-    },
     collection_rows = {6, 6},
     shop_rate = 1.1,
     default = 'c_ortalab_zod_scorpio' -- High Card zodiac
@@ -84,7 +73,7 @@ function G.FUNCS.evaluate_play(e)
                     scale = 1, 
                     hold = 1/G.SETTINGS.GAMESPEED,
                     cover = zodiac_current.HUD_zodiac,
-                    cover_colour = G.ARGS.LOC_COLOURS.Zodiac,
+                    cover_colour = G.ARGS.LOC_COLOURS.ortalab_zodiac,
                     align = 'cm',
                     })
                 play_sound('generic1', 0.9 + math.random()*0.1, 0.8)
@@ -241,7 +230,7 @@ function Zodiac:remove_zodiac(message, _colour, func) -- Remove a zodiac from th
                     scale = 1, 
                     hold = 0.6/G.SETTINGS.GAMESPEED,
                     cover = self.HUD_zodiac,
-                    cover_colour = G.ARGS.LOC_COLOURS.Zodiac,
+                    cover_colour = G.ARGS.LOC_COLOURS.ortalab_zodiac,
                     align = 'cm',
                     })
                 play_sound('generic1', 0.9 + math.random()*0.1, 0.8)
@@ -406,7 +395,7 @@ function zodiac_text(message, key, leap_year_proc)
             Ortalab.zodiac_animation = false
             return true
     end}))
-    ease_background_colour{special_colour = darken(G.ARGS.LOC_COLOURS['Zodiac'], 0.5), new_colour = G.ZODIACS[key].colour, tertiary_colour = G.ARGS.LOC_COLOURS.Zodiac, contrast = 1}
+    ease_background_colour{special_colour = darken(G.ARGS.LOC_COLOURS['ortalab_zodiac'], 0.5), new_colour = G.ZODIACS[key].colour, tertiary_colour = G.ARGS.LOC_COLOURS.ortalab_zodiac, contrast = 1}
     -- Adds the constellation sprite in the background
     table.insert(G.I.MOVEABLE, zodiac_UI)
 
@@ -428,7 +417,7 @@ end
 
 SMODS.Consumable({
     key = 'zod_aries',
-    set = 'Zodiac',
+    set = 'ortalab_zodiac',
     atlas = 'zodiac_cards',
     cost = 4,
     pos = {x=0, y=0},
@@ -481,7 +470,7 @@ Ortalab.Zodiac{
 
 SMODS.Consumable({
     key = 'zod_taurus',
-    set = 'Zodiac',
+    set = 'ortalab_zodiac',
     atlas = 'zodiac_cards',
     cost = 4,
     pos = {x=1, y=0},
@@ -536,7 +525,7 @@ Ortalab.Zodiac{
 
 SMODS.Consumable({
     key = 'zod_gemini',
-    set = 'Zodiac',
+    set = 'ortalab_zodiac',
     atlas = 'zodiac_cards',
     cost = 4,
     pos = {x=2, y=0},
@@ -593,7 +582,7 @@ Ortalab.Zodiac{
 
 SMODS.Consumable({
     key = 'zod_cancer',
-    set = 'Zodiac',
+    set = 'ortalab_zodiac',
     atlas = 'zodiac_cards',
     cost = 4,
     pos = {x=3, y=0},
@@ -663,7 +652,7 @@ Ortalab.Zodiac{
 
 SMODS.Consumable({
     key = 'zod_leo',
-    set = 'Zodiac',
+    set = 'ortalab_zodiac',
     atlas = 'zodiac_cards',
     cost = 4,
     pos = {x=0, y=1},
@@ -719,7 +708,7 @@ Ortalab.Zodiac{
 
 SMODS.Consumable({
     key = 'zod_virgo',
-    set = 'Zodiac',
+    set = 'ortalab_zodiac',
     atlas = 'zodiac_cards',
     cost = 4,
     pos = {x=1, y=1},
@@ -776,7 +765,7 @@ Ortalab.Zodiac{
 
 SMODS.Consumable({
     key = 'zod_libra',
-    set = 'Zodiac',
+    set = 'ortalab_zodiac',
     atlas = 'zodiac_cards',
     cost = 4,
     pos = {x=2, y=1},
@@ -833,7 +822,7 @@ Ortalab.Zodiac{
 
 SMODS.Consumable({
     key = 'zod_scorpio',
-    set = 'Zodiac',
+    set = 'ortalab_zodiac',
     atlas = 'zodiac_cards',
     cost = 4,
     pos = {x=3, y=1},
@@ -903,7 +892,7 @@ Ortalab.Zodiac{
 
 SMODS.Consumable({
     key = 'zod_sag',
-    set = 'Zodiac',
+    set = 'ortalab_zodiac',
     atlas = 'zodiac_cards',
     cost = 4,
     pos = {x=0, y=2},
@@ -958,7 +947,7 @@ Ortalab.Zodiac{
 
 SMODS.Consumable({
     key = 'zod_capr',
-    set = 'Zodiac',
+    set = 'ortalab_zodiac',
     atlas = 'zodiac_cards',
     cost = 4,
     pos = {x=1, y=2},
@@ -1007,7 +996,7 @@ Ortalab.Zodiac{
 
 SMODS.Consumable({
     key = 'zod_aquarius',
-    set = 'Zodiac',
+    set = 'ortalab_zodiac',
     atlas = 'zodiac_cards',
     cost = 4,
     pos = {x=2, y=2},
@@ -1059,7 +1048,7 @@ Ortalab.Zodiac{
 
 SMODS.Consumable({
     key = 'zod_pisces',
-    set = 'Zodiac',
+    set = 'ortalab_zodiac',
     atlas = 'zodiac_cards',
     cost = 4,
     pos = {x=3, y=2},

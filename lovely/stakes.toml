@@ -43,12 +43,12 @@ payload = '''
 if _pool_size == 0 then
     local new_pool = {}
     if G.GAME.modifiers.ortalab_only then
-        local loteria_pool = get_current_pool('Loteria')
+        local loteria_pool = get_current_pool('ortalab_loteria')
         local replacement_loteria = pseudorandom_element(loteria_pool, pseudoseed('ortalab_only'))
         while replacement_loteria == 'UNAVAILABLE' do
             replacement_loteria = pseudorandom_element(loteria_pool, pseudoseed('ortalab_only_resample'))
         end
-        local zodiac_pool = get_current_pool('Zodiac')
+        local zodiac_pool = get_current_pool('ortalab_zodiac')
         local replacement_zodiac = pseudorandom_element(zodiac_pool, pseudoseed('ortalab_only'))
         while replacement_zodiac == 'UNAVAILABLE' do
             replacement_zodiac = pseudorandom_element(zodiac_pool, pseudoseed('ortalab_only_resample'))

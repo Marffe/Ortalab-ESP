@@ -12,11 +12,11 @@ local small_boosters = {keys = {'small_loteria_1', 'small_loteria_2', 'small_lot
     config = {choose = 1, extra = 3},
     artist_credits = {'kosze'},
     create_card = function(self, card)
-        return create_card("Loteria", G.pack_cards, nil, nil, true,  true, nil, "lotpack")
+        return create_card('ortalab_loteria', G.pack_cards, nil, nil, true,  true, nil, "lotpack")
     end,
     ease_background_colour = function(self)
-        ease_colour(G.C.DYN_UI.MAIN, G.C.SET.Loteria)
-        ease_background_colour{new_colour = G.C.SET.Loteria, special_colour = G.C.BLACK, contrast = 2}
+        ease_colour(G.C.DYN_UI.MAIN, G.C.SET.ortalab_loteria)
+        ease_background_colour{new_colour = G.C.SET.ortalab_loteria, special_colour = G.C.BLACK, contrast = 2}
     end,
     group_key = 'ortalab_loteria_pack',
     draw_hand = true,
@@ -31,7 +31,7 @@ local small_boosters = {keys = {'small_loteria_1', 'small_loteria_2', 'small_lot
             speed = 1.1,
             padding = -1,
             attach = G.ROOM_ATTACH,
-            colours = {G.ARGS.LOC_COLOURS.loteria, lighten(G.ARGS.LOC_COLOURS.loteria, 0.4), lighten(G.ARGS.LOC_COLOURS.loteria, 0.2), darken(G.ARGS.LOC_COLOURS.loteria, 0.2)},
+            colours = {G.ARGS.LOC_COLOURS.ortalab_loteria, lighten(G.ARGS.LOC_COLOURS.ortalab_loteria, 0.4), lighten(G.ARGS.LOC_COLOURS.ortalab_loteria, 0.2), darken(G.ARGS.LOC_COLOURS.ortalab_loteria, 0.2)},
             fill = true
         })
         G.booster_pack_sparkles.fade_alpha = 1
@@ -46,7 +46,7 @@ for i, key in ipairs(small_boosters.keys) do
     end
     booster_args.key = key
     booster_args.pos = { x = i - 1, y = 0 }
-    booster_args.ortalab_type = 'Loteria'
+    booster_args.ortalab_type = 'ortalab_loteria'
     SMODS.Booster(booster_args)
 end
 
@@ -55,11 +55,11 @@ local mid_boosters = {keys = {'mid_loteria_1', 'mid_loteria_2'}, info = {
     config = {choose = 1, extra = 5},
     artist_credits = {'kosze'},
     create_card = function(self, card)
-        return create_card("Loteria", G.pack_cards, nil, nil, true,  true, nil, "lotpack")
+        return create_card('ortalab_loteria', G.pack_cards, nil, nil, true,  true, nil, "lotpack")
     end,
     ease_background_colour = function(self)
-        ease_colour(G.C.DYN_UI.MAIN, G.C.SET.Loteria)
-        ease_background_colour{new_colour = G.C.SET.Loteria, special_colour = G.C.BLACK, contrast = 2}
+        ease_colour(G.C.DYN_UI.MAIN, G.C.SET.ortalab_loteria)
+        ease_background_colour{new_colour = G.C.SET.ortalab_loteria, special_colour = G.C.BLACK, contrast = 2}
     end,
     group_key = 'ortalab_loteria_pack',
     draw_hand = true,
@@ -74,7 +74,7 @@ local mid_boosters = {keys = {'mid_loteria_1', 'mid_loteria_2'}, info = {
             speed = 1.1,
             padding = -1,
             attach = G.ROOM_ATTACH,
-            colours = {G.ARGS.LOC_COLOURS.loteria, lighten(G.ARGS.LOC_COLOURS.loteria, 0.4), lighten(G.ARGS.LOC_COLOURS.loteria, 0.2), darken(G.ARGS.LOC_COLOURS.loteria, 0.2)},
+            colours = {G.ARGS.LOC_COLOURS.ortalab_loteria, lighten(G.ARGS.LOC_COLOURS.ortalab_loteria, 0.4), lighten(G.ARGS.LOC_COLOURS.ortalab_loteria, 0.2), darken(G.ARGS.LOC_COLOURS.ortalab_loteria, 0.2)},
             fill = true
         })
         G.booster_pack_sparkles.fade_alpha = 1
@@ -89,7 +89,7 @@ for i, key in ipairs(mid_boosters.keys) do
     end
     booster_args.key = key
     booster_args.pos = { x = i - 1, y = 1 }
-    booster_args.ortalab_type = 'Loteria'
+    booster_args.ortalab_type = 'ortalab_loteria'
     SMODS.Booster(booster_args)
 end
 
@@ -98,11 +98,11 @@ local large_boosters = {keys = {'big_loteria_1', 'big_loteria_2'}, info = {
     config = {choose = 2, extra = 5},
     artist_credits = {'kosze'},
     create_card = function(self, card)
-        return create_card("Loteria", G.pack_cards, nil, nil, true,  true, nil, "lotpack")
+        return create_card('ortalab_loteria', G.pack_cards, nil, nil, true,  true, nil, "lotpack")
     end,
     ease_background_colour = function(self)
-        ease_colour(G.C.DYN_UI.MAIN, G.C.SET.Loteria)
-        ease_background_colour{new_colour = G.C.SET.Loteria, special_colour = G.C.BLACK, contrast = 2}
+        ease_colour(G.C.DYN_UI.MAIN, G.C.SET.ortalab_loteria)
+        ease_background_colour{new_colour = G.C.SET.ortalab_loteria, special_colour = G.C.BLACK, contrast = 2}
     end,
     group_key = 'ortalab_loteria_pack',
     draw_hand = true,
@@ -117,7 +117,7 @@ local large_boosters = {keys = {'big_loteria_1', 'big_loteria_2'}, info = {
             speed = 1.1,
             padding = -1,
             attach = G.ROOM_ATTACH,
-            colours = {G.ARGS.LOC_COLOURS.loteria, lighten(G.ARGS.LOC_COLOURS.loteria, 0.4), lighten(G.ARGS.LOC_COLOURS.loteria, 0.2), darken(G.ARGS.LOC_COLOURS.loteria, 0.2)},
+            colours = {G.ARGS.LOC_COLOURS.ortalab_loteria, lighten(G.ARGS.LOC_COLOURS.ortalab_loteria, 0.4), lighten(G.ARGS.LOC_COLOURS.ortalab_loteria, 0.2), darken(G.ARGS.LOC_COLOURS.ortalab_loteria, 0.2)},
             fill = true
         })
         G.booster_pack_sparkles.fade_alpha = 1
@@ -132,6 +132,6 @@ for i, key in ipairs(large_boosters.keys) do
     end
     booster_args.key = key
     booster_args.pos = { x = i + 1, y = 1 }
-    booster_args.ortalab_type = 'Loteria'
+    booster_args.ortalab_type = 'ortalab_loteria'
     SMODS.Booster(booster_args)
 end

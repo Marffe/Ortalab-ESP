@@ -93,9 +93,9 @@ SMODS.Seal({
             G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
             return {
                 message = localize('ortalab_loteria_add'),
-                colour = G.C.SECONDARY_SET.Loteria,
+                colour = G.C.SECONDARY_SET.ortalab_loteria,
                 func = function()
-                    SMODS.add_card({set = 'Loteria'})
+                    SMODS.add_card({set = 'ortalab_loteria'})
                     G.GAME.consumeable_buffer = G.GAME.consumeable_buffer - 1
                 end
             }
