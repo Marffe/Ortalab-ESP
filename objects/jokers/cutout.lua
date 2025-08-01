@@ -7,7 +7,7 @@ SMODS.Joker({
 	unlocked = true,
 	discovered = false,
 	blueprint_compat = true,
-	eternal_compat = true,
+	eternal_compat = false,
 	perishable_compat = true,
 	config = {extra = {xmult = 3}},
 	artist_credits = {'kosze'},
