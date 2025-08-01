@@ -553,7 +553,7 @@ SMODS.Tag({
     pos = {x = 1, y = 0},
     discovered = false,
     min_ante = 2,
-    config = {type = 'immediate', sell_inc = 1},
+    config = {type = 'immediate', sell_inc = 2},
     artist_credits = {'kosze'},
     loc_vars = function(self, info_queue, card)
         return {vars = {card.config.sell_inc, card.config.sell_inc * (G.GAME.skips + 1)}}
