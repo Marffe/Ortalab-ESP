@@ -56,9 +56,9 @@ if G.GAME.selected_back.effect.center.key == 'b_ortalab_experimental' and G.GAME
     G.GAME.selected_back.effect.config.target_loterias_keys = {}
 
     for i=1, G.GAME.selected_back.effect.config.loterias do
-        local new_loteria = pseudorandom_element(G.P_CENTER_POOLS.Loteria, 'ortalab_experimental_deck')
+        local new_loteria = pseudorandom_element(G.P_CENTER_POOLS.ortalab_loteria, 'ortalab_experimental_deck')
         while G.GAME.selected_back.effect.config.target_loterias[new_loteria.key] do
-            new_loteria = pseudorandom_element(G.P_CENTER_POOLS.Loteria, 'ortalab_experimental_deck_resample')
+            new_loteria = pseudorandom_element(G.P_CENTER_POOLS.ortalab_loteria, 'ortalab_experimental_deck_resample')
         end
         G.GAME.selected_back.effect.config.target_loterias[new_loteria.key] = true
     end

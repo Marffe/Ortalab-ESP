@@ -592,9 +592,9 @@ SMODS.Voucher({
     artist_credits = {'chvsau'},
 	redeem = function(self, card)
         if Ortalab.config.ortalab_only then
-            G.GAME.mythos_rate = 1.2
+            G.GAME.ortalab_mythos_rate = 1.2
         else
-            G.GAME.mythos_rate = 0.6
+            G.GAME.ortalab_mythos_rate = 0.6
         end
     end,
 })

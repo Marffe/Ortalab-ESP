@@ -117,9 +117,9 @@ SMODS.Back({
     apply = function(self, card)
         card.effect.config.target_loterias = {}
         for i=1, card.effect.config.loterias do
-            local new_loteria = G.P_CENTER_POOLS.Loteria[math.random(1, #G.P_CENTER_POOLS.Loteria)]
+            local new_loteria = G.P_CENTER_POOLS.ortalab_loteria[math.random(1, #G.P_CENTER_POOLS.ortalab_loteria)]
             while card.effect.config.target_loterias[new_loteria.key] do
-                new_loteria = G.P_CENTER_POOLS.Loteria[math.random(1, #G.P_CENTER_POOLS.Loteria)]
+                new_loteria = G.P_CENTER_POOLS.ortalab_loteria[math.random(1, #G.P_CENTER_POOLS.ortalab_loteria)]
             end
             card.effect.config.target_loterias[new_loteria.key] = true
         end
