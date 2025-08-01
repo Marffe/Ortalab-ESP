@@ -430,11 +430,11 @@ return {
 			['j_ortalab_black_cat'] = {
 				["name"] = "Black Cat",
 				["text"] = {
-					"Gains {C:white,X:red}#1#X{} Mult",
+					"Gains {C:white,X:red}X#1#{} Mult",
 					"each time a played card",
 					"scores over {C:blue}#3# Chips",
 					"or a {C:attention}Tag{} is collected",
-					"{C:inactive,s:0.8}(Currently {C:white,X:red,s:0.8}#2#X{C:inactive,s:0.8} Mult)"
+					"{C:inactive,s:0.8}(Currently {C:white,X:red,s:0.8}X#2#{C:inactive,s:0.8} Mult)"
 				}
 			},
 			['j_ortalab_black_friday'] = {
@@ -2538,8 +2538,8 @@ return {
 			['v_ortalab_infinite_scroll'] = {
 				["name"] = "Infinite Scroll",
 				["text"] = {
-					"The first {C:attention}#1#{} {C:green}rerolls{} each",
-					"shop are {C:attention}free{}", 
+					"The first and second reroll",
+					"each shop are {C:attention}free{}", 
 				}
 			},
 			['v_ortalab_abacus'] = {
