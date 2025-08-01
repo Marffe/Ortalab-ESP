@@ -9,7 +9,7 @@ SMODS.Joker({
 	blueprint_compat = true,
 	eternal_compat = true,
 	perishable_compat = true,
-	config = {extra = {x_mult = 4, type = 'Full House'}},
+	config = {extra = {x_mult = 3, type = 'Two Pair'}},
     artist_credits = {'gappie'},
 	loc_vars = function(self, info_queue, card)
         return {vars = {card.ability.extra.x_mult, localize(card.ability.extra.type, 'poker_hands')}}

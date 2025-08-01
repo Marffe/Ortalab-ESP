@@ -374,7 +374,7 @@ return {
 					'When {C:attention}Blind{} is selected,',
 					'add {C:dark_edition}#2#{} to {C:attention}right-most Joker',
 					'{C:dark_edition}#2#{} Jokers each give {X:red,C:white}X#1#{} Mult',
-					'{C:inactive,s:0.7}Can\'t be attached to itself'
+					--[['{C:inactive,s:0.7}Can\'t be attached to itself']]
 				}
 			},
 			['j_ortalab_bank_loan'] = {
@@ -401,9 +401,8 @@ return {
 				name = 'Bear',
 				text = {
 					'Gain {C:red}+#1#{} Mult per', 
-					'{C:money}$#2#{} spent',
-					'{C:inactive}(Currently {C:red}+#3#{C:inactive} Mult)',
-					'{s:0.8,C:inactive}({s:0.8,C:money}$#4#{s:0.8,C:inactive}/{s:0.8,C:money}#2#{s:0.8,C:inactive})'
+					'{C:money}${} spent in last shop',
+					'{C:inactive}(Currently {C:red}+#2#{C:inactive} Mult)',
 				}
 			},
 			j_ortalab_belmont = {
@@ -442,11 +441,11 @@ return {
 			['j_ortalab_black_cat'] = {
 				["name"] = "Black Cat",
 				["text"] = {
-					"Gains {C:white,X:red}#1#X{} Mult",
+					"Gains {C:white,X:red}X#1#{} Mult",
 					"each time a played card",
 					"scores over {C:blue}#3# Chips",
 					"or a {C:attention}Tag{} is collected",
-					"{C:inactive,s:0.8}(Currently {C:white,X:red,s:0.8}#2#X{C:inactive,s:0.8} Mult)"
+					"{C:inactive,s:0.8}(Currently {C:white,X:red,s:0.8}X#2#{C:inactive,s:0.8} Mult)"
 				}
 			},
 			['j_ortalab_black_friday'] = {
@@ -2023,7 +2022,7 @@ return {
 			tag_ortalab_hand = {
 				name = 'Gambler\'s Patch',
 				text = {
-					'Obtain {C:attention}#1#{C:dark_edition} negative', 
+					'Obtain {C:attention}#1#{C:dark_edition} Negative', 
 					'copies of {C:ortalab_loteria}The Hand',
 				}
 			},
@@ -2550,8 +2549,8 @@ return {
 			['v_ortalab_infinite_scroll'] = {
 				["name"] = "Infinite Scroll",
 				["text"] = {
-					"The first {C:attention}#1#{} {C:green}rerolls{} each",
-					"shop are {C:attention}free{}", 
+					"The first and second reroll",
+					"each shop are {C:attention}free{}", 
 				}
 			},
 			['v_ortalab_abacus'] = {

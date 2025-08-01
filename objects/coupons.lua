@@ -137,7 +137,7 @@ SMODS.Voucher({
 	discovered = false,
 	available = false,
 	requires = {'v_ortalab_window_shopping'},
-	config = {extra = {free_rerolls = 2}},
+	config = {extra = {free_rerolls = 1}},
     artist_credits = {'flare'},
 	redeem = function(self, card)
         G.E_MANAGER:add_event(Event({func = function()
@@ -493,7 +493,7 @@ SMODS.Voucher({
 	discovered = false,
 	available = false,
     requires = {'v_ortalab_seed_inv'},
-    config = {extra = {money = 7}},
+    config = {extra = {money = 5}},
     artist_credits = {'no_demo'},
 	redeem = function(self, card)
         G.GAME.ortalab.blind_rewards = G.GAME.ortalab.blind_rewards + card.ability.extra.money
