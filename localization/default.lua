@@ -1009,11 +1009,12 @@ return {
 				}
 			},
 			j_ortalab_newton = {
-				name = 'Newton\'s Third Law',
+				name = 'The Third Law',
 				text = {
-					'{C:blue}+#1#{} Chips',
-					'{C:red}#2#{} Chips on {C:attention}first',
-					'{C:attention}hand{} of round'
+					'{C:red}-#1#{} Chips on {C:attention}first',
+					'{C:attention}hand{} of round',
+					'{C:blue}+#1#{} Chips for every',
+					'hand after',
 				}
 			},
 			j_ortalab_no_parking = {
@@ -3373,8 +3374,8 @@ return {
 				name = 'Gnome',
 				text = {
 					'Gain {C:money}sell value{} of all {C:attention}Jokers{},',
-					'then increase {C:money}sell value',
-					'of all {C:attention}Jokers{} by {C:money}$#1#{}',
+					'then increase {C:money}sell value of',
+					'all {C:attention}Jokers{} by {C:money}$#1#{}{C:inactive,s:0.8} (Max of $100)',
 					'{C:inactive,s:0.8}(Currently $#2#)'
 				},
 			},
