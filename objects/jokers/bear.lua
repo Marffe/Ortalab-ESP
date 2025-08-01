@@ -8,32 +8,34 @@ SMODS.Joker({
     discovered = false,
     blueprint_compat = true,
     eternal_compat = true,
-    perishable_compat = false,
-    config = {extra = {dollars = 15, spent = 0, mult = 0, gain = 2}},
+    perishable_compat = true,
+    config = {extra = {gain = 1, mult = 0}},
     artist_credits = {'eremel'},
     loc_vars = function(self, info_queue, card)
-        return {vars = {card.ability.extra.gain, card.ability.extra.dollars, card.ability.extra.mult, card.ability.extra.spent}}
+        return {vars = {card.ability.extra.gain, card.ability.extra.mult}}
     end,
     calculate = function(self, card, context)
+        if context.end_of_round and context.main_eval then
+            card.ability.extra.mult = 0
+            return {
+                message = localize('ortalab_joker_miles_reset'),
+            }
+        end
         if (context.buying_card and context.card ~= card) or context.open_booster and not context.blueprint then
-            card.ability.extra.spent = card.ability.extra.spent + context.card.cost
-            while card.ability.extra.spent > card.ability.extra.dollars do
-                card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.gain
-                card.ability.extra.spent = card.ability.extra.spent - card.ability.extra.dollars
+            local spent = context.card.cost
+                card.ability.extra.mult = card.ability.extra.mult + spent * card.ability.extra.gain
                 SMODS.calculate_effect({message = localize('k_upgrade_ex'), colour = G.C.RED}, card)
-            end
+                return
         end
         if context.reroll_shop and not context.blueprint then
-            card.ability.extra.spent = card.ability.extra.spent + context.cost
-            while card.ability.extra.spent > card.ability.extra.dollars do
-                card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.gain
-                card.ability.extra.spent = card.ability.extra.spent - card.ability.extra.dollars
+            local spent = context.cost
+                card.ability.extra.mult = card.ability.extra.mult + spent * card.ability.extra.gain
                 SMODS.calculate_effect({message = localize('k_upgrade_ex'), colour = G.C.RED}, card)
-            end
+                return
         end
         if context.joker_main then
             return {
-                mult = card.ability.extra.mult
+                mult = card.ability.extra.mult;
             }
         end
     end    

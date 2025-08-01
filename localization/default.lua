@@ -2011,7 +2011,7 @@ return {
 			tag_ortalab_hand = {
 				name = 'Gambler\'s Patch',
 				text = {
-					'Obtain {C:attention}#1#{C:dark_edition} negative', 
+					'Obtain {C:attention}#1#{C:dark_edition} Negative', 
 					'copies of {C:loteria}The Hand',
 				}
 			},
