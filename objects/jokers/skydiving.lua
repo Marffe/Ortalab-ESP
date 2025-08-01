@@ -15,7 +15,7 @@ SMODS.Joker({
         return {vars = {card.ability.extra.xmult_add, card.ability.extra.curr_xmult, card.ability.extra.level_loss}}
     end,
 	calculate = function(self, card, context)
-		if not context.blueprint and context.cardarea == G.jokers and context.before and G.GAME.hands[context.scoring_name].level ~= 1 then
+		if context.before and G.GAME.hands[context.scoring_name].level ~= 1 and not context.blueprint and not context.retrigger_joker then
 			if to_big(G.GAME.hands[context.scoring_name].level) > to_big(1) then
 				card.ability.extra.curr_xmult = card.ability.extra.curr_xmult + card.ability.extra.xmult_add
 				return {
