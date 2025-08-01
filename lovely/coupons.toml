@@ -380,7 +380,7 @@ if card.ability.consumeable and not skip_materialize then card:start_materialize
 '''
 payload = '''
 if _type == 'Tag' then
-    card.tag = Tag(center.key)
+    card.tag = Tag(center.key, false, pseudorandom_element({'Small','Big'}, 'tag_in_shop'))
     card.ability = card.tag.ability
     card.ability.set = 'Tag'
     SMODS.merge_defaults(card.config, card.tag.config)
