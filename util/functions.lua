@@ -364,14 +364,13 @@ function generate_card_ui(_c, full_UI_table, specific_vars, card_type, badges, h
         ui.mythos = mythos_nodes
     end
     if ((_c.set == 'ortalab_zodiac' or _c.key == 'c_ortalab_ophiuchus') and (not card.area.config.collection or _c.discovered)) or (_c.set == 'Tag' and G.ZODIACS[_c.key]) then
-
         local key = _c.set == 'Tag' and _c.key or card.ability.extra.zodiac
         local mythos_nodes = {background_colour = lighten(G.ARGS.LOC_COLOURS.ortalab_zodiac, 0.75)}
         local vars = specific_vars or G.ZODIACS[card.ability.extra.zodiac]:loc_vars({}).vars
         localize{type = 'descriptions', set = 'Tag', key = 'zodiac_heading', nodes = mythos_nodes, vars = vars}
         localize{type = 'descriptions', set = 'Tag', key = key, nodes = mythos_nodes, vars = vars}
         localize{type = 'descriptions', set = 'Tag', key = 'zodiac_loss', nodes = mythos_nodes, vars = {G.GAME.ortalab.zodiacs.reduction}}
-        ui[_c.set == 'Tag' and 'main' or 'ortalab_mythos'] = mythos_nodes
+        ui[_c.set == 'Tag' and 'main' or 'mythos'] = mythos_nodes
     end
     if _c.key == 'c_ortalab_corpus' and card.area == G.consumeables then
         local mythos_nodes = {background_colour = lighten(G.ARGS.LOC_COLOURS.ortalab_mythos, 0.75)}
