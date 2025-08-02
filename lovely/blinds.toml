@@ -268,7 +268,7 @@ if G.hand.highlighted[i].curse == 'ortalab_infected' then
     G.hand.highlighted[i]:set_curse()
 end
 
-if G.hand.highlighted[i].corroded_discard or (G.GAME.blind.config.blind.key == 'bl_ortalab_oil' and not G.GAME.blind.disabled) then
+if G.hand.highlighted[i].corroded_discard then
     draw_card(G.hand, G.deck, i*100/highlighted_count, 'down', false, G.hand.highlighted[i])
     G.deck:shuffle()
 else

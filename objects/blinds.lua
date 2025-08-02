@@ -333,7 +333,7 @@ SMODS.Blind({
     boss_colour = HEX('5c6e31'),
     artist_credits = {'flare'},
     set_blind = function(self)
-        local deck_size = #G.playing_cards
+        local deck_size = #G.deck.cards
         for i=1, math.floor(deck_size/2) do
             draw_card(G.deck, G.discard)
         end
