@@ -1110,7 +1110,7 @@ return {
 			['j_ortalab_pitch_mitch'] = {
 				["name"] = "Pitch Mitch",
 				["text"] = {
-					"{C:blue}+#1#{} chips if played",
+					"{C:blue}+#1#{} Chips if played",
 					'{C:attention}poker hand{} contains',
 					'{V:1}#2#{} and {V:2}#3#'
 				}
@@ -3450,8 +3450,9 @@ return {
 			c_ortalab_excalibur = {
 				name = 'Excalibur',
 				text = {
-					'{C:ortalab_zodiac}Empower{} your {C:attention}last',
-					'{C:attention}played hand {}twice'
+					'{C:ortalab_zodiac}Empower{} your',
+					'{C:attention}last played hand{}',
+					'{C:inactive,s:0.8}(Currently #1#)'
 				},
 			},
 			c_ortalab_wendigo = {

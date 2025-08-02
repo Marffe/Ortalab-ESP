@@ -143,7 +143,7 @@ SMODS.Consumable({
     cost = 5,
     pos = {x=0, y=0},
     discovered = false,
-    config = {extra = {select = 2, curse = 'ortalab_infected', method = 'c_ortalab_one_deck', multiplier = 2}},
+    config = {extra = {select = 1, curse = 'ortalab_infected', method = 'c_ortalab_one_deck', multiplier = 1, }},
     artist_credits = {'gappie'},
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = {set = 'Curse', key = card.ability.extra.curse}
@@ -158,7 +158,7 @@ SMODS.Consumable({
         -- Find zodiac key (defaults to High Card if played hand has no zodiac)
         local key = G.P_CENTERS[zodiac_from_hand(_handname) or 'High Card'].config.extra.zodiac
         
-        -- Add zodiac for last played hand with twice as many levels
+        -- Add zodiac for last played hand with that many levels
         G.E_MANAGER:add_event(Event({
             trigger = 'after', delay = 1,
             func = function()
