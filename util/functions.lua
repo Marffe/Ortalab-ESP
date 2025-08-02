@@ -463,3 +463,32 @@ local ortalab_smods_any_suit = SMODS.has_any_suit
 function SMODS.has_any_suit(card)
     return ortalab_smods_any_suit(card) or Ortalab.suit_smear(card)
 end
+
+
+Ortalab.Pool_Utils = {}
+function Ortalab.Pool_Utils.get_consumeable_type()
+    local types = {
+        {key = 'ortalab_loteria', weight = G.GAME.ortalab_loteria_rate or 0},
+        {key = 'ortalab_zodiac', weight = G.GAME.ortalab_zodiac_rate or 0},
+        {key = 'ortalab_mythos', weight = G.GAME.ortalab_mythos_rate or 0}
+    }
+    local total = 0
+    for _, type in ipairs(types) do total = total + type.weight end
+    local poll = pseudorandom('ortalab_only_new_type')
+    local weight = 0
+    for _, type in ipairs(types) do
+        weight = weight + type.weight
+        if weight/total >= poll then
+            return type.key
+        end
+    end
+end
+
+function Ortalab.Pool_Utils.get_consumeable_key(type)
+    local pool = get_current_pool(type)
+    local key = pseudorandom_element(pool, 'ortalab_only_new_key')
+    while key == 'UNAVAILABLE' do
+        key = pseudorandom_element(pool, 'ortalab_only_new_key_resample')
+    end
+    return key
+end

@@ -3,7 +3,8 @@ version = "1.0.0"
 dump_lua = true
 priority = 1
 
-## Chameleon tooltip
+## Pool Modifications - Ortalab Only
+## Remove non ortalab objects from the pool
 [[patches]]
 [patches.pattern]
 target = 'functions/common_events.lua'
@@ -11,7 +12,9 @@ pattern = '''if add and not G.GAME.banned_keys[v.key] then'''
 position = 'before'
 match_indent = true
 payload = '''if G.GAME.modifiers.ortalab_only then
-    if (not v.mod or v.mod.id ~= 'ortalab') and not table.contains(Ortalab.ortalab_only_inclusion, v.key) then
+    if _type == 'Spectral' and G.GAME.selected_back.effect.center.key == 'b_ghost' then
+    elseif _append == '8ba' then
+    elseif (not v.mod or v.mod.id ~= 'ortalab') and not table.contains(Ortalab.ortalab_only_inclusion, v.key) then
         add = false
     end 
 end
@@ -32,7 +35,8 @@ payload = '''if G.GAME.modifiers.ortalab_only then
 end
 '''
 
-## Chameleon tooltip
+## Pool Modifications - Ortalab Only
+## Replace empty pools
 [[patches]]
 [patches.pattern]
 target = 'functions/common_events.lua'
@@ -43,23 +47,11 @@ payload = '''
 if _pool_size == 0 then
     local new_pool = {}
     if G.GAME.modifiers.ortalab_only then
-        local loteria_pool = get_current_pool('ortalab_loteria')
-        local replacement_loteria = pseudorandom_element(loteria_pool, pseudoseed('ortalab_only'))
-        while replacement_loteria == 'UNAVAILABLE' do
-            replacement_loteria = pseudorandom_element(loteria_pool, pseudoseed('ortalab_only_resample'))
-        end
-        local zodiac_pool = get_current_pool('ortalab_zodiac')
-        local replacement_zodiac = pseudorandom_element(zodiac_pool, pseudoseed('ortalab_only'))
-        while replacement_zodiac == 'UNAVAILABLE' do
-            replacement_zodiac = pseudorandom_element(zodiac_pool, pseudoseed('ortalab_only_resample'))
-        end
         if SMODS.ConsumableTypes[_type] and SMODS.ConsumableTypes[_type].default and G.P_CENTERS[SMODS.ConsumableTypes[_type].default] then
-            new_pool[#new_pool+1] = SMODS.ConsumableTypes[_type].default
-        elseif _type == 'Tarot' or _type == 'Tarot_Planet' then new_pool[#new_pool + 1] = replacement_loteria
-        elseif _type == 'Planet' then new_pool[#new_pool + 1] = replacement_zodiac
-        elseif _type == 'Spectral' then _newpool[#_pool + 1] = 'c_ortalab_rooster'
-        elseif _type == 'Joker' then new_pool[#new_pool + 1] = "j_ortalab_jester"
-        elseif _type == 'Demo' then new_pool[#new_pool + 1] = "j_ortalab_jester"
+            new_pool[#new_pool+1] = Ortalab.Pool_Utils.get_consumeable_key(Ortalab.Pool_Utils.get_consumeable_type())
+        elseif _type == 'Tarot' or _type == 'Tarot_Planet' then new_pool[#new_pool + 1] = Ortalab.Pool_Utils.get_consumeable_key('ortalab_loteria')
+        elseif _type == 'Planet' then new_pool[#new_pool + 1] = Ortalab.Pool_Utils.get_consumeable_key('ortalab_zodiac')
+        elseif _type == 'Spectral' then new_pool[#_pool + 1] = 'c_incantation'
         elseif _type == 'Voucher' then new_pool[#new_pool + 1] = "v_blank"
         elseif _type == 'Tag' then new_pool[#new_pool + 1] = "tag_ortalab_rewind"
         else new_pool[#new_pool + 1] = "j_ortalab_jester"
