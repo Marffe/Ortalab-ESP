@@ -458,3 +458,8 @@ function Ortalab.suit_smear(card)
         return true
     end
 end
+
+local ortalab_smods_any_suit = SMODS.has_any_suit
+function SMODS.has_any_suit(card)
+    return ortalab_smods_any_suit(card) or Ortalab.suit_smear(card)
+end
