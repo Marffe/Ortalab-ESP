@@ -1046,15 +1046,16 @@ SMODS.Consumable({
         local sacrificed = 0
         card.jimbo = true
         for _, v in pairs(card.ability.extra.sacrificed) do if v then sacrificed = sacrificed + 1 end end
-        G.GAME.modifiers.scaling = (G.GAME.modifiers.scaling or 1)
+        G.GAME.starting_params.ante_scaling = (G.GAME.starting_params.ante_scaling or 1)
         for i=1, sacrificed do
             pseudorandom_element(Ortalab.Mythos_Utils.Corpus_Effects, 'ortalab_corpus_select')(card)
-            G.GAME.modifiers.scaling = G.GAME.modifiers.scaling * 1.2
+            G.GAME.starting_params.ante_scaling = G.GAME.starting_params.ante_scaling * 1.2
         end
-        SMODS.calculate_effect({message = 'You have unleashed the power of The Corpus', colour = G.ARGS.LOC_COLOURS.ortalab_mythos, delay = 6, blocking = false, sound = 'ortalab_gong', pitch = math.random()}, card)
+        SMODS.calculate_effect({message = localize('ortalab_corpus_activated'), colour = G.ARGS.LOC_COLOURS.ortalab_mythos, delay = 6, blocking = false, sound = 'ortalab_gong', pitch = math.random()}, card)
         G.E_MANAGER:add_event(Event({
             trigger = 'after', delay = 2,
             func = function()
+                update_blind_amounts()
                 card.children.particles:remove()
                 card.children.particles = nil
                 return true
@@ -1114,7 +1115,7 @@ Ortalab.Mythos_Utils.Corpus_Buttons = function(self)
       
       {n=G.UIT.C, config={ref_table = self, align = "cr",maxw = 1.25, padding = 0.1, r=0.08, minw = 1.25, minh = (self.area and self.area.config.type == 'joker') and 0 or 1, hover = true, shadow = true, colour = G.C.UI.BACKGROUND_INACTIVE, button = 'sacrifice_card', func = 'can_sacrifice_card'}, nodes={
         {n=G.UIT.B, config = {w=0.1,h=0.6}},
-        {n=G.UIT.T, config={text = 'SACRIFICE',colour = G.ARGS.LOC_COLOURS.ortalab_mythos_alt, scale = 0.55, shadow = true}}
+        {n=G.UIT.T, config={text = localize('ortalab_corpus_sacrifice'), colour = G.ARGS.LOC_COLOURS.ortalab_mythos_alt, scale = 0.55, shadow = true}}
       }}
     }}
 

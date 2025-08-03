@@ -131,6 +131,8 @@ return {
 			ortalab_shader_credit = 'Shader by ',
 			ortalab_curse_credit = 'Curse art by ',
 			ortalab_mod_badge = 'Added by ',
+			ortalab_corpus_activated = 'You have unleashed the power of The Corpus',
+			ortalab_corpus_sacrifice = 'SACRIFICE',
 		},
 		['labels'] = {
 			ortalab_greyscale = 'Greyscale',
