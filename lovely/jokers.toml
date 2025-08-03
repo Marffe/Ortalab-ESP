@@ -213,7 +213,7 @@ target = '=[SMODS _ "src/utils.lua"]'
 match_indent = true
 position = 'after'
 pattern = '''
-SMODS.score_card(card, context)
+card.lucky_trigger = nil
 '''
 payload = '''
 local wallets = SMODS.find_card('j_ortalab_wallet')
@@ -221,6 +221,7 @@ if next(wallets) and context.cardarea == G.play then
     context.cardarea = G.hand
     card.wallet = wallets[1]
     SMODS.score_card(card, context)
+    context.cardarea = G.play
 end
 '''
 # Wallet - scored cards trigger end of round in hand effects

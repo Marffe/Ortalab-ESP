@@ -59,7 +59,7 @@ SMODS.calculate_effect = function(effect, scored_card, from_edition, pre_jokers)
     if scored_card and scored_card.wallet then
         local wallet = scored_card.wallet
         scored_card.wallet = nil
-        if table.size(effect) > 0 then SMODS.calculate_effect({message = 'Wallet', juice_card = wallet, message_card = scored_card}, scored_card) end
+        if table.size(effect) > 0 then SMODS.calculate_effect({message = 'Wallet', colour = G.C.PURPLE, juice_card = wallet, message_card = scored_card}, scored_card) end
     end
     return ortalab_trigger_effects(effect, scored_card, from_edition, pre_jokers)
 end
