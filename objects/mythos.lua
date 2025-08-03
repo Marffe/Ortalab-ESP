@@ -773,7 +773,7 @@ SMODS.Consumable({
     cost = 5,
     pos = {x=2, y=2},
     discovered = false,
-    config = {extra = {select = 4, curse = 'ortalab_possessed', method = 'c_ortalab_mult_random', mod = 1, inc = 2}},
+    config = {extra = {select = 4, curse = 'ortalab_possessed', method = 'c_ortalab_mult_random', mod = 1, inc = 1}},
     artist_credits = {'kosze'},
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = {set = 'Curse', key = card.ability.extra.curse}
