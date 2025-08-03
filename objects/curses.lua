@@ -56,7 +56,7 @@ SMODS.DrawStep {
 
 SMODS.current_mod.custom_collection_tabs = function()
 	return {
-		UIBox_button({button = 'your_collection_curses', label = {'Curses'}, count = G.ACTIVE_MOD_UI and modsCollectionTally(Ortalab.Curses) or G.DISCOVER_TALLIES.Curse, minw = 5, minh = 1, id = 'your_collection_curses', focus_args = {snap_to = true}})
+		UIBox_button({button = 'your_collection_curses', label = {localize('ortalab_curses')}, count = G.ACTIVE_MOD_UI and modsCollectionTally(Ortalab.Curses) or G.DISCOVER_TALLIES.Curse, minw = 5, minh = 1, id = 'your_collection_curses', focus_args = {snap_to = true}})
 	}
 end
 

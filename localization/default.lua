@@ -134,6 +134,7 @@ return {
 			ortalab_corpus_activated = 'You have unleashed the power of The Corpus',
 			ortalab_corpus_sacrifice = 'SACRIFICE',
 			ortalab_sand_crumble = 'Crumble!',
+			ortalab_curses = 'Curses',
 		},
 		['labels'] = {
 			ortalab_greyscale = 'Greyscale',
