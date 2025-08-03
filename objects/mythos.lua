@@ -27,6 +27,7 @@ SMODS.ConsumableType({
     collection_rows = {5, 4},
     shop_rate = 0,
     default = 'c_ortalab_excalibur',
+    no_buy_and_use = true
 })
 
 SMODS.DrawStep {

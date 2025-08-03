@@ -41,3 +41,18 @@ if self.ability.set == 'ortalab_mythos' then
     self.children.floating_sprite:draw_shader('ortalab_mythos', nil, nil, nil, self.children.center, scale_mod, rotate_mod)
 end
 '''
+
+# Stop buy_and_use button
+[[patches]]
+[patches.pattern]
+target = 'functions/UI_definitions.lua'
+match_indent = true
+position = 'at'
+pattern = '''
+local buy_and_use = nil
+if card.ability.consumeable then 
+'''
+payload = '''
+local buy_and_use = nil
+if card.ability.consumeable and not SMODS.ConsumableType[card.ability.set].no_buy_and_use then 
+'''
