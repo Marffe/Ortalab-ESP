@@ -20,7 +20,7 @@ SMODS.Joker({
             end
         end
         card.ability.extra.most_played = _handname
-        return {vars = {card.ability.extra.xmult, card.ability.extra.gain, card.ability.extra.most_played}}
+        return {vars = {card.ability.extra.xmult, card.ability.extra.gain, localize(card.ability.extra.most_played, 'poker_hands')}}
     end,
     calculate = function(self, card, context)
         if context.before then

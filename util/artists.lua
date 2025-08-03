@@ -124,7 +124,7 @@ function artist_node(artists, first_string)
             if i == total_artists then
                 table.insert(artist_node.nodes,
                     {n=G.UIT.T, config={
-                    text = ' and ',
+                    text = localize('ortalab_celadon_and'),
                     shadow = true,
                     colour = G.C.WHITE,
                     scale = 0.27}}
@@ -172,7 +172,7 @@ function create_UIBox_blind_popup(blind, discovered, vars)
         if Ortalab.config.reduced_mod_badge then
             local badge = {n=G.UIT.R, config = {align = 'tm'}, nodes = {
                 {n=G.UIT.T, config={
-                  text = "Added by ",
+                  text = localize('blind_credit'),
                   shadow = true,
                   colour = G.C.UI.BACKGROUND_WHITE,
                   scale = 0.27}},
@@ -214,7 +214,7 @@ function create_UIBox_blind_choice(type, run_info)
         if Ortalab.config.reduced_mod_badge then
             local badge = {n=G.UIT.R, config = {align = 'tm'}, nodes = {
                 {n=G.UIT.T, config={
-                  text = "Added by ",
+                  text = localize('blind_credit'),
                   shadow = true,
                   colour = G.C.UI.BACKGROUND_WHITE,
                   scale = 0.27}},

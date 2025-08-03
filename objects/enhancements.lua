@@ -130,7 +130,7 @@ SMODS.Enhancement({
             G.E_MANAGER:add_event(Event({
                 trigger = 'immediate',
                 func = function()
-                    card_eval_status_text(card, 'extra', nil, nil, nil, {message = 'Crumble', colour = G.C.GOLD, instant = true})
+                    card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('ortalab_sand_crumble'), colour = G.C.GOLD, instant = true})
                     if card.ability.extra.x_mult and card.ability.extra.x_mult < 1 then
                         card:start_dissolve()
                     end

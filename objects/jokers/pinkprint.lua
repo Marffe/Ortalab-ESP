@@ -51,7 +51,7 @@ SMODS.Joker({
                         end
                     }))
                 end,
-                message = 'Copied!',
+                message = localize('ortalab_copied'),
                 colour = G.C.PALE_GREEN
             }
         end
