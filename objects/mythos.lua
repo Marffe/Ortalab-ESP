@@ -589,7 +589,7 @@ SMODS.Consumable({
     cost = 5,
     pos = {x=3, y=2},
     discovered = false,
-    config = {extra = {select = 1, money_gain = 2, curse = 'ortalab_corroded', method = 'c_ortalab_mult_random_joker'}},
+    config = {extra = {select = 1, money_gain = 2, curse = 'ortalab_corroded', method = 'c_ortalab_mult_random_joker', limit = 100}},
     artist_credits = {'gappie'},
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = {set = 'Curse', key = card.ability.extra.curse..'_joker', specific_vars = {Ortalab.Curses[card.ability.extra.curse].config.extra.gain}}
@@ -637,15 +637,10 @@ SMODS.Consumable({
         for k=1, #G.jokers.cards + #G.consumeables.cards do
             local _card = G.jokers.cards[k] or G.consumeables.cards[k - #G.jokers.cards]
             if _card.config.center.set == 'Joker' then
-                temp_total = total_value + _card.sell_cost
-            end
-            if temp_total >= 100 then
-                total_value = 100
-            else
                 total_value = total_value + _card.sell_cost
             end
         end
-        return total_value
+        return math.min(total_value, card.ability.extra.limit)
     end
 })
 
