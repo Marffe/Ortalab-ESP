@@ -165,6 +165,7 @@ end
 
 function Card:set_curse(_curse, silent, immediate, spread, message, delay)
     if self.ability.forced_selection == 'ortalab_possessed' then self.ability.forced_selection = nil end
+    if not self.states.drag.can then self.states.drag.can = true end
     if _curse then
         self.ability.curse = {}
         for k, v in pairs(Ortalab.Curses[_curse].config or {}) do
