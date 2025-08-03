@@ -356,7 +356,7 @@ function generate_card_ui(_c, full_UI_table, specific_vars, card_type, badges, h
         if _c.key == 'c_ortalab_jackalope' then
             vars[1] = vars[1] + G.GAME.ortalab.mythos.jackalope_count
         elseif _c.key == 'c_ortalab_ya_te_veo' then
-            vars[1] = vars[1] + G.GAME.ortalab.mythos.ya_te_veo_count
+            vars[3] = vars[1] + card.ability.extra.deck
         elseif _c.key == 'c_ortalab_talaria' then
             vars[1] = vars[1] + G.GAME.ortalab.mythos.talaria_count
         end

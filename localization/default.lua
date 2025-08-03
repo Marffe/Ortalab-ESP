@@ -3401,7 +3401,7 @@ return {
 			c_ortalab_ya_te_veo_curse = {
 				text = {
 					'{C:ortalab_mythos,s:0.9}Curse #1# random{s:0.9,C:attention} Jokers',
-					'{s:0.9}and {C:ortalab_mythos,s:0.9}#1# random{s:0.9,C:attention} cards in deck',
+					'{s:0.9}and {C:ortalab_mythos,s:0.9}#3# random{s:0.9,C:attention} cards in deck',
 					'{s:0.9}with {V:1,E:2,s:0.9}#2#{}'
 				},
 			},

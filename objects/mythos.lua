@@ -816,13 +816,13 @@ SMODS.Consumable({
     cost = 5,
     pos = {x=0, y=2},
     discovered = false,
-    config = {extra = {select = 3, scale = 2, curse = 'ortalab_random_curses', method = 'c_ortalab_ya_te_veo_curse', tags = 3}},
+    config = {extra = {select = 2, deck = -1, scale = 2, curse = 'ortalab_random_curses', method = 'c_ortalab_ya_te_veo_curse', tags = 3}},
     artist_credits = {'gappie'},
     loc_vars = function(self, info_queue, card)
         return {vars = {card.ability.extra.tags}}
     end,
     can_use = function(self, card)
-        return Ortalab.Mythos_Utils.can_curse_in_area(G.jokers.cards, card.ability.extra.select) and Ortalab.Mythos_Utils.can_curse_in_area(G.deck.cards, card.ability.extra.select)
+        return Ortalab.Mythos_Utils.can_curse_in_area(G.jokers.cards, card.ability.extra.select) and Ortalab.Mythos_Utils.can_curse_in_area(G.deck.cards, card.ability.extra.select, card.ability.extra.deck)
     end,
     use = function(self, card, area, copier)
         -- Add 3 tags
@@ -863,7 +863,7 @@ SMODS.Consumable({
 
         -- Curse jokers and deck
         Ortalab.Mythos_Utils.curse_random_cards(card, G.jokers.cards)
-        Ortalab.Mythos_Utils.curse_random_cards(card, G.deck.cards)
+        Ortalab.Mythos_Utils.curse_random_cards(card, G.deck.cards, nil, card.ability.extra.deck)
     end
 })
 
