@@ -1105,3 +1105,36 @@ Ortalab.Zodiac{
         return context.mult, context.chips
     end
 }
+
+local ortalab_update_hand_text = update_hand_text
+function update_hand_text(config, vals)
+    if vals.level == '' then
+        vals.temp_level = ''
+    end
+    if vals.temp_level == '' and G.zodiac_sprite then
+        G.zodiac_sprite:remove()
+        G.zodiac_UI:remove()
+        ease_background_colour({special_colour = Ortalab.old_colours.special_colour, tertiary_colour = Ortalab.old_colours.tertiary_colour, new_colour = Ortalab.old_colours.new_colour})
+    end
+    ortalab_update_hand_text(config, vals)
+end
+
+local ortalab_level_up_hand = level_up_hand
+function level_up_hand(card, hand, instant, amount)
+    local temp = string.sub(G.GAME.current_round.current_hand.temporary_level, 2)
+    if SMODS.displaying_scoring and not (SMODS.displayed_hand == hand) then
+        update_hand_text({delay = 0, nopulse = true}, {temp_level = ''})
+    end
+    ortalab_level_up_hand(card, hand, instant, amount)
+    update_hand_text({delay = 0, nopulse = true}, {temp_level = temp})
+end
+
+local press_play = Blind.press_play
+function Blind:press_play()
+	local ret = press_play(self)
+	if G.zodiac_sprite then
+        G.zodiac_sprite:remove()
+        G.zodiac_UI:remove()
+    end
+	return ret
+end
