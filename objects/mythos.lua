@@ -1615,7 +1615,7 @@ Ortalab.Zodiac{
     pre_trigger = function(self, zodiac, context)
         for i=1, #context.scoring_hand do
             if context.scoring_hand[i].curse then
-                SMODS.calculate_effect({message = 'Cleansed!', colour = G.C.FILTER}, context.scoring_hand[i]) 
+                SMODS.calculate_effect({message = localize('ortalab_ophiuchus'), colour = G.C.FILTER}, context.scoring_hand[i]) 
                 context.scoring_hand[i]:set_curse(nil, nil, nil, nil, nil, true)
             end
         end

@@ -60,7 +60,7 @@ SMODS.Joker({
             end
             return {
                 remove = true,
-                message = 'Collected!',
+                message = localize('ortalab_collected'),
                 message_card = G.hand.cards[i]
             }
         end

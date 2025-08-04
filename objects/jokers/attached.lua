@@ -22,7 +22,7 @@ SMODS.Joker({
                     --[[if area[i] ~= card and not area[i].ability[card.ability.extra.sticker] then]]
                     if not area[i].ability[card.ability.extra.sticker] then
                         return {
-                            message = 'Attached!',
+                            message = localize('ortalab_attached'),
                             message_card = area[i],
                             func = function()
                                 card:juice_up()

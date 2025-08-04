@@ -63,7 +63,7 @@ SMODS.Joker({
                             end
                         }))
                     end,
-                    message = 'Hee hee!',
+                    message = localize('ortalab_koko'),
                     colour = G.C.BLUE,
                 }
             }

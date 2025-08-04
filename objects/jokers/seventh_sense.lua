@@ -101,7 +101,7 @@ SMODS.Joker({
             card.ability.extra.primed = nil
             card.ability.extra.rank = Ortalab.rank_from_deck('ortalab_seventh_sense')
             return {
-                message = card.ability.extra.rank,
+                message = localize(card.ability.extra.rank, 'ranks'),
                 colour = G.C.SET.ortalab_mythos
             }
         end
@@ -110,7 +110,7 @@ SMODS.Joker({
         if not from_debuff then
             card.ability.extra.rank = Ortalab.rank_from_deck('ortalab_seventh_sense')
             SMODS.calculate_effect({
-                message = card.ability.extra.rank,
+                message = localize(card.ability.extra.rank, 'ranks'),
                 colour = G.C.SET.ortalab_mythos
             }, card)
         end

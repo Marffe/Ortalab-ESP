@@ -135,6 +135,10 @@ return {
 			ortalab_corpus_sacrifice = 'SACRIFICE',
 			ortalab_sand_crumble = 'Crumble!',
 			ortalab_curses = 'Curses',
+			ortalab_collected = 'Collected!',
+			ortalab_attached = 'Attached!',
+			ortalab_koko = 'Hee hee!',
+			ortalab_ophiuchus = 'Cleansed!',
 		},
 		['labels'] = {
 			ortalab_greyscale = 'Greyscale',
@@ -2165,7 +2169,7 @@ return {
 			['tag_ortalab_crater'] = {
                 name = "Crater Patch",
                 text = {
-					"Add {C:attention}#1#{} free {C:ortalab_zodiac}Giga", 
+					"Add {C:attention}#1#{} free {C:ortalab_zodiac}Wumbo", 
 					"{C:ortalab_zodiac}Astral Packs{}",
 					"to the next shop"
                 }
