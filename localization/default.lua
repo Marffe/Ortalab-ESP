@@ -1907,8 +1907,8 @@ return {
 				["name"] = "Rusty Card",
 				["text"] = {
 					{"{X:mult,C:white}X#1#{} Mult whilst",
-					"held in hand"},
-					{"Gains {X:mult,C:white}X#2#{} Mult per",
+					"held in hand,"},
+					{"plus {X:mult,C:white}X#2#{} Mult per",
 					"{C:attention}Rusty Card{} in",
 					"played {C:attention}poker hand"}
 				},
