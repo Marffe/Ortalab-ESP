@@ -113,7 +113,7 @@ SMODS.Consumable({
     atlas = 'loteria_cards',
     pos = {x=0, y=0},
     discovered = false,
-    config = {extra = {key = 'm_ortalab_bent', amount = 3}},
+    config = {extra = {key = 'm_ortalab_bent', amount = 2}},
     artist_credits = {'parchment'},
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS[self.config.extra.key]
@@ -160,7 +160,7 @@ SMODS.Consumable({
     atlas = 'loteria_cards',
     pos = {x=4, y=3},
     discovered = false,
-    config = {extra = {key = 'm_ortalab_post', amount = 3}},
+    config = {extra = {key = 'm_ortalab_post', amount = 2}},
     artist_credits = {'parchment'},
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS[self.config.extra.key]
@@ -208,7 +208,7 @@ SMODS.Consumable({
     atlas = 'loteria_cards',
     pos = {x=2, y=0},
     discovered = false,
-    config = {extra = {key = 'm_ortalab_rusty', amount = 3}},
+    config = {extra = {key = 'm_ortalab_rusty', amount = 2}},
     artist_credits = {'parchment'},
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS[self.config.extra.key]
