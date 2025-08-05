@@ -56,32 +56,43 @@ Ortalab.Zodiac = SMODS.Tag:extend { -- Zodiac Indicator Definition
 local evaluate_play = G.FUNCS.evaluate_play
 function G.FUNCS.evaluate_play(e)
     evaluate_play(e)
-    if zodiac_current and zodiac_current.triggered then
-        G.E_MANAGER:add_event(Event({
-            trigger = 'after', delay = 0.2, func = function()
-                zodiac_current:remove_zodiac('')
-                return true
-            end}))
-    elseif zodiac_current then
-        G.E_MANAGER:add_event(Event({
-            delay = 0.4,
-            trigger = 'after',
-            func = (function()
-                attention_text({
-                    text = '-'..G.GAME.ortalab.zodiacs.reduction,
-                    colour = G.C.WHITE,
-                    scale = 1, 
-                    hold = 1/G.SETTINGS.GAMESPEED,
-                    cover = zodiac_current.HUD_zodiac,
-                    cover_colour = G.ARGS.LOC_COLOURS.ortalab_zodiac,
-                    align = 'cm',
-                    })
-                play_sound('generic1', 0.9 + math.random()*0.1, 0.8)
-                play_sound('holo1', 1.2 + math.random()*0.1, 0.4)
-                return true
-            end)
-        }))
+    local active_zodiacs = {}
+    local ophiuchus = G.zodiacs['zodiac_ortalab_ophiuchus']
+    if ophiuchus then table.insert(active_zodiacs, ophiuchus) end
+    if zodiac_current then table.insert(active_zodiacs, zodiac_current) end
+
+    for _, zodiac in ipairs(active_zodiacs) do
+        zodiac_reduce_level(zodiac)
+        if zodiac.triggered then
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after', delay = 0.2,
+                func = function()
+                    zodiac:remove_zodiac('')
+                    return true
+                end
+            }))
+        else
+            G.E_MANAGER:add_event(Event({
+                delay = 0.4, trigger = 'after',
+                func = (function()
+                    attention_text({
+                        text = '-'..G.GAME.ortalab.zodiacs.reduction,
+                        colour = G.C.WHITE,
+                        scale = 1, 
+                        hold = 1/G.SETTINGS.GAMESPEED,
+                        cover = zodiac.HUD_zodiac,
+                        cover_colour = G.ARGS.LOC_COLOURS.ortalab_zodiac,
+                        align = 'cm',
+                        })
+                    play_sound('generic1', 0.9 + math.random()*0.1, 0.8)
+                    play_sound('holo1', 1.2 + math.random()*0.1, 0.4)
+                    return true
+                end)
+            }))
+        end
     end
+
+    G.GAME.ortalab.temp_levels = 0
 end
 
 
@@ -340,8 +351,14 @@ function zodiac_reduce_level(zodiac)
             return
         end
     end
-    zodiac.config.extra.temp_level = math.max(0, zodiac.config.extra.temp_level - G.GAME.ortalab.zodiacs.reduction)
-    if zodiac.config.extra.temp_level == 0 then
+    G.E_MANAGER:add_event(Event({
+        trigger = 'after', delay = '0.4',
+        func = function()                
+            zodiac.config.extra.temp_level = math.max(0, zodiac.config.extra.temp_level - G.GAME.ortalab.zodiacs.reduction)
+            return true
+        end
+    }))
+    if zodiac.config.extra.temp_level <= G.GAME.ortalab.zodiacs.reduction then
         zodiac.triggered = true
     end
 end
@@ -368,7 +385,7 @@ function zodiac_upgrade_text(key)
     return zodiac_name .. localize('ortalab_zodiac_upgraded')
 end
 
-function zodiac_text(message, key, leap_year_proc)
+function zodiac_text(message, key, leap_year_proc, ophiuchus)
     if Ortalab.config.zodiac_skip then return end
     Ortalab.zodiac_animation = true
     local old_colours = {
@@ -376,32 +393,38 @@ function zodiac_text(message, key, leap_year_proc)
         tertiary_colour = copy_table(G.C.BACKGROUND.D),
         new_colour = copy_table(G.C.BACKGROUND.L),
     }
-    local zodiac_sprite = Sprite(0, 0, 150, 150, G.ASSET_ATLAS['ortalab_zodiac_constellations'], G.ZODIACS[key].pos)
+    -- Add constellation sprite
+    local zodiac_sprite = Sprite(0, 0, 100, 100, G.ASSET_ATLAS['ortalab_zodiac_constellations'], G.ZODIACS[key].pos)
+    local ophiuchus_sprite
+    if ophiuchus then ophiuchus_sprite = Sprite(0, 0, 100, 100, G.ASSET_ATLAS['ortalab_zodiac_constellations'], G.ZODIACS['zodiac_ortalab_ophiuchus'].pos) end
     local zodiac_UI = UIBox{
-        definition = {n=G.UIT.ROOT, config = {align='cm', colour = G.C.CLEAR, minw = 6, minh = 6}, nodes = {
-            {n=G.UIT.R, nodes = {
-                {n=G.UIT.O, config = {object = zodiac_sprite, w = 6, h = 6}}
+        definition = {n=G.UIT.ROOT, config = {align='cm', colour = G.C.CLEAR, minw = 3.4, minh = 3.4}, nodes = {
+            {n=G.UIT.R, config = {padding = 0.2}, nodes = {
+                {n=G.UIT.O, config = {object = zodiac_sprite, w = 3.4, h = 3.4}},
+                ophiuchus and {n=G.UIT.O, config = {object = ophiuchus_sprite, w = 3.4, h = 3.4}} or nil
             }}
         }},
-        config = {instance_type = 'CARDAREA', major = G.play, align = 'cm', offset = {x=0, y=-2.7}}
+        config = {instance_type = 'UIBOX', major = G.play, align = 'cm', offset = {x=0, y=-2.7}}
     }
+    -- Change background colour
+    ease_background_colour{special_colour = darken(G.ARGS.LOC_COLOURS['ortalab_zodiac'], 0.5), new_colour = G.ZODIACS[key].colour, tertiary_colour = G.ARGS.LOC_COLOURS.ortalab_zodiac, contrast = 1}
+    -- Add text    
+    attention_text({scale = 1, text = message, hold = 2, align = 'cm', offset = {x = 0,y = -2.7},major = G.play})
+    if ophiuchus then attention_text({scale = 0.75, text = localize({set='Tag',key='zodiac_ortalab_ophiuchus',type='name_text'})..localize('ortalab_zodiac_active'), hold = 2, align = 'cm', emboss = true, offset = {x = 0,y = -3.5},major = G.play}) end
+    if leap_year_proc then attention_text({scale = 0.75, text = localize({set = 'Voucher', key = 'v_ortalab_leap_year', type='name_text'})..'!', hold = 2, align = 'cm', emboss = true, offset = {x = 0,y = -1.9},major = G.play}) end
+    delay(0.4)
+    
     G.E_MANAGER:add_event(Event({
         trigger = 'after',
-        delay = 2,
+        delay = 1,
         func = function()
             ease_background_colour({special_colour = old_colours.special_colour, tertiary_colour = old_colours.tertiary_colour, new_colour = old_colours.new_colour})
             zodiac_sprite:remove()
+            if ophiuchus_sprite then ophiuchus_sprite:remove() end
             zodiac_UI:remove()
             Ortalab.zodiac_animation = false
             return true
     end}))
-    ease_background_colour{special_colour = darken(G.ARGS.LOC_COLOURS['ortalab_zodiac'], 0.5), new_colour = G.ZODIACS[key].colour, tertiary_colour = G.ARGS.LOC_COLOURS.ortalab_zodiac, contrast = 1}
-    -- Adds the constellation sprite in the background
-    table.insert(G.I.MOVEABLE, zodiac_UI)
-
-    attention_text({scale = 1, text = message, hold = 2, align = 'cm', offset = {x = 0,y = -2.7},major = G.play})
-    if leap_year_proc then attention_text({scale = 0.75, text = localize({set = 'Voucher', key = 'v_ortalab_leap_year', type='name_text'})..'!', hold = 2, align = 'cm', emboss = true, offset = {x = 0,y = -1.9},major = G.play}) end
-    delay(1.5)
 end
 
 local align_ref = CardArea.align_cards
@@ -518,7 +541,6 @@ Ortalab.Zodiac{
                     end}))
             end
         end
-        zodiac_reduce_level(zodiac)
         return context.mult, context.chips
     end
 }
@@ -575,7 +597,6 @@ Ortalab.Zodiac{
                     end}))
             end
         end
-        zodiac_reduce_level(zodiac)
         return context.mult, context.chips
     end
 }
@@ -645,7 +666,6 @@ Ortalab.Zodiac{
                     return true
                 end}))
         end
-        zodiac_reduce_level(zodiac)
         return context.mult, context.chips
     end
 }
@@ -701,7 +721,6 @@ Ortalab.Zodiac{
                 }))
             end
         end        
-        zodiac_reduce_level(zodiac)
         return context.mult, context.chips
     end
 }
@@ -758,7 +777,6 @@ Ortalab.Zodiac{
                 return true
             end
         }))
-        zodiac_reduce_level(zodiac)
         return context.mult, context.chips
     end
 }
@@ -814,8 +832,6 @@ Ortalab.Zodiac{
                 }))
             end
         end
-        zodiac_reduce_level(zodiac)
-
         return context.mult, context.chips
     end
 }
@@ -885,7 +901,6 @@ Ortalab.Zodiac{
                 amount = amount + 1
             end
         end
-        zodiac_reduce_level(zodiac)
         return context.mult, context.chips, true
     end
 }
@@ -938,9 +953,7 @@ Ortalab.Zodiac{
                         return true
                     end}))
             end
-        end
-        zodiac_reduce_level(zodiac)
-        
+        end     
         return context.mult, context.chips
     end
 }
@@ -989,7 +1002,6 @@ Ortalab.Zodiac{
                     end}))
             end
         end
-        zodiac_reduce_level(zodiac)
         return context.mult, context.chips
     end
 }
@@ -1041,7 +1053,6 @@ Ortalab.Zodiac{
                 return true
             end
         }))
-        zodiac_reduce_level(zodiac)
         return context.mult, context.chips
     end
 }
@@ -1101,7 +1112,6 @@ Ortalab.Zodiac{
                     end}))
             end
         end
-        zodiac_reduce_level(zodiac)
         return context.mult, context.chips
     end
 }
@@ -1111,8 +1121,9 @@ function update_hand_text(config, vals)
     if vals.level == '' then
         vals.temp_level = ''
     end
-    if vals.temp_level == '' and G.zodiac_sprite then
-        G.zodiac_sprite:remove()
+    if vals.temp_level == '' and (G.zodiac_sprite or G.ophiuchus_sprite) then
+        if G.zodiac_sprite then G.zodiac_sprite:remove() end
+        if G.ophiuchus_sprite then G.ophiuchus_sprite:remove() end
         G.zodiac_UI:remove()
         ease_background_colour({special_colour = Ortalab.old_colours.special_colour, tertiary_colour = Ortalab.old_colours.tertiary_colour, new_colour = Ortalab.old_colours.new_colour})
     end
@@ -1121,19 +1132,20 @@ end
 
 local ortalab_level_up_hand = level_up_hand
 function level_up_hand(card, hand, instant, amount)
-    local temp = string.sub(G.GAME.current_round.current_hand.temporary_level, 2)
+    local temp = G.GAME.ortalab.temp_levels
     if SMODS.displaying_scoring and not (SMODS.displayed_hand == hand) then
         update_hand_text({delay = 0, nopulse = true}, {temp_level = ''})
     end
     ortalab_level_up_hand(card, hand, instant, amount)
-    update_hand_text({delay = 0, nopulse = true}, {temp_level = temp})
+    update_hand_text({delay = 0, nopulse = true}, {temp_level = temp, temp_colour = G.hand_text_area.temporary_level.config.colour})
 end
 
 local press_play = Blind.press_play
 function Blind:press_play()
 	local ret = press_play(self)
-	if G.zodiac_sprite then
-        G.zodiac_sprite:remove()
+	if G.zodiac_sprite or G.ophiuchus_sprite then
+        if G.zodiac_sprite then G.zodiac_sprite:remove() end
+        if G.ophiuchus_sprite then G.ophiuchus_sprite:remove() end
         G.zodiac_UI:remove()
     end
 	return ret

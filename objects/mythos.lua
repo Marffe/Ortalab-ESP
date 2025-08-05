@@ -1619,7 +1619,6 @@ Ortalab.Zodiac{
                 context.scoring_hand[i]:set_curse(nil, nil, nil, nil, nil, true)
             end
         end
-        zodiac_reduce_level(zodiac)
         return context.mult, context.chips
     end
 }
