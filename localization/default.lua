@@ -378,7 +378,7 @@ return {
 				["text"] = {
 					'{C:ortalab_zodiac}Zodiac Cards{} give {C:attention}#1#{} times',
 					'as many temporary levels but',
-					'decay {C:attention}#1#{} times faster'
+					'don\'t activate their effect'
 				}
 			},
 			j_ortalab_attached = {
