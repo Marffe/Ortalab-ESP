@@ -376,7 +376,8 @@ return {
 			['j_ortalab_astrologist'] = {
 				["name"] = "Astrologist",
 				["text"] = {
-					'{C:ortalab_zodiac}Zodiac Cards{} give {C:attention}#1#{} times',
+					--[['{C:ortalab_zodiac}Zodiac Cards{} give {C:attention}#1#{} times',]]
+					'{C:ortalab_zodiac}Zodiac Cards{} give twice',
 					'as many temporary levels but',
 					'don\'t activate their effect'
 				}
@@ -2701,7 +2702,7 @@ return {
 				name = "each curse"
 			},
 			ortalab_random_curses = {
-				name = "random curses"
+				name = "random curse" --[[Made non-plural, cause the one effect in game that uses it only makes one323]]
 			},
 			ortalab_wendigo = {
 				name = "Infected or Possessed"
@@ -3405,8 +3406,8 @@ return {
 			c_ortalab_ya_te_veo_curse = {
 				text = {
 					'{C:ortalab_mythos,s:0.9}Curse #1# random{s:0.9,C:attention} Jokers',
-					'{s:0.9}and {C:ortalab_mythos,s:0.9}#3# random{s:0.9,C:attention} cards in deck',
-					'{s:0.9}with {V:1,E:2,s:0.9}#2#{}'
+					'{s:0.9}and {C:ortalab_mythos,s:0.9}#3# random{s:0.9,C:attention} card in deck',
+					'{s:0.9}with a {V:1,E:2,s:0.9}#2#{}'
 				},
 			},
 			c_ortalab_mult_pandora = {
