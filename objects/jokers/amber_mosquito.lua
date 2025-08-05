@@ -9,7 +9,7 @@ SMODS.Joker({
 	blueprint_compat = true,
 	eternal_compat = true,
 	perishable_compat = true,
-	config = {extra = {xmult = 1.75, suit = 'Hearts', denom = 2}},
+	config = {extra = {xmult = 1.5, suit = 'Hearts', denom = 2}},
 	artist_credits = {'gappie'},
 	loc_vars = function(self, info_queue, card)
 		local a, b = SMODS.get_probability_vars(card, 1, card.ability.extra.denom)
