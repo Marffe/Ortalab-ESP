@@ -11,6 +11,7 @@ SMODS.Joker({
 	perishable_compat = false,
 	config = {extra = {xmult = 1, gain = 0.2, chips = 100}},
 	artist_credits = {'kosze'},
+	enhancement_gate = 'm_ortalab_recycled',
 	loc_vars = function(self, info_queue, card)
 		return {vars = {card.ability.extra.gain, card.ability.extra.xmult, card.ability.extra.chips}}
 	end,
