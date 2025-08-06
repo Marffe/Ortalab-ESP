@@ -263,7 +263,7 @@ EremelUtility = EremelUtility or {}
 
 function EremelUtility.create_toggle(args)
     args = args or {}
-    args.active_colour = args.active_colour or Malverk.badge_colour
+    args.active_colour = args.active_colour or G.C.RED
     args.inactive_colour = args.inactive_colour or G.C.BLACK
     args.w = args.w or 3
     args.h = args.h or 0.5
