@@ -455,7 +455,7 @@ SMODS.Voucher({
 	discovered = false,
 	available = false,
     requires = {'v_ortalab_grabber_inv'},
-    config = {extra = {discard_size = 2}},
+    config = {extra = {discard_size = 3}},
     artist_credits = {'no_demo'},
 	redeem = function(self, card)
         SMODS.change_discard_limit(card.ability.extra.discard_size)
@@ -543,7 +543,7 @@ SMODS.Voucher({
 	available = true,
     artist_credits = {'chvsau'},
 	redeem = function(self, card)
-        G.GAME.ortalab.vouchers.tags_in_shop = 0.6
+        G.GAME.ortalab.vouchers.tags_in_shop = 1.0
     end,
 })
 
@@ -558,7 +558,7 @@ SMODS.Voucher({
     requires = {'v_ortalab_hex'},
     artist_credits = {'crimson'},
 	redeem = function(self, card)
-        G.GAME.ortalab_utility_rate = 0.4
+        G.GAME.ortalab_utility_rate = 1.0
     end,
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS['c_ortalab_edition_+']
@@ -594,7 +594,7 @@ SMODS.Voucher({
         if Ortalab.config.ortalab_only then
             G.GAME.ortalab_mythos_rate = 1.2
         else
-            G.GAME.ortalab_mythos_rate = 0.6
+            G.GAME.ortalab_mythos_rate = 1.0
         end
     end,
 })
