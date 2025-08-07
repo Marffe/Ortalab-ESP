@@ -5,20 +5,20 @@ return {
 		},
 		collab_palettes = {
 			ortalab_FOS_Hearts = {
-				"Low Contrast Colors",
-				"High Contrast Colors",
+				"Low Contrast Colours",
+				"High Contrast Colours",
 			},
 			ortalab_FOS_Spades = {
-				"Low Contrast Colors",
-				"High Contrast Colors",
+				"Low Contrast Colours",
+				"High Contrast Colours",
 			},
 			ortalab_FOS_Clubs = {
-				"Low Contrast Colors",
-				"High Contrast Colors",
+				"Low Contrast Colours",
+				"High Contrast Colours",
 			},
 			ortalab_FOS_Diamonds = {
-				"Low Contrast Colors",
-				"High Contrast Colors",
+				"Low Contrast Colours",
+				"High Contrast Colours",
 			},
 		},
 		["dictionary"] = {
