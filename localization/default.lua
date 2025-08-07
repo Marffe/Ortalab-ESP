@@ -1393,7 +1393,7 @@ return {
 			j_ortalab_seventh_sense = {
 				name = 'Seventh Sense',
 				text = {
-					'If {C:attention}second{} hand of round',
+					'If {C:attention}first{} hand of round',
 					'is a single {C:attention}#1#{},',
 					'destroy it and spawn a',
 					'random {C:ortalab_mythos}Mythos Card'

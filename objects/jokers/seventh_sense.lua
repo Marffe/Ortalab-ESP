@@ -15,7 +15,7 @@ SMODS.Joker({
         return {vars = {card.ability.extra.rank and localize(card.ability.extra.rank, 'ranks') or localize('ortalab_rank')}}
     end,
     calculate = function(self, card, context)
-        if context.before and G.GAME.current_round.hands_played == 1 and #context.full_hand == 1 and Ortalab.hand_contains_rank(context.scoring_hand, card.ability.extra.rank) then
+        if context.before and G.GAME.current_round.hands_played == 0 and #context.full_hand == 1 and Ortalab.hand_contains_rank(context.scoring_hand, card.ability.extra.rank) then
             card.ability.extra.primed = true
         end
         if context.destroying_card and card.ability.extra.primed then
