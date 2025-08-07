@@ -3,6 +3,24 @@ return {
 		poker_hands = {
 			Any = "any hand"
 		},
+		collab_palettes = {
+			ortalab_FOS_Hearts = {
+				"Low Contrast Colors",
+				"High Contrast Colors",
+			},
+			ortalab_FOS_Spades = {
+				"Low Contrast Colors",
+				"High Contrast Colors",
+			},
+			ortalab_FOS_Clubs = {
+				"Low Contrast Colors",
+				"High Contrast Colors",
+			},
+			ortalab_FOS_Diamonds = {
+				"Low Contrast Colors",
+				"High Contrast Colors",
+			},
+		},
 		["dictionary"] = {
 			['ortalab_config_artists_pos'] = 'Artist Credits',
 			['ortalab_config_artists_pos_desc'] = {
