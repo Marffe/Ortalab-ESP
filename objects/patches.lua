@@ -372,7 +372,7 @@ SMODS.Tag({
     pos = {x = 2, y = 3},
     discovered = false,
     config = {type = 'shop_final_pass', packs = 2},
-    artist_credits = {'kosze'},
+    artist_credits = {'heyyou'},
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS['p_ortalab_mid_zodiac_1']
         return {vars = {self.config.packs}}

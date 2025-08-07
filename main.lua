@@ -34,6 +34,7 @@ assert(SMODS.load_file('objects/mythos_boosters.lua'))() -- load boosters
 assert(SMODS.load_file('util/artists.lua'))()
 assert(SMODS.load_file('util/functions.lua'))()
 assert(SMODS.load_file('util/menu.lua'))()
+assert(SMODS.load_file('util/friends.lua'))()
 
 SMODS.Atlas({
     key = 'modicon',

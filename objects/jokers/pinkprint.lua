@@ -103,7 +103,6 @@ end
 Pinkprint = Card:extend()
 
 for key, func in pairs(Card) do
-    print(key)
     if type(func) == 'function' then
         Pinkprint[key] = function(self, ...)
             return Card[key](self.pinkprint, ...)

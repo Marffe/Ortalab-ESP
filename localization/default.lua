@@ -3,6 +3,24 @@ return {
 		poker_hands = {
 			Any = "any hand"
 		},
+		collab_palettes = {
+			ortalab_FOS_Hearts = {
+				"Low Contrast Colours",
+				"High Contrast Colours",
+			},
+			ortalab_FOS_Spades = {
+				"Low Contrast Colours",
+				"High Contrast Colours",
+			},
+			ortalab_FOS_Clubs = {
+				"Low Contrast Colours",
+				"High Contrast Colours",
+			},
+			ortalab_FOS_Diamonds = {
+				"Low Contrast Colours",
+				"High Contrast Colours",
+			},
+		},
 		["dictionary"] = {
 			['ortalab_config_artists_pos'] = 'Artist Credits',
 			['ortalab_config_artists_pos_desc'] = {
@@ -159,6 +177,9 @@ return {
 				['text'] = {
 					'Temporary art'
 				}
+			},
+			heyyou = {
+				text = {'Hey You'}
 			},
 			['shinku'] = {
 				['text'] = {
@@ -2168,7 +2189,7 @@ return {
                 }
             },
 			['tag_ortalab_crater'] = {
-                name = "Crater Patch",
+                name = "Comet Patch",
                 text = {
 					"Add {C:attention}#1#{} free {C:ortalab_zodiac}Wumbo", 
 					"{C:ortalab_zodiac}Astral Packs{}",
