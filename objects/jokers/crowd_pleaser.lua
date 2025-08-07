@@ -15,7 +15,7 @@ SMODS.Joker({
         return {vars = {localize(pokerhands[3].key, 'poker_hands')}}
     end,
     calculate = function(self, card, context)
-        if context.end_of_round and context.main_eval then
+        if context.end_of_round and context.main_eval and not context.blueprint then
             local pokerhands = Ortalab.pokerhands_by_played()
             return {
                 level_up_hand = pokerhands[3].key,

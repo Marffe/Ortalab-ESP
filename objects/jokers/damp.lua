@@ -15,7 +15,7 @@ SMODS.Joker({
 			local eval = function() return G.GAME.current_round.hands_played == 0 end
 			juice_card_until(card, eval, true)
 		end
-		if context.end_of_round and context.main_eval and G.GAME.current_round.hands_played == 1 then
+		if context.end_of_round and context.main_eval and not context.blueprint and G.GAME.current_round.hands_played == 1 then
 			return {
 				message = localize('k_upgrade_ex'),
 				colour = G.C.BLUE,
