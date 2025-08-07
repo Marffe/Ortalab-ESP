@@ -160,6 +160,9 @@ return {
 					'Temporary art'
 				}
 			},
+			heyyou = {
+				text = {'Hey You'}
+			},
 			['shinku'] = {
 				['text'] = {
 					'This card is',
@@ -2167,7 +2170,7 @@ return {
                 }
             },
 			['tag_ortalab_crater'] = {
-                name = "Crater Patch",
+                name = "Comet Patch",
                 text = {
 					"Add {C:attention}#1#{} free {C:ortalab_zodiac}Wumbo", 
 					"{C:ortalab_zodiac}Astral Packs{}",
