@@ -1637,36 +1637,32 @@ return {
             ["c_ortalab_lot_umbrella"] = {
 				["name"] = "The Umbrella",
 				["text"] = {
-					"Enhances {C:attention}#1#{} random",
-                    "cards into",
-                    "{C:attention}Bent Cards",
+					"Enhances {C:attention}#1#{} random cards",
+                    "into {C:attention}Bent Cards",
 					"{C:inactive,s:0.8}Weighted towards unenhanced cards"
 				},
 			},
 			["c_ortalab_lot_melon"] = {
 				["name"] = "The Melon",
 				["text"] = {
-					"Enhances {C:attention}#1#{} random",
-                    "cards into",
-                    "{C:attention}Recycled Cards",
+					"Enhances {C:attention}#1#{} random cards",
+                    "into {C:attention}Recycled Cards",
 					"{C:inactive,s:0.8}Weighted towards unenhanced cards"
 				},
 			},
 			["c_ortalab_lot_mandolin"] = {
 				["name"] = "The Mandolin",
 				["text"] = {
-					"Enhances {C:attention}#1#{} random",
-                    "cards into",
-                    "{C:attention}Post Cards",
+					"Enhances {C:attention}#1#{} random cards",
+                    "into {C:attention}Post Cards",
 					"{C:inactive,s:0.8}Weighted towards unenhanced cards"
 				},
 			},
 			["c_ortalab_lot_rose"] = {
 				["name"] = "The Rose",
 				["text"] = {
-					"Enhances {C:attention}#1#{} random",
-                    "cards into",
-                    "{C:attention}Cosmic Cards",
+					"Enhances {C:attention}#1#{} random cards",
+                    "into {C:attention}Cosmic Cards",
 					"{C:inactive,s:0.8}Weighted towards unenhanced cards"
 				},
 			},
@@ -1681,18 +1677,16 @@ return {
             ["c_ortalab_lot_siren"] = {
 				["name"] = "The Siren",
 				["text"] = {
-					"Enhances {C:attention}#1#{} random",
-                    "cards into",
-                    "{C:attention}Rusty Cards",
+					"Enhances {C:attention}#1#{} random cards",
+                    "into {C:attention}Rusty Cards",
 					"{C:inactive,s:0.8}Weighted towards unenhanced cards"
 				},
 			},
 			["c_ortalab_lot_bird"] = {
 				["name"] = "The Bird",
 				["text"] = {
-					"Enhances {C:attention}#1#{} random",
-                    "cards into",
-                    "{C:attention}Sand Cards",
+					"Enhances {C:attention}#1#{} random cards",
+                    "into {C:attention}Sand Cards",
 					"{C:inactive,s:0.8}Weighted towards unenhanced cards"
 				},
 			},
@@ -1710,8 +1704,8 @@ return {
 				["text"] = {
 					"{C:green}#1# in #2#{} chance to add",
                     "{C:dark_edition}Anaglyphic{}, {C:dark_edition}Fluorescent{},",
-                    "{C:dark_edition}Greyscale{} or {C:dark_edition}Overexposed{} edition to",
-                    "a random {C:attention}Joker"
+                    "{C:dark_edition}Greyscale{} or {C:dark_edition}Overexposed{}",
+                    "edition to a random {C:attention}Joker"
 				},
 			},
             ["c_ortalab_lot_parrot"] = {
@@ -1725,19 +1719,14 @@ return {
             ["c_ortalab_lot_ladder"] = {
 				["name"] = "The Ladder",
 				["text"] = {
-					"Enhances {C:attention}#1#{} random",
-                    "cards into",
-                    "{C:attention}Index Cards",
+					"Enhances {C:attention}#1#{} random cards",
+                    "into {C:attention}Index Cards",
 					"{C:inactive,s:0.8}Weighted towards unenhanced cards"
 				},
 			},
             ["c_ortalab_lot_heron"] = {
 				["name"] = "The Heron",
 				["text"] = {
-					--"Earn {C:money}$#1#{} for every",
-					--"{C:chips}#2# Chip value{} of",
-					--"{C:attention}#3#{} random cards in hand",
-					--"{C:inactive,s:0.8}(Max of $40)"
 					"Earn {C:money}${} equal to",
 					"half the {C:chips}Chips{} of",
 					"{C:attention}#3#{} random cards in hand",
@@ -1779,9 +1768,8 @@ return {
             ["c_ortalab_lot_dandy"] = {
 				["name"] = "The Dandy",
 				["text"] = {
-					"Enhances {C:attention}#1#{} random",
-                    "cards into",
-                    "{C:attention}Ore Cards",
+					"Enhances {C:attention}#1#{} random cards",
+                    "into {C:attention}Ore Cards",
 					"{C:inactive,s:0.8}Weighted towards unenhanced cards"
 				},
 			},
