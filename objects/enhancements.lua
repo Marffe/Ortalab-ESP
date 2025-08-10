@@ -268,22 +268,22 @@ SMODS.Enhancement({
     atlas = "ortalab_enhanced",
     pos = {x = 3, y = 1},
     discovered = false,
-    config = {extra = {discard_chance = 5, tag_chance = 15, discards = 1, tags = 1, chips = 100}},
+    config = {extra = {discard_chance = 5, tag_chance = 15, tags = 1, chips = 125}},
     artist_credits = {'kosze', 'gappie'},
     loc_vars = function(self, info_queue, card)
         local a, b = SMODS.get_probability_vars(card, 1, card.ability.extra.discard_chance)
         local c, d = SMODS.get_probability_vars(card, 1, card.ability.extra.tag_chance)
         return {
-            vars = { a, b, card.ability.extra.discards, c, d, card.ability.extra.tags, card.ability.extra.chips }
+            vars = { a, b, c, d, card.ability.extra.chips}
         }
     end,
     calculate = function(self, card, context)
         if context.cardarea == G.play and context.main_scoring then
             local ret = {}
             if SMODS.pseudorandom_probability(card, 'recycled_discard', 1, card.ability.extra.discard_chance) then
-                ease_discard(card.ability.extra.discards)
+                --[[ease_discard(card.ability.extra.discards)]]
                 ret = {
-                    message = localize('ortalab_moldy_discard'),
+                    --[[message = localize('ortalab_moldy_discard'),]]
                     colour = G.C.RED,
                     chips = card.ability.extra.chips
                 }

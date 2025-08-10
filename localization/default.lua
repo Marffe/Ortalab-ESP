@@ -86,7 +86,7 @@ return {
 			['ortalab_loteria_pack'] = 'Chalupa Pack',
 			['ortalab_astral_pack'] = 'Astral Pack',
 			ortalab_mythos_pack = 'Mythos Pack',
-			['ortalab_moldy_discard'] = 'Discard!',
+			--[[['ortalab_moldy_discard'] = 'Discard!',]]
 			['ortalab_moldy_tag'] = 'Tag!',
 			['ortalab_no_tag'] = 'None',
 			['ortalab_flashback'] = 'Flashback!',
@@ -493,7 +493,7 @@ return {
 			['j_ortalab_blue_card'] = {
 				["name"] = "Blue Card",
 				["text"] = {
-					"Gains {C:blue}#1#{} Chips when",
+					"Gains {C:blue}+#1#{} Chips when",
 					"any {C:attention}Card{} is used",
 					"from a {C:attention}Booster Pack",
 					"{C:inactive,s:0.9}(Currently {C:blue,s:0.9}+#2#{C:inactive,s:0.9} Chips)"
@@ -1938,10 +1938,9 @@ return {
 				["name"] = "Recycled Card",
 				["text"] = {
 					{"{C:green}#1# in #2#{} chance",
-					"to add {C:blue}+#7#{} Chips",
-					"and gain {C:red}+#3# Discard",},
-					{"{C:green}#4# in #5#{} chance",
-					"to gain {C:attention}#6# Tag",}
+					"to add {C:blue}+#5#{} Chips",},
+					{"{C:green}#3# in #4#{} chance",
+					"to gain a {C:attention}Tag",}
 				},
 			},
 			["m_ortalab_bent"] = {
