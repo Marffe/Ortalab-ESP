@@ -700,7 +700,7 @@ return {
 			['j_ortalab_fine_wine'] = {
 				["name"] = "Fine Wine",
 				["text"] = {
-					"{C:red}+#1#{} discards,",
+					"{C:red}+#1#{} discards",
 					"Gain {C:red}+#4#{} discard",
 					"when blind is selected",
 					"{C:green}#2# in #3#{} chance this Joker is",
@@ -1239,9 +1239,9 @@ return {
 			['j_ortalab_reduce_reuse'] = {
 				["name"] = "Reduce, Reuse, Recycle",
 				["text"] = {
-					"Gain {C:money}$#1#{} for each",
-					"remaining {C:blue}Hand{} at",
-					"end of round"
+					'If {C:attention}Blind{} beaten in a',
+					'single hand, gain {C:money}$#1#{} for each',
+					"remaining {C:blue}Hand{} at end of round",
 				}
 			},
 			['j_ortalab_revolver'] = {
