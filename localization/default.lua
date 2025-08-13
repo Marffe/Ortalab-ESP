@@ -169,7 +169,19 @@ return {
 			ortalab_infected = 'Infected',
 			ortalab_cyan_seal = 'Cyan Seal',
 			ortalab_magenta_seal = 'Magenta Seal'
-		}
+		},
+		challenge_names = {
+			c_ortalab_police = "Sound of the",
+			c_ortalab_black_parade = "Black Parade",
+			c_ortalab_copy_cat = "Copy Copy Cat",
+			c_ortalab_cursed = "Cursed!",
+			c_ortalab_stars = "Stars",
+			c_ortalab_rusty_needle = "Rusty Needle",
+			c_ortalab_shinku_challenge = "Shinku idk",
+			c_ortalab_locked_in = "Locked in",
+			c_ortalab_rich_kid = "Rich Kid",
+			c_ortalab_evil_up = "Evil Up!",
+		},
     },
     ["descriptions"] = {
 		["Ortalab Artist"] = {
@@ -1256,7 +1268,7 @@ return {
 				}
 			},
 			j_ortalab_right_hand = {
-				name = 'Right Hand Man',
+				name = 'Schematic',
 				text = {
 					'Copies the ability', 
 					'of rightmost {C:attention}Joker'
