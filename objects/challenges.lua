@@ -1,9 +1,7 @@
 SMODS.Challenge {
     key = 'police',
     rules = {
-        modifiers = {
-            --[[{id = 'hands', value = 1},]]
-        },
+        modifiers = {},
     },
     jokers = {
         {id = 'j_ortalab_policeman', eternal = true, edition = 'negative'},
@@ -14,12 +12,14 @@ SMODS.Challenge {
     restrictions = {
         banned_cards = {
             {id = 'j_ortalab_cardist'},
-            {id = 'c_ortalab_rockstar'},
+            {id = 'j_ortalab_rockstar'},
             {id = 'v_ortalab_one_mans_trash'},
             {id = 'c_ortalab_lot_hand'},
-            
+            {id = 'c_ortalab_jackalope'},
         },
-        banned_tags = {},
+        banned_tags = {
+            {id = 'tag_ortalab_hand'},
+        },
         banned_other = {}
     },
     deck = {
@@ -47,7 +47,9 @@ SMODS.Challenge {
         banned_cards = {
             {id = 'c_ortalab_lot_hand'},
         },
-        banned_tags = {},
+        banned_tags = {
+            {id = 'tag_ortalab_hand'},
+        },
         banned_other = {},
     },
     deck = {
@@ -75,7 +77,9 @@ SMODS.Challenge {
         banned_cards = {
             {id = 'c_ortalab_lot_hand'},
         },
-        banned_tags = {},
+        banned_tags = {
+            {id = 'tag_ortalab_hand'},
+        },
         banned_other = {},
     },
     deck = {
@@ -105,7 +109,9 @@ SMODS.Challenge {
         banned_cards = {
             {id = 'c_ortalab_lot_hand'},
         },
-        banned_tags = {},
+        banned_tags = {
+            {id = 'tag_ortalab_hand'},
+        },
         banned_other = {},
     },
     deck = {
@@ -133,7 +139,9 @@ SMODS.Challenge {
         banned_cards = {
             {id = 'c_ortalab_lot_hand'},
         },
-        banned_tags = {},
+        banned_tags = {
+            {id = 'tag_ortalab_hand'},
+        },
         banned_other = {},
     },
     deck = {
@@ -169,6 +177,7 @@ SMODS.Challenge {
             {id = 'j_ortalab_klutz'},
             {id = 'j_ortalab_actor'},
             {id = 'v_ortalab_abacus'},
+            {id = 'v_ortalab_recyclo_inv'},
         },
         banned_tags = {},
         banned_other = {}
@@ -196,9 +205,9 @@ SMODS.Challenge {
     },
     restrictions = {
         banned_cards = {
-            {id = 'c_ortalab_lot_hand'},
         },
-        banned_tags = {},
+        banned_tags = {
+        },
         banned_other = {}
     },
     deck = {
@@ -250,7 +259,14 @@ SMODS.Challenge {
             {id = 'c_ortalab_lot_bonnet'},
             {id = 'c_ortalab_lot_boot'},
         },
-        banned_tags = {},
+        banned_tags = {
+            {id = 'tag_ortalab_soul'},
+            {id = 'tag_ortalab_common'},
+            {id = 'tag_ortalab_fluorescent'},
+            {id = 'tag_ortalab_greyscale '},
+            {id = 'tag_ortalab_overexposed'},
+            {id = 'tag_ortalab_anaglyphic'},
+        },
         banned_other = {}
     },
     deck = {
@@ -274,13 +290,15 @@ SMODS.Challenge {
         {id = 'j_ortalab_priest', eternal = true},
     },
     vouchers = {
-        
+        {id = 'v_hone', eternal = true},
     },
     restrictions = {
         banned_cards = {
             {id = 'c_ortalab_lot_hand'},
         },
-        banned_tags = {},
+        banned_tags = {
+            {id = 'tag_ortalab_hand'},
+        },
         banned_other = {}
     },
     deck = {
@@ -307,9 +325,22 @@ SMODS.Challenge {
     },
     restrictions = {
         banned_cards = {
+            
+            {id = 'j_ortalab_gloomy_gus'},
+            {id = 'j_ortalab_klutz'},
+            {id = 'j_ortalab_actor'},
+            {id = 'j_turtle_bean'},
+            {id = 'j_juggler'},
+            {id = 'j_troubadour'},
+            {id = 'j_merry_andy'},
             {id = 'c_ortalab_lot_hand'},
+            {id = 'c_ortalab_jackalope'},
+            {id = 'v_ortalab_abacus'},
+            {id = 'v_paint_brush'},
         },
-        banned_tags = {},
+        banned_tags = {
+            {id = 'tag_ortalab_hand'},
+        },
         banned_other = {}
     },
     deck = {
