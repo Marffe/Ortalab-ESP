@@ -558,7 +558,7 @@ SMODS.Voucher({
     requires = {'v_ortalab_hex'},
     artist_credits = {'crimson'},
 	redeem = function(self, card)
-        G.GAME.ortalab_utility_rate = 1.25
+        G.GAME.ortalab_utility_rate = 1.00
     end,
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue+1] = G.P_CENTERS['c_ortalab_edition_+']
