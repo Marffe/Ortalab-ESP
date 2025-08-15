@@ -1,7 +1,10 @@
 SMODS.Challenge {
     key = 'police',
+    stake = 'ortalab_one',
     rules = {
-        modifiers = {},
+        modifiers = {
+            SMODS.Stakes.stake_ortalab_one:modifiers()
+        },
     },
     jokers = {
         {id = 'j_ortalab_policeman', eternal = true, edition = 'negative'},
@@ -20,7 +23,9 @@ SMODS.Challenge {
         banned_tags = {
             {id = 'tag_ortalab_hand'},
         },
-        banned_other = {}
+        banned_other = {
+            {id = 'bl_ortalab_fork', type = "blind"},
+        }
     },
     deck = {
         type = 'Challenge Deck',
@@ -180,7 +185,11 @@ SMODS.Challenge {
             {id = 'v_ortalab_recyclo_inv'},
         },
         banned_tags = {},
-        banned_other = {}
+        banned_other = {
+            {id = 'bl_ortalab_caramel_coin', type = "blind"},
+            {id = 'bl_ortalab_sinker', type = "blind"},
+            {id = 'bl_ortalab_saffron_shield', type = "blind"},
+        }
     },
     deck = {
         type = 'Challenge Deck',
@@ -325,7 +334,6 @@ SMODS.Challenge {
     },
     restrictions = {
         banned_cards = {
-            
             {id = 'j_ortalab_gloomy_gus'},
             {id = 'j_ortalab_klutz'},
             {id = 'j_ortalab_actor'},
@@ -348,5 +356,145 @@ SMODS.Challenge {
     unlocked = function(self)
 		return true
 	end,
+    }
+}
+
+
+SMODS.Challenge {
+    key = 'idk',
+    rules = {
+        modifiers = {
+        },
+    },
+    jokers = {
+        {id = 'j_ortalab_freezer', eternal = true},
+        {id = 'j_ortalab_head_honcho', eternal = true},
+        {id = 'v_crystal_ball', eternal = true},
+        {id = 'c_medium', eternal = true},
+    },
+    vouchers = {
+        
+    },
+    restrictions = {
+        banned_cards = {
+            {id = 'c_ortalab_lot_hand'},
+        },
+        banned_tags = {
+            {id = 'tag_ortalab_hand'},
+        },
+        banned_other = {
+            --[[{id = 'bl_water', type = "blind"}]]
+        }
+    },
+    deck = {
+        type = 'Challenge Deck',
+    unlocked = function(self)
+		return true
+	end,
+    }
+}
+
+
+SMODS.Challenge {
+    key = 'fingers',
+    rules = {
+        modifiers = {
+        },
+    },
+    jokers = {
+    },
+    vouchers = {
+        
+    },
+    restrictions = {
+        banned_cards = {
+            {id = 'j_ortalab_sandstone'},
+            {id = 'j_ortalab_false_phd'},
+            {id = 'c_ortalab_lot_umbrella'},
+            {id = 'c_ortalab_lot_melon'},
+            {id = 'c_ortalab_lot_mandolin'},
+            {id = 'c_ortalab_lot_rose'},
+            {id = 'c_ortalab_lot_siren'},
+            {id = 'c_ortalab_lot_bird'},
+            {id = 'c_ortalab_lot_ladder'},
+            {id = 'c_ortalab_lot_dandy'},
+            {id = 'c_ortalab_zod_taurus'},
+            {id = 'c_ortalab_zod_scorpio'},
+            {id = 'c_ortalab_excalibur'},
+            {id = 'c_ortalab_kraken'},
+            {id = 'c_ortalab_basilisk'},
+            {id = 'c_ortalab_abaia'},
+            {id = 'c_ortalab_jormungand'},
+
+            --[[{id = 'p_buffoon_normal_1', ids = {
+                'p_buffoon_normal_1','p_buffoon_normal_2','p_buffoon_jumbo_1','p_buffoon_mega_1',
+            }},]]
+        },
+        banned_tags = {
+            {id = 'tag_ortalab_hand'},
+        },
+        banned_other = {
+            {id = 'bl_ortalab_hammer', type = "blind"},
+        }
+    },
+    deck = {
+        type = 'Challenge Deck',
+    unlocked = function(self)
+		return true
+	end,
+    cards = {
+            {s='D',r='2',e='m_ortalab_sand',},
+            {s='D',r='3',e='m_ortalab_sand',},
+            {s='D',r='4',e='m_ortalab_sand',},
+            {s='D',r='5',e='m_ortalab_sand',},
+            {s='D',r='6',e='m_ortalab_sand',},
+            {s='D',r='7',e='m_ortalab_sand',},
+            {s='D',r='8',e='m_ortalab_sand',},
+            {s='D',r='9',e='m_ortalab_sand',},
+            {s='D',r='T',e='m_ortalab_sand',},
+            {s='D',r='J',e='m_ortalab_sand',},
+            {s='D',r='Q',e='m_ortalab_sand',},
+            {s='D',r='K',e='m_ortalab_sand',},
+            {s='D',r='A',e='m_ortalab_sand',},
+            {s='C',r='2',e='m_ortalab_sand',},
+            {s='C',r='3',e='m_ortalab_sand',},
+            {s='C',r='4',e='m_ortalab_sand',},
+            {s='C',r='5',e='m_ortalab_sand',},
+            {s='C',r='6',e='m_ortalab_sand',},
+            {s='C',r='7',e='m_ortalab_sand',},
+            {s='C',r='8',e='m_ortalab_sand',},
+            {s='C',r='9',e='m_ortalab_sand',},
+            {s='C',r='T',e='m_ortalab_sand',},
+            {s='C',r='J',e='m_ortalab_sand',},
+            {s='C',r='Q',e='m_ortalab_sand',},
+            {s='C',r='K',e='m_ortalab_sand',},
+            {s='C',r='A',e='m_ortalab_sand',},
+            {s='H',r='2',e='m_ortalab_sand',},
+            {s='H',r='3',e='m_ortalab_sand',},
+            {s='H',r='4',e='m_ortalab_sand',},
+            {s='H',r='5',e='m_ortalab_sand',},
+            {s='H',r='6',e='m_ortalab_sand',},
+            {s='H',r='7',e='m_ortalab_sand',},
+            {s='H',r='8',e='m_ortalab_sand',},
+            {s='H',r='9',e='m_ortalab_sand',},
+            {s='H',r='T',e='m_ortalab_sand',},
+            {s='H',r='J',e='m_ortalab_sand',},
+            {s='H',r='Q',e='m_ortalab_sand',},
+            {s='H',r='K',e='m_ortalab_sand',},
+            {s='H',r='A',e='m_ortalab_sand',},
+            {s='S',r='2',e='m_ortalab_sand',},
+            {s='S',r='3',e='m_ortalab_sand',},
+            {s='S',r='4',e='m_ortalab_sand',},
+            {s='S',r='5',e='m_ortalab_sand',},
+            {s='S',r='6',e='m_ortalab_sand',},
+            {s='S',r='7',e='m_ortalab_sand',},
+            {s='S',r='8',e='m_ortalab_sand',},
+            {s='S',r='9',e='m_ortalab_sand',},
+            {s='S',r='T',e='m_ortalab_sand',},
+            {s='S',r='J',e='m_ortalab_sand',},
+            {s='S',r='Q',e='m_ortalab_sand',},
+            {s='S',r='K',e='m_ortalab_sand',},
+            {s='S',r='A',e='m_ortalab_sand',},
+        }
     }
 }
