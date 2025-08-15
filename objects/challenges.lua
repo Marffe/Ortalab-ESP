@@ -369,11 +369,10 @@ SMODS.Challenge {
     jokers = {
         {id = 'j_ortalab_freezer', eternal = true},
         {id = 'j_ortalab_head_honcho', eternal = true},
-        {id = 'v_crystal_ball', eternal = true},
         {id = 'c_medium', eternal = true},
     },
     vouchers = {
-        
+        {id = 'v_crystal_ball', eternal = true},
     },
     restrictions = {
         banned_cards = {
