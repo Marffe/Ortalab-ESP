@@ -181,6 +181,8 @@ return {
 			c_ortalab_locked_in = "Locked in",
 			c_ortalab_rich_kid = "Rich Kid",
 			c_ortalab_evil_up = "Evil Up!",
+			c_ortalab_idk = "idk",
+			c_ortalab_fingers = "Through your Fingers",
 		},
     },
     ["descriptions"] = {
