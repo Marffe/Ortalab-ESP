@@ -3,7 +3,6 @@ SMODS.Challenge {
     stake = 'ortalab_one',
     rules = {
         modifiers = {
-            SMODS.Stakes.stake_ortalab_one:modifiers()
         },
     },
     jokers = {
@@ -369,10 +368,9 @@ SMODS.Challenge {
     jokers = {
         {id = 'j_ortalab_freezer', eternal = true},
         {id = 'j_ortalab_head_honcho', eternal = true},
-        {id = 'c_medium', eternal = true},
+        {id = 'c_medium'},
     },
     vouchers = {
-        {id = 'v_crystal_ball', eternal = true},
     },
     restrictions = {
         banned_cards = {
