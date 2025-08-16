@@ -975,9 +975,9 @@ return {
 			j_ortalab_memorial = {
 				name = 'Memorial',
 				text = {
-					'When {C:attention}sold{},',
-					'{C:attention}upgrade{} most played',
-					'poker hand',
+					'When {C:attention}sold{}, {C:attention}upgrade{}',
+					'most played poker hand',
+					'{C:inactive,s:0.8}(Currently upgrading #1#)'
 				}
 			},
 			['j_ortalab_mill'] = {

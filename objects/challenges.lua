@@ -8,9 +8,7 @@ SMODS.Challenge {
     jokers = {
         {id = 'j_ortalab_policeman', eternal = true, edition = 'negative'},
     },
-    vouchers = {
-        {id = 'v_ortalab_shared_winnings'},
-    },
+    vouchers = {},
     restrictions = {
         banned_cards = {
             {id = 'j_ortalab_cardist'},
