@@ -25,7 +25,7 @@ SMODS.Challenge {
         }
     },
     deck = {
-        type = 'Challenge Deck',
+        type = 'Ortalab Challenge Deck',
     unlocked = function(self)
 		return true
 	end,
@@ -55,7 +55,7 @@ SMODS.Challenge {
         banned_other = {},
     },
     deck = {
-        type = 'Challenge Deck',
+        type = 'Ortalab Challenge Deck',
     unlocked = function(self)
 		return true
 	end,
@@ -85,7 +85,7 @@ SMODS.Challenge {
         banned_other = {},
     },
     deck = {
-        type = 'Challenge Deck',
+        type = 'Ortalab Challenge Deck',
     unlocked = function(self)
 		return true
 	end,
@@ -117,7 +117,7 @@ SMODS.Challenge {
         banned_other = {},
     },
     deck = {
-        type = 'Challenge Deck',
+        type = 'Ortalab Challenge Deck',
     unlocked = function(self)
 		return true
 	end,
@@ -147,7 +147,7 @@ SMODS.Challenge {
         banned_other = {},
     },
     deck = {
-        type = 'Challenge Deck',
+        type = 'Ortalab Challenge Deck',
     unlocked = function(self)
 		return true
 	end,
@@ -189,7 +189,7 @@ SMODS.Challenge {
         }
     },
     deck = {
-        type = 'Challenge Deck',
+        type = 'Ortalab Challenge Deck',
     unlocked = function(self)
 		return true
 	end,
@@ -217,7 +217,7 @@ SMODS.Challenge {
         banned_other = {}
     },
     deck = {
-        type = 'Challenge Deck',
+        type = 'Ortalab Challenge Deck',
     unlocked = function(self)
 		return true
 	end,
@@ -251,7 +251,6 @@ SMODS.Challenge {
             {id = 'c_ortalab_lot_siren'},
             {id = 'c_ortalab_lot_bird'},
             {id = 'c_ortalab_lot_rooster'},
-            {id = 'c_ortalab_lot_pear'},
             {id = 'c_ortalab_lot_parrot'},
             {id = 'c_ortalab_lot_ladder'},
             {id = 'c_ortalab_lot_heron'},
@@ -276,7 +275,7 @@ SMODS.Challenge {
         banned_other = {}
     },
     deck = {
-        type = 'Challenge Deck',
+        type = 'Ortalab Challenge Deck',
     unlocked = function(self)
 		return true
 	end,
@@ -308,7 +307,7 @@ SMODS.Challenge {
         banned_other = {}
     },
     deck = {
-        type = 'Challenge Deck',
+        type = 'Ortalab Challenge Deck',
     unlocked = function(self)
 		return true
 	end,
@@ -349,7 +348,7 @@ SMODS.Challenge {
         banned_other = {}
     },
     deck = {
-        type = 'Challenge Deck',
+        type = 'Ortalab Challenge Deck',
     unlocked = function(self)
 		return true
 	end,
@@ -382,7 +381,7 @@ SMODS.Challenge {
         }
     },
     deck = {
-        type = 'Challenge Deck',
+        type = 'Ortalab Challenge Deck',
     unlocked = function(self)
 		return true
 	end,
@@ -433,7 +432,7 @@ SMODS.Challenge {
         }
     },
     deck = {
-        type = 'Challenge Deck',
+        type = 'Ortalab Challenge Deck',
     unlocked = function(self)
 		return true
 	end,
@@ -491,5 +490,238 @@ SMODS.Challenge {
             {s='S',r='K',e='m_ortalab_sand',},
             {s='S',r='A',e='m_ortalab_sand',},
         }
+    }
+}
+
+
+
+
+SMODS.Challenge {
+    key = 'lostc',
+    rules = {
+        modifiers = {
+        },
+    },
+    jokers = {
+    },
+    vouchers = {
+        {id = 'v_ortalab_shared_winnings'},
+    },
+    restrictions = {
+        banned_cards = {
+        },
+        banned_tags = {
+        },
+        banned_other = {
+        }
+    },
+    deck = {
+        type = 'Ortalab Challenge Deck',
+    unlocked = function(self)
+		return true
+	end,
+    cards = {
+            {s='D',r='2'},
+            {s='D',r='3'},
+            {s='D',r='4'},
+            {s='D',r='5'},
+            {s='D',r='6'},
+            {s='D',r='7'},
+            {s='D',r='8'},
+            {s='D',r='9'},
+            {s='D',r='T'},
+            {s='D',r='A'},
+            {s='C',r='2'},
+            {s='C',r='3'},
+            {s='C',r='4'},
+            {s='C',r='5'},
+            {s='C',r='6'},
+            {s='C',r='7'},
+            {s='C',r='8'},
+            {s='C',r='9'},
+            {s='C',r='T'},
+            {s='C',r='A'},
+            {s='H',r='2'},
+            {s='H',r='3'},
+            {s='H',r='4'},
+            {s='H',r='5'},
+            {s='H',r='6'},
+            {s='H',r='7'},
+            {s='H',r='8'},
+            {s='H',r='9'},
+            {s='H',r='T'},
+            {s='H',r='A'},
+            {s='S',r='2'},
+            {s='S',r='3'},
+            {s='S',r='4'},
+            {s='S',r='5'},
+            {s='S',r='6'},
+            {s='S',r='7'},
+            {s='S',r='8'},
+            {s='S',r='9'},
+            {s='S',r='T'},
+            {s='S',r='A'},
+        }
+    }
+}
+
+
+
+SMODS.Challenge {
+    key = 'shrod',
+    rules = {
+        modifiers = {
+        },
+    },
+    jokers = {
+        {id = 'j_ortalab_black_cat', eternal = true},
+        {id = 'j_ortalab_flashback', eternal = true},
+    },
+    vouchers = {
+        {id = 'v_ortalab_abacus'},
+        {id = 'v_ortalab_calculator'},
+    },
+    restrictions = {
+        banned_cards = {
+            {id = 'c_ortalab_lot_hand'},
+        },
+        banned_tags = {
+            {id = 'tag_ortalab_hand'},
+        },
+        banned_other = {
+            --[[{id = 'bl_water', type = "blind"}]]
+        }
+    },
+    deck = {
+        type = 'Ortalab Challenge Deck',
+    unlocked = function(self)
+		return true
+	end,
+    }
+}
+
+
+SMODS.Challenge {
+    key = 'virtueless',
+    rules = {
+        custom = {
+            {id = 'no_shop_jokers'}
+        },
+        modifiers = {
+            {id = 'joker_slots', value = 0},
+        },
+    },
+    jokers = {
+    },
+    vouchers = {
+    },
+    restrictions = {
+        banned_cards = {
+            {id = 'v_ortalab_glamour'},
+            {id = 'v_ortalab_calculator'},
+            {id = 'v_ortalab_pulse_wave'},
+            {id = 'v_ortalab_energy_surge'},
+            {id = 'c_ortalab_corpus'},
+            {id = 'c_ortalab_tree_of_life'},
+            {id = 'p_buffoon_normal_1', ids = {
+                'p_buffoon_normal_1', 'p_buffoon_normal_2',
+                'p_buffoon_jumbo_1', 'p_buffoon_mega_1' }
+            },
+        },
+        banned_tags = {
+            {id = 'tag_ortalab_soul'},
+            {id = 'tag_ortalab_common'},
+            {id = 'tag_ortalab_fluorescent'},
+            {id = 'tag_ortalab_greyscale '},
+            {id = 'tag_ortalab_overexposed'},
+            {id = 'tag_ortalab_anaglyphic'},
+            {id = 'tag_ortalab_hand'},
+        },
+        banned_other = {
+            --[[{id = 'bl_water', type = "blind"}]]
+        }
+    },
+    deck = {
+        type = 'Challenge Deck',
+    unlocked = function(self)
+		return true
+	end,
+    }
+}
+
+SMODS.Challenge {
+    key = 'chaos',
+    rules = {
+        custom = {
+
+        },
+        modifiers = {
+    modifiers = function()
+        G.GAME.modifiers.ortalab_only = Ortalab.config.ortalab_only
+        G.GAME.ortalab.double_blind = true
+        if Ortalab.config.ortalab_only then
+            G.GAME.planet_rate = 4
+            G.GAME.tarot_rate = 4
+            G.GAME.ortalab_loteria_rate = 4
+            G.GAME.ortalab_zodiac_rate = 4
+            G.GAME.joker_rate = 4
+            G.GAME.mythos_rate = 4
+        end
+    end,}
+    },
+    jokers = {
+    },
+    vouchers = {
+    },
+    restrictions = {
+        banned_cards = {
+        },
+        banned_tags = {
+        },
+        banned_other = {
+            --[[{id = 'bl_water', type = "blind"}]]
+        }
+    },
+    deck = {
+        type = 'Ortalab Challenge Deck',
+    unlocked = function(self)
+		return true
+	end,
+    }
+}
+
+
+
+SMODS.Challenge {
+    key = 'ambi',
+    rules = {
+        custom = {
+
+        },
+        modifiers = {
+        }
+    },
+    jokers = {
+      {id = 'j_ortalab_polydactyly', eternal = true},
+      {id = 'j_four_fingers', eternal = true},  
+    },
+    vouchers = {
+        {id = 'v_ortalab_statue'},
+        {id = 'v_paint_brush'},
+    },
+    restrictions = {
+        banned_cards = {
+            {id = 'c_ortalab_lot_hand'},
+        },
+        banned_tags = {
+            {id = 'tag_ortalab_hand'},
+        },
+        banned_other = {},
+    },
+    deck = {
+        type = 'Ortalab Challenge Deck',
+    unlocked = function(self)
+		return true
+	end,
     }
 }
