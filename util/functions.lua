@@ -446,3 +446,11 @@ function Ortalab.modify_temp_levels(mod, text)
         update_hand_text({delay = 0.3}, {mult = mult, chips = hand_chips, temp_level = current, temp_colour = G.hand_text_area.temporary_level.config.colour})
     end
 end
+
+function Ortalab.check_force_highlight()
+    for _, card in ipairs(G.hand.cards) do
+        if card.ability.forced_selection then
+            G.hand:add_to_highlighted(card)
+        end
+    end
+end
