@@ -131,7 +131,7 @@ if G.zodiacs then
     end
 
     -- Check to see if Zodiac is present
-    local zodiac_key = G.P_CENTERS[zodiac_from_hand(text)].config.extra.zodiac
+    local zodiac_key = G.P_CENTERS[zodiac_from_hand(text)] and G.P_CENTERS[zodiac_from_hand(text)].config.extra.zodiac
     if G.zodiacs[zodiac_key] then
         zodiac_current = G.zodiacs[zodiac_key]
         zodiac_effect = G.ZODIACS[zodiac_key]
