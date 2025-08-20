@@ -224,7 +224,8 @@ SMODS.Consumable({
                 trigger = 'after', delay = 0.7,
                 func = function()
                     local joker, pos = pseudorandom_element(available_jokers, pseudoseed('tree_perish'))
-                    SMODS.Stickers.perishable:apply(joker, true)
+                    joker:add_sticker('perishable', true)
+                    joker:remove_sticker('eternal')
                     joker:juice_up()
                     play_sound('tarot1')
                     card:juice_up(0.3, 0.5)
