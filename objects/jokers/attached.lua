@@ -16,10 +16,9 @@ SMODS.Joker({
     end,
     calculate = function(self, card, context)
         if context.setting_blind then
-            local area = SMODS.merge_lists({G.jokers.cards, G.consumeables.cards})
+            local area = G.jokers.cards
             for i=#area, 1, -1 do
                 if area[i].ability.set == 'Joker' then
-                    --[[if area[i] ~= card and not area[i].ability[card.ability.extra.sticker] then]]
                     if not area[i].ability[card.ability.extra.sticker] then
                         return {
                             message = localize('ortalab_attached'),
