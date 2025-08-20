@@ -813,13 +813,13 @@ SMODS.Blind({
     pos = {x = 0, y = 20},
     dollars = 5,
     mult = 2,
-    boss = {min = 1, max = 10},
+    boss = {min = 2, max = 10},
     boss_colour = HEX('ac9db4'),
     config = {extra = {reset = 5, hand_type = nil}},
     artist_credits = {'flare'},
     loc_vars = function(self, info_queue, card)
         if self.config.extra.hand_type then
-            return {vars = {localize(self.config.extra.hand_type, 'poker_hands'), self.config.extra.reset}}
+            return {vars = {localize(G.GAME.current_round.most_played_poker_hand, 'poker_hands'), self.config.extra.reset}}
         else
             return {key = 'bl_ortalab_sheep_collection', vars = {self.config.extra.reset}}
 
@@ -829,14 +829,6 @@ SMODS.Blind({
         return {key = 'bl_ortalab_sheep_collection', vars = {self.config.extra.reset}}
     end,
     set_blind = function(self)
-        local _handname, _played, _order = 'High Card', -1, 100
-        for k, v in pairs(G.GAME.hands) do
-            if v.played > _played or (v.played == _played and _order > v.order) then 
-                _played = v.played
-                _handname = k
-            end
-        end
-        G.GAME.current_round.most_played_poker_hand = _handname
         self.config.extra.hand_type = G.GAME.current_round.most_played_poker_hand
         G.GAME.blind:set_text()
     end,
