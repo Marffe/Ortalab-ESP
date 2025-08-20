@@ -288,21 +288,6 @@ payload = '''
 temporary_level = self.HUD:get_UIE_by_ID('temporary_level'),
 '''
 
-
-# Display temporary levels built in
-[[patches]]
-[patches.pattern]
-target = 'functions/UI_definitions.lua'
-match_indent = true
-position = 'at'
-pattern = '''
-{n=G.UIT.T, config={ref_table = G.GAME.current_round.current_hand, ref_value='hand_level', scale = scale, colour = G.C.UI.TEXT_LIGHT, id = 'hand_level', shadow = true}}
-'''
-payload = '''
-{n=G.UIT.T, config={ref_table = G.GAME.current_round.current_hand, ref_value='hand_level', scale = scale, colour = G.C.UI.TEXT_LIGHT, id = 'hand_level', shadow = true}},
-{n=G.UIT.T, config={ref_table = G.GAME.current_round.current_hand, ref_value='temporary_level', scale = scale, colour = G.C.UI.TEXT_LIGHT, id = 'temporary_level', shadow = true}}
-'''
-
 # Patch update_hand_text to allow temp_levels
 [[patches]]
 [patches.pattern]

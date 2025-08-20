@@ -905,6 +905,12 @@ Ortalab.Zodiac{
     end
 }
 
+local ortalab_should_hide_front = Card.should_hide_front
+function Card:should_hide_front()
+    if self.becoming_no_rank then return false end
+    return ortalab_should_hide_front(self)
+end
+
 SMODS.Consumable({
     key = 'zod_sag',
     set = 'ortalab_zodiac',
@@ -1115,6 +1121,13 @@ Ortalab.Zodiac{
         return context.mult, context.chips
     end
 }
+
+local smods_gui_hand_ui = SMODS.GUI.current_hand_ui
+function SMODS.GUI.current_hand_ui(scale)
+    local ret = smods_gui_hand_ui(scale)
+    ret.nodes[#ret.nodes + 1] = {n=G.UIT.T, config={ref_table = G.GAME.current_round.current_hand, ref_value='temporary_level', scale = scale, colour = G.C.UI.TEXT_LIGHT, id = 'temporary_level', shadow = true}}
+    return ret
+end
 
 local ortalab_update_hand_text = update_hand_text
 function update_hand_text(config, vals)
