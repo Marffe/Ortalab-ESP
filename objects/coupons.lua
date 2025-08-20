@@ -473,7 +473,7 @@ SMODS.Voucher({
 	unlocked = true,
 	discovered = false,
 	available = true,
-    config = {extra = {money = 3}},
+    config = {extra = {money = 3, wyrms_dragons = {}}},
     artist_credits = {'no_demo'},
 	redeem = function(self, card)
         G.GAME.ortalab.blind_rewards = G.GAME.ortalab.blind_rewards + card.ability.extra.money
@@ -482,7 +482,171 @@ SMODS.Voucher({
     loc_vars = function(self, info_queue, card)
         return {vars = {card.ability.extra.money}}
     end,
+    set_ability = function(self, card, initial, delay)
+        if not card.ability.extra.coloured then
+            card.ability.extra.left_dragon = get_new_boss()
+            card.ability.extra.right_dragon = get_new_showdown()
+
+            card.ability.extra.wyrms_dragons.left_dragon = Sprite(0,0,G.CARD_W,G.CARD_H, G.ASSET_ATLAS['ortalab_left_dragon'], {x=0, y=0})
+            card.ability.extra.wyrms_dragons.left_dragon.atlas = {
+                px = 71, py = 95, name = 'ortalab_left_dragon',
+                image_data = G.ASSET_ATLAS['ortalab_left_dragon'].image_data:clone(),
+                image = love.graphics.newImage(G.ASSET_ATLAS['ortalab_left_dragon'].image_data, {mipmaps = true, dpiscale = G.SETTINGS.GRAPHICS.texture_scaling})
+            }
+            card.ability.extra.wyrms_dragons.left_dragon.atlas.image_data = G.ASSET_ATLAS['ortalab_left_dragon'].image_data:clone()
+            card.ability.extra.wyrms_dragons.left_dragon.atlas.image_data:mapPixel(function(x,y,r,g,b,a)
+                return recolour_dragon(x,y,r,g,b,a, G.P_BLINDS[card.ability.extra.left_dragon].boss_colour)
+            end)
+            card.ability.extra.wyrms_dragons.left_dragon.atlas.image = love.graphics.newImage(card.ability.extra.wyrms_dragons.left_dragon.atlas.image_data, {mipmaps = true, dpiscale = G.SETTINGS.GRAPHICS.texture_scaling})
+
+
+            card.ability.extra.wyrms_dragons.right_dragon = Sprite(0,0,G.CARD_W,G.CARD_H, G.ASSET_ATLAS['ortalab_right_dragon'], {x=0, y=0})
+            card.ability.extra.wyrms_dragons.right_dragon.atlas = {
+                px = 71, py = 95, name = 'ortalab_right_dragon',
+                image_data = G.ASSET_ATLAS['ortalab_right_dragon'].image_data:clone(),
+                image = love.graphics.newImage(G.ASSET_ATLAS['ortalab_right_dragon'].image_data, {mipmaps = true, dpiscale = G.SETTINGS.GRAPHICS.texture_scaling})
+            }
+            card.ability.extra.wyrms_dragons.right_dragon.atlas.image_data = G.ASSET_ATLAS['ortalab_right_dragon'].image_data:clone()
+            card.ability.extra.wyrms_dragons.right_dragon.atlas.image_data:mapPixel(function(x,y,r,g,b,a)
+                return recolour_dragon(x,y,r,g,b,a, G.P_BLINDS[card.ability.extra.right_dragon].boss_colour)
+            end)
+            card.ability.extra.wyrms_dragons.right_dragon.atlas.image = love.graphics.newImage(card.ability.extra.wyrms_dragons.right_dragon.atlas.image_data, {mipmaps = true, dpiscale = G.SETTINGS.GRAPHICS.texture_scaling})
+
+
+            local mod_id = G.P_BLINDS[card.ability.extra.left_dragon].mod and G.P_BLINDS[card.ability.extra.left_dragon].mod.id or 'vanilla'
+            local atlas = 'ortalab_dragon_heads'
+            local counter = 0
+            local x = 0
+            local y = 0
+            if Ortalab.wyrms_atlas[mod_id] then
+                atlas = Ortalab.wyrms_atlas[mod_id]
+                counter = G.P_BLINDS[card.ability.extra.left_dragon].pos.y - (mod_id == 'ortalab' and 0 or 2)
+                x = (counter)%5
+                y = math.floor(counter/5)
+            end
+            card.ability.extra.wyrms_dragons.left_head = Sprite(0,0,G.CARD_W,G.CARD_H, G.ASSET_ATLAS[atlas], {x=x, y=y})
+
+            mod_id = G.P_BLINDS[card.ability.extra.right_dragon].mod and G.P_BLINDS[card.ability.extra.right_dragon].mod.id or 'vanilla'
+            atlas = 'ortalab_dragon_heads'
+            counter = 0
+            x = 0
+            y = 0
+            if Ortalab.wyrms_atlas[mod_id] then
+                atlas = Ortalab.wyrms_atlas[mod_id]
+                counter = G.P_BLINDS[card.ability.extra.right_dragon].pos.y - (mod_id == 'ortalab' and 0 or 2)
+                x = (counter)%5
+                y = math.floor(counter/5)
+            end
+            card.ability.extra.wyrms_dragons.right_head = Sprite(0,0,G.CARD_W,G.CARD_H, G.ASSET_ATLAS[Ortalab.wyrms_atlas[mod_id] or 'ortalab_blind_dragons_vanilla'], {x=x, y=y})
+
+            card.ability.extra.coloured = true
+        end
+    end
 })
+
+function get_new_showdown(current)
+    local eligible_bosses = {}
+    for k, v in pairs(G.P_BLINDS) do
+        if v.boss and v.boss.showdown then 
+            local res = true
+            if v.in_pool and type(v.in_pool) == 'function' then
+                res = SMODS.add_to_pool(v)
+            end
+            eligible_bosses[k] = res
+        end
+    end
+    if G.GAME.modifiers.ortalab_only then
+        for k, v in pairs(eligible_bosses) do
+            if eligible_bosses[k] and not G.P_BLINDS[k].mod or G.P_BLINDS[k].mod.id ~= 'ortalab' then
+                eligible_bosses[k] = nil
+            end
+        end
+    end
+    
+    local _, boss = pseudorandom_element(eligible_bosses, pseudoseed('boss'))
+    
+    return boss
+end
+
+function recolour_dragon(x,y,r,g,b,a,new_colour)
+    local hsl = HSL({r,g,b,a})
+    -- 0.41, 0.33, 0.35
+    -- 0.55, 0.45, 0.39
+    local new_hsl = HSL(new_colour)
+    hsl[1] = new_hsl[1]
+    hsl[2] = new_hsl[2] * (hsl[2]/0.33)
+    hsl[3] = new_hsl[3] * (hsl[3]/0.45)
+    local RGB = HSL_RGB(hsl)
+    return RGB[1], RGB[2], RGB[3], RGB[4]
+end
+
+SMODS.Atlas({
+    key = 'blind_dragons_vanilla',
+    path = 'coupon_heads_vanilla.png',
+    px = 71,
+    py = 95
+})
+
+SMODS.Atlas({
+    key = 'blind_dragons_ortalab',
+    path = 'coupon_heads_ortalab.png',
+    px = 71,
+    py = 95
+})
+
+SMODS.Atlas({
+    key = 'blind_dragons_vanilla_2',
+    path = 'coupon_heads_2_vanilla.png',
+    px = 71,
+    py = 95
+})
+
+SMODS.Atlas({
+    key = 'blind_dragons_ortalab_2',
+    path = 'coupon_heads_2_ortalab.png',
+    px = 71,
+    py = 95
+})
+
+Ortalab.wyrms_atlas = {
+    vanilla = 'ortalab_blind_dragons_vanilla',
+    ortalab = 'ortalab_blind_dragons_ortalab'
+}
+
+SMODS.Atlas({
+    key = 'left_dragon',
+    path = 'left_dragon.png',
+    px = 71,
+    py = 95
+})
+
+SMODS.Atlas({
+    key = 'right_dragon',
+    path = 'right_dragon.png',
+    px = 71,
+    py = 95
+})
+
+SMODS.Atlas({
+    key = 'middle_dragon',
+    path = 'middle_dragon.png',
+    px = 71,
+    py = 95
+})
+
+SMODS.DrawStep {
+    key = 'wyrms_gift',
+    order = 35,
+    func = function(self)
+        if (self.config.center_key == 'v_ortalab_seed_inv' or self.config.center_key == 'v_ortalab_tree_inv') and self.ability.extra.wyrms_dragons then
+            for _, dragon in pairs(self.ability.extra.wyrms_dragons) do
+                dragon.role.draw_major = self
+                dragon:draw_shader('dissolve', nil, nil, nil, self.children.center)
+            end
+        end
+    end,
+    conditions = { vortex = false, facing = 'front' },
+}
 
 SMODS.Voucher({
 	key = "tree_inv",
@@ -493,7 +657,7 @@ SMODS.Voucher({
 	discovered = false,
 	available = false,
     requires = {'v_ortalab_seed_inv'},
-    config = {extra = {money = 5}},
+    config = {extra = {money = 5, wyrms_dragons = {}}},
     artist_credits = {'no_demo'},
 	redeem = function(self, card)
         G.GAME.ortalab.blind_rewards = G.GAME.ortalab.blind_rewards + card.ability.extra.money
@@ -502,6 +666,38 @@ SMODS.Voucher({
     loc_vars = function(self, info_queue, card)
         return {vars = {card.ability.extra.money}}
     end,
+    set_ability = function(self, card, initial, delay)
+        if not card.ability.extra.coloured then
+            card.ability.extra.dragon = get_new_showdown()
+
+            card.ability.extra.wyrms_dragons.dragon = Sprite(0,0,G.CARD_W,G.CARD_H, G.ASSET_ATLAS['ortalab_middle_dragon'], {x=0, y=0})
+            card.ability.extra.wyrms_dragons.dragon.atlas = {
+                px = 71, py = 95, name = 'ortalab_middle_dragon',
+                image_data = G.ASSET_ATLAS['ortalab_middle_dragon'].image_data:clone(),
+                image = love.graphics.newImage(G.ASSET_ATLAS['ortalab_middle_dragon'].image_data, {mipmaps = true, dpiscale = G.SETTINGS.GRAPHICS.texture_scaling})
+            }
+            card.ability.extra.wyrms_dragons.dragon.atlas.image_data = G.ASSET_ATLAS['ortalab_middle_dragon'].image_data:clone()
+            card.ability.extra.wyrms_dragons.dragon.atlas.image_data:mapPixel(function(x,y,r,g,b,a)
+                return recolour_dragon(x,y,r,g,b,a, G.P_BLINDS[card.ability.extra.dragon].boss_colour)
+            end)
+            card.ability.extra.wyrms_dragons.dragon.atlas.image = love.graphics.newImage(card.ability.extra.wyrms_dragons.dragon.atlas.image_data, {mipmaps = true, dpiscale = G.SETTINGS.GRAPHICS.texture_scaling})
+
+            local mod_id = G.P_BLINDS[card.ability.extra.dragon].mod and G.P_BLINDS[card.ability.extra.dragon].mod.id or 'vanilla'
+            local atlas = 'ortalab_dragon_heads'
+            local counter = 0
+            local x = 0
+            local y = 0
+            if Ortalab.wyrms_atlas[mod_id] then
+                atlas = Ortalab.wyrms_atlas[mod_id] .. '_2'
+                counter = G.P_BLINDS[card.ability.extra.dragon].pos.y - (mod_id == 'ortalab' and 0 or 2)
+                x = (counter)%5
+                y = math.floor(counter/5)
+                card.ability.extra.wyrms_dragons.left_head = Sprite(0,0,G.CARD_W,G.CARD_H, G.ASSET_ATLAS[atlas], {x=x, y=y})
+            end
+
+            card.ability.extra.coloured = true
+        end
+    end
 })
 
 SMODS.Voucher({
