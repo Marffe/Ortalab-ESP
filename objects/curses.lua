@@ -444,7 +444,7 @@ Ortalab.Curse({
 
 local ortalab_card_can_calculate = Card.can_calculate
 function Card:can_calculate(ignore_debuff, ignore_sliced)
-    if self.ability.set ~= 'Joker' and self.curse == 'ortalab_infected' and not self.curse_removed and not self.cured then
+    if self.ability.set ~= 'Joker' and self.curse == 'ortalab_infected' and not self.curse_removed and not self.cured and not ignore_debuff then
         return false
     end
     return ortalab_card_can_calculate(self, ignore_debuff, ignore_sliced)
