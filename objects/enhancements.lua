@@ -254,7 +254,7 @@ SMODS.Enhancement({
     end,
     calculate = function(self, card, context)
         if context.before and context.cardarea == G.play then
-            Ortalab.modify_temp_levels(card.ability.extra.level_up)
+            Ortalab.modify_temp_levels(card.ability.extra.level_up, context.scoring_name)
             return {
                 message = localize('ortalab_level_up'),
                 colour = G.C.PURPLE

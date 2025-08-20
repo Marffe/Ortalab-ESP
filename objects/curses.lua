@@ -359,7 +359,7 @@ Ortalab.Curse({
     end,
     calculate = function(self, card, context)
         if context.before and (context.cardarea == G.hand or context.cardarea == G.jokers) then
-            Ortalab.modify_temp_levels(-card.ability.curse.extra.level_loss)
+            Ortalab.modify_temp_levels(-card.ability.curse.extra.level_loss, context.scoring_name)
             return {
                 message = localize({type = 'name_text', set = 'Curse', key = self.key})..'!',
                 colour = self.badge_colour,

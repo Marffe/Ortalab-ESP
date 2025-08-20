@@ -434,8 +434,7 @@ function Ortalab.Pool_Utils.get_consumeable_key(type)
     return key
 end
 
-function Ortalab.modify_temp_levels(mod, temp_level_colour)
-    local text = G.GAME.current_round.current_hand.handname
+function Ortalab.modify_temp_levels(mod, text)
     local current = G.GAME.ortalab.temp_levels
     G.GAME.ortalab.temp_levels = G.GAME.ortalab.temp_levels + mod
     for i=1, math.abs(mod) do
@@ -444,6 +443,6 @@ function Ortalab.modify_temp_levels(mod, temp_level_colour)
             mult = mod_mult(math.max(1, mult+((mod/math.abs(mod)) * G.GAME.hands[text].l_mult)))
             hand_chips = mod_chips(math.max(0, hand_chips+((mod/math.abs(mod)) * G.GAME.hands[text].l_chips)))
         end
-        update_hand_text({delay = 0.3}, {mult = mult, chips = hand_chips, temp_level = current, temp_colour = temp_level_colour or G.hand_text_area.temporary_level.config.colour})
+        update_hand_text({delay = 0.3}, {mult = mult, chips = hand_chips, temp_level = current, temp_colour = G.hand_text_area.temporary_level.config.colour})
     end
 end
