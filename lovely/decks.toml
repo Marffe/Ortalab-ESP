@@ -182,3 +182,18 @@ if G.GAME.modifiers.neon_deck and self.edition then
     self.cost = math.ceil(self.cost / 2)
 end
 '''
+
+# Prismatic Check
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+match_indent = true
+position = 'before'
+pattern = '''
+return self.base.suit == suit
+'''
+payload = '''
+if Ortalab.suit_smear(self, flush_calc) then
+    return true
+end
+'''

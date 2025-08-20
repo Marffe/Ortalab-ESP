@@ -394,17 +394,12 @@ function Ortalab.context(context)
     print(str)
 end
 
-function Ortalab.suit_smear(card)
-    if next(SMODS.find_card('j_ortalab_monochrome')) or G.GAME.selected_back.effect.center.key == 'b_ortalab_prismatic' or SMODS.has_enhancement(card, 'm_wild') then
+function Ortalab.suit_smear(card, flush_calc)
+    if not flush_calc and (next(SMODS.find_card('j_ortalab_monochrome')) or G.GAME.selected_back.effect.center.key == 'b_ortalab_prismatic' or SMODS.has_enhancement(card, 'm_wild')) then
         return true
     end
+    return false
 end
-
-local ortalab_smods_any_suit = SMODS.has_any_suit
-function SMODS.has_any_suit(card)
-    return ortalab_smods_any_suit(card) or Ortalab.suit_smear(card)
-end
-
 
 Ortalab.Pool_Utils = {}
 function Ortalab.Pool_Utils.get_consumeable_type()
