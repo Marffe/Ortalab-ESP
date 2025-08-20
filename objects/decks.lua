@@ -261,7 +261,6 @@ SMODS.Back({
                 for k, v in pairs(G.playing_cards) do
                     if not v:is_face() then 
                         v.to_remove = true
-                        -- SMODS.change_base(v, nil, pseudorandom_element(faces, pseudoseed('royal_deck_'..k)))
                     end
                 end
                 local i = 1
@@ -273,6 +272,7 @@ SMODS.Back({
                     end
                 end
                 G.GAME.starting_deck_size = #G.playing_cards
+                G.deck.config.true_card_limit = #G.playing_cards
                 return true
             end
         }))
