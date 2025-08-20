@@ -438,5 +438,5 @@ pattern = '''
 if v:is_suit('Clubs', nil, true) or v:is_suit('Spades', nil, true) then
 '''
 payload = '''
-if v:is_suit('Clubs') or v:is_suit('Spades') then
+if v:is_suit('Clubs', true) or v:is_suit('Spades', true) then
 '''
