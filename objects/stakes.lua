@@ -174,7 +174,7 @@ SMODS.Stake({
     atlas = 'stakes',
     pos = {x = 4, y = 0},
     shiny = true,
-    sticker_pos = {x = 4, y = 0},
+    sticker_pos = {x = 0, y = 1},
     sticker_atlas = 'stickers',
     modifiers = function()
         G.GAME.ortalab.round_decay = 1
@@ -189,7 +189,7 @@ SMODS.Stake({
     atlas = 'stakes',
     pos = {x = 5, y = 0},
     shiny = true,
-    sticker_pos = {x = 5, y = 0},
+    sticker_pos = {x = 1, y = 1},
     sticker_atlas = 'stickers',
     modifiers = function()
         G.GAME.ortalab.shop_curses = true
@@ -203,7 +203,7 @@ SMODS.Stake({
     atlas = 'stakes',
     pos = {x = 6, y = 0},
     shiny = true,
-    sticker_pos = {x = 6, y = 0},
+    sticker_pos = {x = 2, y = 1},
     sticker_atlas = 'stickers',
     modifiers = function()
         G.GAME.ortalab.ante_showdown = true
@@ -217,7 +217,7 @@ SMODS.Stake({
     atlas = 'stakes',
     pos = {x = 7, y = 0},
     shiny = true,
-    sticker_pos = {x = 7, y = 0},
+    sticker_pos = {x = 3, y = 1},
     sticker_atlas = 'stickers',
     modifiers = function()
         G.GAME.ortalab.finisher_ante = true
