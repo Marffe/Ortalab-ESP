@@ -57,7 +57,8 @@ SMODS.Seal({
     config = {extra = {levels = 2}},
     badge_colour = HEX('7e94ba'),
     in_pool = function(self)
-        return G.GAME.modifiers.ortalab_only
+        if G.GAME.modifiers.ortalab_only then self.weight = 5 else self.weight = 2.5 end
+        return true
     end,
     loc_vars = function(self, info_queue, card)
         return {vars = {card.ability.seal.extra.levels}}
@@ -86,7 +87,8 @@ SMODS.Seal({
     config = {},
     badge_colour = HEX('A85D7C'),
     in_pool = function(self)
-        return G.GAME.modifiers.ortalab_only
+        if G.GAME.modifiers.ortalab_only then self.weight = 5 else self.weight = 2.5 end
+        return true
     end,
     calculate = function(self, card, context)
         if context.discard and context.other_card == card and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
