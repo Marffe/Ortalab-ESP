@@ -285,7 +285,7 @@ SMODS.Back({
             end
             local new_card = create_playing_card(nil, G.deck)
             new_card:add_to_deck()
-            SMODS.change_base(new_card, nil, pseudorandom_element(faces, pseudoseed('royal_deck_spawn')))
+            SMODS.change_base(new_card, nil, pseudorandom_element(faces, pseudoseed('royal_deck_spawn')), nil)
             bottle_randomise(new_card)
             playing_card_joker_effects({new_card})
         end
