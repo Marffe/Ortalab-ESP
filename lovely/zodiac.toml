@@ -269,7 +269,8 @@ if G.zodiac_sprite or G.ophiuchus_sprite then
     if G.zodiac_sprite then G.zodiac_sprite:remove() end
     G.zodiac_UI:remove()
     if G.ophiuchus_sprite then G.ophiuchus_sprite:remove() end
-    ease_background_colour({special_colour = Ortalab.old_colours.special_colour, tertiary_colour = Ortalab.old_colours.tertiary_colour, new_colour = Ortalab.old_colours.new_colour})
+    if Ortalab.old_colours then ease_background_colour({special_colour = Ortalab.old_colours.special_colour, tertiary_colour = Ortalab.old_colours.tertiary_colour, new_colour = Ortalab.old_colours.new_colour}) end
+    Ortalab.old_colours = nil
     update_hand_text({immediate = true, nopulse = true, delay = 0}, {temp_level = ''})
     G.GAME.ortalab.temp_levels = 0
 end

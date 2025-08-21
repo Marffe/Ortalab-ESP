@@ -1138,7 +1138,8 @@ function update_hand_text(config, vals)
         if G.zodiac_sprite then G.zodiac_sprite:remove() end
         if G.ophiuchus_sprite then G.ophiuchus_sprite:remove() end
         G.zodiac_UI:remove()
-        ease_background_colour({special_colour = Ortalab.old_colours.special_colour, tertiary_colour = Ortalab.old_colours.tertiary_colour, new_colour = Ortalab.old_colours.new_colour})
+        if Ortalab.old_colours then ease_background_colour({special_colour = Ortalab.old_colours.special_colour, tertiary_colour = Ortalab.old_colours.tertiary_colour, new_colour = Ortalab.old_colours.new_colour}) end
+        Ortalab.old_colours = nil
     end
     ortalab_update_hand_text(config, vals)
 end
