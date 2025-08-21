@@ -165,14 +165,13 @@ SMODS.Blind({
     collection_loc_vars = function(self)
         return {vars = {G.GAME.probabilities.normal, self.config.extra.frequency}}
     end,
-    drawn_to_hand = function(self)
-        for _, card in pairs(G.hand.cards) do
-            if not card.top_check then
-                if SMODS.pseudorandom_probability(G.GAME.blind, 'top_blind', 1, self.config.extra.frequency) then
+    calculate = function(self, card, context)
+        if context.hand_drawn then
+            for _, card in ipairs(context.hand_drawn) do
+                 if SMODS.pseudorandom_probability(G.GAME.blind, 'top_blind', 1, self.config.extra.frequency) then
                     card:set_debuff(true)
                     if card.debuff then card.debuffed_by_blind = true end
                 end
-                card.top_check = true
             end
         end
     end,
