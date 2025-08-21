@@ -57,7 +57,8 @@ SMODS.Seal({
     config = {extra = {levels = 2}},
     badge_colour = HEX('7e94ba'),
     in_pool = function(self)
-        return G.GAME.modifiers.ortalab_only
+        if G.GAME.modifiers.ortalab_only then self.weight = 5 else self.weight = 2.5 end
+        return true
     end,
     loc_vars = function(self, info_queue, card)
         return {vars = {card.ability.seal.extra.levels}}
@@ -86,7 +87,8 @@ SMODS.Seal({
     config = {},
     badge_colour = HEX('A85D7C'),
     in_pool = function(self)
-        return G.GAME.modifiers.ortalab_only
+        if G.GAME.modifiers.ortalab_only then self.weight = 5 else self.weight = 2.5 end
+        return true
     end,
     calculate = function(self, card, context)
         if context.discard and context.other_card == card and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
@@ -174,7 +176,7 @@ SMODS.Stake({
     atlas = 'stakes',
     pos = {x = 4, y = 0},
     shiny = true,
-    sticker_pos = {x = 4, y = 0},
+    sticker_pos = {x = 0, y = 1},
     sticker_atlas = 'stickers',
     modifiers = function()
         G.GAME.ortalab.round_decay = 1
@@ -189,7 +191,7 @@ SMODS.Stake({
     atlas = 'stakes',
     pos = {x = 5, y = 0},
     shiny = true,
-    sticker_pos = {x = 5, y = 0},
+    sticker_pos = {x = 1, y = 1},
     sticker_atlas = 'stickers',
     modifiers = function()
         G.GAME.ortalab.shop_curses = true
@@ -203,7 +205,7 @@ SMODS.Stake({
     atlas = 'stakes',
     pos = {x = 6, y = 0},
     shiny = true,
-    sticker_pos = {x = 6, y = 0},
+    sticker_pos = {x = 2, y = 1},
     sticker_atlas = 'stickers',
     modifiers = function()
         G.GAME.ortalab.ante_showdown = true
@@ -217,7 +219,7 @@ SMODS.Stake({
     atlas = 'stakes',
     pos = {x = 7, y = 0},
     shiny = true,
-    sticker_pos = {x = 7, y = 0},
+    sticker_pos = {x = 3, y = 1},
     sticker_atlas = 'stickers',
     modifiers = function()
         G.GAME.ortalab.finisher_ante = true

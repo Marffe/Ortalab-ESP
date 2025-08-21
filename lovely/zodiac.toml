@@ -131,7 +131,7 @@ if G.zodiacs then
     end
 
     -- Check to see if Zodiac is present
-    local zodiac_key = G.P_CENTERS[zodiac_from_hand(text)].config.extra.zodiac
+    local zodiac_key = G.P_CENTERS[zodiac_from_hand(text)] and G.P_CENTERS[zodiac_from_hand(text)].config.extra.zodiac
     if G.zodiacs[zodiac_key] then
         zodiac_current = G.zodiacs[zodiac_key]
         zodiac_effect = G.ZODIACS[zodiac_key]
@@ -269,7 +269,8 @@ if G.zodiac_sprite or G.ophiuchus_sprite then
     if G.zodiac_sprite then G.zodiac_sprite:remove() end
     G.zodiac_UI:remove()
     if G.ophiuchus_sprite then G.ophiuchus_sprite:remove() end
-    ease_background_colour({special_colour = Ortalab.old_colours.special_colour, tertiary_colour = Ortalab.old_colours.tertiary_colour, new_colour = Ortalab.old_colours.new_colour})
+    if Ortalab.old_colours then ease_background_colour({special_colour = Ortalab.old_colours.special_colour, tertiary_colour = Ortalab.old_colours.tertiary_colour, new_colour = Ortalab.old_colours.new_colour}) end
+    Ortalab.old_colours = nil
     update_hand_text({immediate = true, nopulse = true, delay = 0}, {temp_level = ''})
     G.GAME.ortalab.temp_levels = 0
 end
@@ -286,21 +287,6 @@ hand_level = self.HUD:get_UIE_by_ID('hand_level'),
 '''
 payload = '''
 temporary_level = self.HUD:get_UIE_by_ID('temporary_level'),
-'''
-
-
-# Display temporary levels built in
-[[patches]]
-[patches.pattern]
-target = 'functions/UI_definitions.lua'
-match_indent = true
-position = 'at'
-pattern = '''
-{n=G.UIT.T, config={ref_table = G.GAME.current_round.current_hand, ref_value='hand_level', scale = scale, colour = G.C.UI.TEXT_LIGHT, id = 'hand_level', shadow = true}}
-'''
-payload = '''
-{n=G.UIT.T, config={ref_table = G.GAME.current_round.current_hand, ref_value='hand_level', scale = scale, colour = G.C.UI.TEXT_LIGHT, id = 'hand_level', shadow = true}},
-{n=G.UIT.T, config={ref_table = G.GAME.current_round.current_hand, ref_value='temporary_level', scale = scale, colour = G.C.UI.TEXT_LIGHT, id = 'temporary_level', shadow = true}}
 '''
 
 # Patch update_hand_text to allow temp_levels

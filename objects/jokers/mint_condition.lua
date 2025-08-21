@@ -16,7 +16,7 @@ SMODS.Joker({
         return {vars = {card.ability.extra.Xmult}}
     end,
 	calculate = function(self, card, context)
-		if context.ortalab_money_gain then
+		if context.money_altered and context.from_scoring and context.amount > 0 then
 			return {
 				xmult = card.ability.extra.Xmult
 			}

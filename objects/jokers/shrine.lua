@@ -30,7 +30,8 @@ SMODS.Joker({
         end
     end,
     calculate = function(self, card, context) --Shrine Logic
-        if context.ortalab_shrine and G.GAME.ortalab.secret_hand_list[context.scoring_name] and (#G.consumeables.cards + G.GAME.consumeable_buffer) < G.consumeables.config.card_limit then
+        if context.after then card.ability.extra.hand = context.scoring_name end
+        if context.ortalab_shrine and G.GAME.ortalab.secret_hand_list[card.ability.extra.hand] and (#G.consumeables.cards + G.GAME.consumeable_buffer) < G.consumeables.config.card_limit then
             G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
             local mythos
             local old_colours = {

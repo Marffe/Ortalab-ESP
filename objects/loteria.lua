@@ -1052,6 +1052,7 @@ function use_enhance_cards(self, loteria, area, copier)
     for _, card in pairs(G.hand.cards) do
         if card.changed then card.changed = false end
     end
+    Ortalab.check_force_highlighted()
 end
 
 function shuffle_cards()
@@ -1135,7 +1136,7 @@ end
 function harp_randomise(new_card, card_1_info, card_2_info)
     Ortalab.harp_usage = true
     local weighting = 0.2
-    assert(SMODS.change_base(new_card, pseudorandom_element({card_1_info.suit, card_2_info.suit}, pseudoseed('harp_suit')), pseudorandom_element({card_1_info.rank, card_2_info.rank}, pseudoseed('harp_rank'))))
+    assert(SMODS.change_base(new_card, pseudorandom_element({card_1_info.suit, card_2_info.suit}, pseudoseed('harp_suit')), pseudorandom_element({card_1_info.rank, card_2_info.rank}, pseudoseed('harp_rank')), nil))
     local edition = pseudorandom('harp_edition') > (0.5 - (card_1_info.edition and weighting or 0) + (card_2_info.edition and weighting or 0)) and (card_1_info.edition or 'none') or (card_2_info.edition or 'none')
     if edition ~= 'none' then new_card:set_edition(edition, true, true) else new_card:set_edition(nil, nil, true) end
     local enhancement = pseudorandom('harp_enhancement') > (0.5 - (card_1_info.enhancement and weighting or 0) + (card_2_info.enhancement and weighting or 0)) and (card_1_info.enhancement or 'none') or (card_2_info.enhancement or 'none')

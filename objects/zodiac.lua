@@ -707,7 +707,7 @@ Ortalab.Zodiac{
                 G.hand.cards[i].base.id = context.scoring_hand[3].base.id
                 G.hand.cards[i].base.nominal = context.scoring_hand[3].base.nominal
                 G.hand.cards[i].base.face_nominal = context.scoring_hand[3].base.face_nominal
-                G.hand.cards[i].delay_edition = G.hand.cards[i].edition and G.hand.cards[i].edition.key or true
+                G.hand.cards[i].delay_edition = G.hand.cards[i].edition or {base = true}
                 G.hand.cards[i]:set_edition(context.scoring_hand[3].edition and context.scoring_hand[3].edition.key, false, true)
                 G.hand.cards[i]:set_ability(G.P_CENTERS[context.scoring_hand[3].config.center_key], nil, true)
                 G.E_MANAGER:add_event(Event({
@@ -818,7 +818,7 @@ Ortalab.Zodiac{
                 G.hand.cards[i].base.id = context.scoring_hand[1].base.id
                 G.hand.cards[i].base.nominal = context.scoring_hand[1].base.nominal
                 G.hand.cards[i].base.face_nominal = context.scoring_hand[1].base.face_nominal
-                G.hand.cards[i].delay_edition = context.scoring_hand[1].edition and context.scoring_hand[1].edition.key or true
+                G.hand.cards[i].delay_edition = context.scoring_hand[1].edition or {}
                 G.hand.cards[i]:set_edition(context.scoring_hand[1].edition and context.scoring_hand[1].edition.key, false, true)
                 G.hand.cards[i]:set_ability(G.P_CENTERS[context.scoring_hand[1].config.center_key], nil, true)
                 G.E_MANAGER:add_event(Event({
@@ -904,6 +904,12 @@ Ortalab.Zodiac{
         return context.mult, context.chips, true
     end
 }
+
+local ortalab_should_hide_front = Card.should_hide_front
+function Card:should_hide_front()
+    if self.becoming_no_rank then return false end
+    return ortalab_should_hide_front(self)
+end
 
 SMODS.Consumable({
     key = 'zod_sag',
@@ -1099,7 +1105,7 @@ Ortalab.Zodiac{
                 Ortalab.change_suit_no_anim(card, new_suit)
                 if not card.edition then
                     local new_edition = poll_edition('zodiac_pisces', nil, false, true)
-                    card.delay_edition = true
+                    card.delay_edition = card.edition or {}
                     card:set_edition(new_edition, false, true)
                 end
                 G.E_MANAGER:add_event(Event({
@@ -1116,6 +1122,13 @@ Ortalab.Zodiac{
     end
 }
 
+local smods_gui_hand_ui = SMODS.GUI.current_hand_ui
+function SMODS.GUI.current_hand_ui(scale)
+    local ret = smods_gui_hand_ui(scale)
+    ret.nodes[#ret.nodes + 1] = {n=G.UIT.T, config={ref_table = G.GAME.current_round.current_hand, ref_value='temporary_level', scale = scale, colour = G.C.UI.TEXT_LIGHT, id = 'temporary_level', shadow = true}}
+    return ret
+end
+
 local ortalab_update_hand_text = update_hand_text
 function update_hand_text(config, vals)
     if vals.level == '' then
@@ -1125,7 +1138,8 @@ function update_hand_text(config, vals)
         if G.zodiac_sprite then G.zodiac_sprite:remove() end
         if G.ophiuchus_sprite then G.ophiuchus_sprite:remove() end
         G.zodiac_UI:remove()
-        ease_background_colour({special_colour = Ortalab.old_colours.special_colour, tertiary_colour = Ortalab.old_colours.tertiary_colour, new_colour = Ortalab.old_colours.new_colour})
+        if Ortalab.old_colours then ease_background_colour({special_colour = Ortalab.old_colours.special_colour, tertiary_colour = Ortalab.old_colours.tertiary_colour, new_colour = Ortalab.old_colours.new_colour}) end
+        Ortalab.old_colours = nil
     end
     ortalab_update_hand_text(config, vals)
 end

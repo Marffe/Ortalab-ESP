@@ -224,7 +224,8 @@ SMODS.Consumable({
                 trigger = 'after', delay = 0.7,
                 func = function()
                     local joker, pos = pseudorandom_element(available_jokers, pseudoseed('tree_perish'))
-                    SMODS.Stickers.perishable:apply(joker, true)
+                    joker:add_sticker('perishable', true)
+                    joker:remove_sticker('eternal')
                     joker:juice_up()
                     play_sound('tarot1')
                     card:juice_up(0.3, 0.5)
@@ -316,7 +317,13 @@ SMODS.Consumable({
                 end
             }))
         end
-        playing_card_joker_effects(copies)  
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after', delay = 0.4,
+            func = function()        
+                playing_card_joker_effects(copies)
+                return true
+            end
+        }))
 
         -- destroy original card
         SMODS.destroy_cards(G.hand.highlighted[1])
@@ -882,7 +889,7 @@ SMODS.Consumable({
         info_queue[#info_queue + 1] = {set = 'Curse', key = 'ortalab_possessed_joker', specific_vars = {G.GAME.probabilities.normal, Ortalab.Curses[card.ability.extra.curse].config.extra.denom}}
     end,
     can_use = function(self, card)
-        return #G.jokers.highlighted == card.ability.extra.cards and not G.jokers.highlighted[1].cursed and Ortalab.Mythos_Utils.can_curse_in_area(G.jokers.cards, card.ability.extra.select + 1)
+        return #G.consumeables.cards < G.consumeables.config.card_limit + (card.area == G.consumeables and 1 or 0) and #G.jokers.highlighted == card.ability.extra.cards and not G.jokers.highlighted[1].cursed and Ortalab.Mythos_Utils.can_curse_in_area(G.jokers.cards, card.ability.extra.select + 1)
     end,
     use = function(self, card, area, copier)
         -- Move joker
@@ -1526,7 +1533,13 @@ Ortalab.Mythos_Utils.Corpus_Effects.cryptid = function(card)
             end
         }))
     end
-    playing_card_joker_effects(copies)
+    G.E_MANAGER:add_event(Event({
+            trigger = 'after', delay = 0.4,
+            func = function()        
+                playing_card_joker_effects(copies)
+                return true
+            end
+        }))
     delay(4)
 end
 

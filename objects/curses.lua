@@ -359,7 +359,7 @@ Ortalab.Curse({
     end,
     calculate = function(self, card, context)
         if context.before and (context.cardarea == G.hand or context.cardarea == G.jokers) then
-            Ortalab.modify_temp_levels(-card.ability.curse.extra.level_loss)
+            Ortalab.modify_temp_levels(-card.ability.curse.extra.level_loss, context.scoring_name)
             return {
                 message = localize({type = 'name_text', set = 'Curse', key = self.key})..'!',
                 colour = self.badge_colour,
@@ -444,7 +444,7 @@ Ortalab.Curse({
 
 local ortalab_card_can_calculate = Card.can_calculate
 function Card:can_calculate(ignore_debuff, ignore_sliced)
-    if self.ability.set ~= 'Joker' and self.curse == 'ortalab_infected' and not self.curse_removed and not self.cured then
+    if self.ability.set ~= 'Joker' and self.curse == 'ortalab_infected' and not self.curse_removed and not self.cured and not ignore_debuff then
         return false
     end
     return ortalab_card_can_calculate(self, ignore_debuff, ignore_sliced)

@@ -261,7 +261,6 @@ SMODS.Back({
                 for k, v in pairs(G.playing_cards) do
                     if not v:is_face() then 
                         v.to_remove = true
-                        -- SMODS.change_base(v, nil, pseudorandom_element(faces, pseudoseed('royal_deck_'..k)))
                     end
                 end
                 local i = 1
@@ -273,6 +272,7 @@ SMODS.Back({
                     end
                 end
                 G.GAME.starting_deck_size = #G.playing_cards
+                G.deck.config.true_card_limit = #G.playing_cards
                 return true
             end
         }))
@@ -285,7 +285,7 @@ SMODS.Back({
             end
             local new_card = create_playing_card(nil, G.deck)
             new_card:add_to_deck()
-            SMODS.change_base(new_card, nil, pseudorandom_element(faces, pseudoseed('royal_deck_spawn')))
+            SMODS.change_base(new_card, nil, pseudorandom_element(faces, pseudoseed('royal_deck_spawn')), nil)
             bottle_randomise(new_card)
             playing_card_joker_effects({new_card})
         end
