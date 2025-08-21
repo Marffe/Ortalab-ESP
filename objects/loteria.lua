@@ -1052,7 +1052,7 @@ function use_enhance_cards(self, loteria, area, copier)
     for _, card in pairs(G.hand.cards) do
         if card.changed then card.changed = false end
     end
-    Ortalab.check_force_highlighted()
+    Ortalab.check_force_highlight()
 end
 
 function shuffle_cards()
