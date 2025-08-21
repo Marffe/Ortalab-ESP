@@ -27,13 +27,6 @@ function ortalab_artist_tooltip(_c, info_queue, card, desc_nodes, specific_vars,
     desc_nodes.ortalab_artist = true
     desc_nodes.title = _c.title or localize('ortalab_artist')
 end
-
-function tag_tooltip(_c, info_queue, card, desc_nodes, specific_vars, full_UI_table)
-    desc_nodes.tag = true
-    desc_nodes.title = localize({type = 'name_text', set = 'Tag', key = _c.key})
-    localize{type = 'descriptions', set = 'Tag', key = _c.key, nodes = desc_nodes, vars = specific_vars or G.P_TAGS[_c.key]:loc_vars().vars}
-end
-
 local itfr = info_tip_from_rows
 function info_tip_from_rows(desc_nodes, name)
     if desc_nodes.ortalab_artist then

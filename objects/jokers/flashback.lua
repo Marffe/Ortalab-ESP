@@ -12,7 +12,7 @@ SMODS.Joker({
 	config = {extra = {tag = 'tag_ortalab_rewind'}},
     artist_credits = {'gappie'},
 	loc_vars = function(self, info_queue, card)
-        info_queue[#info_queue + 1] = {generate_ui = tag_tooltip, key = self.config.extra.tag}
+        info_queue[#info_queue + 1] = G.P_TAGS.tag_ortalab_rewind
         return {vars = {localize({type = 'name_text', set = 'Tag', key = self.config.extra.tag})}}
     end,
     calculate = function(self, card, context)
