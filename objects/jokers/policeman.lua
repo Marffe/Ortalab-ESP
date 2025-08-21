@@ -23,12 +23,10 @@ SMODS.Joker({
 				colour = G.C.BLUE
 			}
         end
-		if context.end_of_round and context.main_eval then
-			if G.GAME.current_round.discards_left > 0 then
-				return {
-					dollars = G.GAME.current_round.discards_left * card.ability.extra.money
-				}
-			end
+    end,
+	calc_dollar_bonus = function(self, card)
+		if G.GAME.current_round.discards_left > 0 then
+			return G.GAME.current_round.discards_left * card.ability.extra.money
 		end
-    end
+	end
 })

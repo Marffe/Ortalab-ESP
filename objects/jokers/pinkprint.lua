@@ -7,8 +7,8 @@ SMODS.Joker({
     unlocked = true,
     discovered = false,
     blueprint_compat = false,
-    eternal_compat = false,
-    perishable_compat = false,
+    eternal_compat = true,
+    perishable_compat = true,
     config = {extra = {}},
     artist_credits = {'crimson'},
     loc_vars = function(self, info_queue, card)

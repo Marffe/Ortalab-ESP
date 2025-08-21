@@ -3,7 +3,7 @@ SMODS.Joker({
 	atlas = "jokers",
 	pos = {x = 6, y = 5},
 	rarity = 1,
-	cost = 6,
+	cost = 4,
 	unlocked = true,
 	discovered = false,
 	blueprint_compat = false,
@@ -15,6 +15,8 @@ SMODS.Joker({
         return {vars = {card.ability.extra.money}}
     end,
 	calc_dollar_bonus = function(self, card)
-		return G.GAME.current_round.hands_left * card.ability.extra.money
+		if G.GAME.current_round.hands_played == 1 then
+            return G.GAME.current_round.hands_left * card.ability.extra.money
+        end
 	end
 })

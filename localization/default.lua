@@ -86,7 +86,7 @@ return {
 			['ortalab_loteria_pack'] = 'Chalupa Pack',
 			['ortalab_astral_pack'] = 'Astral Pack',
 			ortalab_mythos_pack = 'Mythos Pack',
-			['ortalab_moldy_discard'] = 'Discard!',
+			--[[['ortalab_moldy_discard'] = 'Discard!',]]
 			['ortalab_moldy_tag'] = 'Tag!',
 			['ortalab_no_tag'] = 'None',
 			['ortalab_flashback'] = 'Flashback!',
@@ -169,7 +169,21 @@ return {
 			ortalab_infected = 'Infected',
 			ortalab_cyan_seal = 'Cyan Seal',
 			ortalab_magenta_seal = 'Magenta Seal'
-		}
+		},
+		challenge_names = {
+			c_ortalab_police = "Sound of the",
+			c_ortalab_black_parade = "Black Parade",
+			c_ortalab_copy_cat = "Copy Copy Cat",
+			c_ortalab_cursed = "Cursed!",
+			c_ortalab_stars = "Stars",
+			c_ortalab_rusty_needle = "Rusty Needle",
+			c_ortalab_shinku_challenge = "Shinku idk",
+			c_ortalab_locked_in = "Locked in",
+			c_ortalab_rich_kid = "Rich Kid",
+			c_ortalab_evil_up = "Evil Up!",
+			c_ortalab_idk = "idk",
+			c_ortalab_fingers = "Through your Fingers",
+		},
     },
     ["descriptions"] = {
 		["Ortalab Artist"] = {
@@ -493,7 +507,7 @@ return {
 			['j_ortalab_blue_card'] = {
 				["name"] = "Blue Card",
 				["text"] = {
-					"Gains {C:blue}#1#{} Chips when",
+					"Gains {C:blue}+#1#{} Chips when",
 					"any {C:attention}Card{} is used",
 					"from a {C:attention}Booster Pack",
 					"{C:inactive,s:0.9}(Currently {C:blue,s:0.9}+#2#{C:inactive,s:0.9} Chips)"
@@ -700,7 +714,7 @@ return {
 			['j_ortalab_fine_wine'] = {
 				["name"] = "Fine Wine",
 				["text"] = {
-					"{C:red}+#1#{} discards,",
+					"{C:red}+#1#{} discards",
 					"Gain {C:red}+#4#{} discard",
 					"when blind is selected",
 					"{C:green}#2# in #3#{} chance this Joker is",
@@ -961,9 +975,9 @@ return {
 			j_ortalab_memorial = {
 				name = 'Memorial',
 				text = {
-					'When {C:attention}sold{},',
-					'{C:attention}upgrade{} most played',
-					'poker hand',
+					'When {C:attention}sold{}, {C:attention}upgrade{}',
+					'most played poker hand',
+					'{C:inactive,s:0.8}(Currently upgrading #1#)'
 				}
 			},
 			['j_ortalab_mill'] = {
@@ -1239,9 +1253,9 @@ return {
 			['j_ortalab_reduce_reuse'] = {
 				["name"] = "Reduce, Reuse, Recycle",
 				["text"] = {
-					"Gain {C:money}$#1#{} for each",
-					"remaining {C:blue}Hand{} at",
-					"end of round"
+					'If {C:attention}Blind{} beaten in a',
+					'single hand, gain {C:money}$#1#{} for each',
+					"remaining {C:blue}Hand{} at end of round",
 				}
 			},
 			['j_ortalab_revolver'] = {
@@ -1256,7 +1270,7 @@ return {
 				}
 			},
 			j_ortalab_right_hand = {
-				name = 'Right Hand Man',
+				name = 'Schematic',
 				text = {
 					'Copies the ability', 
 					'of rightmost {C:attention}Joker'
@@ -1414,7 +1428,7 @@ return {
 			j_ortalab_seventh_sense = {
 				name = 'Seventh Sense',
 				text = {
-					'If {C:attention}second{} hand of round',
+					'If {C:attention}first{} hand of round',
 					'is a single {C:attention}#1#{},',
 					'destroy it and spawn a',
 					'random {C:ortalab_mythos}Mythos Card'
@@ -1637,36 +1651,32 @@ return {
             ["c_ortalab_lot_umbrella"] = {
 				["name"] = "The Umbrella",
 				["text"] = {
-					"Enhances {C:attention}#1#{} random",
-                    "cards into",
-                    "{C:attention}Bent Cards",
+					"Enhances {C:attention}#1#{} random cards",
+                    "into {C:attention}Bent Cards",
 					"{C:inactive,s:0.8}Weighted towards unenhanced cards"
 				},
 			},
 			["c_ortalab_lot_melon"] = {
 				["name"] = "The Melon",
 				["text"] = {
-					"Enhances {C:attention}#1#{} random",
-                    "cards into",
-                    "{C:attention}Recycled Cards",
+					"Enhances {C:attention}#1#{} random cards",
+                    "into {C:attention}Recycled Cards",
 					"{C:inactive,s:0.8}Weighted towards unenhanced cards"
 				},
 			},
 			["c_ortalab_lot_mandolin"] = {
 				["name"] = "The Mandolin",
 				["text"] = {
-					"Enhances {C:attention}#1#{} random",
-                    "cards into",
-                    "{C:attention}Post Cards",
+					"Enhances {C:attention}#1#{} random cards",
+                    "into {C:attention}Post Cards",
 					"{C:inactive,s:0.8}Weighted towards unenhanced cards"
 				},
 			},
 			["c_ortalab_lot_rose"] = {
 				["name"] = "The Rose",
 				["text"] = {
-					"Enhances {C:attention}#1#{} random",
-                    "cards into",
-                    "{C:attention}Cosmic Cards",
+					"Enhances {C:attention}#1#{} random cards",
+                    "into {C:attention}Cosmic Cards",
 					"{C:inactive,s:0.8}Weighted towards unenhanced cards"
 				},
 			},
@@ -1681,18 +1691,16 @@ return {
             ["c_ortalab_lot_siren"] = {
 				["name"] = "The Siren",
 				["text"] = {
-					"Enhances {C:attention}#1#{} random",
-                    "cards into",
-                    "{C:attention}Rusty Cards",
+					"Enhances {C:attention}#1#{} random cards",
+                    "into {C:attention}Rusty Cards",
 					"{C:inactive,s:0.8}Weighted towards unenhanced cards"
 				},
 			},
 			["c_ortalab_lot_bird"] = {
 				["name"] = "The Bird",
 				["text"] = {
-					"Enhances {C:attention}#1#{} random",
-                    "cards into",
-                    "{C:attention}Sand Cards",
+					"Enhances {C:attention}#1#{} random cards",
+                    "into {C:attention}Sand Cards",
 					"{C:inactive,s:0.8}Weighted towards unenhanced cards"
 				},
 			},
@@ -1710,8 +1718,8 @@ return {
 				["text"] = {
 					"{C:green}#1# in #2#{} chance to add",
                     "{C:dark_edition}Anaglyphic{}, {C:dark_edition}Fluorescent{},",
-                    "{C:dark_edition}Greyscale{} or {C:dark_edition}Overexposed{} edition to",
-                    "a random {C:attention}Joker"
+                    "{C:dark_edition}Greyscale{} or {C:dark_edition}Overexposed{}",
+                    "edition to a random {C:attention}Joker"
 				},
 			},
             ["c_ortalab_lot_parrot"] = {
@@ -1725,19 +1733,14 @@ return {
             ["c_ortalab_lot_ladder"] = {
 				["name"] = "The Ladder",
 				["text"] = {
-					"Enhances {C:attention}#1#{} random",
-                    "cards into",
-                    "{C:attention}Index Cards",
+					"Enhances {C:attention}#1#{} random cards",
+                    "into {C:attention}Index Cards",
 					"{C:inactive,s:0.8}Weighted towards unenhanced cards"
 				},
 			},
             ["c_ortalab_lot_heron"] = {
 				["name"] = "The Heron",
 				["text"] = {
-					--"Earn {C:money}$#1#{} for every",
-					--"{C:chips}#2# Chip value{} of",
-					--"{C:attention}#3#{} random cards in hand",
-					--"{C:inactive,s:0.8}(Max of $40)"
 					"Earn {C:money}${} equal to",
 					"half the {C:chips}Chips{} of",
 					"{C:attention}#3#{} random cards in hand",
@@ -1779,9 +1782,8 @@ return {
             ["c_ortalab_lot_dandy"] = {
 				["name"] = "The Dandy",
 				["text"] = {
-					"Enhances {C:attention}#1#{} random",
-                    "cards into",
-                    "{C:attention}Ore Cards",
+					"Enhances {C:attention}#1#{} random cards",
+                    "into {C:attention}Ore Cards",
 					"{C:inactive,s:0.8}Weighted towards unenhanced cards"
 				},
 			},
@@ -1938,10 +1940,9 @@ return {
 				["name"] = "Recycled Card",
 				["text"] = {
 					{"{C:green}#1# in #2#{} chance",
-					"to add {C:blue}+#7#{} Chips",
-					"and gain {C:red}+#3# Discard",},
-					{"{C:green}#4# in #5#{} chance",
-					"to gain {C:attention}#6# Tag",}
+					"to add {C:blue}+#5#{} Chips",},
+					{"{C:green}#3# in #4#{} chance",
+					"to gain a {C:attention}Tag",}
 				},
 			},
 			["m_ortalab_bent"] = {

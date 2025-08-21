@@ -1607,7 +1607,7 @@ SMODS.Consumable({
         use_zodiac(card)
     end,
     in_pool = function(self, args)
-        if pseudorandom('ortalab_ophiuchus_spawn') < 0.3 then
+        if pseudorandom('ortalab_ophiuchus_spawn') < 0.5 then
             return true
         end
         return false
@@ -1619,7 +1619,7 @@ Ortalab.Zodiac{
     key = 'ophiuchus',
     pos = {x=0, y=2},
     colour = HEX('57405f'),
-    config = {extra = {temp_level = 4, hand_type = 'Any'}},
+    config = {extra = {temp_level = 8, hand_type = 'Any'}},
     loc_vars = function(self, info_queue, card)
         local zodiac = card or self
         local temp_level = (not zodiac.voucher_check and G.GAME.ortalab.zodiacs.temp_level_mod or 1) * zodiac.config.extra.temp_level

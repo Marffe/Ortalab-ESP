@@ -14,7 +14,7 @@ Ortalab.load_table = {
     stakes = true,
     blinds = true,
     curses = true,
-    mythos = true
+    mythos = true,
 }
 
 
@@ -30,6 +30,7 @@ end
 assert(SMODS.load_file('objects/loteria_boosters.lua'))() -- load boosters
 assert(SMODS.load_file('objects/zodiac_boosters.lua'))() -- load boosters
 assert(SMODS.load_file('objects/mythos_boosters.lua'))() -- load boosters
+assert(SMODS.load_file('objects/challenges.lua'))() -- load challenges
 
 assert(SMODS.load_file('util/artists.lua'))()
 assert(SMODS.load_file('util/functions.lua'))()
