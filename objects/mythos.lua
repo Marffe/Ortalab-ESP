@@ -317,7 +317,13 @@ SMODS.Consumable({
                 end
             }))
         end
-        playing_card_joker_effects(copies)  
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after', delay = 0.4,
+            func = function()        
+                playing_card_joker_effects(copies)
+                return true
+            end
+        }))
 
         -- destroy original card
         SMODS.destroy_cards(G.hand.highlighted[1])
@@ -1527,7 +1533,13 @@ Ortalab.Mythos_Utils.Corpus_Effects.cryptid = function(card)
             end
         }))
     end
-    playing_card_joker_effects(copies)
+    G.E_MANAGER:add_event(Event({
+            trigger = 'after', delay = 0.4,
+            func = function()        
+                playing_card_joker_effects(copies)
+                return true
+            end
+        }))
     delay(4)
 end
 
