@@ -883,7 +883,7 @@ SMODS.Consumable({
         info_queue[#info_queue + 1] = {set = 'Curse', key = 'ortalab_possessed_joker', specific_vars = {G.GAME.probabilities.normal, Ortalab.Curses[card.ability.extra.curse].config.extra.denom}}
     end,
     can_use = function(self, card)
-        return #G.jokers.highlighted == card.ability.extra.cards and not G.jokers.highlighted[1].cursed and Ortalab.Mythos_Utils.can_curse_in_area(G.jokers.cards, card.ability.extra.select + 1)
+        return #G.consumeables.cards < G.consumeables.config.card_limit + (card.area == G.consumeables and 1 or 0) and #G.jokers.highlighted == card.ability.extra.cards and not G.jokers.highlighted[1].cursed and Ortalab.Mythos_Utils.can_curse_in_area(G.jokers.cards, card.ability.extra.select + 1)
     end,
     use = function(self, card, area, copier)
         -- Move joker
