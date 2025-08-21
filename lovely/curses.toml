@@ -187,6 +187,18 @@ match_indent = true
 payload = '''
 if #self.highlighted < self.config.highlighted_limit and (v.ability.forced_selection or v.curse == 'ortalab_possessed') and not v.highlighted then
 '''
+[[patches]]
+[patches.pattern]
+target = 'cardarea.lua'
+match_indent = true
+position = 'after'
+pattern = '''
+self:add_to_highlighted(v)
+'''
+payload = '''
+self:parse_highlighted()
+'''
+
 
 # Infected
 [[patches]]
