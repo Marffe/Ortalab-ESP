@@ -37,7 +37,7 @@ SMODS.Joker({
                         return true
                     end)}))
                 return {
-                    message = localize('ortalab_'..string.lower(choice)..'_add'), 
+                    message = localize(string.lower(choice)..'_add'), 
                     colour = G.C.SET.ortalab_loteria,
                     card = context.blueprint_card or card,
                 }
