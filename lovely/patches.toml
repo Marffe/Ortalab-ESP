@@ -79,12 +79,8 @@ if not G.GAME.zodiac_choices[G.GAME.round_resets.ante][type] then
         end
     end
 
-    local zodiac1 = pseudorandom_element(_poker_hands, pseudoseed('constellation_patch'))
-    local zodiac2 = pseudorandom_element(_poker_hands, pseudoseed('constellation_patch'))
-    while zodiac1 == zodiac2 do
-        zodiac2 = pseudorandom_element(_poker_hands, pseudoseed('constellation_patch'))
-    end
-    G.GAME.zodiac_choices[G.GAME.round_resets.ante][type] = {zodiac1, zodiac2}
+    local zodiac = pseudorandom_element(_poker_hands, pseudoseed('constellation_patch'))
+    G.GAME.zodiac_choices[G.GAME.round_resets.ante][type] = zodiac
 end
 '''
 

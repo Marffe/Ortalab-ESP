@@ -420,10 +420,10 @@ SMODS.Tag({
     config = {type = 'round_start_bonus', extra = {zodiacs = 3}},
     artist_credits = {'kosze'},
     loc_vars = function(self, info_queue, card)
-        if card.ability.zodiac_hands and G.ZODIACS[card.ability.zodiac_hands[1]] then
-            info_queue[#info_queue+1] = {generate_ui = zodiac_tooltip, key = card.ability.zodiac_hands[1]}
+        if card.ability.zodiac_hands and G.ZODIACS[card.ability.zodiac_hands] then
+            -- info_queue[#info_queue+1] = G.ZODIACS[card.ability.zodiac_hands]
             return {vars = {
-                localize(G.ZODIACS[card.ability.zodiac_hands[1]].config.extra.hand_type, 'poker_hands'), card.config and card.config.extra and card.config.extra.zodiacs or card.ability.extra.zodiacs
+                localize(G.ZODIACS[card.ability.zodiac_hands].config.extra.hand_type, 'poker_hands'), card.config and card.config.extra and card.config.extra.zodiacs or card.ability.extra.zodiacs
             }}
         else
             return {vars = {'['..localize('k_poker_hand')..']', card.config.extra.zodiacs}}
@@ -435,7 +435,7 @@ SMODS.Tag({
                 return true
             end)
             tag.triggered = true
-            local key = tag.ability.zodiac_hands[1]
+            local key = tag.ability.zodiac_hands
             G.E_MANAGER:add_event(Event({
                     trigger = 'after',
                     delay = 1,
@@ -469,7 +469,7 @@ SMODS.Tag({
                 end
             
                 local zodiac1 = pseudorandom_element(_poker_hands, pseudoseed('constellation_patch'))
-                tag.ability.zodiac_hands = {zodiac1}
+                tag.ability.zodiac_hands = zodiac1
             end
         end
     end
