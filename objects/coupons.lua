@@ -434,7 +434,7 @@ SMODS.Voucher({
 	discovered = false,
 	available = true,
     config = {extra = {hands = -1, discards = 2}},
-    artist_credits = {'no_demo'},
+    artist_credits = {'gappie'},
 	redeem = function(self, card)
         G.GAME.round_resets.hands = G.GAME.round_resets.hands + card.ability.extra.hands
         ease_hands_played(card.ability.extra.hands)
@@ -474,7 +474,7 @@ SMODS.Voucher({
 	discovered = false,
 	available = true,
     config = {extra = {money = 3, wyrms_dragons = {}}},
-    artist_credits = {'no_demo'},
+    artist_credits = {'gappie'},
 	redeem = function(self, card)
         G.GAME.ortalab.blind_rewards = G.GAME.ortalab.blind_rewards + card.ability.extra.money
         update_blind_amounts()
@@ -663,7 +663,7 @@ SMODS.Voucher({
 	available = false,
     requires = {'v_ortalab_seed_inv'},
     config = {extra = {money = 5, wyrms_dragons = {}}},
-    artist_credits = {'no_demo'},
+    artist_credits = {'gappie'},
 	redeem = function(self, card)
         G.GAME.ortalab.blind_rewards = G.GAME.ortalab.blind_rewards + card.ability.extra.money
         update_blind_amounts()
@@ -712,7 +712,7 @@ SMODS.Voucher({
 	unlocked = true,
 	discovered = false,
 	available = true,
-    artist_credits = {'no_demo'},
+    artist_credits = {'gappie'},
 	redeem = function(self, card)
         G.GAME.ortalab.vouchers.reroll_on_skip = true
     end,
@@ -727,7 +727,7 @@ SMODS.Voucher({
 	discovered = false,
 	available = false,
     requires = {'v_ortalab_shared_winnings'},
-    artist_credits = {'no_demo'},
+    artist_credits = {'gappie'},
 	redeem = function(self, card)
         G.GAME.ortalab.alt_boss = get_new_boss()
     end,

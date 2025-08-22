@@ -2,6 +2,7 @@ SMODS.Joker({
 	key = "cutout",
 	atlas = "jokers",
 	pos = {x=6,y=0},
+	pixel_size = {h = 69, w = 47},
 	rarity = 2,
 	cost = 8,
 	unlocked = true,
