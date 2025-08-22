@@ -672,7 +672,7 @@ return {
 				}
 			},
 			j_ortalab_dropout = {
-				["name"] = "Professor",
+				["name"] = "Graduate",
 				["text"] = {
 					{'{C:attention}Retrigger{} all played',
 					'{C:attention}#1#s{}',},
@@ -1157,7 +1157,7 @@ return {
 				}
 			},
 			['j_ortalab_pitch_mitch'] = {
-				["name"] = "Pitch Mitch",
+				["name"] = "Black Jack",
 				["text"] = {
 					"{C:blue}+#1#{} Chips if played",
 					'{C:attention}poker hand{} contains',
@@ -1290,7 +1290,7 @@ return {
 				}
 			},
 			['j_ortalab_roscharch'] = {
-				["name"] = "Roscharch Test",
+				["name"] = "Rorscharch Test",
 				["text"] = {
 					"For each played {C:attention}2{} or {C:attention}5{},",
 					"{C:chips}+#1#{} Chips and {C:mult}+#2#{} Mult",
@@ -2494,7 +2494,7 @@ return {
 				}
 			},
 			v_ortalab_hex = {
-				name = 'Hex',
+				name = 'Hexadecimal',
 				text = {
 					'{C:attention}Tags{} can appear', 
 					'in the shop'
@@ -2522,14 +2522,14 @@ return {
 				}
 			},
 			v_ortalab_blank_inv = {
-				name = 'TBD',
+				name = 'Deep Waters',
 				text = {
 					'Booster packs have',
 					'{C:attention}#1#{} more card'
 				}
 			},
 			v_ortalab_anti_inv = {
-				name = 'TBD',
+				name = 'The Cambrian',
 				text = {
 					'The {C:attention}first{} Booster pack',
 					'you buy in each shop',
@@ -2683,14 +2683,14 @@ return {
 				}
 			},
 			v_ortalab_wasteful_inv = {
-				name = 'Stockpile',
+				name = 'Rake',
 				text = {
 					'Permanently gain {C:red}+#2#{} discards',
 					'and {C:blue}#1#{} hand per round'
 				}
 			},
 			v_ortalab_recyclo_inv = {
-				name = 'Reservoir',
+				name = 'Leafblower',
 				text = {
 					'{C:attention}+#1#{} {C:red}discard{} size'
 				}
