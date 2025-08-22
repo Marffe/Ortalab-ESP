@@ -26,7 +26,7 @@ SMODS.Joker({
             end
             if context.end_of_round and not context.individual and not context.repetition then
                 if SMODS.pseudorandom_probability(card, 'fine_wine', 1, card.ability.extra.odds) then
-                    SMODS.destroy_cards(card)
+                    SMODS.destroy_cards(card, nil, nil, true)
                     return {
                         message = localize('k_drank_ex')
                     }

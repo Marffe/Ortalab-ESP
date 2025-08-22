@@ -18,7 +18,7 @@ SMODS.Joker({
     calculate = function(self, card, context) --Royal Gala Logic
         if context.end_of_round and not context.blueprint and not context.repetition and not context.individual then
             if SMODS.pseudorandom_probability(card, 'royalgala', 1, card.ability.extra.odds) then
-                SMODS.destroy_cards(card)
+                SMODS.destroy_cards(card, nil, nil, true)
                 return {
                     message = localize('k_extinct_ex')
                 }

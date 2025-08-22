@@ -23,7 +23,7 @@ SMODS.Joker({
         if context.pre_discard then
             if SMODS.pseudorandom_probability(card, 'ortalab_salad', 1, card.ability.extra.chance) then
                 SMODS.calculate_effect({message = localize('k_eaten_ex'),colour = G.C.RED,}, card)
-                SMODS.destroy_cards(card)
+                SMODS.destroy_cards(card, nil, nil, true)
             else
                 return {
                     message = localize('ortalab_infected_safe'),

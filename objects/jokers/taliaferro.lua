@@ -18,7 +18,7 @@ SMODS.Joker({
     calculate = function(self, card, context) --Taliaferro Logic NOTE: MUST ADD POOL FLAGS
         if context.end_of_round and not context.blueprint and not context.repetition and not context.individual then
             if SMODS.pseudorandom_probability(card, 'taliaferro', 1, card.ability.extra.odds) then
-                SMODS.destroy_cards(card)
+                SMODS.destroy_cards(card, nil, nil, true)
                 G.GAME.pool_flags.taliaferro_extinct = true
                 return {
                     message = localize('k_extinct_ex')
