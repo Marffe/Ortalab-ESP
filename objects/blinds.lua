@@ -283,6 +283,7 @@ SMODS.Blind({
     boss_colour = HEX('50bf7c'),
     artist_credits = {'flare'},
     debuff_hand = function(self, cards, hand, handname, check)
+        if #cards == 1 then return false end
         local _,_,_,scoring_hand,_ = G.FUNCS.get_poker_hand_info(cards)
         local always_scores_count = 0
         for _, card in pairs(cards) do
