@@ -27,11 +27,13 @@ SMODS.Joker({
         if context.before and not context.blueprint then
             for _, _card in pairs(context.scoring_hand) do
                 if _card:is_suit(card.ability.extra.suit) and _card.base.id > SMODS.Ranks[card.ability.extra.rank].id then
-                    card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.gain
-                    return {
-                        message = localize('k_upgrade_ex'),
+                    SMODS.scale_card(card, {
+                        ref_table = card.ability.extra,
+                        ref_value = "mult",
+                        scalar_value = "gain",
                         colour = G.C.RED
-                    }
+                    })
+                    return nil, true
                 end
             end
         end

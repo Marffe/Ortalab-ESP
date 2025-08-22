@@ -21,14 +21,14 @@ SMODS.Joker({
         return false
     end,
     calculate = function(self, card, context)
-        if context.destroying_card and (context.destroying_card.config.center.no_rank or context.destroying_card.config.center_key == 'm_stone') then
-            card.ability.extra.xmult = card.ability.extra.xmult + card.ability.extra.gain
-            return {
-                remove = true,
-                message = '+X'..card.ability.extra.gain,
-                colour = G.C.RED,
-                message_card = card
-            }
+        if context.destroying_card and (context.destroying_card.config.center.no_rank or context.destroying_card.config.center_key == 'm_stone') and not context.blueprint then
+            SMODS.scale_card(card, {
+                ref_table = card.ability.extra,
+                ref_value = "xmult",
+                scalar_value = "gain",
+                message_key = 'a_xmult'
+            })
+            return nil, true
         end
         if context.joker_main then
             return {

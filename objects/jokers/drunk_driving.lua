@@ -15,7 +15,7 @@ SMODS.Joker({
 		return {vars = {card.ability.extra.mult, card.ability.extra.gain}}
 	end,
 	calculate = function(self, card, context)
-        if context.before then
+        if context.before and not context.blueprint then
             local face = false
             local number = false
             for _, card in pairs(context.scoring_hand) do
@@ -23,11 +23,14 @@ SMODS.Joker({
                 if card:is_numbered() then number = true end
             end
             if face and number and not context.blueprint then
-                card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.gain
-                return {
-                    message = localize{type='variable', key='a_mult', vars={card.ability.extra.gain}},
-                    colour = G.C.RED
-                }
+                SMODS.scale_card(card, {
+                    ref_table = card.ability.extra,
+                    ref_value = "mult",
+                    scalar_value = "gain",
+                    message_colour = G.C.RED,
+                    message_key = 'a_mult'
+                })
+                return nil, true
             end
         end
         if context.joker_main then

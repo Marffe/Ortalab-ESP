@@ -19,9 +19,14 @@ SMODS.Joker({
         if context.cardarea == G.play and context.individual and not context.blueprint then
             card.ability.extra.triggered_cards = card.ability.extra.triggered_cards + 1
             if card.ability.extra.triggered_cards == card.ability.extra.triggers then
-                card.ability.extra.xmult = card.ability.extra.xmult + card.ability.extra.xmult_gain
+                SMODS.scale_card(card, {
+                    ref_table = card.ability.extra,
+                    ref_value = "xmult",
+                    scalar_value = "xmult_gain",
+                    message_key = 'a_xmult',
+                    message_colour = G.C.RED
+                })
                 card.ability.extra.triggered_cards = 0
-                card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize{type='variable',key='a_xmult',vars={card.ability.extra.xmult_gain}}, colour = G.C.RED})
             end
         end
         if context.joker_main and card.ability.extra.xmult > 1 then

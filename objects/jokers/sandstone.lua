@@ -17,12 +17,16 @@ SMODS.Joker({
         return {vars = {card.ability.extra.xmult, card.ability.extra.gain}}
     end,
     calculate = function(self, card, context)
-        if context.before then
+        if context.before and not context.blueprint then
             for _, scoring_card in ipairs(context.scoring_hand) do
                 if SMODS.has_enhancement(scoring_card, 'm_ortalab_sand') and not scoring_card.debuff then
-                    card.ability.extra.xmult = card.ability.extra.xmult + card.ability.extra.gain
-                    G.E_MANAGER:add_event(Event({func = function() scoring_card:juice_up(); return true; end}))
-                    card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('ortalab_joker_miles')})
+                    SMODS.scale_card(card, {
+                        ref_table = card.ability.extra,
+                        ref_value = "xmult",
+                        scalar_value = "gain",
+                        message_key = 'a_xmult'
+                    })
+                    juice_card(scoring_card)
                 end
             end
         end

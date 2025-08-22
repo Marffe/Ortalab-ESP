@@ -15,10 +15,16 @@ SMODS.Joker({
 		return {vars = {card.ability.extra.mult, card.ability.extra.total_mult}}
 	end,
 	calculate = function(self, card, context)
-        if context.before then
+        if context.before and not context.blueprint then
             if #context.scoring_hand < #context.full_hand then
-                card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize{type='variable', key='a_mult', vars={card.ability.extra.mult}}, colour = G.C.RED})
-                card.ability.extra.total_mult = card.ability.extra.total_mult + card.ability.extra.mult
+				SMODS.scale_card(card, {
+                    ref_table = card.ability.extra,
+                    ref_value = "total_mult",
+                    scalar_value = "mult",
+                    message_key = 'a_mult',
+					colour = G.C.RED
+                })
+				return nil, true
             end
         end
         if context.joker_main then

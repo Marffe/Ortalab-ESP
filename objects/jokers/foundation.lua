@@ -23,7 +23,7 @@ SMODS.Joker({
         return {vars = {card.ability.extra.xmult, card.ability.extra.gain, localize(card.ability.extra.most_played, 'poker_hands')}}
     end,
     calculate = function(self, card, context)
-        if context.before then
+        if context.before and not context.blueprint then
             local _handname, _played, _order = 'High Card', -1, 100
             for k, v in pairs(G.GAME.hands) do
                 if v.played > _played or (v.played == _played and _order > v.order) then 
@@ -33,17 +33,25 @@ SMODS.Joker({
             end
             card.ability.extra.most_played = _handname
             if context.scoring_name == _handname then
-                card.ability.extra.xmult = card.ability.extra.xmult + card.ability.extra.gain
-                return {
-                    message = '+X'..card.ability.extra.gain,
-                    colour = G.C.RED
-                }
+                SMODS.scale_card(card, {
+					ref_table = card.ability.extra,
+					ref_value = "xmult",
+					scalar_value = "gain",
+					message_key = 'a_xmult'
+				})
+                return nil, true
             else
-                card.ability.extra.xmult = 1
-                return {
-                    message = localize('ortalab_joker_miles_reset'),
-                    colour = G.C.RED
-                } 
+                SMODS.scale_card(card, {
+                    ref_table = card.ability.extra,
+                    ref_value = "xmult",
+                    scalar_value = "xmult",
+                    operation = '-',
+                    scaling_message = {
+                        message = localize('ortalab_joker_miles_reset'),
+                        colour = G.C.RED
+                    }
+                })
+                return nil, true
             end
         end
         if context.joker_main and card.ability.extra.xmult > 1 then

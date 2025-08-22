@@ -15,8 +15,15 @@ SMODS.Joker({
         return {vars = {card.ability.extra.gain}}
     end,
     calculate = function(self, card, context)
-        if context.end_of_round and context.main_eval then
-            card.ability.extra_value = card.ability.extra_value + (#G.jokers.cards - 1) * card.ability.extra.gain
+        if context.end_of_round and context.main_eval and not context.blueprint then
+            SMODS.scale_card(card, {
+                ref_table = card.ability,
+                ref_value = "extra_value",
+                scalar_value = "gain",
+                operation = function(ref_table, ref_value, initial, scaling)
+                    ref_table[ref_value] = initial + (#G.jokers.cards - 1) * scaling
+                end
+            })
             card:set_cost() 
             juice_card(card)
         end

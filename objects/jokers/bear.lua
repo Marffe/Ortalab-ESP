@@ -15,23 +15,29 @@ SMODS.Joker({
         return {vars = {card.ability.extra.gain, card.ability.extra.mult}}
     end,
     calculate = function(self, card, context)
-        if context.end_of_round and context.main_eval then
-            card.ability.extra.mult = 0
-            return {
-                message = localize('ortalab_joker_miles_reset'),
-            }
+        if context.end_of_round and context.main_eval and not context.blueprint then
+            SMODS.scale_card(card, {
+                ref_table = card.ability.extra,
+                ref_value = "mult",
+                scalar_value = "mult",
+                operation = '-',
+                scaling_message = {
+                    message = localize('ortalab_joker_miles_reset'),
+                    colour = G.C.RED
+                }
+            })
         end
-        if (context.buying_card and context.card ~= card) or context.open_booster and not context.blueprint then
-            local spent = context.card.cost
-                card.ability.extra.mult = card.ability.extra.mult + spent * card.ability.extra.gain
-                SMODS.calculate_effect({message = localize('k_upgrade_ex'), colour = G.C.RED}, card)
-                return
-        end
-        if context.reroll_shop and not context.blueprint then
-            local spent = context.cost
-                card.ability.extra.mult = card.ability.extra.mult + spent * card.ability.extra.gain
-                SMODS.calculate_effect({message = localize('k_upgrade_ex'), colour = G.C.RED}, card)
-                return
+        if (context.buying_card and context.card ~= card) or context.open_booster or context.reroll_shop and not context.blueprint then
+            local spent = context.cost or context.card.cost
+            SMODS.scale_card(card, {
+                ref_table = card.ability.extra,
+                ref_value = "mult",
+                scalar_value = "gain",
+                operation = function(ref_table, ref_value, initial, scaling)
+                    ref_table[ref_value] = initial + spent*scaling
+                end,
+            })
+            return nil, true
         end
         if context.joker_main then
             return {

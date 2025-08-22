@@ -17,12 +17,14 @@ SMODS.Joker({
     end,
     calculate = function(self, card, context) --Triangle Joker Logic
         if context.cardarea == G.jokers and context.before and #context.full_hand == 3 and #context.scoring_hand == 3 and not context.blueprint then
-            card.ability.extra.mult_total = card.ability.extra.mult_total + card.ability.extra.mult_add
-            return {
-                message = localize('k_upgrade_ex'),
-                colour = G.C.MULT,
-                card = card
-            }
+            SMODS.scale_card(card, {
+                ref_table = card.ability.extra,
+                ref_value = "mult_total",
+                scalar_value = "mult_add",
+                message_key = 'a_mult',
+                message_colour = G.C.RED
+            })
+            return nil, true
         end
         if context.joker_main then
             return {

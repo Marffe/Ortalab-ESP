@@ -21,10 +21,12 @@ SMODS.Joker({
             }
         end
         if context.end_of_round and context.main_eval and not context.retrigger_joker and not context.blueprint and G.GAME.current_round.hands_played == 1 then
-            card.ability.extra.xmult = card.ability.extra.xmult + card.ability.extra.gain
-            return {
-                message = localize('k_upgrade_ex')
-            }
+            SMODS.scale_card(card, {
+				ref_table = card.ability.extra,
+				ref_value = "xmult",
+				scalar_value = "gain",
+			})
+            return nil, true
         end
     end
 })

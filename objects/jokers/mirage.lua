@@ -22,9 +22,14 @@ SMODS.Joker({
         end
         if context.remove_playing_cards and not context.blueprint then
             for i=1, #context.removed do
-                card.ability.extra.xmult = card.ability.extra.xmult + card.ability.extra.gain
-                card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize({type='variable', key='a_xmult', vars={card.ability.extra.gain}, colour = G.C.RED})})
+				SMODS.scale_card(card, {
+					ref_table = card.ability.extra,
+					ref_value = "xmult",
+					scalar_value = "gain",
+					message_key = 'a_xmult'
+				})
             end
+			return nil, true
         end
     end
 })

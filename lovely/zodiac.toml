@@ -145,8 +145,12 @@ if G.zodiacs then
         -- Update Stargazing Jokers
         local stargazings = SMODS.find_card('j_ortalab_stargazing')
         for _, stargazing_card in pairs(stargazings) do
-            stargazing_card.ability.extra.xmult = stargazing_card.ability.extra.xmult + stargazing_card.ability.extra.gain
-            SMODS.calculate_effect({message = localize{type='variable',key='a_xmult',vars={stargazing_card.ability.extra.gain}}, colour = G.C.RED}, stargazing_card)
+            SMODS.scale_card(stargazing_card, {
+                ref_table = stargazing_card.ability.extra,
+                ref_value = "xmult",
+                scalar_value = "gain",
+                message_key = 'a_xmult'
+            })
         end
 
         -- Display activated text

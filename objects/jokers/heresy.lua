@@ -16,18 +16,28 @@ SMODS.Joker({
     end,
     calculate = function(self, card, context)
         if context.playing_card_added and not context.blueprint then
-            card.ability.extra.chips = card.ability.extra.chips + (card.ability.extra.chip_gain * #context.cards)
-            return {
-                message = localize('k_upgrade_ex'),
-                colour = G.C.BLUE
-            }
+            SMODS.scale_card(card, {
+                ref_table = card.ability.extra,
+                ref_value = "chips",
+                scalar_value = "chip_gain",
+                message_colour = G.C.BLUE,
+                operation = function(ref_table, ref_value, initial, scaling)
+                    ref_table[ref_value] = initial + #context.cards * scaling
+                end
+            })
+            return nil, true
         end
-        if context.remove_playing_cards then
-            card.ability.extra.mult = card.ability.extra.mult + (card.ability.extra.mult_gain * #context.removed)
-            return {
-                message = localize('k_upgrade_ex'),
-                colour = G.C.RED
-            }
+        if context.remove_playing_cards and not context.blueprint then
+            SMODS.scale_card(card, {
+                ref_table = card.ability.extra,
+                ref_value = "mult",
+                scalar_value = "mult_gain",
+                message_colour = G.C.RED,
+                operation = function(ref_table, ref_value, initial, scaling)
+                    ref_table[ref_value] = initial + #context.removed * scaling
+                end
+            })
+            return nil, true
         end
         if context.joker_main then
             return {
