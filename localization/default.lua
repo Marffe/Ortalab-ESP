@@ -252,6 +252,11 @@ return {
 					"sagaciousCejai"
 				}
 			},
+			superb = {
+				text = {
+					'superb_thing'
+				}
+			},
 			['eremel'] = {
 				["text"] = {
 					"Eremel_",

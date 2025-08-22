@@ -35,7 +35,7 @@ SMODS.Edition({
     in_shop = true,
     weight = 12,
     extra_cost = 4,
-    artist_credits = {'eremel'},
+    artist_credits = {'superb'},
     loc_vars = function(self, info_queue, card)
         return { vars = {self.config.p_dollars}, key = card and card.config and card.config.center.set == 'Joker' and 'e_ortalab_fluorescent_joker'}
     end,
