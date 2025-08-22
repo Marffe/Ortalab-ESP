@@ -99,8 +99,19 @@ SMODS.Blind({
     set_blind = function(self)
         self.config.extra.hands_removed = 0
     end,
-    after_scoring = function(self)
-        G.E_MANAGER:add_event(Event({ trigger = 'after', delay = 0.7, func = function()
+    calculate = function(self, card, context)
+        if context.end_of_round and context.main_eval then
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after', delay = 0.7,
+                func = function()
+                    G.hand:handle_card_limit(card.effect.extra.hands_removed)
+                    return true
+                end
+            }))
+        end
+        if context.after then
+            card.effect.extra.hands_removed = card.effect.extra.hands_removed + card.effect.extra.hand_size
+            G.E_MANAGER:add_event(Event({ trigger = 'after', delay = 0.7, func = function()
             attention_text({
                 text = localize('ortalab_sinker_message'),
                 hold = 1.4,
@@ -110,14 +121,14 @@ SMODS.Blind({
                 align = 'cm',
                 silent = true
             })
-            G.hand:change_size(-1 * self.config.extra.hand_size)
-            self.config.extra.hands_removed = self.config.extra.hands_removed + self.config.extra.hand_size
+            G.hand:change_size(-1 * card.effect.extra.hand_size)
             return true
         end })) 
         delay(0.7)
+        end
     end,
     defeat = function(self)
-        if not G.GAME.blind.disabled then G.hand:change_size(self.config.extra.hands_removed) end
+        if not G.GAME.blind.disabled then  end
     end,
     disable = function(self)
         G.hand:change_size(self.config.extra.hands_removed)
