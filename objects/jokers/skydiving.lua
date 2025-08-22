@@ -17,11 +17,13 @@ SMODS.Joker({
 	calculate = function(self, card, context)
 		if context.before and G.GAME.hands[context.scoring_name].level ~= 1 and not context.blueprint and not context.retrigger_joker then
 			if to_big(G.GAME.hands[context.scoring_name].level) > to_big(1) then
-				card.ability.extra.curr_xmult = card.ability.extra.curr_xmult + card.ability.extra.xmult_add
+				SMODS.scale_card(card, {
+                    ref_table = card.ability.extra,
+                    ref_value = "curr_xmult",
+                    scalar_value = "xmult_add",
+                    message_key = 'a_xmult'
+                })
 				return {
-					message = localize('ortalab_joker_miles'),
-					card = card,
-					colour = G.C.RED,
 					level_up = -card.ability.extra.level_loss,
 				}
 			end

@@ -15,19 +15,34 @@ SMODS.Joker({
         return {vars = {card.ability.extra.mult_gain, card.ability.extra.mult, SMODS.get_probability_vars(card, 1, card.ability.extra.chance)}}
     end,
     calculate = function(self, card, context)
-        if context.after then
+        if context.after and not context.blueprint then
             if SMODS.pseudorandom_probability(card, 'ortalab_joker_miles', 1, card.ability.extra.chance) then
+                SMODS.scale_card(card, {
+                    ref_table = card.ability.extra,
+                    ref_value = "mult",
+                    scalar_value = "mult",
+                    operation = '-',
+                    scaling_message = {
+                        message = localize('ortalab_joker_miles_reset'),
+                        colour = G.C.RED
+                    }
+                })
                 card.ability.extra.mult = 0
                 return {
                     message = localize('ortalab_joker_miles_reset'),
                     colour = G.C.RED
                 }
             else
-                card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_gain
-            return {
-                message = localize('ortalab_joker_miles'),
-                colour = G.C.RED
-            }
+                SMODS.scale_card(card, {
+                    ref_table = card.ability.extra,
+                    ref_value = "mult",
+                    scalar_value = "mult_gain",
+                    scaling_message = {
+                        message = localize('ortalab_joker_miles'),
+                        colour = G.C.RED
+                    }
+                })
+                return nil, true
             end
         end
         if context.joker_main and card.ability.extra.mult > 0 then

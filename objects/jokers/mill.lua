@@ -26,11 +26,13 @@ SMODS.Joker({
         if context.change_suit and not context.blueprint and not context.retrigger_joker and not Ortalab.harp_usage then
             card.ability.extra.count = card.ability.extra.count + 1
             if card.ability.extra.count == card.ability.extra.target then
-                card.ability.extra.xmult = card.ability.extra.xmult + card.ability.extra.gain
-                return {
-                    message = localize('k_upgrade_ex'),
-                    colour = G.C.RED
-                }
+                SMODS.scale_card(card, {
+                    ref_table = card.ability.extra,
+                    ref_value = "xmult",
+                    scalar_value = "gain",
+                    message_key = 'a_xmult'
+                })
+                return nil, true
             end
         end
     end

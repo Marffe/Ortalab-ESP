@@ -45,8 +45,15 @@ SMODS.Joker({
                         return true
                 end}))  
             else
-                card.ability.extra.chips = card.ability.extra.chips - change
-                card_eval_status_text(card, 'extra', nil, nil, nil, {message = '-'..change, colour = G.C.BLUE})
+                SMODS.scale_card(card, {
+                    ref_table = card.ability.extra,
+                    ref_value = "chips",
+                    scalar_value = "change",
+                    operation = function(ref_table, ref_value, initial, change)
+                        ref_table[ref_value] = initial - change * G.GAME.hands[card.ability.extra.poker_hand].played
+                    end,
+                    message_key = 'a_chips_minus'
+                })
                 return nil, true
             end
         end

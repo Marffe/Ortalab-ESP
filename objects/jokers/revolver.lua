@@ -23,12 +23,25 @@ SMODS.Joker({
                 G.GAME.joker_buffer = G.GAME.joker_buffer - 1
                 G.E_MANAGER:add_event(Event({func = function()
                     G.GAME.joker_buffer = 0
-                    card.ability.extra.chips = card.ability.extra.chips + sliced_card.sell_cost*card.ability.extra.modifier
                     card:juice_up(0.8, 0.8)
                     sliced_card:start_dissolve({HEX("dc486f")}, nil, 1.6)
                     play_sound('ortalab_gun1', 0.96+math.random()*0.08)
                 return true end }))
-                card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize{type = 'variable', key = 'a_chips', vars = {card.ability.extra.modifier*sliced_card.sell_cost}}, colour = G.C.BLUE, no_juice = true})
+
+                SMODS.scale_card(card, {
+                    ref_table = card.ability.extra,
+                    ref_value = "chips",
+                    scalar_table = sliced_card,
+                    scalar_value = "sell_cost",
+                    operation = function(ref_table, ref_value, initial, scaling)
+                        ref_table[ref_value] = initial + ref_table.modifier*scaling
+                    end,
+                    scaling_message = {
+                        message = localize{type = 'variable', key = 'a_chips', vars = {card.ability.extra.modifier*sliced_card.sell_cost}},
+                        colour = G.C.BLUE,
+                        no_juice = true
+                    }
+                })
             end
         end
         if context.joker_main and card.ability.extra.chips > 0 then

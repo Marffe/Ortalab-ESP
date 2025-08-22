@@ -15,19 +15,25 @@ SMODS.Joker({
         return {vars = {card.ability.extra.gain, card.ability.extra.mult}}
     end,
     calculate = function(self, card, context)
-        if context.before or context.pre_discard then
-            card.ability.extra.mult = card.ability.extra.mult + (card.ability.extra.gain * (context.scoring_hand and #context.scoring_hand or #context.full_hand))
-            return {
-                message = localize('k_upgrade_ex'),
-                message_card = card
-            }
+        if context.before or context.pre_discard and not context.blueprint then
+            SMODS.scale_card(card, {
+                ref_table = card.ability.extra,
+                ref_value = "mult",
+                scalar_value = "gain",
+                message_colour = G.C.RED,
+                message_key = 'a_mult',
+                operation = function(ref_table, ref_value, initial, scaling)
+                    ref_table[ref_value] = initial + (context.scoring_hand and #context.scoring_hand or #context.full_hand)*scaling
+                end
+            })
+            return nil, true
         end
         if context.joker_main then
             return {
                 mult = card.ability.extra.mult
             }
         end
-        if context.end_of_round and context.main_eval then
+        if context.end_of_round and context.main_eval and not context.blueprint then
             card.ability.extra.mult = 0
             return {
                 message = localize('ortalab_joker_miles_reset')

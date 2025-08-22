@@ -21,14 +21,14 @@ SMODS.Joker({
 				xmult = card.ability.extra.xmult
 			}
 		end
-		if (context.tag_added and not context.tag_added.from_recycled) or (to_big(context.ortalab_black_cat_scale or 0) >= to_big(card.ability.extra.chips)) or (context.individual and context.other_card.recycled_tag) then
-			card.ability.extra.xmult = card.ability.extra.xmult + card.ability.extra.gain
-			return {
-				message = localize('k_upgrade_ex'),
-				colour = G.C.RED,
-				message_card = card,
-				juice_card = context.other_card
-			}
+		if (context.tag_added and not context.tag_added.from_recycled) or (to_big(context.ortalab_black_cat_scale or 0) >= to_big(card.ability.extra.chips)) or (context.individual and context.other_card.recycled_tag) and not context.blueprint then
+			SMODS.scale_card(card, {
+				ref_table = card.ability.extra,
+				ref_value = "xmult",
+				scalar_value = "gain",
+				message_key = 'a_xmult'
+			})
+			return nil, true
 		end
 	end
 })

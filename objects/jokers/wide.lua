@@ -20,14 +20,15 @@ SMODS.Joker({
                 mult = card.ability.extra.mult
             }
         end
-        if context.individual and context.cardarea == G.play then
+        if context.individual and context.cardarea == G.play and not context.blueprint then
             if context.other_card.base.value == card.ability.extra.rank then
-                card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.gain
-                return {
-                    message = localize('k_upgrade_ex'),
-                    message_card = card,
-                    colour = G.C.RED
-                }
+                SMODS.scale_card(card, {
+                    ref_table = card.ability.extra,
+                    ref_value = "mult",
+                    scalar_value = "gain",
+                    message_colour = G.C.RED
+                })
+                return nil, true
             end
         end
     end    
@@ -36,7 +37,7 @@ SMODS.Joker({
 local hover = Card.hover
 function Card:hover()
     hover(self)
-    if self.config.center_key == 'j_ortalab_wide' and self.T.w == G.CARD_W and not Ortalab.config.wide_joker then
+    if self.config.center_key == 'j_ortalab_wide' and self.T.w == G.CARD_W and not Ortalab.config.wide_joker and self.config.center.discovered then
         ease_value(self.T, 'w', self.T.w, nil, nil, nil, nil, 'elastic')
         ease_value(self.T, 'h', -(self.T.h/2), nil, nil, nil, nil, 'elastic')
     end
@@ -45,7 +46,7 @@ end
 local stop_hover = Card.stop_hover
 function Card:stop_hover()
     stop_hover(self)
-    if self.config.center_key == 'j_ortalab_wide' and self.T.w > G.CARD_W and not Ortalab.config.wide_joker then
+    if self.config.center_key == 'j_ortalab_wide' and self.T.w > G.CARD_W and not Ortalab.config.wide_joker and self.config.center.discovered then
         ease_value(self.T, 'w', G.CARD_W - self.T.w)
         ease_value(self.T, 'h', G.CARD_H - self.T.h)
     end

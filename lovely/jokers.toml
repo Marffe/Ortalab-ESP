@@ -107,8 +107,11 @@ payload = '''
 if card.area == G.pack_cards then
     local blue_cards = SMODS.find_card('j_ortalab_blue_card')
     for _, card in pairs(blue_cards) do
-        card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.gain
-        card_eval_status_text(card, 'extra', nil, nil, nil, {message = '+'..card.ability.extra.gain, colour = G.C.BLUE})
+        SMODS.scale_card(card, {
+            ref_table = card.ability.extra,
+            ref_value = "chips",
+            scalar_value = "gain",
+        })
     end
 end'''
 

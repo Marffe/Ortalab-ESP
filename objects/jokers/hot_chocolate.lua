@@ -15,11 +15,13 @@ SMODS.Joker({
 		return {vars = {card.ability.extra.chips, card.ability.extra.change, card.ability.extra.limit}}
 	end,
 	calculate = function(self, card, context)
-        if context.before then
-            card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.change
-            return {
-                message = localize{type='variable',key='a_chips',vars={card.ability.extra.change}}
-            }
+        if context.before and not context.blueprint then
+            SMODS.scale_card(card, {
+                ref_table = card.ability.extra,
+                ref_value = "chips",
+                scalar_value = "change",
+            })
+            return nil, true
         end
 		if context.joker_main and card.ability.extra.chips > 0 then
             return {
@@ -28,7 +30,7 @@ SMODS.Joker({
         end
         if context.after and not context.blueprint then
             if card.ability.extra.limit == card.ability.extra.chips then
-                SMODS.destroy_cards(card)
+                SMODS.destroy_cards(card, nil, nil, true)
                 return {
                     message = localize('k_eaten_ex'),
                 }

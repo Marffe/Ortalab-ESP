@@ -21,13 +21,16 @@ SMODS.Joker({
     end,
 	calculate = function(self, card, context) --Beyond The Mask Logic
         if context.destroy_card and context.cardarea == G.play and not context.blueprint and context.destroy_card.config.center_key == 'm_ortalab_iou' then
-            card.ability.extra.dollars = card.ability.extra.dollars + card.ability.extra.dollars_add
+            SMODS.scale_card(card, {
+                ref_table = card.ability.extra,
+                ref_value = "dollars",
+                scalar_value = "dollars_add",
+                message_colour = G.C.MONEY
+            })
+
             return {
-                message = localize('k_upgrade_ex'),
-                colour = G.C.MONEY,
                 delay = 0.45, 
                 remove = true,
-                message_card = card
             }
         end
     end
