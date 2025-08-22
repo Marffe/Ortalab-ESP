@@ -183,6 +183,11 @@ return {
 			c_ortalab_evil_up = "Evil Up!",
 			c_ortalab_idk = "idk",
 			c_ortalab_fingers = "Through your Fingers",
+			c_ortalab_lostc = "Lost and Burnt IDK",
+			c_ortalab_shrod = "Shrodinger",
+			c_ortalab_virtueless = "Virtueless",
+			c_ortalab_chao = "Chaos",
+			c_ortalab_ambi = "Ambidexrous",
 		},
     },
     ["descriptions"] = {
