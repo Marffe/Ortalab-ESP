@@ -1026,9 +1026,10 @@ return {
 			j_ortalab_misfits = {
 				["name"] = "The Misfits",
 				["text"] = {
-					'{X:red,C:white}X#1#{} Mult if {C:attention}poker hand',
-					'contains at least',
-					'{C:attention}#2#{} Suits and {C:attention}#2#{} Ranks'
+					{'{X:red,C:white}X#1#{} Mult if {C:attention}poker hand',
+					'contains at least {C:attention}#2#{} Suits',},
+					{'{X:red,C:white}X#1#{} Mult if {C:attention}poker hand',
+					'contains at least {C:attention}#2#{} Ranks',}
 				}
 			},
 			['j_ortalab_mixtape'] = {
