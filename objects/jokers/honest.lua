@@ -3,13 +3,13 @@ SMODS.Joker({
 	atlas = "jokers",
 	pos = {x=9,y=12},
 	rarity = 1,
-	cost = 4,
+	cost = 3,
 	unlocked = true,
 	discovered = false,
 	blueprint_compat = true,
 	eternal_compat = true,
 	perishable_compat = true,
-	config = {extra = {mult = 12, hand_type = 'Pair'}},
+	config = {extra = {mult = 10, hand_type = 'Pair'}},
 	artist_credits = {'crimson'},
 	loc_vars = function(self, info_queue, card)
 		return {vars = {card.ability.extra.mult, localize(card.ability.extra.hand_type, 'poker_hands')}}
