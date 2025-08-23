@@ -161,8 +161,8 @@ SMODS.Blind({
 })
 
 local ortalab_calc_round_score = SMODS.calculate_round_score
-function SMODS.calculate_round_score()
-    local score = ortalab_calc_round_score()
+function SMODS.calculate_round_score(flames)
+    local score = ortalab_calc_round_score(flames)
     if G.GAME.blind and G.GAME.blind.config.blind.key == 'bl_ortalab_fork' and not G.GAME.blind.disabled then
         score = math.min(score, G.GAME.blind.chips*G.GAME.blind.config.blind.config.extra.cap)
     end
