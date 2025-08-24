@@ -434,7 +434,7 @@ SMODS.Voucher({
 	discovered = false,
 	available = true,
     config = {extra = {hands = -1, discards = 2}},
-    artist_credits = {'no_demo'},
+    artist_credits = {'gappie'},
 	redeem = function(self, card)
         G.GAME.round_resets.hands = G.GAME.round_resets.hands + card.ability.extra.hands
         ease_hands_played(card.ability.extra.hands)
@@ -465,10 +465,6 @@ SMODS.Voucher({
     end,
 })
 
-function get_next_voucher_key()
-    return 'v_ortalab_seed_inv'
-end
-
 SMODS.Voucher({
 	key = "seed_inv",
 	atlas = "coupons",
@@ -478,7 +474,7 @@ SMODS.Voucher({
 	discovered = false,
 	available = true,
     config = {extra = {money = 3, wyrms_dragons = {}}},
-    artist_credits = {'no_demo'},
+    artist_credits = {'gappie'},
 	redeem = function(self, card)
         G.GAME.ortalab.blind_rewards = G.GAME.ortalab.blind_rewards + card.ability.extra.money
         update_blind_amounts()
@@ -488,7 +484,7 @@ SMODS.Voucher({
     end,
     set_ability = function(self, card, initial, delay)
         card.ability.extra.left_dragon = card.ability.extra.left_dragon or get_new_boss()
-        card.ability.extra.right_dragon = card.ability.extra.right_dragon or get_new_showdown()
+        card.ability.extra.right_dragon = card.ability.extra.right_dragon or Ortalab.get_new_showdown_key()
         if not next(Ortalab.wyrms_dragons or {}) then self:create_sprites(card) end
     end,
     create_sprites = function(self, card)
@@ -501,7 +497,7 @@ SMODS.Voucher({
         }
         Ortalab.wyrms_dragons.left_dragon.atlas.image_data = G.ASSET_ATLAS['ortalab_left_dragon'].image_data:clone()
         Ortalab.wyrms_dragons.left_dragon.atlas.image_data:mapPixel(function(x,y,r,g,b,a)
-            return recolour_dragon(x,y,r,g,b,a, G.P_BLINDS[card.ability.extra.left_dragon].boss_colour)
+            return Ortalab.recolour_dragon(x,y,r,g,b,a, G.P_BLINDS[card.ability.extra.left_dragon].boss_colour)
         end)
         Ortalab.wyrms_dragons.left_dragon.atlas.image = love.graphics.newImage(Ortalab.wyrms_dragons.left_dragon.atlas.image_data, {mipmaps = true, dpiscale = G.SETTINGS.GRAPHICS.texture_scaling})
 
@@ -514,7 +510,7 @@ SMODS.Voucher({
         }
         Ortalab.wyrms_dragons.right_dragon.atlas.image_data = G.ASSET_ATLAS['ortalab_right_dragon'].image_data:clone()
         Ortalab.wyrms_dragons.right_dragon.atlas.image_data:mapPixel(function(x,y,r,g,b,a)
-            return recolour_dragon(x,y,r,g,b,a, G.P_BLINDS[card.ability.extra.right_dragon].boss_colour)
+            return Ortalab.recolour_dragon(x,y,r,g,b,a, G.P_BLINDS[card.ability.extra.right_dragon].boss_colour)
         end)
         Ortalab.wyrms_dragons.right_dragon.atlas.image = love.graphics.newImage(Ortalab.wyrms_dragons.right_dragon.atlas.image_data, {mipmaps = true, dpiscale = G.SETTINGS.GRAPHICS.texture_scaling})
 
@@ -547,7 +543,7 @@ SMODS.Voucher({
     end
 })
 
-function get_new_showdown(current)
+function Ortalab.get_new_showdown_key(current)
     local eligible_bosses = {}
     for k, v in pairs(G.P_BLINDS) do
         if v.boss and v.boss.showdown then 
@@ -571,7 +567,7 @@ function get_new_showdown(current)
     return boss
 end
 
-function recolour_dragon(x,y,r,g,b,a,new_colour)
+function Ortalab.recolour_dragon(x,y,r,g,b,a,new_colour)
     local hsl = HSL({r,g,b,a})
     -- 0.41, 0.33, 0.35
     -- 0.55, 0.45, 0.39
@@ -667,7 +663,7 @@ SMODS.Voucher({
 	available = false,
     requires = {'v_ortalab_seed_inv'},
     config = {extra = {money = 5, wyrms_dragons = {}}},
-    artist_credits = {'no_demo'},
+    artist_credits = {'gappie'},
 	redeem = function(self, card)
         G.GAME.ortalab.blind_rewards = G.GAME.ortalab.blind_rewards + card.ability.extra.money
         update_blind_amounts()
@@ -676,7 +672,7 @@ SMODS.Voucher({
         return {vars = {card.ability.extra.money}}
     end,
     set_ability = function(self, card, initial, delay)
-        card.ability.extra.dragon = card.ability.extra.dragon or get_new_showdown()
+        card.ability.extra.dragon = card.ability.extra.dragon or Ortalab.get_new_showdown_key()
         if not next(Ortalab.wyrms_dragons_2 or {}) then self:create_sprites(card) end
     end,
     create_sprites = function(self, card)
@@ -689,7 +685,7 @@ SMODS.Voucher({
         }
         Ortalab.wyrms_dragons_2.dragon.atlas.image_data = G.ASSET_ATLAS['ortalab_middle_dragon'].image_data:clone()
         Ortalab.wyrms_dragons_2.dragon.atlas.image_data:mapPixel(function(x,y,r,g,b,a)
-            return recolour_dragon(x,y,r,g,b,a, G.P_BLINDS[card.ability.extra.dragon].boss_colour)
+            return Ortalab.recolour_dragon(x,y,r,g,b,a, G.P_BLINDS[card.ability.extra.dragon].boss_colour)
         end)
         Ortalab.wyrms_dragons_2.dragon.atlas.image = love.graphics.newImage(Ortalab.wyrms_dragons_2.dragon.atlas.image_data, {mipmaps = true, dpiscale = G.SETTINGS.GRAPHICS.texture_scaling})
 
@@ -716,7 +712,7 @@ SMODS.Voucher({
 	unlocked = true,
 	discovered = false,
 	available = true,
-    artist_credits = {'no_demo'},
+    artist_credits = {'gappie'},
 	redeem = function(self, card)
         G.GAME.ortalab.vouchers.reroll_on_skip = true
     end,
@@ -731,7 +727,7 @@ SMODS.Voucher({
 	discovered = false,
 	available = false,
     requires = {'v_ortalab_shared_winnings'},
-    artist_credits = {'no_demo'},
+    artist_credits = {'gappie'},
 	redeem = function(self, card)
         G.GAME.ortalab.alt_boss = get_new_boss()
     end,
@@ -822,7 +818,7 @@ SMODS.Voucher({
     config = {extra = {bonus_slots = 1}},
     artist_credits = {'flare'},
 	redeem = function(self, card)
-        G.GAME.ortalab.vouchers.booster_pack_bonus = card.ability.extra.bonus_slots
+        G.GAME.modifiers.booster_size_mod = G.GAME.modifiers.booster_size_mod + card.ability.extra.bonus_slots
     end,
     loc_vars = function(self, info_queue, card)
         return {vars = {card.ability.extra.bonus_slots}}

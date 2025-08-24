@@ -19,7 +19,7 @@ SMODS.Joker({
 	end,
 	calculate = function(self, card, context)
 		if context.end_of_round and context.main_eval and not context.retrigger_joker then
-			card.ability.extra.used = card.ability.extra.base
+			card.ability.extra.xmult = card.ability.extra.base
 			return {
 				message = localize('ortalab_joker_miles_reset'),
 				colour = G.C.RED

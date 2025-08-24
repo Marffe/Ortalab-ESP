@@ -76,15 +76,6 @@ payload = '''
 elseif G.GAME.round_resets.blind_states.Big == 'Current' then
 '''
 
-
-[[patches]]
-[patches.pattern]
-target = 'functions/state_events.lua'
-pattern = '''ease_to = G.GAME.chips + math.floor(hand_chips*mult),'''
-position = 'at'
-match_indent = true
-payload = '''ease_to = G.GAME.blind.config.blind.key == 'bl_ortalab_fork' and not G.GAME.blind.disabled and G.GAME.chips + math.min(math.floor(hand_chips*mult), G.GAME.blind.chips*G.GAME.blind.config.blind.config.extra.cap) or G.GAME.chips + math.floor(hand_chips*mult),'''
-
 [[patches]]
 [patches.pattern]
 target = '=[SMODS _ "src/card_draw.lua"]'

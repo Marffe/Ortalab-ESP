@@ -5,7 +5,6 @@
 #endif
 
 extern MY_HIGHP_OR_MEDIUMP vec2 fluorescent;
-
 extern MY_HIGHP_OR_MEDIUMP number dissolve;
 extern MY_HIGHP_OR_MEDIUMP number time;
 extern MY_HIGHP_OR_MEDIUMP vec4 texture_details;
@@ -13,11 +12,6 @@ extern MY_HIGHP_OR_MEDIUMP vec2 image_details;
 extern bool shadow;
 extern MY_HIGHP_OR_MEDIUMP vec4 burn_colour_1;
 extern MY_HIGHP_OR_MEDIUMP vec4 burn_colour_2;
-extern MY_HIGHP_OR_MEDIUMP float hovering;
-extern MY_HIGHP_OR_MEDIUMP vec2 mouse_screen_pos;
-extern MY_HIGHP_OR_MEDIUMP float screen_scale;
-
-// the following four vec4 are (as far as I can tell) required and shouldn't be changed
 
 vec4 dissolve_mask(vec4 tex, vec2 texture_coords, vec2 uv)
 {
@@ -100,75 +94,83 @@ vec4 HSL(vec4 c)
 	return hsl;
 }
 
-// this is what actually changes the look of card
+vec4 map(vec4 value, vec4 min1, vec4 max1, vec4 min2, vec4 max2) {
+    return min2 + (value - min1) * (max2 - min2) / (max1 - min1);
+}
+
+vec4 invert(vec4 hsl_color)
+{
+    if (hsl_color.b > 0)
+    {
+        hsl_color.b = 1 - hsl_color.b;
+    }
+    else if (hsl_color.g < 0.1 && hsl_color.b < 0.1)
+    {
+        hsl_color.r = 0.3;
+        hsl_color.g = 1;
+        hsl_color.b = 0.8;
+    }
+    else
+    {
+        hsl_color.b = 0.5;
+    }
+    return hsl_color;
+}
+
 vec4 effect( vec4 colour, Image texture, vec2 texture_coords, vec2 screen_coords )
 {
-    
-    // turns the texture into pixels
     vec4 tex = Texel(texture, texture_coords);
 	vec2 uv = (((texture_coords)*(image_details)) - texture_details.xy*texture_details.ba)/texture_details.ba;
-    vec2 adjusted_uv = uv - vec2(0.5, 0.5);
-    adjusted_uv.x = adjusted_uv.x*texture_details.b/texture_details.a;
 
+    vec4 white = vec4(1.,1.,0.8,1.);
+    vec4 black = vec4(79./255., 54./255.,141./255.,0.);
+    vec4 trueblack = vec4(0.,0.,0.1,0.);
+    tex = map(tex, trueblack, white, trueblack, white);
 
-    // tex.r += 0.09;
-    // tex.g += 0.12;
-    // tex.b += 0.08;
+    vec4 SAT = HSL(tex);
+    SAT = invert(SAT);
+    // tex = SAT.bbba;
+    tex = RGB(SAT);
 
-    //vec4 hsl = HSL(vec4(tex.r*saturation_fac, tex.g*saturation_fac, tex.b*saturation_fac, tex.a));
+	if (fluorescent.g > 0.0 || fluorescent.g < 1.0) 
+    {
 
-    vec4 hsl = HSL(tex); // convert texture to HSL values
-    vec4 bhsl = HSL(tex); // make a base copy of HSL values
-
-    // trigonometric variable definition
-    float t = fluorescent.g + time;
-    float a = 0.68;
-    float b = 1.1;
-    float c = 1.4;
-
-    if (fluorescent.g > 0.0 || fluorescent.g < 0.0) {
-        // Vary the lightness of pixels that are low in saturation, otherwise increase the saturation of them
-        if (hsl.z < 0.64 && hsl.y < 0.6) {
-            //hsl.y *= (0.5*sin(a*t) + 0.5);
-            // hsl.z *= (0.5*sin(a*t) + 0.5);
-            hsl.z = 0.2 - ((0.5*cos(a*t)+0.4));
-            // hsl.a = min(1 - ((-0.25*cos(a*t)) + 0.9), 1);
-        } else {
-            // Lower base saturation to stop washout
-            if (bhsl.y > 0.4) {
-                hsl.y *= bhsl.y * bhsl.y;
+        vec2 pixel_size = 1/image_details;
+        number bloom_spread = 1.2;
+        number iterations = 10;
+        number bloom_intensity = 2*cos((fluorescent.g + time) / 2.2)+0.55;
+        vec4 sum = vec4(0.0);
+        for (int i = 0; i < iterations; ++i) {
+            vec4 h_sum = vec4(0, 0, 0, 1);
+            number uv_y = texture_coords.y + (bloom_spread * pixel_size.y * float(i - iterations/2 + 0.5))/iterations;
+            for (int j = 0; j < iterations; ++j)
+            {
+                number uv_x = texture_coords.x + (bloom_spread * pixel_size.x * float(j - iterations/2 + 0.5))/iterations;
+                vec4 result = invert(HSL(Texel(texture, vec2(uv_x, uv_y))));
+                number fluorescentfactor = 1-SAT.b;
+                // result.b = result.b * (1-SAT.b);
+                result = RGB(result);
+                h_sum.a = min(h_sum.a, result.a);
+                h_sum.rgb += result.rgb * h_sum.a * fluorescentfactor;
             }
-            hsl.y *= 1.6 * (b*cos(a*t) + c);  
-            float res = (.01 + .01* cos( (fluorescent.r)*2 ));
-            hsl.x += res;
-
-            // hsl.y *= cos(fluorescent.r*0.513);
-                 
-            //hsl.z *= 1 * (b/5*cos(a*t) + 0.7*c);            
-            //hsl.z += 0.2;
+            sum += h_sum / 9.0;
         }
-    }
-    
+        tex = tex + sum * bloom_intensity / 9.0;
+        // vec4 tempSAT = HSL(tex);
+        // tempSAT.b = min(tempSAT.b, SAT.b);
+        // tex = RGB(tempSAT);
+	}
+    // tex = RGB(SAT);
+    tex = map(tex, trueblack, white, black, white);
 
-    if (bhsl.a == 0){
-        hsl.a = 0;
-    }
-
-    tex = RGB(hsl);
-
-
-    // Mix with base texture
-    //tex = RGB(0.7*hsl + 0.3*bhsl);
-    // float ratio = 1;
-    // tex = ratio*RGB(hsl) + (1-ratio)*RGB(bhsl);
-
-
-    // required
+	if (tex[3] < 0.7)
+		tex[3] = tex[3]/3.;
 	return dissolve_mask(tex*colour, texture_coords, uv);
 }
 
-// for transforming the card while your mouse is on it
-
+extern MY_HIGHP_OR_MEDIUMP vec2 mouse_screen_pos;
+extern MY_HIGHP_OR_MEDIUMP float hovering;
+extern MY_HIGHP_OR_MEDIUMP float screen_scale;
 
 #ifdef VERTEX
 vec4 position( mat4 transform_projection, vec4 vertex_position )

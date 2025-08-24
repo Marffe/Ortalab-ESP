@@ -3,27 +3,6 @@ version = "1.0.0"
 dump_lua = true
 priority = 1
 
-# Draw curses - MISSES
-# [[patches]]
-# [patches.pattern]
-# target = 'card.lua'
-# pattern = '''local seal = G.P_SEALS[self.seal or {}] or {}'''
-# position = 'before'
-# match_indent = true
-# payload = '''
-# if self.curse then
-#     if self.curse == 'ortalab_infected' and ((self.area == G.play or self.config.center.set == 'Joker') and self.ability.no_score_shader) then
-#         self.children.center:draw_shader('ortalab_celadon', nil, self.ARGS.send_to_shader)
-#         if self.children.front then
-#             self.children.front:draw_shader('ortalab_celadon', nil, self.ARGS.send_to_shader)
-#         end
-#     end
-#     Ortalab.curse_sprites[self.curse].role.draw_major = self
-#     Ortalab.curse_sprites[self.curse]:draw_shader('dissolve',0, nil, nil, self.children.center,nil,nil,nil, nil,nil, 0.6)
-#     Ortalab.curse_sprites[self.curse]:draw_shader('dissolve', nil, nil, nil, self.children.center)
-# end
-# '''
-
 # Load/save curses on cards
 [[patches]]
 [patches.pattern]
@@ -129,21 +108,7 @@ if card.curse and not card.curse_removed then
     end
 end
 '''
-## Curse calculation on jokers
-[[patches]]
-[patches.pattern]
-target = 'functions/common_events.lua'
-pattern = '''if card.seal and not card.ability.extra_enhancement then'''
-position = 'before'
-match_indent = true
-payload = '''
-if card.curse and not card.curse_removed and not card.ability.extra_enhancement then
-    local curses = card:calculate_curse(context)
-    if curses then
-        ret.curses = curses
-    end
-end
-'''
+
 # Add curse calculation to calc keys
 [[patches]]
 [patches.pattern]

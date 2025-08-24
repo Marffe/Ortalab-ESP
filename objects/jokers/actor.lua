@@ -10,7 +10,7 @@ SMODS.Joker({
     eternal_compat = true,
     perishable_compat = true,
     config = {extra = {xmult = 1, gain = 1}},
-    artist_credits = {'no_demo'},
+    artist_credits = {'crimson'},
     loc_vars = function(self, info_queue, card)
         local handsize = G.hand and G.hand.config.card_limit - count_negatives(G.hand.cards) or G.GAME.starting_params.hand_size
         return {vars = {card.ability.extra.gain, card.ability.extra.xmult + (math.abs(G.GAME.starting_params.hand_size - handsize) * card.ability.extra.gain), G.GAME.starting_params.hand_size}}

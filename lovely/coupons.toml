@@ -15,13 +15,15 @@ payload = '''--if i == 1 and G.GAME.modifiers.ortalab_boosters then for _ = 1, G
 [[patches]]
 [patches.pattern]
 target = 'card.lua'
-pattern = '''G.GAME.pack_choices = self.ability.choose or self.config.center.config.choose or 1'''
-position = 'after'
+pattern = '''if self.cost > 0 then '''
+position = 'before'
 match_indent = true
 payload = '''
 if self.config.center.ortalab_type == 'ortalab_loteria' then
     G.GAME.pack_choices = G.GAME.pack_choices + G.GAME.ortalab.vouchers.cantor
-end'''
+end
+
+'''
 
 # Natal Sign Calculation
 [[patches]]
@@ -61,57 +63,6 @@ if G.GAME.used_vouchers.v_ortalab_natal_sign then
     end
 end
 '''
-
-# Home Delivery
-# [[patches]]
-# [patches.pattern]
-# target = 'functions/button_callbacks.lua'
-# match_indent = true
-# position = 'after'
-# pattern = '''
-#         for i = 1, #G.GAME.tags do
-#             G.GAME.tags[i]:apply_to_run({type = 'immediate'})
-#           end
-#           for i = 1, #G.GAME.tags do
-#             if G.GAME.tags[i]:apply_to_run({type = 'new_blind_choice'}) then break end
-#           end
-#           return true
-#         end
-#       }))
-#     end
-# '''
-# payload = '''
-# G.E_MANAGER:add_event(Event({
-#     trigger = 'after',
-#     func = function()
-#         if G.GAME.used_vouchers['v_ortalab_home_delivery'] then
-#             if G.blind_select then 
-#                 G.blind_select:remove()
-#                 G.blind_prompt_box:remove()
-#                 G.blind_select = nil
-#             end
-#             G.GAME.current_round.used_packs = {}
-#             G.GAME.current_round.jokers_purchased = 0
-#             G.GAME.current_round.reroll_cost_increase = 0
-#             G.GAME.round_resets.temp_reroll_cost = nil
-#             G.GAME.current_round.free_rerolls = G.GAME.round_resets.free_rerolls
-#             calculate_reroll_cost(true)
-#             print(#G.E_MANAGER.queues.base)
-
-#             G.E_MANAGER:add_event(Event({
-#                 trigger = 'after',
-#                 blocking = false,
-#                 func = function()
-#                     if G.STATE == G.STATES.SMODS_BOOSTER_OPENED or #G.E_MANAGER.queues.base > 3 then return false end
-#                     G.STATE_COMPLETE = false
-#                     G.STATE = G.STATES.SHOP
-#                     return true
-#                 end
-#             }))
-#         end
-#         return true
-# end}))
-# '''
 
 # hone/glowup inverse
 [[patches]]
@@ -650,65 +601,4 @@ if (e.config.ref_table.cost) > 0 and (e.config.ref_table.cost > G.GAME.dollars -
 payload = '''
 local free_packs = SMODS.find_card('v_ortalab_anti_inv')
 if not (next(free_packs) and free_packs[1].ability.extra.active) and (e.config.ref_table.cost) > 0 and (e.config.ref_table.cost > G.GAME.dollars - G.GAME.bankrupt_at) then
-'''
-
-
-[[patches]]
-[patches.pattern]
-target = '=[SMODS _ "src/utils.lua"]'
-match_indent = true
-position = 'before'
-pattern = '''
--- TARGET: additive probability changes before, multiplicative probability changes after
-'''
-payload = '''
-base_numerator = base_numerator + 1
-'''
-
-# Blank Inverse +1 card in boosters
-[[patches]]
-[patches.pattern]
-target = 'card.lua'
-match_indent = true
-position = 'after'
-pattern = '''
-local _size = self.ability.extra
-'''
-payload = '''
-if G.GAME.ortalab.vouchers.booster_pack_bonus then _size = _size + G.GAME.ortalab.vouchers.booster_pack_bonus end
-'''
-# pt2
-[[patches]]
-[patches.pattern]
-target = '=[SMODS _ "src/game_object.lua"]'
-match_indent = true
-position = 'after'
-pattern = '''
-local _size = SMODS.OPENED_BOOSTER.ability.extra
-'''
-payload = '''
-if G.GAME.ortalab.vouchers.booster_pack_bonus then _size = _size + G.GAME.ortalab.vouchers.booster_pack_bonus end
-'''
-# Blank Inverse automatic loc vars adjustment
-[[patches]]
-[patches.pattern]
-target = '=[SMODS _ "src/game_object.lua"]'
-match_indent = true
-position = 'at'
-pattern = '''
-return { vars = {card.ability.choose, card.ability.extra} }
-'''
-payload = '''
-return { vars = {card.ability.choose, card.ability.extra + G.GAME.ortalab.vouchers.booster_pack_bonus} }
-'''
-[[patches]]
-[patches.pattern]
-target = '=[SMODS _ "src/game_object.lua"]'
-match_indent = true
-position = 'at'
-pattern = '''
-vars = { cfg.choose, cfg.extra },
-'''
-payload = '''
-vars = { cfg.choose, cfg.extra + G.GAME.ortalab.vouchers.booster_pack_bonus},
 '''

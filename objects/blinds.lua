@@ -99,8 +99,19 @@ SMODS.Blind({
     set_blind = function(self)
         self.config.extra.hands_removed = 0
     end,
-    after_scoring = function(self)
-        G.E_MANAGER:add_event(Event({ trigger = 'after', delay = 0.7, func = function()
+    calculate = function(self, card, context)
+        if context.end_of_round and context.main_eval then
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after', delay = 0.7,
+                func = function()
+                    G.hand:handle_card_limit(card.effect.extra.hands_removed)
+                    return true
+                end
+            }))
+        end
+        if context.after then
+            card.effect.extra.hands_removed = card.effect.extra.hands_removed + card.effect.extra.hand_size
+            G.E_MANAGER:add_event(Event({ trigger = 'after', delay = 0.7, func = function()
             attention_text({
                 text = localize('ortalab_sinker_message'),
                 hold = 1.4,
@@ -110,14 +121,14 @@ SMODS.Blind({
                 align = 'cm',
                 silent = true
             })
-            G.hand:change_size(-1 * self.config.extra.hand_size)
-            self.config.extra.hands_removed = self.config.extra.hands_removed + self.config.extra.hand_size
+            G.hand:change_size(-1 * card.effect.extra.hand_size)
             return true
         end })) 
         delay(0.7)
+        end
     end,
     defeat = function(self)
-        if not G.GAME.blind.disabled then G.hand:change_size(self.config.extra.hands_removed) end
+        if not G.GAME.blind.disabled then  end
     end,
     disable = function(self)
         G.hand:change_size(self.config.extra.hands_removed)
@@ -148,6 +159,15 @@ SMODS.Blind({
         if check then return true end
     end,
 })
+
+local ortalab_calc_round_score = SMODS.calculate_round_score
+function SMODS.calculate_round_score(flames)
+    local score = ortalab_calc_round_score(flames)
+    if G.GAME.blind and G.GAME.blind.config.blind.key == 'bl_ortalab_fork' and not G.GAME.blind.disabled then
+        score = math.min(score, G.GAME.blind.chips*G.GAME.blind.config.blind.config.extra.cap)
+    end
+    return score
+end
 
 SMODS.Blind({
     key = 'top',
@@ -283,6 +303,7 @@ SMODS.Blind({
     boss_colour = HEX('50bf7c'),
     artist_credits = {'flare'},
     debuff_hand = function(self, cards, hand, handname, check)
+        if #cards == 1 then return false end
         local _,_,_,scoring_hand,_ = G.FUNCS.get_poker_hand_info(cards)
         local always_scores_count = 0
         for _, card in pairs(cards) do

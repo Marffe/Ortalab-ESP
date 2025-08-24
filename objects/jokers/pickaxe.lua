@@ -28,7 +28,9 @@ SMODS.Joker({
                 scalar_value = "gain",
                 message_key = 'a_xmult'
             })
-            return nil, true
+            return {
+                remove = true
+            }
         end
         if context.joker_main then
             return {

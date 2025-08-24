@@ -19,7 +19,7 @@ SMODS.Joker({
 	end,
 	calculate = function(self, card, context)
         if context.before then
-            card.ability.extra.consecutive_ranks = card.ability.extra.base
+            card.ability.extra.xmult = card.ability.extra.base
 			card.ability.extra.last_triggered = nil
         end
 		if context.cardarea == G.play and context.individual and not context.blueprint and not context.retrigger_joker and not SMODS.has_no_rank(context.other_card) then

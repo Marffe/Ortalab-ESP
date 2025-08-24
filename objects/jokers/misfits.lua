@@ -9,7 +9,7 @@ SMODS.Joker({
 	blueprint_compat = true,
 	eternal_compat = true,
 	perishable_compat = true,
-	config = {extra = {xmult = 7, count = 4}},
+	config = {extra = {xmult = 2.5, count = 4}},
     artist_credits = {'gappie'},
 	loc_vars = function(self, info_queue, card)
 		return {vars = {card.ability.extra.xmult, card.ability.extra.count}}
@@ -24,11 +24,19 @@ SMODS.Joker({
                 if not SMODS.has_no_suit(played_card) then suits[suit] = suit end
                 if not SMODS.has_no_rank(played_card) then ranks[rank] = rank end
             end
-            if table.size(suits) >= card.ability.extra.count and table.size(ranks) >= card.ability.extra.count then
-                return {
+            local ret1 = {}
+            if table.size(suits) >= card.ability.extra.count then
+                ret1 = {
                     xmult = card.ability.extra.xmult
                 }
             end
+            local ret2 = {}
+            if table.size(ranks) >= card.ability.extra.count then
+                ret2 = {
+                    xmult = card.ability.extra.xmult
+                }
+            end
+            return SMODS.merge_effects({ret1, ret2})
         end
     end
 })
