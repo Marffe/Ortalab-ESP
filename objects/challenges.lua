@@ -365,6 +365,9 @@ SMODS.Challenge {
     jokers = {
         {id = 'j_ortalab_freezer', eternal = true},
         {id = 'j_ortalab_head_honcho', eternal = true},
+        
+    },
+    consumeables = {
         {id = 'c_medium'},
     },
     vouchers = {
