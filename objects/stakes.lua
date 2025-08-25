@@ -22,6 +22,7 @@ SMODS.Stake({
     shiny = true,
     sticker_pos = {x = 0, y = 0},
     sticker_atlas = 'stickers',
+    colour = HEX('b9d0cb'),
     modifiers = function()
         G.GAME.modifiers.ortalab_only = Ortalab.config.ortalab_only
         G.GAME.ortalab.double_blind = true
@@ -105,6 +106,7 @@ SMODS.Seal({
     end
 })
 
+
 SMODS.Stake({
     key = "two",
     applied_stakes = {'one'},
@@ -114,6 +116,7 @@ SMODS.Stake({
     shiny = true,
     sticker_pos = {x = 1, y = 0},
     sticker_atlas = 'stickers',
+    colour = HEX('f77162'),
     modifiers = function()
         G.GAME.ortalab.blind_rewards = G.GAME.ortalab.blind_rewards - 1
     end,
@@ -128,6 +131,7 @@ SMODS.Stake({
     shiny = true,
     sticker_pos = {x = 2, y = 0},
     sticker_atlas = 'stickers',
+    colour = HEX('fc3ee2'),
     modifiers = function()
         G.GAME.modifiers.scaling = (G.GAME.modifiers.scaling or 1) + 1
         G.GAME.win_ante = G.GAME.win_ante + 1
@@ -143,6 +147,7 @@ SMODS.Stake({
     shiny = true,
     sticker_pos = {x = 3, y = 0},
     sticker_atlas = 'stickers',
+    colour = HEX('5348e9'),
     modifiers = function()
         G.GAME.ortalab.skips_required = true
         G.GAME.ortalab.skips = 3
@@ -178,6 +183,7 @@ SMODS.Stake({
     shiny = true,
     sticker_pos = {x = 0, y = 1},
     sticker_atlas = 'stickers',
+    colour = HEX('4ff34d'),
     modifiers = function()
         G.GAME.ortalab.round_decay = 1
         G.GAME.modifiers.scaling = (G.GAME.modifiers.scaling or 1) + 1
@@ -193,6 +199,7 @@ SMODS.Stake({
     shiny = true,
     sticker_pos = {x = 1, y = 1},
     sticker_atlas = 'stickers',
+    colour = HEX('e2032f'),
     modifiers = function()
         G.GAME.ortalab.shop_curses = true
     end,
@@ -207,6 +214,7 @@ SMODS.Stake({
     shiny = true,
     sticker_pos = {x = 2, y = 1},
     sticker_atlas = 'stickers',
+    colour = HEX('a9fcf0'),
     modifiers = function()
         G.GAME.ortalab.ante_showdown = true
     end,
@@ -221,6 +229,7 @@ SMODS.Stake({
     shiny = true,
     sticker_pos = {x = 3, y = 1},
     sticker_atlas = 'stickers',
+    colour = HEX('533c5f'),
     modifiers = function()
         G.GAME.ortalab.finisher_ante = true
     end,
