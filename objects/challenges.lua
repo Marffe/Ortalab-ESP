@@ -268,7 +268,7 @@ SMODS.Challenge {
             {id = 'tag_ortalab_soul'},
             {id = 'tag_ortalab_common'},
             {id = 'tag_ortalab_fluorescent'},
-            {id = 'tag_ortalab_greyscale '},
+            {id = 'tag_ortalab_greyscale'},
             {id = 'tag_ortalab_overexposed'},
             {id = 'tag_ortalab_anaglyphic'},
         },
