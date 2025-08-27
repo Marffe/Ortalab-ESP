@@ -20,7 +20,7 @@ SMODS.Joker({
             for i, v in ipairs(card.area.cards) do
                 if v == card then pos = i end
             end
-            if card.area.cards[pos+1] and card.area.cards[pos+1].config.center.rarity == 1 then
+            if card.area.cards[pos+1] and card.area.cards[pos+1].config.center.rarity == 1 and not SMODS.is_eternal(card.area.cards[pos+1], card) then
                 local destroy_card = card.area.cards[pos+1]
                 local sell_val = destroy_card.sell_cost
                 G.E_MANAGER:add_event(Event({
