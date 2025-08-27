@@ -29,38 +29,40 @@ SMODS.Joker({
                 edition = context.other_card.edition and context.other_card.edition.key or nil,
                 seal = context.other_card.seal or nil
             }
+            local i = 1
             local possible = {}
             for k, v in pairs(modifiers) do
                 if v then possible[#possible + 1] = k end
             end
             local mod_type = pseudorandom_element(possible, pseudoseed('ortalab_collectors_choice'))
-
+            
             local waiting = true
-            local i = 1
             while waiting do
                 if G.hand.cards[i].highlighted then
                     i = i + 1
                 else
-                    G.E_MANAGER:add_event(Event({
-                        trigger = 'after',
-                        delay = 0.7,
-                        func = function()              
-                            if mod_type == 'enhancement' then
-                                G.hand.cards[i]:set_ability(G.P_CENTERS[modifiers.enhancement], nil, true)
-                            elseif mod_type == 'seal' then
-                                G.hand.cards[i]:set_seal(modifiers.seal)
-                            else
-                                G.hand.cards[i]:set_edition(modifiers.edition)
+                    if mod_type then
+                        G.E_MANAGER:add_event(Event({
+                            trigger = 'after',
+                            delay = 0.7,
+                            func = function()              
+                                if mod_type == 'enhancement' then
+                                    G.hand.cards[i]:set_ability(G.P_CENTERS[modifiers.enhancement], nil, true)
+                                elseif mod_type == 'seal' then
+                                    G.hand.cards[i]:set_seal(modifiers.seal)
+                                else
+                                    G.hand.cards[i]:set_edition(modifiers.edition)
+                                end
+                                return true
                             end
-                            return true
-                        end
-                    }))
+                        }))
+                    end
                     waiting = false
                 end
             end
             return {
                 remove = true,
-                message = localize('ortalab_collected'),
+                message = mod_type and localize('ortalab_collected'),
                 message_card = G.hand.cards[i]
             }
         end
