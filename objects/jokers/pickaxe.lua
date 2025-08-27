@@ -29,7 +29,8 @@ SMODS.Joker({
                 message_key = 'a_xmult'
             })
             return {
-                remove = true
+                remove = true,
+                no_retrigger = true
             }
         end
         if context.joker_main then

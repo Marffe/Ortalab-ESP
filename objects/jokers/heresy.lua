@@ -25,7 +25,6 @@ SMODS.Joker({
                     ref_table[ref_value] = initial + #context.cards * scaling
                 end
             })
-            return nil, true
         end
         if context.remove_playing_cards and not context.blueprint then
             SMODS.scale_card(card, {
@@ -37,7 +36,6 @@ SMODS.Joker({
                     ref_table[ref_value] = initial + #context.removed * scaling
                 end
             })
-            return nil, true
         end
         if context.joker_main then
             return {

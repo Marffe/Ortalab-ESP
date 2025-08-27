@@ -15,7 +15,7 @@ SMODS.Joker({
         return {vars = {card.ability.extra.a_mult, card.ability.extra.a_mult_add, card.ability.extra.cap}}
     end,
     calculate = function(self, card, context) --Popcorn Bag Logic
-        if not context.blueprint and context.end_of_round and not context.individual and not context.repetition then
+        if not context.blueprint and not context.retrigger_joker and context.end_of_round and context.main_eval then
             if card.ability.extra.a_mult + card.ability.extra.a_mult_add > card.ability.extra.cap then
                 SMODS.destroy_cards(card, nil, nil, true)
                 return {
@@ -29,7 +29,6 @@ SMODS.Joker({
                     scalar_value = "a_mult_add",
                     message_key = 'a_mult'
                 })
-                return nil, true
             end
         end
         if context.joker_main then

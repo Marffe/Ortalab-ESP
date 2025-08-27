@@ -22,7 +22,6 @@ SMODS.Joker({
 				scalar_value = "chip_gain",
 				message_colour = G.C.BLUE
 			})
-			return nil, true
         end
         if context.joker_main and card.ability.extra.chips > 0 then
             return {

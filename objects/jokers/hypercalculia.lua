@@ -19,7 +19,7 @@ SMODS.Joker({
 	end,
 	calculate = function(self, card, context)
 		if context.joker_main then
-			if not context.blueprint then
+			if not context.blueprint and not context.retrigger_joker then
 				local faces = {}
 				for _, card in ipairs(context.scoring_hand) do
 					if card:is_face() then

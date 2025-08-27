@@ -28,7 +28,6 @@ SMODS.Joker({
 				scalar_value = "gain",
 				message_key = 'a_xmult'
 			})
-			return nil, true
 		end
 	end
 })

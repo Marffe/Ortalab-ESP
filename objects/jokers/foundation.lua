@@ -42,7 +42,6 @@ SMODS.Joker({
 					scalar_value = "gain",
 					message_key = 'a_xmult'
 				})
-                return nil, true
             else
                 card.ability.extra.xmult = card.ability.extra.base
                 return {

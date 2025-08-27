@@ -28,7 +28,6 @@ SMODS.Joker({
                     scalar_value = "gain",
                     message_colour = G.C.RED
                 })
-                return nil, true
             end
         end
     end    

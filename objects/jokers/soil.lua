@@ -30,7 +30,6 @@ SMODS.Joker({
 					scalar_value = "xmult_gain",
 					message_key = 'a_xmult'
 				})
-				return nil, true
 			end
 			card.ability.extra.last_triggered = context.other_card.base.id
 		end

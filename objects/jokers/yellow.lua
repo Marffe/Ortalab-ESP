@@ -26,7 +26,6 @@ SMODS.Joker({
                     ref_table[ref_value] = initial + (context.scoring_hand and #context.scoring_hand or #context.full_hand)*scaling
                 end
             })
-            return nil, true
         end
         if context.joker_main then
             return {

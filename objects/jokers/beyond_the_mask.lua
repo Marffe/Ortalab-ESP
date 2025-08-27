@@ -31,6 +31,7 @@ SMODS.Joker({
             return {
                 delay = 0.45, 
                 remove = true,
+                no_retrigger = true
             }
         end
     end

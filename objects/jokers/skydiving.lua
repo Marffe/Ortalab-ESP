@@ -25,6 +25,7 @@ SMODS.Joker({
                 })
 				return {
 					level_up = -card.ability.extra.level_loss,
+					no_retrigger = true
 				}
 			end
 		end

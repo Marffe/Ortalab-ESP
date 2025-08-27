@@ -21,7 +21,6 @@ SMODS.Joker({
                 ref_value = "chips",
                 scalar_value = "change",
             })
-            return nil, true
         end
 		if context.joker_main and card.ability.extra.chips > 0 then
             return {

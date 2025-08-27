@@ -30,7 +30,6 @@ SMODS.Joker({
                     message_colour = G.C.RED,
                     message_key = 'a_mult'
                 })
-                return nil, true
             end
         end
         if context.joker_main then

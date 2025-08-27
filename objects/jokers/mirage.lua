@@ -29,7 +29,6 @@ SMODS.Joker({
 					message_key = 'a_xmult'
 				})
             end
-			return nil, true
         end
     end
 })
