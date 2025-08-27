@@ -165,3 +165,17 @@ G.E_MANAGER:add_event(Event({
     end
 }))
 '''
+
+
+# TEMP PATCH - Stock voucher redeeming
+[[patches]]
+[patches.pattern]
+target = 'cardarea.lua'
+match_indent = true
+position = 'at'
+pattern = '''
+(self.config.type == 'hand' and state == G.STATES.SMODS_BOOSTER_OPENED) or
+'''
+payload = '''
+(self.config.type == 'hand' and (state == G.STATES.SMODS_BOOSTER_OPENED or state == G.STATES.SMODS_REDEEM_VOUCHER)) or
+'''
