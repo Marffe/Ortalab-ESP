@@ -818,7 +818,7 @@ SMODS.Voucher({
     config = {extra = {bonus_slots = 1}},
     artist_credits = {'flare'},
 	redeem = function(self, card)
-        G.GAME.modifiers.booster_size_mod = G.GAME.modifiers.booster_size_mod + card.ability.extra.bonus_slots
+        G.GAME.modifiers.booster_size_mod = (G.GAME.modifiers.booster_size_mod or 0) + card.ability.extra.bonus_slots
     end,
     loc_vars = function(self, info_queue, card)
         return {vars = {card.ability.extra.bonus_slots}}
