@@ -448,3 +448,10 @@ SMODS.Back({
         return {vars = {self.config.bonus_slots}}
     end,
 })
+
+SMODS.Back({
+	key = "challenge", 
+	atlas = "decks",
+	pos = {x = 0, y = 3},
+    omit = true
+})

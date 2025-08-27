@@ -2483,6 +2483,9 @@ return {
 					'{C:attention}+1{} Joker Slot',
 				} 
 			},
+			b_ortalab_challenge = {
+				name = 'Ortalab Challenge Deck',
+			},
 		},
 		['Voucher'] = {
 			v_ortalab_chisel = {
