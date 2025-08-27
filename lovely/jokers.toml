@@ -170,44 +170,6 @@ if next(ortalab_poly_jokers) and (next(poker_hands['Straight']) or next(poker_ha
     SMODS.calculate_effect({message = localize('ortalab_polydactyly')}, ortalab_poly_jokers[1])
 end
 '''
-# Polydactyly compat
-[[patches]]
-[patches.pattern]
-target = '=[SMODS _ "src/utils.lua"]'
-match_indent = true
-position = 'before'
-pattern = '''
-t[#t+1] = G.hand
-'''
-payload = '''
-t[#t+1] = Ortalab.polydactyly
-'''
-[[patches]]
-[patches.pattern]
-target = '=[SMODS _ "src/utils.lua"]'
-match_indent = true
-position = 'before'
-pattern = '''
-local in_scoring = scoring_hand and SMODS.in_scoring(card, context.scoring_hand)
---add cards played to list
-'''
-payload = '''
-if context.cardarea == Ortalab.polydactyly then scoring_hand = context.scoring_hand end
-'''
-# Unhighlight poly cards
-[[patches]]
-[patches.pattern]
-target = '=[SMODS _ "src/utils.lua"]'
-match_indent = true
-position = 'before'
-pattern = '''
--- context.destroying_card calculations
-'''
-payload = '''
-if context.cardarea == Ortalab.polydactyly then
-    highlight_card(card,(1-0.999)/(3-0.998),'down')
-end
-'''
 
 # Wallet - scored cards act as in hand
 [[patches]]
