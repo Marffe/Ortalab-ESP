@@ -12,13 +12,27 @@ SMODS.Joker({
     artist_credits = {'gappie'},
     loc_vars = function(self, info_queue, card)
         local pokerhands = Ortalab.pokerhands_by_played()
-        return {vars = {localize(pokerhands[3].key, 'poker_hands')}}
+        local hand = pokerhands[3]
+        if pokerhands[3].played == pokerhands[2].played then
+            hand = pokerhands[2]
+            if pokerhands[2].played == pokerhands[1].played then
+                hand = pokerhands[1]
+            end
+        end
+        return {vars = {localize(hand.key, 'poker_hands')}}
     end,
     calculate = function(self, card, context)
         if context.end_of_round and context.main_eval and not context.blueprint then
             local pokerhands = Ortalab.pokerhands_by_played()
+            local hand = pokerhands[3]
+            if pokerhands[3].played == pokerhands[2].played then
+                hand = pokerhands[2]
+                if pokerhands[2].played == pokerhands[1].played then
+                    hand = pokerhands[1]
+                end
+            end
             return {
-                level_up_hand = pokerhands[3].key,
+                level_up_hand = hand.key,
                 level_up = true
             }
         end
@@ -29,7 +43,7 @@ function Ortalab.pokerhands_by_played()
     local pokerhands = {}
     for k,v in pairs(G.GAME.hands) do
         v.key = k
-        pokerhands[#pokerhands + 1] = v 
+        pokerhands[#pokerhands + 1] = SMODS.is_poker_hand_visible(k) and v or nil
     end
     table.sort(pokerhands, function(x, y)
         if x.played == y.played then
