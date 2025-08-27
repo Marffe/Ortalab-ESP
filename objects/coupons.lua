@@ -229,7 +229,7 @@ SMODS.Voucher({
 	unlocked = true,
 	discovered = false,
 	available = true,
-    config = {extra = {xmult = 1.1, per = 4}},
+    config = {extra = {xmult = 1.2, per = 4}},
     requires = {'v_ortalab_horoscope'},
     artist_credits = {'gappie'},
 	redeem = function(self, card)
