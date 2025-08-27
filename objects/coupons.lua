@@ -908,8 +908,10 @@ SMODS.Voucher({
         end
     end,
     loc_vars = function(self, info_queue, card)
-        info_queue[#info_queue+1] = G.P_CENTERS.m_wild
-        info_queue[#info_queue+1] = G.P_CENTERS.m_ortalab_index
+        if not card.fake_card then
+            info_queue[#info_queue+1] = G.P_CENTERS.m_wild
+            info_queue[#info_queue+1] = G.P_CENTERS.m_ortalab_index
+        end
         return {vars = {card.ability.extra.change}}
     end,
 })
