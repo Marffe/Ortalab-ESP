@@ -50,6 +50,9 @@ vec4 effect( vec4 colour, Image texture, vec2 texture_coords, vec2 screen_coords
     MY_HIGHP_OR_MEDIUMP number cb = 1. - min(1., c1p + c2p);
 
     MY_HIGHP_OR_MEDIUMP vec4 ret_col = colour_2*c1p + colour_1*c1p + vec4(cb*BLACK.rgb, cb*colour_1.a);
+    if (ret_col.r < 0.2 && ret_col.b < 0.2 && ret_col.b < 0.2){
+        ret_col = vec4(BLACK.rgb, ret_col.a);
+    }
     MY_HIGHP_OR_MEDIUMP number mod_flash = max(mid_flash*0.8, max(c1p, c2p)*4.6 - 4.8) + mid_flash*max(c1p, c2p);
 
     return ret_col*(1. - mod_flash) + mod_flash*vec4(1.0);

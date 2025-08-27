@@ -20,7 +20,7 @@ Ortalab.load_table = {
 
 loc_colour('red')
 G.ARGS.LOC_COLOURS['Ortalab'] = HEX('990000')
-G.ARGS.LOC_COLOURS.Ort_menu_colourA = HEX('686868')
+G.ARGS.LOC_COLOURS.Ort_menu_colourA = HEX('4F6367')
 G.ARGS.LOC_COLOURS.Ort_menu_colourB = HEX('C9013C')
 
 
