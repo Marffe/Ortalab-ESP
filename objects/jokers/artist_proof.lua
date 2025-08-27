@@ -20,8 +20,6 @@ SMODS.Joker({
             local amount = pseudorandom(pseudoseed('ortalab_artist_proof'), -card.ability.extra.negative, card.ability.extra.positive)
 			return {
 				dollars = amount,
-				message = (amount < 0 and '-' or '') .. localize('$') .. math.abs(amount),
-				colour =  amount > 0 and G.C.MONEY or G.C.RED
 			}
         end
     end
