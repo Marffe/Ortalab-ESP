@@ -19,6 +19,7 @@ SMODS.Joker({
             SMODS.scale_card(card, {
                 ref_table = card.ability,
                 ref_value = "extra_value",
+                scalar_table = card.ability.extra,
                 scalar_value = "gain",
                 operation = function(ref_table, ref_value, initial, scaling)
                     ref_table[ref_value] = initial + (#G.jokers.cards - 1) * scaling
