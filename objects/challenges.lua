@@ -1,5 +1,5 @@
 SMODS.Challenge {
-    key = 'police',
+    key = 'soundC',
     stake = 'ortalab_one',
     rules = {
         modifiers = {
@@ -35,7 +35,7 @@ SMODS.Challenge {
 
 
 SMODS.Challenge {
-    key = 'black_parade',
+    key = 'blackC',
     rules = {
         modifiers = {},
     },
@@ -65,7 +65,7 @@ SMODS.Challenge {
 
 
 SMODS.Challenge {
-    key = 'copy_cat',
+    key = 'copyC',
     rules = {
         modifiers = {},
     },
@@ -95,7 +95,7 @@ SMODS.Challenge {
 
 
 SMODS.Challenge {
-    key = 'cursed',
+    key = 'cursedC',
     rules = {
         modifiers = {},
     },
@@ -126,7 +126,7 @@ SMODS.Challenge {
 
 
 SMODS.Challenge {
-    key = 'stars',
+    key = 'starsC',
     rules = {
         modifiers = {},
     },
@@ -158,7 +158,7 @@ SMODS.Challenge {
 
 
 SMODS.Challenge {
-    key = 'rusty_needle',
+    key = 'rustyC',
     rules = {
         modifiers = {
             {id = 'hand_size', value = 1},
@@ -198,7 +198,7 @@ SMODS.Challenge {
 
 
 SMODS.Challenge {
-    key = 'shinku_challenge',
+    key = 'shinkuC',
     rules = {
         modifiers = {
         },
@@ -226,7 +226,7 @@ SMODS.Challenge {
 
 
 SMODS.Challenge {
-    key = 'locked_in',
+    key = 'locked_inC',
     rules = {
         modifiers = {
         },
@@ -268,7 +268,7 @@ SMODS.Challenge {
             {id = 'tag_ortalab_soul'},
             {id = 'tag_ortalab_common'},
             {id = 'tag_ortalab_fluorescent'},
-            {id = 'tag_ortalab_greyscale '},
+            {id = 'tag_ortalab_greyscale'},
             {id = 'tag_ortalab_overexposed'},
             {id = 'tag_ortalab_anaglyphic'},
         },
@@ -285,7 +285,7 @@ SMODS.Challenge {
 
 
 SMODS.Challenge {
-    key = 'rich_kid',
+    key = 'rich_kidC',
     rules = {
         modifiers = {
         },
@@ -316,7 +316,7 @@ SMODS.Challenge {
 
 
 SMODS.Challenge {
-    key = 'evil_up',
+    key = 'evil_upC',
     rules = {
         modifiers = {
             {id = 'hand_size', value = 4},
@@ -357,7 +357,7 @@ SMODS.Challenge {
 
 
 SMODS.Challenge {
-    key = 'idk',
+    key = 'freezerC',
     rules = {
         modifiers = {
         },
@@ -365,6 +365,9 @@ SMODS.Challenge {
     jokers = {
         {id = 'j_ortalab_freezer', eternal = true},
         {id = 'j_ortalab_head_honcho', eternal = true},
+        
+    },
+    consumeables = {
         {id = 'c_medium'},
     },
     vouchers = {
@@ -390,7 +393,7 @@ SMODS.Challenge {
 
 
 SMODS.Challenge {
-    key = 'fingers',
+    key = 'fingersC',
     rules = {
         modifiers = {
         },
@@ -497,7 +500,7 @@ SMODS.Challenge {
 
 
 SMODS.Challenge {
-    key = 'lostc',
+    key = 'lostC',
     rules = {
         modifiers = {
         },
@@ -568,7 +571,7 @@ SMODS.Challenge {
 
 
 SMODS.Challenge {
-    key = 'shrod',
+    key = 'shrodingerC',
     rules = {
         modifiers = {
         },
@@ -602,7 +605,7 @@ SMODS.Challenge {
 
 
 SMODS.Challenge {
-    key = 'virtueless',
+    key = 'virtuelessC',
     rules = {
         custom = {
             {id = 'no_shop_jokers'}
@@ -650,7 +653,7 @@ SMODS.Challenge {
 }
 
 SMODS.Challenge {
-    key = 'chaos',
+    key = 'chaosC',
     rules = {
         custom = {
 
@@ -693,7 +696,7 @@ SMODS.Challenge {
 
 
 SMODS.Challenge {
-    key = 'ambi',
+    key = 'ambidexrousC',
     rules = {
         custom = {
 
@@ -725,3 +728,95 @@ SMODS.Challenge {
 	end,
     }
 }
+
+SMODS.Challenge {
+    key = 'diseasedC',
+    rules = {
+        modifiers = {},
+    },
+    jokers = {
+    },
+    vouchers = {
+
+    },
+    restrictions = {
+        banned_cards = {
+            {id = 'c_ortalab_gnome'},
+            {id = 'c_ortalab_ya_te_veo'},
+            {id = 'c_ortalab_crawler'},
+            {id = 'c_ortalab_anubis'},
+            {id = 'c_ortalab_wendigo'},
+        },
+        banned_tags = {
+        },
+        banned_other = {},
+    },
+    deck = {
+        type = 'Ortalab Challenge Deck',
+    unlocked = function(self)
+		return true
+	end,
+    }
+}
+
+
+
+SMODS.Challenge {
+    key = 'russianC',
+    rules = {
+        modifiers = {},
+    },
+    jokers = {
+    },
+    vouchers = {
+
+    },
+    restrictions = {
+        banned_cards = {
+            {id = 'c_ortalab_gnome'},
+            {id = 'c_ortalab_ya_te_veo'},
+            {id = 'c_ortalab_crawler'},
+            {id = 'c_ortalab_anubis'},
+            {id = 'c_ortalab_wendigo'},
+            {id = 'c_ortalab_lot_hand'},
+        },
+        banned_tags = {
+            {id = 'tag_ortalab_hand'},
+        },
+        banned_other = {},
+    },
+    deck = {
+        type = 'Ortalab Challenge Deck',
+    unlocked = function(self)
+		return true
+	end,
+    }
+}
+
+
+SMODS.Challenge {
+    key = 'ephermeralC',
+    rules = {
+        modifiers = {},
+    },
+    jokers = {
+    },
+    vouchers = {
+
+    },
+    restrictions = {
+        banned_cards = {
+            {id = 'c_ortalab_tree_of_life'},
+        },
+        banned_tags = {
+        },
+        banned_other = {},
+    },
+    deck = {
+        type = 'Ortalab Challenge Deck',
+    unlocked = function(self)
+		return true
+	end,
+    }
+}
+

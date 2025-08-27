@@ -382,7 +382,7 @@ Ortalab.Curse({
     pos = {x = 3, y = 0},
     badge_colour = HEX('849a3f'),
     sound = {sound = 'ortalab_infected', per = 1.2, vol = 0.4},
-    config = {extra = {denom = 2}},
+    config = {extra = {denom = 3}},
     artist_credits = {'flare'},
     loc_vars = function(self, info_queue, card)
         if card and card.config.center.set == 'Joker' then 
