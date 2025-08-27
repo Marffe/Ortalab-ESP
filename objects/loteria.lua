@@ -1034,6 +1034,7 @@ function use_enhance_cards(self, loteria, area, copier)
     shuffle_cards()
     for i=1, math.min(loteria.ability.extra.amount + G.GAME.ortalab.vouchers.tabla, valid_cards) do
         local set = true
+        local anim_skip = 0
         while set do
             local card = pseudorandom_element(G.hand.cards, pseudoseed(loteria.ability.extra.key..'_select'))
             if not Ortalab.config.loteria_skip then
@@ -1041,11 +1042,12 @@ function use_enhance_cards(self, loteria, area, copier)
                 G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.1, func = function() card:highlight(false); return true; end}))
             end
             if card.config.center_key ~= loteria.ability.extra.key and not card.changed then
-                if pseudorandom(pseudoseed(loteria.ability.extra.key..'_set')) < (1 / (card.ability.set == 'Enhanced' and 8 or 3)) then
+                if pseudorandom(pseudoseed(loteria.ability.extra.key..'_set')) < ((1 + anim_skip) / (card.ability.set == 'Enhanced' and 8 or 3)) then
                     set_enhancement(card, loteria.ability.extra.key)
                     card.changed = true
                     set = false
                 end
+                anim_skip = anim_skip + 0.5
             end
         end
     end
