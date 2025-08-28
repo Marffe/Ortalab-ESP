@@ -37,6 +37,7 @@ SMODS.Joker({
                         copy:add_to_deck()
                         copy:start_materialize({HEX('dc9d6c')})
                         copy.ability.kopi = true
+                        copy.ability.shinku = nil
                         copy.ignore_base_shader = {kopi = true}
                         copy.ignore_shadow = {kopi = true}
                         copy:set_cost()
