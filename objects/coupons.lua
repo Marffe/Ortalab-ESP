@@ -642,7 +642,7 @@ SMODS.DrawStep {
         if self.config.center_key == 'v_ortalab_seed_inv' then t = 'wyrms_dragons'
         elseif self.config.center_key == 'v_ortalab_tree_inv' then t = 'wyrms_dragons_2' end
         
-        if t then
+        if t and self.config.center.discovered then
             if not next(Ortalab[t] or {}) then G.P_CENTERS[self.config.center_key]:create_sprites(self) end
             for _, dragon in pairs(Ortalab[t]) do 
                 dragon.role.draw_major = self
