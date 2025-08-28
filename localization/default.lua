@@ -1,5 +1,15 @@
 return {
 	["misc"] = {
+		quips = {
+			ortalab_black_cat_1_win = {
+				'Example quip',
+				'{C:red}WIN!{}'
+			},
+			ortalab_black_cat_1_loss = {
+				'Meow meow',
+				'meow 3:'
+			}
+		},
 		poker_hands = {
 			Any = "any hand"
 		},
@@ -202,13 +212,6 @@ return {
 			},
 			heyyou = {
 				text = {'Hey You'}
-			},
-			['shinku'] = {
-				['text'] = {
-					'This card is',
-					'a gift from',
-					'{C:Ortalab,E:1}Shinku'
-				}
 			},
 			['5381'] = {
 				["text"] = {
@@ -2853,6 +2856,14 @@ return {
 				text = {
 					'Will be removed when',
 					'{C:attention}Blind{} is defeated'
+				}
+			},
+			ortalab_shinku = {
+				name = '{C:Ortalab}Shinku',
+				['text'] = {
+					'This card is',
+					'a gift from',
+					'{C:Ortalab,E:1}Shinku'
 				}
 			},
 			ortalab_temporary = {

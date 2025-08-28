@@ -70,7 +70,7 @@ pattern = '''if first_pass and not (_c.set == 'Edition') and badges then'''
 position = "before"
 payload = '''
 if specific_vars and specific_vars.shinku then
-    info_queue[#info_queue + 1] = {generate_ui = ortalab_artist_tooltip, key = 'shinku', title = 'Shinku'}
+    info_queue[#info_queue + 1] = {set = 'Other', key = 'ortalab_shinku'}
 end
 if card and card.ability and card.ability.kopi then
     info_queue[#info_queue + 1] = {set = 'Other', key = 'ortalab_kopi'}

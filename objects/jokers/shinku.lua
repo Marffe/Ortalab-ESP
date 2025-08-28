@@ -17,9 +17,10 @@ SMODS.Joker({
     end,
     calculate = function(self, card, context)
         if context.end_of_round and context.main_eval and context.beat_boss then
-            self.remove_shinku_jokers(card)
+            if not context.retrigger_joker then self.remove_shinku_jokers(card) end
             delay(0.7)
             self.add_shinku_jokers(card)
+            return nil, true
         end
     end,
     add_to_deck = function(self, card, from_debuff)
@@ -35,15 +36,15 @@ SMODS.Joker({
                 delay = 0.4,
                 func = function() 
                     local pool = get_current_pool('Joker')
-                    local final_pool = {}
-                    for _, v in ipairs(pool) do
-                        if v ~= 'UNAVAILABLE' and string.sub(v, 1, 9) == 'j_ortalab' then
-                            table.insert(final_pool, v)
-                        end
-                    end
-                    local selected = pseudorandom_element(final_pool, 'shinku_spawn')
+                    -- local final_pool = {}
+                    -- for _, v in ipairs(pool) do
+                    --     if v ~= 'UNAVAILABLE' and string.sub(v, 1, 9) == 'j_ortalab' then
+                    --         table.insert(final_pool, v)
+                    --     end
+                    -- end
+                    local selected = pseudorandom_element(pool, 'shinku_spawn')
                     while selected == 'UNAVAILABLE' do
-                        selected = pseudorandom_element(final_pool, 'shinku_spawn_re')
+                        selected = pseudorandom_element(pool, 'shinku_spawn_re')
                     end
                 local new_joker = create_card('Joker', G.jokers, nil, nil, nil, nil, selected)
                 new_joker:set_edition(nil, true, true)
