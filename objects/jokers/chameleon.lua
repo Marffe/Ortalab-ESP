@@ -13,7 +13,6 @@ SMODS.Joker({
     artist_credits = {'gappie'},
 	loc_vars = function(self, info_queue, card)
         if card.ability.extra.copied_joker then
-            local vars = card.ability.extra.copied_joker:generate_UIBox_ability_table(nil, 'ortalab_chameleon')
             if G.P_CENTERS[card.ability.extra.copied_joker.config.center_key] then
                 info_queue[#info_queue+1] = G.P_CENTERS[card.ability.extra.copied_joker.config.center_key]
             end
