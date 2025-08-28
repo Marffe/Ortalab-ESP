@@ -388,7 +388,7 @@ pattern = '''
 -- Jokers
 '''
 payload = '''
-if hand_chips and hand_chips > current_chips and next(SMODS.find_card('j_ortalab_black_cat')) then
+if card and card.ability and (card.ability.set == 'Default' or card.ability.set == 'Enhanced') and hand_chips and hand_chips > current_chips and next(SMODS.find_card('j_ortalab_black_cat')) then
     SMODS.calculate_context({ortalab_black_cat_scale = hand_chips - current_chips, other_card = card})
 end
 '''
