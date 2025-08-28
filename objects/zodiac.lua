@@ -710,6 +710,7 @@ Ortalab.Zodiac{
                 G.hand.cards[i].delay_edition = G.hand.cards[i].edition or {base = true}
                 G.hand.cards[i]:set_edition(context.scoring_hand[3].edition and context.scoring_hand[3].edition.key, false, true)
                 G.hand.cards[i]:set_ability(G.P_CENTERS[context.scoring_hand[3].config.center_key], nil, true)
+                G.hand.cards[i]:set_debuff(context.scoring_hand[3].debuff)
                 G.E_MANAGER:add_event(Event({
                     func = function()
                         copy_card(context.scoring_hand[3], G.hand.cards[i], nil, nil, true)
@@ -821,6 +822,7 @@ Ortalab.Zodiac{
                 G.hand.cards[i].delay_edition = context.scoring_hand[1].edition or {}
                 G.hand.cards[i]:set_edition(context.scoring_hand[1].edition and context.scoring_hand[1].edition.key, false, true)
                 G.hand.cards[i]:set_ability(G.P_CENTERS[context.scoring_hand[1].config.center_key], nil, true)
+                G.hand.cards[i]:set_debuff(context.scoring_hand[1].debuff)
                 G.E_MANAGER:add_event(Event({
                     func = function()
                         local _card = copy_card(context.scoring_hand[1], G.hand.cards[i], nil, nil, true)
