@@ -132,7 +132,7 @@ SMODS.Enhancement({
                 func = function()
                     card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('ortalab_sand_crumble'), colour = G.C.GOLD, instant = true})
                     if card.ability.extra.x_mult and card.ability.extra.x_mult < 1 then
-                        card:start_dissolve()
+                        SMODS.destroy_cards(card)
                     end
                     card.particles = Particles(1, 1, 0,0, {
                         timer = 0.015,
@@ -322,6 +322,9 @@ SMODS.Enhancement({
                 end 
             end
             return ret
+        end
+        if context.after and card.recycled_tag then
+            card.recycled_tag = nil
         end
     end
 })
