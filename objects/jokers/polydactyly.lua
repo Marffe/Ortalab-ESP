@@ -36,7 +36,7 @@ end
 
 local ortalab_calc_destroyed = SMODS.calculate_destroying_cards
 function SMODS.calculate_destroying_cards(context, cards_destroyed, scoring_hand)
-	ortalab_calc_destroyed(context, scoring_hand)
+	ortalab_calc_destroyed(context, cards_destroyed, scoring_hand)
 	if context.cardarea == G.play and next(SMODS.find_card('j_ortalab_polydacytly')) then
 		context.cardarea = Ortalab.polydactyly
 		ortalab_calc_destroyed(context, cards_destroyed, scoring_hand)
