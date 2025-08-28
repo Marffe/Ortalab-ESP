@@ -497,6 +497,7 @@ SMODS.Tag({
                         G.blind_select.alignment.offset.py = G.blind_select.alignment.offset.y
                         G.blind_select.alignment.offset.y = G.ROOM.T.y + 39
                     end
+                    G.GAME.used_vouchers[voucher] = true
                     G.E_MANAGER:add_event(Event({
                         trigger = 'after',
                         delay = 0.5,
