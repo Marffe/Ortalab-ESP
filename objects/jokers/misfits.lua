@@ -18,14 +18,19 @@ SMODS.Joker({
         if context.joker_main and #context.scoring_hand >= card.ability.extra.count then
             local suits = {}
             local ranks = {}
+            local wild_suits = 0
             for _, played_card in ipairs(context.scoring_hand) do
                 local suit = played_card.base.suit
                 local rank = played_card.base.value
-                if not SMODS.has_no_suit(played_card) then suits[suit] = suit end
+                if SMODS.has_any_suit(played_card) or Ortalab.suit_smear(played_card) then
+                    wild_suits = wild_suits + 1
+                elseif not SMODS.has_no_suit(played_card) then
+                    suits[suit] = suit
+                end
                 if not SMODS.has_no_rank(played_card) then ranks[rank] = rank end
             end
             local ret1 = {}
-            if table.size(suits) >= card.ability.extra.count then
+            if table.size(suits) + wild_suits >= card.ability.extra.count then
                 ret1 = {
                     xmult = card.ability.extra.xmult
                 }
