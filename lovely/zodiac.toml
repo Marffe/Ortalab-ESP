@@ -206,7 +206,6 @@ if zodiac_effect and zodiac_effect.destroy and type(zodiac_effect.destroy) == 'f
             cards_destroyed[#cards_destroyed+1] = G.hand.cards[i]
         end
     end
-    zodiac_reduce_level(zodiac_current)
 end
 '''
 

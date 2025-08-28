@@ -153,7 +153,7 @@ function Ortalab.reset_game_globals(first_pass)
         end
         for _, zodiac in pairs(G.zodiacs) do
             zodiac.config.extra.temp_level = math.max(0, zodiac.config.extra.temp_level - G.GAME.ortalab.round_decay)
-            if zodiac.config.extra.temp_level == 0 then
+            if zodiac.config.extra.temp_level <= 0 then
                 zodiac:remove_zodiac('')
             else
                 G.E_MANAGER:add_event(Event({

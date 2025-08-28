@@ -59,7 +59,7 @@ function G.FUNCS.evaluate_play(e)
     local active_zodiacs = {}
     local ophiuchus = G.zodiacs['zodiac_ortalab_ophiuchus']
     if ophiuchus then table.insert(active_zodiacs, ophiuchus) end
-    if zodiac_current then table.insert(active_zodiacs, zodiac_current) end
+    if zodiac_current ~= G.zodiacs['zodiac_ortalab_ophiuchus'] then table.insert(active_zodiacs, zodiac_current) end
 
     for _, zodiac in ipairs(active_zodiacs) do
         zodiac_reduce_level(zodiac)
