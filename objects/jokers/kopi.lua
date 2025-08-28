@@ -16,9 +16,9 @@ SMODS.Joker({
         return {vars = {card.ability.extra.target, card.ability.extra.current}}
     end,
     calculate = function(self, card, context)
-        if context.using_consumeable then
-            card.ability.extra.current = card.ability.extra.current + 1
-            if card.ability.extra.current == card.ability.extra.target then
+        if context.using_consumeable and not context.blueprint then
+            if not context.retrigger_joker then card.ability.extra.current = card.ability.extra.current + 1 end
+            if card.ability.extra.current == card.ability.extra.target or (context.retrigger_joker and card.ability.extra.current == 0) then
                 card.ability.extra.current = 0
                 if #G.jokers.cards == 1 then SMODS.calculate_effect({message = localize('ortalab_kopi_no'), colour = HEX('dfb958')}, card); return end
                 SMODS.calculate_effect({message = localize('ortalab_kopi'), colour = HEX('dfb958')}, card)
@@ -45,6 +45,7 @@ SMODS.Joker({
                         return true
                     end
                 }))
+                return nil, true
             else
                 SMODS.calculate_effect({message = card.ability.extra.current..'/'..card.ability.extra.target, colour = HEX('dc9d6c')}, card)
             end
