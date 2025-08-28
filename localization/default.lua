@@ -1462,8 +1462,8 @@ return {
 			['j_ortalab_shinku'] = {
 				["name"] = "Shinku",
 				["text"] = {
-					"Create #1# random {C:Ortalab}Ortalab",
-					"{C:attention}Jokers{} that are replaced when", 
+					"Create #1# random {C:attention}Jokers{}",
+					"that are replaced when", 
 					"a {C:attention}Boss Blind{} is defeated",
 				}
 			},
