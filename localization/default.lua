@@ -89,6 +89,7 @@ return {
 			ortalab_memorial = 'Remembered!',
 			ortalab_crowd_pleaser_success = 'Complete!',
 			ortalab_none = 'none',
+			ortalab_hand_legendary = 'Cannot target legendaries',
 			['ortalab_na'] = 'N/A',
 			['ortalab_explode'] = 'Exploded!',
 			['ortalab_infected'] = 'Infected!',

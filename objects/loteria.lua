@@ -792,7 +792,16 @@ SMODS.Consumable({
     config = {extra = {selected = 1}},
     artist_credits = {'parchment'},
     loc_vars = function(self, info_queue, card)
-        return {vars = {card.ability.extra.selected}}
+        local main_end = nil
+        for _, joker in ipairs(G.jokers.cards) do
+            if joker:is_rarity(4) then
+                main_end = {n=G.UIT.C, config={align = "cm"}, nodes={
+                        {n=G.UIT.T, config = {text = localize('ortalab_hand_legendary'), colour = G.ARGS.LOC_COLOURS.inactive, scale = 0.25}}
+                }}
+                break
+            end
+        end
+        return {vars = {card.ability.extra.selected}, main_end = {main_end}}
     end,
     can_use = function(self, card)
         if G.STATE ~= G.STATES.HAND_PLAYED and G.STATE ~= G.STATES.DRAW_TO_HAND and G.STATE ~= G.STATES.PLAY_TAROT or any_state then
