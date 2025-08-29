@@ -9,16 +9,13 @@ SMODS.Joker({
     blueprint_compat = false,
     eternal_compat = true,
     perishable_compat = true,
-    config = {extra = {rank = nil, primed = nil}},
+    config = {extra = {rank = "7", primed = nil}},
     artist_credits = {'cejai'},
     loc_vars = function(self, info_queue, card)
-        return {vars = {card.ability.extra.rank and localize(card.ability.extra.rank, 'ranks') or localize('ortalab_rank')}}
+        return {vars = {localize(card.ability.extra.rank, 'ranks') or localize('ortalab_rank')}}
     end,
     calculate = function(self, card, context)
-        if context.before and G.GAME.current_round.hands_played == 0 and #context.full_hand == 1 and Ortalab.hand_contains_rank(context.scoring_hand, card.ability.extra.rank) then
-            card.ability.extra.primed = true
-        end
-        if context.destroying_card and card.ability.extra.primed then
+        if context.destroying_card and G.GAME.current_round.hands_played == 0 and #context.full_hand == 1 and Ortalab.hand_contains_rank(context.scoring_hand, card.ability.extra.rank) then
             card.ability.extra.primed = nil
             G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
             local mythos
@@ -96,23 +93,6 @@ SMODS.Joker({
                 end
             }))
             return { remove = true }
-        end
-        if (context.end_of_round and context.main_eval) then
-            card.ability.extra.primed = nil
-            card.ability.extra.rank = Ortalab.rank_from_deck('ortalab_seventh_sense')
-            return {
-                message = localize(card.ability.extra.rank, 'ranks'),
-                colour = G.C.SET.ortalab_mythos
-            }
-        end
-    end,
-    add_to_deck = function(self, card, from_debuff)
-        if not from_debuff then
-            card.ability.extra.rank = Ortalab.rank_from_deck('ortalab_seventh_sense')
-            SMODS.calculate_effect({
-                message = localize(card.ability.extra.rank, 'ranks'),
-                colour = G.C.SET.ortalab_mythos
-            }, card)
         end
     end
 })
