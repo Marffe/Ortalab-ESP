@@ -1165,7 +1165,7 @@ SMODS.Sound({
 Ortalab.Mythos_Utils.Corpus_Effects = {}
 
 Ortalab.Mythos_Utils.Corpus_Effects.familiar = function(card)
-    SMODS.calculate_effect({message = localize({set = 'Spectral', key = 'c_familiar', type = 'name_text'})..'?', colour = G.ARGS.LOC_COLOURS.ortalab_mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
+    SMODS.calculate_effect({message = localize({set = 'Spectral', key = 'c_familiar', type = 'name_text'})..'?', colour = G.ARGS.LOC_COLOURS.ortalab_mythos, sound = 'ortalab_gong', delay = 2, pitch = math.random(), blocking = false}, card)
     local cards = {}
     local faces = {}
     for _, v in ipairs(SMODS.Rank.obj_buffer) do
@@ -1197,11 +1197,11 @@ Ortalab.Mythos_Utils.Corpus_Effects.familiar = function(card)
                 return true
             end
         }))    
-    delay(4)
+    delay(2.5)
 end
 
 Ortalab.Mythos_Utils.Corpus_Effects.grim = function(card)
-    SMODS.calculate_effect({message = localize({set = 'Spectral', key = 'c_grim', type = 'name_text'})..'?', colour = G.ARGS.LOC_COLOURS.ortalab_mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
+    SMODS.calculate_effect({message = localize({set = 'Spectral', key = 'c_grim', type = 'name_text'})..'?', colour = G.ARGS.LOC_COLOURS.ortalab_mythos, sound = 'ortalab_gong', delay = 2, pitch = math.random(), blocking = false}, card)
     local cards = {}
     
 
@@ -1228,11 +1228,11 @@ Ortalab.Mythos_Utils.Corpus_Effects.grim = function(card)
                 return true
             end
         }))
-    delay(4) 
+    delay(2.5) 
 end
 
 Ortalab.Mythos_Utils.Corpus_Effects.incantation = function(card)
-    SMODS.calculate_effect({message = localize({set = 'Spectral', key = 'c_incantation', type = 'name_text'})..'?', colour = G.ARGS.LOC_COLOURS.ortalab_mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
+    SMODS.calculate_effect({message = localize({set = 'Spectral', key = 'c_incantation', type = 'name_text'})..'?', colour = G.ARGS.LOC_COLOURS.ortalab_mythos, sound = 'ortalab_gong', delay = 2, pitch = math.random(), blocking = false}, card)
     local cards = {}
     local numbers = {}
     for _, rank_key in ipairs(SMODS.Rank.obj_buffer) do
@@ -1264,19 +1264,19 @@ Ortalab.Mythos_Utils.Corpus_Effects.incantation = function(card)
                 return true
             end
         }))
-    delay(4)
+    delay(2.5)
 end
 
 Ortalab.Mythos_Utils.Corpus_Effects.talisman = function(card)
-    SMODS.calculate_effect({message = localize({set = 'Spectral', key = 'c_talisman', type = 'name_text'})..'?', colour = G.ARGS.LOC_COLOURS.ortalab_mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
+    SMODS.calculate_effect({message = localize({set = 'Spectral', key = 'c_talisman', type = 'name_text'})..'?', colour = G.ARGS.LOC_COLOURS.ortalab_mythos, sound = 'ortalab_gong', delay = 2, pitch = math.random(), blocking = false}, card)
     local targets = {}
     for _, card in ipairs(G.hand.cards) do
         if not card.seal and not card.getting_sliced then table.insert(targets, card) end
     end
     if #targets == 0 then
-        delay(4)
-        SMODS.calculate_effect({message = localize('ortalab_corpus_no_cards'), colour = G.ARGS.LOC_COLOURS.ortalab_mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
-        delay(4)
+        delay(2.5)
+        SMODS.calculate_effect({message = localize('ortalab_corpus_no_cards'), colour = G.ARGS.LOC_COLOURS.ortalab_mythos, sound = 'ortalab_gong', delay = 2, pitch = math.random(), blocking = false}, card)
+        delay(2.5)
         return
     end
     local target = pseudorandom_element(targets or G.hand.cards, 'corpus_talisman')
@@ -1287,16 +1287,16 @@ Ortalab.Mythos_Utils.Corpus_Effects.talisman = function(card)
             return true
         end
     }))
-    delay(4)
+    delay(2.5)
 end
 
 Ortalab.Mythos_Utils.Corpus_Effects.aura = function(card)
-    SMODS.calculate_effect({message = localize({set = 'Spectral', key = 'c_aura', type = 'name_text'})..'?', colour = G.ARGS.LOC_COLOURS.ortalab_mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
+    SMODS.calculate_effect({message = localize({set = 'Spectral', key = 'c_aura', type = 'name_text'})..'?', colour = G.ARGS.LOC_COLOURS.ortalab_mythos, sound = 'ortalab_gong', delay = 2, pitch = math.random(), blocking = false}, card)
     local targets = SMODS.Edition:get_edition_cards(G.hand, true)
     if #targets == 0 then
-        delay(4)
-        SMODS.calculate_effect({message = localize('ortalab_corpus_no_cards'), colour = G.ARGS.LOC_COLOURS.ortalab_mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
-        delay(4)
+        delay(2.5)
+        SMODS.calculate_effect({message = localize('ortalab_corpus_no_cards'), colour = G.ARGS.LOC_COLOURS.ortalab_mythos, sound = 'ortalab_gong', delay = 2, pitch = math.random(), blocking = false}, card)
+        delay(2.5)
         return
     end
     G.E_MANAGER:add_event(Event({
@@ -1308,11 +1308,11 @@ Ortalab.Mythos_Utils.Corpus_Effects.aura = function(card)
             return true
         end
     }))
-    delay(4)
+    delay(2.5)
 end
 
 Ortalab.Mythos_Utils.Corpus_Effects.wraith = function(card)
-    SMODS.calculate_effect({message = localize({set = 'Spectral', key = 'c_wraith', type = 'name_text'})..'?', colour = G.ARGS.LOC_COLOURS.ortalab_mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
+    SMODS.calculate_effect({message = localize({set = 'Spectral', key = 'c_wraith', type = 'name_text'})..'?', colour = G.ARGS.LOC_COLOURS.ortalab_mythos, sound = 'ortalab_gong', delay = 2, pitch = math.random(), blocking = false}, card)
     G.E_MANAGER:add_event(Event({
         trigger = 'after', delay = 0.7,
         func = function()                
@@ -1321,32 +1321,11 @@ Ortalab.Mythos_Utils.Corpus_Effects.wraith = function(card)
             return true
         end
     }))
-    delay(4)
+    delay(2.5)
 end
 
 Ortalab.Mythos_Utils.Corpus_Effects.sigil = function(card)
-    SMODS.calculate_effect({message = localize({set = 'Spectral', key = 'c_sigil', type = 'name_text'})..'?', colour = G.ARGS.LOC_COLOURS.ortalab_mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
-
-    local rank = SMODS.Ranks[pseudorandom_element(SMODS.Rank.obj_buffer, 'corpus_sigil')].card_key
-
-    for _, playing_card in ipairs(G.hand.cards) do
-        if not playing_card.getting_sliced then
-            G.E_MANAGER:add_event(Event({
-                trigger = 'after', delay = 0.7,
-                func = function()
-                    SMODS.change_base(playing_card, nil, rank)
-                    playing_card:juice_up()
-                    card:juice_up(0.3, 0.5)
-                    return true
-                end
-            }))
-        end
-    end
-    delay(4)
-end
-
-Ortalab.Mythos_Utils.Corpus_Effects.ouija = function(card)
-    SMODS.calculate_effect({message = localize({set = 'Spectral', key = 'c_ouija', type = 'name_text'})..'?', colour = G.ARGS.LOC_COLOURS.ortalab_mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
+    SMODS.calculate_effect({message = localize({set = 'Spectral', key = 'c_sigil', type = 'name_text'})..'?', colour = G.ARGS.LOC_COLOURS.ortalab_mythos, sound = 'ortalab_gong', delay = 2, pitch = math.random(), blocking = false}, card)
 
     local suit = pseudorandom_element(SMODS.Suits, 'corpus_ouija').key
 
@@ -1363,16 +1342,39 @@ Ortalab.Mythos_Utils.Corpus_Effects.ouija = function(card)
             }))
         end
     end
-    delay(4)
+    delay(2.5)
+end
+
+Ortalab.Mythos_Utils.Corpus_Effects.ouija = function(card)
+    SMODS.calculate_effect({message = localize({set = 'Spectral', key = 'c_ouija', type = 'name_text'})..'?', colour = G.ARGS.LOC_COLOURS.ortalab_mythos, sound = 'ortalab_gong', delay = 2, pitch = math.random(), blocking = false}, card)
+
+    
+    local rank = SMODS.Ranks[pseudorandom_element(SMODS.Rank.obj_buffer, 'corpus_sigil')].key
+    print(rank)
+
+    for _, playing_card in ipairs(G.hand.cards) do
+        if not playing_card.getting_sliced then
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after', delay = 0.7,
+                func = function()
+                    SMODS.change_base(playing_card, nil, rank)
+                    playing_card:juice_up()
+                    card:juice_up(0.3, 0.5)
+                    return true
+                end
+            }))
+        end
+    end
+    delay(2.5)
 end
 
 Ortalab.Mythos_Utils.Corpus_Effects.ectoplasm = function(card)
-    SMODS.calculate_effect({message = localize({set = 'Spectral', key = 'c_ectoplasm', type = 'name_text'})..'?', colour = G.ARGS.LOC_COLOURS.ortalab_mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
+    SMODS.calculate_effect({message = localize({set = 'Spectral', key = 'c_ectoplasm', type = 'name_text'})..'?', colour = G.ARGS.LOC_COLOURS.ortalab_mythos, sound = 'ortalab_gong', delay = 2, pitch = math.random(), blocking = false}, card)
     local targets = SMODS.Edition:get_edition_cards(G.jokers, true)
     if #targets == 0 then
-        delay(4)
-        SMODS.calculate_effect({message = localize('ortalab_corpus_no_cards'), colour = G.ARGS.LOC_COLOURS.ortalab_mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
-        delay(4)
+        delay(2.5)
+        SMODS.calculate_effect({message = localize('ortalab_corpus_no_cards'), colour = G.ARGS.LOC_COLOURS.ortalab_mythos, sound = 'ortalab_gong', delay = 2, pitch = math.random(), blocking = false}, card)
+        delay(2.5)
         return
     end
     G.E_MANAGER:add_event(Event({
@@ -1383,11 +1385,11 @@ Ortalab.Mythos_Utils.Corpus_Effects.ectoplasm = function(card)
             return true
         end
     }))
-    delay(4)
+    delay(2.5)
 end
 
 Ortalab.Mythos_Utils.Corpus_Effects.immolate = function(card)
-    SMODS.calculate_effect({message = localize({set = 'Spectral', key = 'c_immolate', type = 'name_text'})..'?', colour = G.ARGS.LOC_COLOURS.ortalab_mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
+    SMODS.calculate_effect({message = localize({set = 'Spectral', key = 'c_immolate', type = 'name_text'})..'?', colour = G.ARGS.LOC_COLOURS.ortalab_mythos, sound = 'ortalab_gong', delay = 2, pitch = math.random(), blocking = false}, card)
     local removed = {}
     for i=1, math.min(5, #G.hand.cards) do
         local target, pos = pseudorandom_element(G.hand.cards, 'corpus_immolate')
@@ -1398,11 +1400,11 @@ Ortalab.Mythos_Utils.Corpus_Effects.immolate = function(card)
     end
     SMODS.destroy_cards(removed)
     ease_dollars(20)
-    delay(4)
+    delay(2.5)
 end
 
 Ortalab.Mythos_Utils.Corpus_Effects.ankh = function(card)
-    SMODS.calculate_effect({message = localize({set = 'Spectral', key = 'c_ankh', type = 'name_text'})..'?', colour = G.ARGS.LOC_COLOURS.ortalab_mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
+    SMODS.calculate_effect({message = localize({set = 'Spectral', key = 'c_ankh', type = 'name_text'})..'?', colour = G.ARGS.LOC_COLOURS.ortalab_mythos, sound = 'ortalab_gong', delay = 2, pitch = math.random(), blocking = false}, card)
     local target = pseudorandom_element(G.jokers.cards, 'corpus_ankh')
     local new_joker = copy_card(target)
     G.E_MANAGER:add_event(Event({
@@ -1414,19 +1416,19 @@ Ortalab.Mythos_Utils.Corpus_Effects.ankh = function(card)
         end
     }))
     new_joker:add_to_deck()
-    delay(4)
+    delay(2.5)
 end
 
 Ortalab.Mythos_Utils.Corpus_Effects.deja_vu = function(card)
-    SMODS.calculate_effect({message = localize({set = 'Spectral', key = 'c_deja_vu', type = 'name_text'})..'?', colour = G.ARGS.LOC_COLOURS.ortalab_mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
+    SMODS.calculate_effect({message = localize({set = 'Spectral', key = 'c_deja_vu', type = 'name_text'})..'?', colour = G.ARGS.LOC_COLOURS.ortalab_mythos, sound = 'ortalab_gong', delay = 2, pitch = math.random(), blocking = false}, card)
     local targets = {}
     for _, card in ipairs(G.hand.cards) do
         if not card.seal and not card.getting_sliced then table.insert(targets, card) end
     end
     if #targets == 0 then
-        delay(4)
-        SMODS.calculate_effect({message = localize('ortalab_corpus_no_cards'), colour = G.ARGS.LOC_COLOURS.ortalab_mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
-        delay(4)
+        delay(2.5)
+        SMODS.calculate_effect({message = localize('ortalab_corpus_no_cards'), colour = G.ARGS.LOC_COLOURS.ortalab_mythos, sound = 'ortalab_gong', delay = 2, pitch = math.random(), blocking = false}, card)
+        delay(2.5)
         return
     end
     local target = pseudorandom_element(targets or G.hand.cards, 'corpus_deja_vu')
@@ -1437,16 +1439,16 @@ Ortalab.Mythos_Utils.Corpus_Effects.deja_vu = function(card)
             return true
         end
     }))
-    delay(4)
+    delay(2.5)
 end
 
 Ortalab.Mythos_Utils.Corpus_Effects.hex = function(card)
-    SMODS.calculate_effect({message = localize({set = 'Spectral', key = 'c_hex', type = 'name_text'})..'?', colour = G.ARGS.LOC_COLOURS.ortalab_mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
+    SMODS.calculate_effect({message = localize({set = 'Spectral', key = 'c_hex', type = 'name_text'})..'?', colour = G.ARGS.LOC_COLOURS.ortalab_mythos, sound = 'ortalab_gong', delay = 2, pitch = math.random(), blocking = false}, card)
     local targets = SMODS.Edition:get_edition_cards(G.jokers, true)
     if #targets == 0 then
-        delay(4)
-        SMODS.calculate_effect({message = localize('ortalab_corpus_no_cards'), colour = G.ARGS.LOC_COLOURS.ortalab_mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
-        delay(4)
+        delay(2.5)
+        SMODS.calculate_effect({message = localize('ortalab_corpus_no_cards'), colour = G.ARGS.LOC_COLOURS.ortalab_mythos, sound = 'ortalab_gong', delay = 2, pitch = math.random(), blocking = false}, card)
+        delay(2.5)
         return
     end
     G.E_MANAGER:add_event(Event({
@@ -1457,19 +1459,19 @@ Ortalab.Mythos_Utils.Corpus_Effects.hex = function(card)
             return true
         end
     }))
-    delay(4)
+    delay(2.5)
 end
 
 Ortalab.Mythos_Utils.Corpus_Effects.trance = function(card)
-    SMODS.calculate_effect({message = localize({set = 'Spectral', key = 'c_trance', type = 'name_text'})..'?', colour = G.ARGS.LOC_COLOURS.ortalab_mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
+    SMODS.calculate_effect({message = localize({set = 'Spectral', key = 'c_trance', type = 'name_text'})..'?', colour = G.ARGS.LOC_COLOURS.ortalab_mythos, sound = 'ortalab_gong', delay = 2, pitch = math.random(), blocking = false}, card)
     local targets = {}
     for _, card in ipairs(G.hand.cards) do
         if not card.seal and not card.getting_sliced then table.insert(targets, card) end
     end
     if #targets == 0 then
-        delay(4)
-        SMODS.calculate_effect({message = localize('ortalab_corpus_no_cards'), colour = G.ARGS.LOC_COLOURS.ortalab_mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
-        delay(4)
+        delay(2.5)
+        SMODS.calculate_effect({message = localize('ortalab_corpus_no_cards'), colour = G.ARGS.LOC_COLOURS.ortalab_mythos, sound = 'ortalab_gong', delay = 2, pitch = math.random(), blocking = false}, card)
+        delay(2.5)
         return
     end
     local target = pseudorandom_element(targets or G.hand.cards, 'corpus_trance')
@@ -1480,19 +1482,19 @@ Ortalab.Mythos_Utils.Corpus_Effects.trance = function(card)
             return true
         end
     }))
-    delay(4)
+    delay(2.5)
 end
 
 Ortalab.Mythos_Utils.Corpus_Effects.medium = function(card)
-    SMODS.calculate_effect({message = localize({set = 'Spectral', key = 'c_medium', type = 'name_text'})..'?', colour = G.ARGS.LOC_COLOURS.ortalab_mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
+    SMODS.calculate_effect({message = localize({set = 'Spectral', key = 'c_medium', type = 'name_text'})..'?', colour = G.ARGS.LOC_COLOURS.ortalab_mythos, sound = 'ortalab_gong', delay = 2, pitch = math.random(), blocking = false}, card)
     local targets = {}
     for _, card in ipairs(G.hand.cards) do
         if not card.seal and not card.getting_sliced then table.insert(targets, card) end
     end
     if #targets == 0 then
-        delay(4)
-        SMODS.calculate_effect({message = localize('ortalab_corpus_no_cards'), colour = G.ARGS.LOC_COLOURS.ortalab_mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
-        delay(4)
+        delay(2.5)
+        SMODS.calculate_effect({message = localize('ortalab_corpus_no_cards'), colour = G.ARGS.LOC_COLOURS.ortalab_mythos, sound = 'ortalab_gong', delay = 2, pitch = math.random(), blocking = false}, card)
+        delay(2.5)
         return
     end
     local target = pseudorandom_element(targets or G.hand.cards, 'corpus_medium')
@@ -1503,15 +1505,15 @@ Ortalab.Mythos_Utils.Corpus_Effects.medium = function(card)
             return true
         end
     }))
-    delay(4)
+    delay(2.5)
 end
 
 Ortalab.Mythos_Utils.Corpus_Effects.cryptid = function(card)
-    SMODS.calculate_effect({message = localize({set = 'Spectral', key = 'c_cryptid', type = 'name_text'})..'?', colour = G.ARGS.LOC_COLOURS.ortalab_mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
+    SMODS.calculate_effect({message = localize({set = 'Spectral', key = 'c_cryptid', type = 'name_text'})..'?', colour = G.ARGS.LOC_COLOURS.ortalab_mythos, sound = 'ortalab_gong', delay = 2, pitch = math.random(), blocking = false}, card)
     if #G.hand.cards == 0 then
-        delay(4)
-        SMODS.calculate_effect({message = localize('ortalab_corpus_no_cards'), colour = G.ARGS.LOC_COLOURS.ortalab_mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
-        delay(4)
+        delay(2.5)
+        SMODS.calculate_effect({message = localize('ortalab_corpus_no_cards'), colour = G.ARGS.LOC_COLOURS.ortalab_mythos, sound = 'ortalab_gong', delay = 2, pitch = math.random(), blocking = false}, card)
+        delay(2.5)
         return
     end
     local target = pseudorandom_element(G.hand.cards, 'corpus_soul')
@@ -1540,11 +1542,11 @@ Ortalab.Mythos_Utils.Corpus_Effects.cryptid = function(card)
                 return true
             end
         }))
-    delay(4)
+    delay(2.5)
 end
 
 Ortalab.Mythos_Utils.Corpus_Effects.soul = function(card)
-    SMODS.calculate_effect({message = localize({set = 'Spectral', key = 'c_soul', type = 'name_text'})..'?', colour = G.ARGS.LOC_COLOURS.ortalab_mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
+    SMODS.calculate_effect({message = localize({set = 'Spectral', key = 'c_soul', type = 'name_text'})..'?', colour = G.ARGS.LOC_COLOURS.ortalab_mythos, sound = 'ortalab_gong', delay = 2, pitch = math.random(), blocking = false}, card)
     G.E_MANAGER:add_event(Event({
         trigger = 'after', delay = 0.7,
         func = function()                
@@ -1553,11 +1555,11 @@ Ortalab.Mythos_Utils.Corpus_Effects.soul = function(card)
             return true
         end
     }))
-    delay(4)
+    delay(2.5)
 end
 
 Ortalab.Mythos_Utils.Corpus_Effects.black_hole = function(card)
-    SMODS.calculate_effect({message = localize({set = 'Spectral', key = 'c_black_hole', type = 'name_text'})..'?', colour = G.ARGS.LOC_COLOURS.ortalab_mythos, sound = 'ortalab_gong', delay = 3, pitch = math.random(), blocking = false}, card)
+    SMODS.calculate_effect({message = localize({set = 'Spectral', key = 'c_black_hole', type = 'name_text'})..'?', colour = G.ARGS.LOC_COLOURS.ortalab_mythos, sound = 'ortalab_gong', delay = 2, pitch = math.random(), blocking = false}, card)
     update_hand_text({sound = 'button', volume = 0.7, pitch = 0.8, delay = 0.3}, {handname=localize('k_all_hands'),chips = '...', mult = '...', level=''})
         G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.2, func = function()
             play_sound('tarot1')
@@ -1581,7 +1583,7 @@ Ortalab.Mythos_Utils.Corpus_Effects.black_hole = function(card)
             level_up_hand(card, k, true)
         end
         update_hand_text({sound = 'button', volume = 0.7, pitch = 1.1, delay = 0}, {mult = 0, chips = 0, handname = '', level = ''})
-    delay(4)
+    delay(2.5)
 end
 
 -- Ophiuchus
