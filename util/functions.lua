@@ -177,11 +177,7 @@ function Ortalab.reset_game_globals(first_pass)
             end
         end
     end
-    -- set most played rank and suit
-    if G.GAME.blind.boss then
-        G.GAME.ortalab.suits_in_deck = Ortalab.count_suits()
-        G.GAME.ortalab.ranks_in_deck = Ortalab.count_ranks()
-    end
+
     -- Reset handsize
     if G.GAME.ortalab.hand_size then
         G.hand:change_size(G.GAME.ortalab.hand_size)
@@ -451,6 +447,8 @@ function Ortalab:calculate(context)
         end
     end
     if context.ante_change and context.ante_end then
+        G.GAME.ortalab.suits_in_deck = Ortalab.count_suits()
+        G.GAME.ortalab.ranks_in_deck = Ortalab.count_ranks()
         -- Kopi remove cards
         for _, joker in ipairs(G.jokers.cards) do
             if joker.ability.kopi then
