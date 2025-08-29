@@ -444,6 +444,12 @@ function Ortalab.check_force_highlight()
 end
 
 function Ortalab:calculate(context)
+    if context.croupier_reroll or context.ending_shop then
+        if Ortalab.croupier_sold then
+            change_shop_size(-Ortalab.croupier_sold)
+            Ortalab.croupier_sold = nil
+        end
+    end
     if context.ante_change and context.ante_end then
         -- Kopi remove cards
         for _, joker in ipairs(G.jokers.cards) do
