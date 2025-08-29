@@ -965,7 +965,7 @@ SMODS.Consumable({
             end
         }))
         G.E_MANAGER:add_event(Event({
-            trigger = 'after', delay = 0.7,
+            trigger = 'after', delay = 0.4,
             blocking = true,
             func = function()
                 target.children.particles = Particles(1, 1, 0, 0, {
@@ -981,18 +981,18 @@ SMODS.Consumable({
                 return true
             end
         }))
-        delay(2)
+        delay(1.5)
         G.E_MANAGER:add_event(Event({
-            trigger = 'after', delay = 4,
+            trigger = 'after', delay = 1.5,
             func = function()
                 target.destroyed = {colours = {G.C.SET.ortalab_mythos, darken(G.C.SET.ortalab_mythos, 0.5), G.C.RED, darken(G.C.SET.ortalab_mythos, 0.2), G.ARGS.LOC_COLOURS['ortalab_mythos_alt']}}
                 SMODS.destroy_cards({target})             
                 return true
             end
         }))
-        delay(2)
+        delay(1.25)
         G.E_MANAGER:add_event(Event({
-            trigger = 'after', delay = 2,
+            trigger = 'after', delay = 1.5,
             func = function()
                 card.ability.extra.sacrificed[target.curse] = true
                 target.children.particles:remove()
@@ -1051,8 +1051,8 @@ SMODS.Consumable({
         G.GAME.starting_params.ante_scaling = (G.GAME.starting_params.ante_scaling or 1)
         for i=1, sacrificed do
             pseudorandom_element(Ortalab.Mythos_Utils.Corpus_Effects, 'ortalab_corpus_select')(card)
-            G.GAME.starting_params.ante_scaling = G.GAME.starting_params.ante_scaling * 1.2
         end
+        G.GAME.starting_params.ante_scaling = G.GAME.starting_params.ante_scaling * 1.25
         SMODS.calculate_effect({message = localize('ortalab_corpus_activated'), colour = G.ARGS.LOC_COLOURS.ortalab_mythos, delay = 6, blocking = false, sound = 'ortalab_gong', pitch = math.random()}, card)
         G.E_MANAGER:add_event(Event({
             trigger = 'after', delay = 2,
