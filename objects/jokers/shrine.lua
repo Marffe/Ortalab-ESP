@@ -14,24 +14,14 @@ SMODS.Joker({
 	blueprint_compat = true,
 	eternal_compat = true,
 	perishable_compat = true,
-	config = {extra = {increase = 1}},
+	config = {extra = {limit = 5,select = 1}},
     artist_credits = {'kosze'},
 	loc_vars = function(self, info_queue, card)
-        return {vars = {card.ability.extra.increase}}
-    end,
-    add_to_deck = function(self, card, from_debuff)
-        if not from_debuff then
-            G.GAME.ortalab.mythos.extra_select = G.GAME.ortalab.mythos.extra_select + card.ability.extra.increase
-        end
-    end,
-    remove_from_deck = function(self, card, from_debuff)
-        if not from_debuff then
-            G.GAME.ortalab.mythos.extra_select = G.GAME.ortalab.mythos.extra_select - card.ability.extra.increase
-        end
+        return {vars = {card.ability.extra.limit}}
     end,
     calculate = function(self, card, context) --Shrine Logic
-        if context.after then card.ability.extra.hand = context.scoring_name end
-        if context.ortalab_shrine and G.GAME.ortalab.secret_hand_list[card.ability.extra.hand] and (#G.consumeables.cards + G.GAME.consumeable_buffer) < G.consumeables.config.card_limit then
+        if context.after then card.ability.extra.hand_size = #context.scoring_hand end
+        if context.ortalab_shrine and card.ability.extra.hand_size >= card.ability.extra.limit and (#G.consumeables.cards + G.GAME.consumeable_buffer) < G.consumeables.config.card_limit then
             G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
             local mythos
             local old_colours = {
@@ -88,6 +78,9 @@ SMODS.Joker({
                     return true
                 end
             }))
+            if Ortalab.Mythos_Utils.can_curse_in_area(G.hand, 1) then
+                Ortalab.Mythos_Utils.curse_random_hand(card)
+            end
             draw_card(G.play, G.jokers, nil, nil, nil, card)
             delay(2)
             G.E_MANAGER:add_event(Event({

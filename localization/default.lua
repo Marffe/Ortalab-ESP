@@ -1412,10 +1412,10 @@ return {
 			['j_ortalab_shrine'] = {
 				["name"] = "Shrine",
 				["text"] = {
-					{"Create a {C:ortalab_mythos,E:1}Mythos Card{} if",
-					'played hand is a {C:dark_edition,E:1}Secret Hand',},
-					{'{C:ortalab_mythos,E:1}Mythos Cards{} curse {C:attention}#1#',
-					'extra card'}
+					"Create a {C:ortalab_mythos,E:1}Mythos Card{} if",
+					'played hand has {C:attention}#1#{} or more',
+					'scoring cards, and {C:ortalab_mythos}curse',
+					'a card in your hand'
 				}
 			},
 			['j_ortalab_skydiving'] = {
