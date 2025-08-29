@@ -454,3 +454,13 @@ function Ortalab:calculate(context)
         end
     end
 end
+
+function Ortalab.consumables_in_area(area)
+    local output = {}
+    for _, card in ipairs(area.cards) do
+        if card.config.center.consumeable then
+            output[#output + 1] = card
+        end
+    end
+    return output
+end
