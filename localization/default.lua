@@ -1321,9 +1321,10 @@ return {
 			['j_ortalab_rusty'] = {
 				["name"] = "Rusty Joker",
 				["text"] = {
-					'{C:attention}Rusty Cards{} give an',
-					'extra {X:red,C:white}X#1#{} Mult for each',
-					'{C:attention}Rusty Card{} held in hand'
+					'{C:attention}Rusty Cards{} gain an',
+					'extra {X:red,C:white}X#1#{} Mult',
+					'for each {C:attention}Rusty Card{}', 
+					'in played {C:attention}poker hand'
 				}
 			},
 			['j_ortalab_salad'] = {
