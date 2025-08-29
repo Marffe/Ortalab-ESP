@@ -16,15 +16,8 @@ SMODS.Joker({
     end,
     calculate = function(self, card, context)
         if context.joker_main then
-            local extra
-            if G.GAME.current_round.hands_played == 0 then
-                extra = {chips = -math.min(hand_chips, card.ability.extra.gain)}
-            end
-            if G.GAME.current_round.hands_played > 0 then
-                extra = {chips = card.ability.extra.gain}
-            end
             return {
-                extra = extra
+                chips = G.GAME.current_round.hands_played == 0 and -math.min(context.retrigger_joker and math.max(hand_chips - card.ability.extra.gain, 0) or hand_chips, card.ability.extra.gain) or card.ability.extra.gain,
             }
         end
     end    
