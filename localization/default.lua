@@ -1239,8 +1239,8 @@ return {
 					"loses {C:blue}#2#{} Chips for each",
 					"time {C:attention}poker hand{} has been",
 					"played this run",
-					"{C:inactive,s:0.8}(Replace with an {C:green,s:0.8}Uncommon Joker",
-					"{C:inactive,s:0.8} when reaching 0)"
+					"{C:inactive,s:0.8}(Replace with an {C:green,s:0.8}Uncommon{C:inactive,s:0.8} or",
+					"{C:red,s:0.8}Rare {C:inactive,s:0.8}Joker when reaching 0)"
 				}
 			},
 			j_ortalab_purple = {
