@@ -1573,9 +1573,9 @@ return {
 			j_ortalab_taking_the_trick = {
 				name = 'Taking the Trick',
 				text = {
-					'Gains {C:mult}+#1#{} Mult if',
-					'{C:attention}poker hand{} contains a',
+					'Gains {C:mult}+#1#{} Mult for each',
 					'{V:1}#3#{} higher than a {C:attention}#4#',
+					'in {C:attention}poker hand',
 					'{C:inactive}(Currently {C:red}+#2#{C:inactive} Mult)'
 				}
 			},
