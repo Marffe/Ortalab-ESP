@@ -177,13 +177,6 @@ function Ortalab.reset_game_globals(first_pass)
             end
         end
     end
-    -- Kopi remove cards
-    for _, joker in ipairs(G.jokers.cards) do
-        if joker.ability.kopi then
-            SMODS.destroy_cards(joker)
-            G.jokers.config.card_limit = G.jokers.config.card_limit - 1
-        end
-    end
     -- set most played rank and suit
     if G.GAME.blind.boss then
         G.GAME.ortalab.suits_in_deck = Ortalab.count_suits()
@@ -446,6 +439,18 @@ function Ortalab.check_force_highlight()
     for _, card in ipairs(G.hand.cards) do
         if card.ability.forced_selection then
             G.hand:add_to_highlighted(card)
+        end
+    end
+end
+
+function Ortalab:calculate(context)
+    if context.ante_change and context.ante_end then
+        -- Kopi remove cards
+        for _, joker in ipairs(G.jokers.cards) do
+            if joker.ability.kopi then
+                SMODS.destroy_cards(joker)
+                G.jokers.config.card_limit = G.jokers.config.card_limit - 1
+            end
         end
     end
 end

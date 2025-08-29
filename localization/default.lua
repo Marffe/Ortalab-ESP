@@ -975,7 +975,7 @@ return {
 					'After using {C:attention}#1#{} consumables,',
 					'create a {C:kopi}copy{} of a',
 					'random Joker that lasts until',
-					'a {C:attention}Blind{} is defeated',
+					'the {C:attention}end{} of the Ante',
 					'{C:inactive,s:0.8}(Currently #2#/#1#)'
 				}
 			},
@@ -2856,7 +2856,7 @@ return {
 				name = '{C:kopi}Kopi\'d',
 				text = {
 					'Will be removed when',
-					'{C:attention}Blind{} is defeated'
+					'at{C:attention}end of ante'
 				}
 			},
 			ortalab_shinku = {
