@@ -77,7 +77,7 @@ SMODS.Tag({
     artist_credits = {'kosze'},
     config = {type = 'store_joker_modify', edition = 'e_ortalab_fluorescent'},
     loc_vars = function(self, info_queue, card)
-        info_queue[#info_queue+1] = G.P_CENTERS[self.config.edition]
+        info_queue[#info_queue+1] = {set = 'Edition', key = self.config.edition..'_joker', config = G.P_CENTERS.e_ortalab_fluorescent.config, vars = {G.P_CENTERS.e_ortalab_fluorescent.config.p_dollars}}
     end,
     apply = function(self, tag, context)
         if context.type == self.config.type then
