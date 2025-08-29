@@ -109,7 +109,7 @@ local card = create_card(v.type, area, nil, nil, nil, nil, nil, 'sho')
 '''
 payload = '''
 if G.GAME.ortalab.shop_curses and v.type == 'Joker' then
-    if pseudorandom('ortalab_stake_curse') < 0.36 then
+    if pseudorandom('ortalab_stake_curse') < 0.47 then
         local curse = pseudorandom_element(Ortalab.Curses, pseudoseed('ortalab_stake_curse_gen'))
         card:set_curse(curse.key, true, true)
     end
