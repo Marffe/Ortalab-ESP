@@ -793,12 +793,14 @@ SMODS.Consumable({
     artist_credits = {'parchment'},
     loc_vars = function(self, info_queue, card)
         local main_end = nil
-        for _, joker in ipairs(G.jokers.cards) do
-            if joker:is_rarity(4) then
-                main_end = {n=G.UIT.C, config={align = "cm"}, nodes={
-                        {n=G.UIT.T, config = {text = localize('ortalab_hand_legendary'), colour = G.ARGS.LOC_COLOURS.inactive, scale = 0.25}}
-                }}
-                break
+        if G.jokers then
+            for _, joker in ipairs(SMODS.merge_lists({G.jokers.cards, G.consumeables.cards})) do
+                if joker:is_rarity(4) then
+                    main_end = {n=G.UIT.C, config={align = "cm"}, nodes={
+                            {n=G.UIT.T, config = {text = localize('ortalab_hand_legendary'), colour = G.ARGS.LOC_COLOURS.inactive, scale = 0.25}}
+                    }}
+                    break
+                end
             end
         end
         return {vars = {card.ability.extra.selected}, main_end = {main_end}}
