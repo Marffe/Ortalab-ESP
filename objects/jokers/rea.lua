@@ -47,3 +47,21 @@ SMODS.Joker({
         end
     end    
 })
+
+SMODS.JimboQuip({
+    key = 'rea_loss',
+    extra = {
+        center = 'j_ortalab_rea',
+        particle_colours = {
+            G.ARGS.LOC_COLOURS.Ortalab,
+            darken(G.ARGS.LOC_COLOURS.Ortalab, 0.5),
+            lighten(G.ARGS.LOC_COLOURS.Ortalab, 0.5)
+        }
+    },
+    filter = function(self, type)
+        if type == 'loss' then
+            self.extra.text_key = self.key..'_'..math.random(1,2)
+            return true, { weight = 1 }
+        end
+    end
+})

@@ -56,3 +56,22 @@ SMODS.Sound({
     key = 'gun1',
     path = 'gun1.ogg'
 })
+
+SMODS.JimboQuip({
+    key = 'revolver',
+    extra = {
+        center = 'j_ortalab_revolver',
+        particle_colours = {
+            G.ARGS.LOC_COLOURS.Ortalab,
+            darken(G.ARGS.LOC_COLOURS.Ortalab, 0.5),
+            lighten(G.ARGS.LOC_COLOURS.Ortalab, 0.5)
+        }
+    },
+    filter = function(self, type)
+		if next(SMODS.find_card('j_ortalab_revolver')) then
+            if type == 'win' then
+                return true, { weight = 5 } 
+            end
+		end
+    end
+})

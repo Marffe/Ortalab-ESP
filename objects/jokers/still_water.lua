@@ -34,3 +34,22 @@ SMODS.Joker({
         
     end
 })
+
+SMODS.JimboQuip({
+    key = 'still_water',
+    extra = {
+        center = 'j_ortalab_still_water',
+        particle_colours = {
+            G.ARGS.LOC_COLOURS.Ortalab,
+            darken(G.ARGS.LOC_COLOURS.Ortalab, 0.5),
+            lighten(G.ARGS.LOC_COLOURS.Ortalab, 0.5)
+        }
+    },
+    filter = function(self, type)
+		if next(SMODS.find_card('j_ortalab_still_water')) then
+            if type == 'loss' then
+                return true, { weight = 5 }
+            end
+		end
+    end
+})

@@ -86,3 +86,39 @@ SMODS.DrawStep {
 }
 
 SMODS.Shader({key = 'shinku', path = 'shinku.fs'})
+
+
+SMODS.JimboQuip({
+    key = 'shinku_1',
+    extra = {
+        center = 'j_ortalab_shinku',
+        particle_colours = {
+            G.ARGS.LOC_COLOURS.Ortalab,
+            darken(G.ARGS.LOC_COLOURS.Ortalab, 0.5),
+            lighten(G.ARGS.LOC_COLOURS.Ortalab, 0.5)
+        }
+    },
+    filter = function(self, type)
+        if type == 'win' and next(SMODS.find_card('j_ortalab_shinku')) then
+            return true, { weight = 10 } 
+        end
+    end
+})
+
+SMODS.JimboQuip({
+    key = 'shinku_loss',
+    extra = {
+        center = 'j_ortalab_shinku',
+        particle_colours = {
+            G.ARGS.LOC_COLOURS.Ortalab,
+            darken(G.ARGS.LOC_COLOURS.Ortalab, 0.5),
+            lighten(G.ARGS.LOC_COLOURS.Ortalab, 0.5)
+        }
+    },
+    filter = function(self, type)
+        if type == 'loss' then
+            self.extra.text_key = self.key..'_'..math.random(1,3)
+            return true, { weight = 1 }
+        end
+    end
+})

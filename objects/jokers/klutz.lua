@@ -29,3 +29,22 @@ SMODS.Joker({
         G.hand:change_size(-1*card.ability.extra.hand_size)
     end,
 })
+
+SMODS.JimboQuip({
+    key = 'klutz',
+    extra = {
+        center = 'j_ortalab_klutz',
+        particle_colours = {
+            G.ARGS.LOC_COLOURS.Ortalab,
+            darken(G.ARGS.LOC_COLOURS.Ortalab, 0.5),
+            lighten(G.ARGS.LOC_COLOURS.Ortalab, 0.5)
+        }
+    },
+    filter = function(self, type)
+		if next(SMODS.find_card('j_ortalab_klutz')) then
+            if type == 'loss' then
+                return true, { weight = 5 }
+            end
+		end
+    end
+})

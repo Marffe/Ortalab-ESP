@@ -73,3 +73,38 @@ SMODS.DrawStep {
 SMODS.Shader({key = 'kopi', path = 'kopi.fs'})
 
 G.ARGS.LOC_COLOURS['kopi'] = HEX('dfb958')
+
+SMODS.JimboQuip({
+    key = 'kopi_1',
+    extra = {
+        center = 'j_ortalab_kopi',
+        particle_colours = {
+            G.ARGS.LOC_COLOURS.Ortalab,
+            darken(G.ARGS.LOC_COLOURS.Ortalab, 0.5),
+            lighten(G.ARGS.LOC_COLOURS.Ortalab, 0.5)
+        }
+    },
+    filter = function(self, type)
+        if type == 'win' and next(SMODS.find_card('j_ortalab_kopi')) then
+            return true, { weight = 10 } 
+        end
+    end
+})
+
+SMODS.JimboQuip({
+    key = 'kopi_loss',
+    extra = {
+        center = 'j_ortalab_kopi',
+        particle_colours = {
+            G.ARGS.LOC_COLOURS.Ortalab,
+            darken(G.ARGS.LOC_COLOURS.Ortalab, 0.5),
+            lighten(G.ARGS.LOC_COLOURS.Ortalab, 0.5)
+        }
+    },
+    filter = function(self, type)
+        if type == 'loss' then
+            self.extra.text_key = self.key..'_'..math.random(1,3)
+            return true, { weight = 1 }
+        end
+    end
+})

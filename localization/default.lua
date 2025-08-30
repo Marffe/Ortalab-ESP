@@ -1,14 +1,165 @@
 return {
 	["misc"] = {
 		quips = {
+			ortalab_koko_1 = {
+				'*Crayon munching',
+				'noises*'
+			},
+			ortalab_koko_win_1 = {
+				'I may need to',
+				'rebalance some stuff.'
+			},
+			ortalab_koko_win_2 = {
+				"In 0r74148 universes",
+				"this was the only",
+				"path to win."
+			},
+			ortalab_koko_loss = {
+				'Maybe we should',
+				'grab a different',
+				'version of that card...'
+			},
+			ortalab_shinku_1 = {
+				'Not bad, but I',
+				"would've done it faster"
+			},
+			ortalab_shinku_loss_1 = {
+				'Really?',
+				'You lost to that?'
+			},
+			ortalab_shinku_loss_2 = {
+				"You do realize you're",
+				'playing poker, right?'
+			},	
+			ortalab_shinku_loss_3 = {
+				"Wow...",
+				"that was...", 
+				"bad."
+			},
+			ortalab_kopi_1 = {
+				'A work of art.',
+				'Good work!'
+			},
+			ortalab_kopi_loss_1 = {
+				"I-It's okay!",
+				'W-We can try with',
+				'a new canvas.',
+			},
+			ortalab_kopi_loss_2 = {
+				"S-Sorry it didn't",
+				'turn out right.',
+				'You can do it!'
+			},	
+			ortalab_kopi_loss_3 = {
+				"There's no mistakes,",
+				'just happy accidents.'
+			},
+			ortalab_caffeyne_1 = {
+				"Great Job!",
+				'I think that\'s enough',
+				'training today'
+			},	
+			ortalab_caffeyne_loss_1 = {
+				"Great Practice Run!",
+				'Now let\'s try',
+				'another attempt!'
+			},	
+			ortalab_caffeyne_loss_2 = {
+				"Maybe try finding a",
+				'better balance?',
+				'You can do it!'
+			},	
+			ortalab_rea_loss_1 = {
+				"Do it again.",
+				'No Excuses.'
+			},	
+			ortalab_rea_loss_2 = {
+				"That was horrible.",
+				'Do it again.'
+			},
+
+			ortalab_generic_1_win = {
+				"Let's play Go",
+				'Fish to relax.'
+			},
+			ortalab_generic_1_loss = {
+				"You Deuced it!",
+			},
+			ortalab_generic_2_win = {
+				"Let's see how",
+				'far this run',
+				'can go'
+			},
+			ortalab_generic_2_loss = {
+                "Good thing",
+                "I didn\'t' bet it",
+                "all against you!",
+			},
+			ortalab_generic_3_win = {
+				"W's in the chat",
+			},
+			ortalab_generic_3_loss = {
+				"L's in the chat",
+			},
+			ortalab_biker_1_win = {
+				"Straight to the",
+				"finish line!",
+			},
+			ortalab_biker_1_loss = {
+				"That went off the",
+				"cliff faster than a",
+				"bike without brakes!",
+			},
 			ortalab_black_cat_1_win = {
-				'Example quip',
-				'{C:red}WIN!{}'
+				'Meow meow',
+				'meow {C:attention}:3'
 			},
 			ortalab_black_cat_1_loss = {
 				'Meow meow',
-				'meow 3:'
-			}
+				'meoew {C:red}3:<'
+			},
+			ortalab_scam_email_win = {
+				'What a scam!'
+			},
+			ortalab_scam_email_loss_1 = {
+				'Get scammed!'
+			},
+			ortalab_scam_email_loss_2 = {
+				'You\'ve got',
+				'mail!'
+			},
+			ortalab_white_flag = {
+				'This is for',
+				'you.'
+			},
+			ortalab_business = {
+				'It\'s just good', 
+				'business!'
+			},
+			ortalab_royal_gala = {
+				'An apple a day,',
+				'keep\'s the doctor', 
+				'away!'
+			},
+			ortalab_scenic_route = {
+				'Maybe there\'s',
+				'another way?'
+			},
+			ortalab_klutz = {
+				'You really dropped',
+				'the ball there'
+			},
+			ortalab_still_water = {
+				'I sense a',
+				'disturbance...'
+			},
+			ortalab_scantron = {
+				'It\'s always {C:green}C'
+			},
+			ortalab_revolver = {
+				'Someone should call',
+				'an ambulance'
+			},
 		},
 		poker_hands = {
 			Any = "any hand"

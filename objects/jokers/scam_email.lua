@@ -38,3 +38,26 @@ SMODS.Joker({
         return pseudorandom_element(G.playing_cards, pseudoseed('ortalab_scam_email')).base.value
     end
 })
+
+SMODS.JimboQuip({
+    key = 'scam_email',
+    extra = {
+        center = 'j_ortalab_scam_email',
+        particle_colours = {
+            G.ARGS.LOC_COLOURS.Ortalab,
+            darken(G.ARGS.LOC_COLOURS.Ortalab, 0.5),
+            lighten(G.ARGS.LOC_COLOURS.Ortalab, 0.5)
+        }
+    },
+    filter = function(self, type)
+		if next(SMODS.find_card('j_ortalab_scam_email')) then
+            if type == 'win' then
+                self.extra.text_key = self.key..'_win'
+                return true, { weight = 5 } 
+            elseif type == 'loss' then
+                self.extra.text_key = self.key..'_loss_'..math.random(1,2)
+                return true, { weight = 5 }
+            end
+		end
+    end
+})

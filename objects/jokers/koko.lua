@@ -71,3 +71,52 @@ SMODS.Joker({
     end    
 })
 
+SMODS.JimboQuip({
+    key = 'koko_1',
+    extra = {
+        center = 'j_ortalab_koko',
+        particle_colours = {
+            G.ARGS.LOC_COLOURS.Ortalab,
+            darken(G.ARGS.LOC_COLOURS.Ortalab, 0.5),
+            lighten(G.ARGS.LOC_COLOURS.Ortalab, 0.5)
+        }
+    },
+    filter = function(self, type)
+        return true, { weight = 5 } 
+    end
+})
+
+SMODS.JimboQuip({
+    key = 'koko_win',
+    extra = {
+        center = 'j_ortalab_koko',
+        particle_colours = {
+            G.ARGS.LOC_COLOURS.Ortalab,
+            darken(G.ARGS.LOC_COLOURS.Ortalab, 0.5),
+            lighten(G.ARGS.LOC_COLOURS.Ortalab, 0.5)
+        }
+    },
+    filter = function(self, type)
+        if type == 'win' then
+            self.extra.text_key = self.key..'_'..math.random(1,2)
+            return true, { weight = 1 }
+        end
+    end
+})
+
+SMODS.JimboQuip({
+    key = 'koko_loss',
+    extra = {
+        center = 'j_ortalab_koko',
+        particle_colours = {
+            G.ARGS.LOC_COLOURS.Ortalab,
+            darken(G.ARGS.LOC_COLOURS.Ortalab, 0.5),
+            lighten(G.ARGS.LOC_COLOURS.Ortalab, 0.5)
+        }
+    },
+    filter = function(self, type)
+        if type == 'loss' then
+            return true, { weight = 1 }
+        end
+    end
+})

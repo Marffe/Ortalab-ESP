@@ -22,3 +22,66 @@ SMODS.Joker({
         end
     end
 })
+
+SMODS.JimboQuip({
+    key = 'generic_1',
+    extra = {
+        center = 'j_ortalab_jester',
+        particle_colours = {
+            G.ARGS.LOC_COLOURS.Ortalab,
+            darken(G.ARGS.LOC_COLOURS.Ortalab, 0.5),
+            lighten(G.ARGS.LOC_COLOURS.Ortalab, 0.5)
+        }
+    },
+    filter = function(self, type)
+        if type == 'win' then
+            self.extra.text_key = self.key..'_win'
+            return true, { weight = 1 } 
+        elseif type == 'loss' then
+            self.extra.text_key = self.key..'_loss'
+            return true, { weight = 1 }
+        end
+    end
+})
+
+SMODS.JimboQuip({
+    key = 'generic_2',
+    extra = {
+        center = 'j_ortalab_jester',
+        particle_colours = {
+            G.ARGS.LOC_COLOURS.Ortalab,
+            darken(G.ARGS.LOC_COLOURS.Ortalab, 0.5),
+            lighten(G.ARGS.LOC_COLOURS.Ortalab, 0.5)
+        }
+    },
+    filter = function(self, type)
+        if type == 'win' then
+            self.extra.text_key = self.key..'_win'
+            return true, { weight = 1 } 
+        elseif type == 'loss' then
+            self.extra.text_key = self.key..'_loss'
+            return true, { weight = 1 }
+        end
+    end
+})
+
+SMODS.JimboQuip({
+    key = 'generic_3',
+    extra = {
+        center = 'j_ortalab_jester',
+        particle_colours = {
+            G.ARGS.LOC_COLOURS.Ortalab,
+            darken(G.ARGS.LOC_COLOURS.Ortalab, 0.5),
+            lighten(G.ARGS.LOC_COLOURS.Ortalab, 0.5)
+        }
+    },
+    filter = function(self, type)
+        if type == 'win' then
+            self.extra.text_key = self.key..'_win'
+            return true, { weight = 1 } 
+        elseif type == 'loss' then
+            self.extra.text_key = self.key..'_loss'
+            return true, { weight = 1 }
+        end
+    end
+})
