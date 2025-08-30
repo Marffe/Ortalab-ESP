@@ -24,7 +24,7 @@ SMODS.Joker({
         return {vars = {card.ability.pinkprint and localize({type = 'name_text', set = 'Joker', key = card.ability.pinkprint.key}) or localize('ortalab_none')}}
     end,
     calculate = function(self, card, context)
-        if context.selling_card and context.card.ability.set == 'Joker' and context.card.config.center_key ~= 'j_ortalab_pinkprint' then
+        if context.selling_card and context.card.ability.set == 'Joker' and not table.contains(self.ban_list, context.card.config.center_key) then
             if card.ability.pinkprint then
                 Card.remove_from_deck(card.ability.pinkprint)
             end
@@ -80,7 +80,11 @@ SMODS.Joker({
         if card.ability.pinkprint then
             Card.remove_from_deck(card.ability.pinkprint)
         end
-    end
+    end,
+    ban_list = {
+        'j_ortalab_pinkprint',
+        'j_ortalab_chameleon'
+    }
 })
 
 local ortalab_find_card = SMODS.find_card
