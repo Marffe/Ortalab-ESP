@@ -2606,7 +2606,7 @@ return {
 			['v_ortalab_infinite_scroll'] = {
 				["name"] = "Infinite Scroll",
 				["text"] = {
-					"The first and second reroll",
+					"The first and second {C:green}reroll{}",
 					"each shop are {C:attention}free{}", 
 				}
 			},
