@@ -250,13 +250,13 @@ SMODS.Blind({
     end,
     debuff_hand = function(self, cards, hands, handname, check)
         for _, card in pairs(hands[handname][1]) do
-            if card:is_suit(self.config.extra.suit) then return false end
+            if not SMODS.has_no_suit(card) and card:is_suit(self.config.extra.suit) then return false end
         end
         return true
     end,
     in_pool = function(self)
         for _, card in pairs(G.playing_cards or {}) do
-            if card:is_suit(self.config.extra.suit) then return true end
+            if not SMODS.has_no_suit(card) and card:is_suit(self.config.extra.suit) then return true end
         end
         return false
     end
@@ -331,13 +331,13 @@ SMODS.Blind({
     end,
     debuff_hand = function(self, cards, hands, handname, check)
         for _, card in pairs(hands[handname][1]) do
-            if card:is_suit(self.config.extra.suit) then return false end
+            if not SMODS.has_no_suit(card) and card:is_suit(self.config.extra.suit) then return false end
         end
         return true
     end,
     in_pool = function(self)
         for _, card in pairs(G.playing_cards or {}) do
-            if card:is_suit(self.config.extra.suit) then return true end
+            if not SMODS.has_no_suit(card) and card:is_suit(self.config.extra.suit) then return true end
         end
         return false
     end
@@ -378,13 +378,13 @@ SMODS.Blind({
     end,
     debuff_hand = function(self, cards, hands, handname, check)
         for _, card in pairs(hands[handname][1]) do
-            if card:is_suit(self.config.extra.suit) then return false end
+            if not SMODS.has_no_suit(card) and card:is_suit(self.config.extra.suit) then return false end
         end
         return true
     end,
     in_pool = function(self)
         for _, card in pairs(G.playing_cards or {}) do
-            if card:is_suit(self.config.extra.suit) then return true end
+            if not SMODS.has_no_suit(card) and card:is_suit(self.config.extra.suit) then return true end
         end
         return false
     end
@@ -643,7 +643,7 @@ SMODS.Blind({
         end
     end,
     stay_flipped = function(self, area, card)
-        if not G.GAME.blind.effect.played_ranks[card.base.id] and area == G.hand then return true end
+        if not SMODS.has_no_rank(card) and not G.GAME.blind.effect.played_ranks[card.base.id] and area == G.hand then return true end
     end,
     disable = function(self)
         for i = 1, #G.hand.cards do
@@ -714,13 +714,13 @@ SMODS.Blind({
     end,
     debuff_hand = function(self, cards, hands, handname, check)
         for _, card in pairs(hands[handname][1]) do
-            if card:is_suit(self.config.extra.suit) then return false end
+            if not SMODS.has_no_suit(card) and card:is_suit(self.config.extra.suit) then return false end
         end
         return true
     end,
     in_pool = function(self)
         for _, card in pairs(G.playing_cards or {}) do
-            if card:is_suit(self.config.extra.suit) then return true end
+            if not SMODS.has_no_suit(card) and card:is_suit(self.config.extra.suit) then return true end
         end
         return false
     end
@@ -974,7 +974,7 @@ SMODS.Blind({
         table.sort(ranks_to_debuff, function(a,b) return SMODS.Ranks[a].sort_nominal > SMODS.Ranks[b].sort_nominal end)
         -- Debuff cards
         for _, card in pairs(G.playing_cards) do
-            if table.contains(ranks_to_debuff, card.base.value) then
+            if not SMODS.has_no_rank(card) and table.contains(ranks_to_debuff, card.base.value) then
                 card:set_debuff(true)
                 card.debuffed_by_blind = true
                 card.ability.celadon = true
@@ -1080,7 +1080,7 @@ SMODS.Blind({
     end,
     debuff_hand = function(self, cards, hands, handname, check)
         for _, card in pairs(hands[handname][1]) do
-            if card:is_suit(G.GAME.blind.effect.extra.suit) then return false end
+            if not SMODS.has_no_suit(card) and card:is_suit(G.GAME.blind.effect.extra.suit) then return false end
         end
         return true
     end,

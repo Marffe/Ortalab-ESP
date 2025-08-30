@@ -44,7 +44,7 @@ function Ortalab.count_ranks()
     -- Count suits
     local ranks = {}
     for _, pcard in ipairs(G.playing_cards) do
-        ranks[pcard.base.value] = (ranks[pcard.base.value] or 0) + 1
+        if not SMODS.has_no_rank(pcard) then ranks[pcard.base.value] = (ranks[pcard.base.value] or 0) + 1 end
     end
     local ranks_by_count = {}
     for rank, count in pairs(ranks) do
@@ -59,7 +59,7 @@ function Ortalab.count_suits()
     -- Count suits
     local suits = {}
     for _, pcard in ipairs(G.playing_cards) do
-        suits[pcard.base.suit] = (suits[pcard.base.suit] or 0) + 1
+        if not SMODS.has_no_suit(pcard) then suits[pcard.base.suit] = (suits[pcard.base.suit] or 0) + 1 end
     end
     local suits_by_count = {}
     for suit, count in pairs(suits) do
