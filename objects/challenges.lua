@@ -518,7 +518,7 @@ SMODS.Challenge {
         {id = 'j_ortalab_jester', eternal = true},
         {id = 'j_ortalab_crime_scene', eternal = true},
         {id = 'j_ortalab_crime_scene', eternal = true},
-        {id = 'j_ortalab_misfits', eternal = true},
+        {id = 'j_ortalab_priest', eternal = true},
     },
     vouchers = {
         {id = 'v_tarot_merchant'},
