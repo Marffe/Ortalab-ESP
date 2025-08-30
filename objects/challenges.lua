@@ -43,7 +43,6 @@ SMODS.Challenge {
     end,
 }
 
-
 SMODS.Challenge {
     key = 'rich_kidC',
     jokers = {
@@ -69,7 +68,6 @@ SMODS.Challenge {
         end,
     }
 }
-
 
 SMODS.Challenge {
     key = 'ambidexrousC',
@@ -98,8 +96,6 @@ SMODS.Challenge {
     }
 }
 
-
-
 SMODS.Challenge {
     key = 'blackC',
     jokers = {
@@ -123,8 +119,6 @@ SMODS.Challenge {
     }
 }
 
-
-
 SMODS.Challenge {
     key = 'copyC',
     jokers = {
@@ -147,8 +141,6 @@ SMODS.Challenge {
         end,
     }
 }
-
-
 
 SMODS.Challenge {
     key = 'evil_upC',
@@ -187,10 +179,12 @@ SMODS.Challenge {
     }
 }
 
-
 SMODS.Challenge {
     key = 'lostC',
-    vouchers = {
+    rules = {
+        custom = {
+            {id = 'ortalab_lostC'},
+        },
     },
     deck = {
         type = 'b_ortalab_challenge',
@@ -198,50 +192,25 @@ SMODS.Challenge {
             return true
         end,
         cards = {
-            {s='D',r='2'},
-            {s='D',r='3'},
-            {s='D',r='4'},
-            {s='D',r='5'},
-            {s='D',r='6'},
-            {s='D',r='7'},
-            {s='D',r='8'},
-            {s='D',r='9'},
-            {s='D',r='T'},
-            {s='D',r='A'},
-            {s='C',r='2'},
-            {s='C',r='3'},
-            {s='C',r='4'},
-            {s='C',r='5'},
-            {s='C',r='6'},
-            {s='C',r='7'},
-            {s='C',r='8'},
-            {s='C',r='9'},
-            {s='C',r='T'},
-            {s='C',r='A'},
-            {s='H',r='2'},
-            {s='H',r='3'},
-            {s='H',r='4'},
-            {s='H',r='5'},
-            {s='H',r='6'},
-            {s='H',r='7'},
-            {s='H',r='8'},
-            {s='H',r='9'},
-            {s='H',r='T'},
-            {s='H',r='A'},
-            {s='S',r='2'},
-            {s='S',r='3'},
-            {s='S',r='4'},
-            {s='S',r='5'},
-            {s='S',r='6'},
-            {s='S',r='7'},
-            {s='S',r='8'},
-            {s='S',r='9'},
-            {s='S',r='T'},
-            {s='S',r='A'},
+            {s='D',r='2'}, {s='D',r='3'}, {s='D',r='4'}, {s='D',r='5'}, {s='D',r='6'}, {s='D',r='7'}, {s='D',r='8'}, {s='D',r='9'}, {s='D',r='T'}, {s='D',r='A'},
+            {s='C',r='2'}, {s='C',r='3'}, {s='C',r='4'}, {s='C',r='5'}, {s='C',r='6'}, {s='C',r='7'}, {s='C',r='8'}, {s='C',r='9'}, {s='C',r='T'}, {s='C',r='A'},
+            {s='H',r='2'}, {s='H',r='3'}, {s='H',r='4'}, {s='H',r='5'}, {s='H',r='6'}, {s='H',r='7'}, {s='H',r='8'}, {s='H',r='9'}, {s='H',r='T'}, {s='H',r='A'},
+            {s='S',r='2'}, {s='S',r='3'}, {s='S',r='4'}, {s='S',r='5'}, {s='S',r='6'}, {s='S',r='7'}, {s='S',r='8'}, {s='S',r='9'}, {s='S',r='T'}, {s='S',r='A'},
         }
-    }
+    },
+    calculate = function(self, context)
+        if context.ante_change and context.ante_end then
+            G.E_MANAGER:add_event(Event({
+                func = (function()
+                    add_tag(Tag('tag_ortalab_immolate'))
+                    play_sound('generic1', 0.9 + math.random()*0.1, 0.8)
+                    play_sound('holo1', 1.2 + math.random()*0.1, 0.4)
+                    return true
+                end)
+            }))
+        end
+    end
 }
-
 
 SMODS.Challenge {
     key = 'diseasedC',
@@ -254,6 +223,11 @@ SMODS.Challenge {
             {id = 'c_ortalab_wendigo'},
         },
     },
+    rules = {
+        custom = {
+            {id = 'ortalab_diseasedC'},
+        },
+    },
     deck = {
         type = 'b_ortalab_challenge',
         unlocked = function(self)
@@ -261,9 +235,6 @@ SMODS.Challenge {
         end,
     }
 }
-
-
-
 
 SMODS.Challenge {
     key = 'russianC',
@@ -289,9 +260,13 @@ SMODS.Challenge {
     }
 }
 
-
 SMODS.Challenge {
     key = 'ephermeralC',
+    rules = {
+        custom = {
+            {id = 'ortalab_ephermeralC'},
+        },
+    },
     restrictions = {
         banned_cards = {
             {id = 'c_ortalab_tree_of_life'},
@@ -305,14 +280,13 @@ SMODS.Challenge {
     }
 }
 
-
-
-
-
-
 SMODS.Challenge {
     key = 'policeC',
-    stake = 'ortalab_one',
+    rules = {
+        custom = {
+            {id = 'ortalab_only'}
+        },
+    },
     jokers = {
         {id = 'j_ortalab_policeman', eternal = true, edition = 'negative'},
     },
@@ -344,10 +318,13 @@ SMODS.Challenge {
     }
 }
 
-
-
 SMODS.Challenge {
     key = 'cursedC',
+    rules = {
+        custom = {
+            {id = 'ortalab_only'}
+        },
+    },
     jokers = {
         {id = 'j_ortalab_belmont', eternal = true},
         {id = 'j_ortalab_proletaire', eternal = true},
@@ -377,9 +354,13 @@ SMODS.Challenge {
     end
 }
 
-
 SMODS.Challenge {
     key = 'starsC',
+    rules = {
+        custom = {
+            {id = 'ortalab_only'}
+        },
+    },
     jokers = {
         {id = 'j_ortalab_astrologist', eternal = true},
         {id = 'j_ortalab_stargazing', eternal = true},
@@ -405,13 +386,13 @@ SMODS.Challenge {
     end,
 }
 
-
-
-
-
-
 SMODS.Challenge {
     key = 'shinkuC',
+    rules = {
+        custom = {
+            {id = 'ortalab_only'}
+        },
+    },
     jokers = {
         {id = 'j_ortalab_shinku', eternal = true, edition = 'ortalab_overexposed'},
     },
@@ -437,16 +418,13 @@ SMODS.Challenge {
     end,
 }
 
-
-
-
-
-
-
-
-
 SMODS.Challenge {
     key = 'freezerC',
+    rules = {
+        custom = {
+            {id = 'ortalab_only'}
+        },
+    },
     jokers = {
         {id = 'j_ortalab_freezer', eternal = true},
         {id = 'j_ortalab_head_honcho', eternal = true},
@@ -476,10 +454,13 @@ SMODS.Challenge {
     end,
 }
 
-
-
 SMODS.Challenge {
     key = 'shrodingerC',
+    rules = {
+        custom = {
+            {id = 'ortalab_only'}
+        },
+    },
     jokers = {
         {id = 'j_ortalab_black_cat', eternal = true},
         {id = 'j_ortalab_flashback', eternal = true},
@@ -509,10 +490,13 @@ SMODS.Challenge {
     end,
 }
 
-
-
 SMODS.Challenge {
     key = 'locked_inC',
+    rules = {
+        custom = {
+            {id = 'ortalab_only'}
+        },
+    },
     jokers = {
         {id = 'j_ortalab_jester', eternal = true},
         {id = 'j_ortalab_jester', eternal = true},
@@ -568,11 +552,13 @@ SMODS.Challenge {
     end,
 }
 
-
-
-
 SMODS.Challenge {
     key = 'fingersC',
+    rules = {
+        custom = {
+            {id = 'ortalab_only'}
+        },
+    },
     restrictions = {
         banned_cards = {
             {id = 'j_ortalab_sandstone'},
@@ -599,77 +585,20 @@ SMODS.Challenge {
             {id = 'bl_ortalab_hammer', type = "blind"},
         }
     },
-    -- Add this field to lostC
-    calculate = function(self, context)
-        if context.round_eval and G.GAME.last_blind and G.GAME.last_blind.boss then
-            G.E_MANAGER:add_event(Event({
-                func = (function()
-                    add_tag(Tag('tag_ortalab_immolate'))
-                    play_sound('generic1', 0.9 + math.random()*0.1, 0.8)
-                    play_sound('holo1', 1.2 + math.random()*0.1, 0.4)
-                    return true
-                end)
-            }))
-        end
-    end,
     deck = {
         type = 'b_ortalab_challenge',
         unlocked = function(self)
             return true
         end,
         cards = {
-            {s='D',r='2',e='m_ortalab_sand',},
-            {s='D',r='3',e='m_ortalab_sand',},
-            {s='D',r='4',e='m_ortalab_sand',},
-            {s='D',r='5',e='m_ortalab_sand',},
-            {s='D',r='6',e='m_ortalab_sand',},
-            {s='D',r='7',e='m_ortalab_sand',},
-            {s='D',r='8',e='m_ortalab_sand',},
-            {s='D',r='9',e='m_ortalab_sand',},
-            {s='D',r='T',e='m_ortalab_sand',},
-            {s='D',r='J',e='m_ortalab_sand',},
-            {s='D',r='Q',e='m_ortalab_sand',},
-            {s='D',r='K',e='m_ortalab_sand',},
-            {s='D',r='A',e='m_ortalab_sand',},
-            {s='C',r='2',e='m_ortalab_sand',},
-            {s='C',r='3',e='m_ortalab_sand',},
-            {s='C',r='4',e='m_ortalab_sand',},
-            {s='C',r='5',e='m_ortalab_sand',},
-            {s='C',r='6',e='m_ortalab_sand',},
-            {s='C',r='7',e='m_ortalab_sand',},
-            {s='C',r='8',e='m_ortalab_sand',},
-            {s='C',r='9',e='m_ortalab_sand',},
-            {s='C',r='T',e='m_ortalab_sand',},
-            {s='C',r='J',e='m_ortalab_sand',},
-            {s='C',r='Q',e='m_ortalab_sand',},
-            {s='C',r='K',e='m_ortalab_sand',},
-            {s='C',r='A',e='m_ortalab_sand',},
-            {s='H',r='2',e='m_ortalab_sand',},
-            {s='H',r='3',e='m_ortalab_sand',},
-            {s='H',r='4',e='m_ortalab_sand',},
-            {s='H',r='5',e='m_ortalab_sand',},
-            {s='H',r='6',e='m_ortalab_sand',},
-            {s='H',r='7',e='m_ortalab_sand',},
-            {s='H',r='8',e='m_ortalab_sand',},
-            {s='H',r='9',e='m_ortalab_sand',},
-            {s='H',r='T',e='m_ortalab_sand',},
-            {s='H',r='J',e='m_ortalab_sand',},
-            {s='H',r='Q',e='m_ortalab_sand',},
-            {s='H',r='K',e='m_ortalab_sand',},
-            {s='H',r='A',e='m_ortalab_sand',},
-            {s='S',r='2',e='m_ortalab_sand',},
-            {s='S',r='3',e='m_ortalab_sand',},
-            {s='S',r='4',e='m_ortalab_sand',},
-            {s='S',r='5',e='m_ortalab_sand',},
-            {s='S',r='6',e='m_ortalab_sand',},
-            {s='S',r='7',e='m_ortalab_sand',},
-            {s='S',r='8',e='m_ortalab_sand',},
-            {s='S',r='9',e='m_ortalab_sand',},
-            {s='S',r='T',e='m_ortalab_sand',},
-            {s='S',r='J',e='m_ortalab_sand',},
-            {s='S',r='Q',e='m_ortalab_sand',},
-            {s='S',r='K',e='m_ortalab_sand',},
-            {s='S',r='A',e='m_ortalab_sand',},
+            {s='D',r='2',e='m_ortalab_sand',}, {s='D',r='3',e='m_ortalab_sand',}, {s='D',r='4',e='m_ortalab_sand',}, {s='D',r='5',e='m_ortalab_sand',}, {s='D',r='6',e='m_ortalab_sand',}, {s='D',r='7',e='m_ortalab_sand',},
+            {s='D',r='8',e='m_ortalab_sand',}, {s='D',r='9',e='m_ortalab_sand',}, {s='D',r='T',e='m_ortalab_sand',}, {s='D',r='J',e='m_ortalab_sand',}, {s='D',r='Q',e='m_ortalab_sand',}, {s='D',r='K',e='m_ortalab_sand',}, {s='D',r='A',e='m_ortalab_sand',},
+            {s='C',r='2',e='m_ortalab_sand',}, {s='C',r='3',e='m_ortalab_sand',}, {s='C',r='4',e='m_ortalab_sand',}, {s='C',r='5',e='m_ortalab_sand',}, {s='C',r='6',e='m_ortalab_sand',}, {s='C',r='7',e='m_ortalab_sand',},
+            {s='C',r='8',e='m_ortalab_sand',}, {s='C',r='9',e='m_ortalab_sand',}, {s='C',r='T',e='m_ortalab_sand',}, {s='C',r='J',e='m_ortalab_sand',}, {s='C',r='Q',e='m_ortalab_sand',}, {s='C',r='K',e='m_ortalab_sand',}, {s='C',r='A',e='m_ortalab_sand',},
+            {s='H',r='2',e='m_ortalab_sand',}, {s='H',r='3',e='m_ortalab_sand',}, {s='H',r='4',e='m_ortalab_sand',}, {s='H',r='5',e='m_ortalab_sand',}, {s='H',r='6',e='m_ortalab_sand',}, {s='H',r='7',e='m_ortalab_sand',},
+            {s='H',r='8',e='m_ortalab_sand',}, {s='H',r='9',e='m_ortalab_sand',}, {s='H',r='T',e='m_ortalab_sand',}, {s='H',r='J',e='m_ortalab_sand',}, {s='H',r='Q',e='m_ortalab_sand',}, {s='H',r='K',e='m_ortalab_sand',}, {s='H',r='A',e='m_ortalab_sand',},
+            {s='S',r='2',e='m_ortalab_sand',}, {s='S',r='3',e='m_ortalab_sand',}, {s='S',r='4',e='m_ortalab_sand',}, {s='S',r='5',e='m_ortalab_sand',}, {s='S',r='6',e='m_ortalab_sand',}, {s='S',r='7',e='m_ortalab_sand',},
+            {s='S',r='8',e='m_ortalab_sand',}, {s='S',r='9',e='m_ortalab_sand',}, {s='S',r='T',e='m_ortalab_sand',}, {s='S',r='J',e='m_ortalab_sand',}, {s='S',r='Q',e='m_ortalab_sand',}, {s='S',r='K',e='m_ortalab_sand',}, {s='S',r='A',e='m_ortalab_sand',},
         }
     },
     apply = function(self)
@@ -678,10 +607,12 @@ SMODS.Challenge {
     end,
 }
 
-
 SMODS.Challenge {
     key = 'rustyC',
     rules = {
+        custom = {
+            {id = 'ortalab_only'}
+        },
         modifiers = {
             {id = 'hand_size', value = 1},
             {id = 'discards', value = 5},
@@ -717,13 +648,12 @@ SMODS.Challenge {
     end,
 }
 
-
-
 SMODS.Challenge {
     key = 'virtuelessC',
     rules = {
         custom = {
-            {id = 'no_shop_jokers'}
+            {id = 'no_shop_jokers'},
+            {id = 'ortalab_only'}
         },
         modifiers = {
             {id = 'joker_slots', value = 0},
@@ -762,14 +692,16 @@ SMODS.Challenge {
     end,
 }
 
-
-
-
-
-
-
-
-
-
-
-
+local ortalab_create_card = create_card
+function create_card(_type, area, legendary, _rarity, skip_materialize, soulable, forced_key, key_append)
+    local card = ortalab_create_card(_type, area, legendary, _rarity, skip_materialize, soulable, forced_key, key_append)
+    if (area == G.shop_jokers) or (area == G.pack_cards) then
+        if G.GAME.modifiers.ortalab_ephermeralC then
+            card:set_perishable(true)
+        end
+        if G.GAME.modifiers.ortalab_diseasedC then
+            card:set_curse('ortalab_infected', true)
+        end
+    end
+    return card
+end

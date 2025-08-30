@@ -31,6 +31,13 @@ return {
 				"High Contrast Colours",
 			},
 		},
+		v_text = {
+			ch_c_ortalab_only = {'Only {C:Ortalab}Ortalab{} content is enabled'},
+            ch_c_ortalab_chaosC = { "All {C:attention}shop items{} have the same rate" },
+            ch_c_ortalab_lostC = { "At the end of each Ante, gain an {C:attention}Immolate Patch{}" },
+            ch_c_ortalab_diseasedC = { "All Jokers are {C:infected}Infected{}" },
+            ch_c_ortalab_ephermeralC = { "All Jokers are {C:attention}Perishable{}" },
+        },
 		["dictionary"] = {
 			['ortalab_config_artists_pos'] = 'Artist Credits',
 			['ortalab_config_artists_pos_desc'] = {
