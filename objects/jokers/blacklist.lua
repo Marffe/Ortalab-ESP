@@ -29,21 +29,19 @@ SMODS.Joker({
 		end
 	end,
     calculate = function(self, card, context)
-        if not context.other_joker and not context.repetition and not context.individual and not context.end_of_round and not context.discard and not context.pre_discard then
-            if context.cardarea == G.jokers and context.before then
-                if context.scoring_name ~= card.ability.extra.banlist_poker_hand_1 and context.scoring_name ~= card.ability.extra.banlist_poker_hand_2 then
-                    G.E_MANAGER:add_event(Event({
-                        func = function()
-                            self:set_ability(card)
-                            return true
-                        end
-                    }))
-                    return {
-                        dollars = card.ability.extra.dollars,
-                        colour = G.C.MONEY
-                    }
-                end
-            end
-        end
+		if context.before then
+			if context.scoring_name ~= card.ability.extra.banlist_poker_hand_1 and context.scoring_name ~= card.ability.extra.banlist_poker_hand_2 then
+				G.E_MANAGER:add_event(Event({
+					func = function()
+						self:set_ability(card)
+						return true
+					end
+				}))
+				return {
+					dollars = card.ability.extra.dollars,
+					colour = G.C.MONEY
+				}
+			end
+		end
     end
 })
