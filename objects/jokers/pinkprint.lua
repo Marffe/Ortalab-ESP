@@ -122,6 +122,7 @@ function Pinkprint:init(args)
     self.sell_cost = args.sell_cost or 0
     self.sell_cost_label = args.sell_cost_label or 0
     self.area = args.pinkprint.area
+    self.base = {}
 
     self.key = args.key
     self.fake_card = true
