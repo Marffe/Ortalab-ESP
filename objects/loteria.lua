@@ -805,11 +805,9 @@ SMODS.Consumable({
     end,
     can_use = function(self, card)
         if G.STATE ~= G.STATES.HAND_PLAYED and G.STATE ~= G.STATES.DRAW_TO_HAND and G.STATE ~= G.STATES.PLAY_TAROT or any_state then
-            if #G.jokers.highlighted == card.ability.extra.selected then
-                local base_rarities = {'Common', 'Uncommon', 'Rare', 'Legendary'}
-                local rarity = base_rarities[G.jokers.highlighted[1].config.center.rarity] or G.jokers.highlighted[1].config.center.rarity
-                if rarity == 'Legendary' then return false end
-                local pool = get_current_pool('Joker', rarity)
+            local target = G.jokers.highlighted[1] or G.consumeables.highlighted[#G.consumeables.highlighted]
+            if target and target.ability.set == 'Joker' and not target:is_rarity(4) then
+                local pool = get_current_pool('Joker', target.config.center.rarity)
                 if #pool == 1 and pool[1] == 'j_joker' or pool[1] == 'j_ortalab_jester' then return false end
                 return true
             end
@@ -820,12 +818,13 @@ SMODS.Consumable({
     end,
     use = function(self, card, area, copier)
         track_usage(card.config.center.set, card.config.center_key)
-        local joker = G.jokers.highlighted[1]
+        local joker = G.jokers.highlighted[1] or G.consumeables.highlighted[#G.consumeables.highlighted]
+        local area = joker.area
         local original = joker.config.center
         local base_rarities = {'Common', 'Uncommon', 'Rare', 'Legendary'}
         local rarity = base_rarities[original.rarity] or original.rarity
         delay(0.5)
-        draw_card(G.jokers, G.play, 1, 'up', false, joker, nil, true)
+        draw_card(area, G.play, 1, 'up', false, joker, nil, true)
         G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.35, func = function()
             local _center = G.P_CENTERS[original.key]
             if joker.remove_from_deck and type(joker.remove_from_deck) == 'function' then joker:remove_from_deck() end
@@ -867,7 +866,7 @@ SMODS.Consumable({
                 play_sound('holo1')
                 return true
             end}))
-            draw_card(G.play, G.jokers, 1, 'up', false, joker, nil, true)
+            draw_card(G.play, area, 1, 'up', false, joker, nil, true)
             return true
         end}))
     end
@@ -1198,6 +1197,13 @@ function Card:highlight(is_highlighted)
         end
         if not is_highlighted and G.hand then
             G.hand.config.highlighted_limit = self.ability.extra.highlight_limit or 5
+        end
+    end
+    if self.config.center_key == 'c_ortalab_lot_hand' and self.area == G.consumeables then
+        if is_highlighted then
+            G.consumeables.config.highlighted_limit = G.consumeables.config.highlighted_limit + 1
+        else
+            G.consumeables.config.highlighted_limit = G.consumeables.config.highlighted_limit - 1
         end
     end
 end
