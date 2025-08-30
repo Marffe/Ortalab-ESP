@@ -198,6 +198,9 @@ SMODS.Consumable({
         for _, joker in pairs(G.jokers.cards) do
             if not joker.ability.perishable then unperish = unperish + 1 end
         end
+        for _, joker in pairs(G.consumeables.cards) do
+            if joker.ability.set == 'Joker' and not joker.ability.perishable then unperish = unperish + 1 end
+        end
         if Ortalab.Mythos_Utils.can_curse_in_area(G.hand.cards, card.ability.extra.select) and unperish >= card.ability.extra.perish_count + G.GAME.ortalab.mythos.tree_of_life_count then
             return true
         end
@@ -216,6 +219,11 @@ SMODS.Consumable({
         local available_jokers = {}    
         for _, joker in pairs(G.jokers.cards) do
             if not joker.ability.perishable then
+                available_jokers[#available_jokers + 1] = joker
+            end
+        end
+        for _, joker in pairs(G.consumeables.cards) do
+            if joker.ability.set == 'Joker' and not joker.ability.perishable then
                 available_jokers[#available_jokers + 1] = joker
             end
         end
