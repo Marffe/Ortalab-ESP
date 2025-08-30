@@ -10,7 +10,7 @@ SMODS.Atlas({
 local small_boosters = {keys = {'small_loteria_1', 'small_loteria_2', 'small_loteria_3', 'small_loteria_4'}, info = {
     atlas = 'loteria_booster',
     config = {choose = 1, extra = 3},
-    artist_credits = {'kosze'},
+    artist_credits = {'kosze','gappie'},
     create_card = function(self, card)
         return create_card('ortalab_loteria', G.pack_cards, nil, nil, true,  true, nil, "lotpack")
     end,
@@ -53,7 +53,7 @@ end
 local mid_boosters = {keys = {'mid_loteria_1', 'mid_loteria_2'}, info = {
     atlas = 'loteria_booster',
     config = {choose = 1, extra = 5},
-    artist_credits = {'kosze'},
+    artist_credits = {'kosze','gappie'},
     create_card = function(self, card)
         return create_card('ortalab_loteria', G.pack_cards, nil, nil, true,  true, nil, "lotpack")
     end,
@@ -96,7 +96,7 @@ end
 local large_boosters = {keys = {'big_loteria_1', 'big_loteria_2'}, info = {
     atlas = 'loteria_booster',
     config = {choose = 2, extra = 5},
-    artist_credits = {'kosze'},
+    artist_credits = {'kosze','gappie'},
     create_card = function(self, card)
         return create_card('ortalab_loteria', G.pack_cards, nil, nil, true,  true, nil, "lotpack")
     end,
