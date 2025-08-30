@@ -503,6 +503,7 @@ SMODS.Tag({
                         delay = 0.5,
                         func = function()
                             local voucher_card = SMODS.create_card({area = G.play, key = voucher})
+                            voucher_card:add_to_deck()
                             voucher_card:start_materialize()
                             voucher_card.cost = 0
                             G.play:emplace(voucher_card)

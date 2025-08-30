@@ -63,6 +63,7 @@ SMODS.Joker({
                 delay = 4,
                 func = function()
                     mythos = SMODS.create_card({set = 'ortalab_mythos', area = G.consumeables})
+                    mythos:add_to_deck()
                     G.consumeables:emplace(mythos)
                     mythos.stay_in_middle = true
                     local eval = function(card) return card.stay_in_middle end

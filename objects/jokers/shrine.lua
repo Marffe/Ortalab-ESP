@@ -34,6 +34,8 @@ SMODS.Joker({
                 delay = 0.2,
                 func = function()            
                     play_sound('ortalab_shrine', nil, 2)
+                    print(percent)
+                    percent = 0.3
                     ease_background_colour{special_colour = darken(G.C.SET.ortalab_mythos, 0.5), new_colour = G.C.RED, tertiary_colour = G.C.SET.ortalab_mythos, contrast = 1}
                     return true
                 end
@@ -63,12 +65,16 @@ SMODS.Joker({
                     return true
                 end
             }))
+            if Ortalab.Mythos_Utils.can_curse_in_area(G.hand, 1) then
+                Ortalab.Mythos_Utils.curse_random_hand(card)
+            end
             delay(3)
             G.E_MANAGER:add_event(Event({
                 trigger = 'after',
                 delay = 4,
                 func = function()
                     mythos = SMODS.create_card({set = 'ortalab_mythos', area = G.play})
+                    mythos:add_to_deck()
                     G.play:emplace(mythos)
                     mythos.stay_in_middle = true
                     local eval = function(card) return card.stay_in_middle end
@@ -78,9 +84,6 @@ SMODS.Joker({
                     return true
                 end
             }))
-            if Ortalab.Mythos_Utils.can_curse_in_area(G.hand, 1) then
-                Ortalab.Mythos_Utils.curse_random_hand(card)
-            end
             draw_card(G.play, G.jokers, nil, nil, nil, card)
             delay(2)
             G.E_MANAGER:add_event(Event({

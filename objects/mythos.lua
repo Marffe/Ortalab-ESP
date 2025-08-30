@@ -422,6 +422,7 @@ SMODS.Consumable({
             func = function()
                 local voucher = get_next_voucher_key(true)
                 local voucher_card = SMODS.create_card({area = G.play, key = voucher})
+                voucher_card:add_to_deck()
                 voucher_card:start_materialize({G.C.SET.ortalab_mythos})
                 voucher_card.cost = 0
                 G.play:emplace(voucher_card)
