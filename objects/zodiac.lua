@@ -95,6 +95,10 @@ function G.FUNCS.evaluate_play(e)
     G.GAME.ortalab.temp_levels = 0
 end
 
+SMODS.Sound({
+    key = 'zodiac',
+    path = 'zodiac.ogg'
+})
 
 function add_zodiac(_tag, silent, from_load, from_patch)
     -- Add a zodiac to the indicator area
@@ -130,6 +134,7 @@ function add_zodiac(_tag, silent, from_load, from_patch)
     G.zodiacs[_tag.key] = _tag
 
     _tag.HUD_zodiac = G.HUD_zodiac[#G.HUD_zodiac]
+    play_sound('ortalab_zodiac', 0.8+ (0.9 + 0.2*math.random())*0.2, 2)
     if not silent then zodiac_text(localize({set='Tag', key=_tag.key, type='name_text'})..localize('ortalab_zodiac_added'), _tag.key, leap_year_proc) end
     -- delay(0.7)
 end
@@ -372,6 +377,7 @@ function use_zodiac(card)
             leap_year_proc = SMODS.pseudorandom_probability(_tag, 'ortalab_leap_year', 1, G.GAME.ortalab.vouchers.leap_year[2])
             G.zodiacs[card.ability.extra.zodiac].config.extra.temp_level = G.zodiacs[card.ability.extra.zodiac].config.extra.temp_level + (leap_year_proc and G.GAME.ortalab.vouchers.leap_year[1] or 0)
         end
+        play_sound('ortalab_zodiac', 0.8+ (0.9 + 0.2*math.random())*0.2, 2)
         zodiac_text(zodiac_upgrade_text(card.ability.extra.zodiac), card.ability.extra.zodiac, leap_year_proc)
         G.zodiacs[card.ability.extra.zodiac]:juice_up(1, 1)
         delay(0.7)

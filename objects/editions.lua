@@ -3,11 +3,28 @@ SMODS.Shader({key = 'fluorescent', path = "fluorescent.fs"})
 SMODS.Shader({key = 'anaglyphic', path = "anaglyphic.fs"})
 SMODS.Shader({key = 'overexposed', path = "overexposed.fs"})
 
+
+SMODS.Sound({
+    key = 'anaglyphic',
+    path = 'anaglyphic.ogg'
+})
+
+SMODS.Sound({
+    key = 'fluorescent',
+    path = 'fluorescent.ogg'
+})
+
+SMODS.Sound({
+    key = 'greyscale',
+    path = 'greyscale.ogg'
+})
+
 SMODS.Edition({
     key = "anaglyphic",
     discovered = false,
     unlocked = true,
     shader = 'anaglyphic',
+    sound = { sound = "ortalab_anaglyphic", per = 0.85, vol = 0.8 },
     config = { chips = 25, mult = 6 },
     in_shop = true,
     weight = 20,
@@ -31,6 +48,7 @@ SMODS.Edition({
     discovered = false,
     unlocked = true,
     shader = 'fluorescent',
+    sound = { sound = "ortalab_fluorescent", per = 0.85, vol = 0.8 },
     config = { p_dollars = 4 },
     in_shop = true,
     weight = 12,
@@ -51,6 +69,7 @@ SMODS.Edition({
 SMODS.Edition({
     key = "greyscale",
     shader = "greyscale",
+    sound = { sound = "ortalab_greyscale", per = 0.95, vol = 1.4 },
     discovered = false,
     unlocked = true,
     config = {swap = true},
@@ -73,11 +92,17 @@ SMODS.Edition({
     end
 })
 
+SMODS.Sound({
+    key = 'overexposed',
+    path = 'overexposed.ogg'
+})
+
 SMODS.Edition({
     key = "overexposed",
     discovered = false,
     unlocked = true,
     shader = 'overexposed',
+    sound = { sound = "ortalab_overexposed", per = 1.2, vol = 0.8 },
     config = { extra = {retriggers = 1 }},
     in_shop = true,
     weight = 3,

@@ -108,6 +108,12 @@ SMODS.Enhancement({
     end
 })
 
+SMODS.Sound({
+    key = 'sand',
+    path = 'sand.ogg'
+})
+
+
 SMODS.Enhancement({
     key = "sand",
     atlas = "ortalab_enhanced",
@@ -131,6 +137,7 @@ SMODS.Enhancement({
                 trigger = 'immediate',
                 func = function()
                     card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize('ortalab_sand_crumble'), colour = G.C.GOLD, instant = true})
+                    play_sound('ortalab_sand', 0.8+ (0.9 + 0.2*math.random())*0.2, 0.5)
                     if card.ability.extra.x_mult and card.ability.extra.x_mult < 1 then
                         SMODS.destroy_cards(card)
                     end
@@ -262,6 +269,11 @@ SMODS.Enhancement({
     end
 })
 
+SMODS.Sound({
+    key = 'cosmic',
+    path = 'cosmic.ogg'
+})
+
 SMODS.Enhancement({
     key = "iou",
     atlas = "ortalab_enhanced",
@@ -279,7 +291,10 @@ SMODS.Enhancement({
             Ortalab.modify_temp_levels(card.ability.extra.level_up, context.scoring_name)
             return {
                 message = localize('ortalab_level_up'),
-                colour = G.C.PURPLE
+                colour = G.C.PURPLE,
+                sound = 'ortalab_cosmic',
+                pitch =  0.8+ (0.9 + 0.2*math.random())*0.2,
+                volume = 0.5
             }     
         end
     end
@@ -415,7 +430,12 @@ function G.UIDEF.use_index_buttons(card)
         }},
     }}
     return t
-  end
+end
+
+SMODS.Sound({
+    key = 'index',
+    path = 'index.ogg'
+})
 
 G.FUNCS.index_card_increase = function(e)
     if e.config.ref_table.ability.index_state ~= 'UP' then 
@@ -436,6 +456,7 @@ G.FUNCS.increase_index = function(e, mute, nosave)
     if card.ability.index_state == 'DOWN' then change = 2 end
     card.ability.index_state = 'UP'
     if not card.ability.chiselled or card.config.center_key == 'm_ortalab_index' then
+        play_sound('ortalab_index', 0.8+ (0.9 + 0.2*math.random())*0.2, 0.8)
         card.children.center.atlas.name = 'ortalab_enhanced'
         card.children.center.sprite_pos = {x = 1, y = 2}
         card.children.center:reset()
@@ -462,6 +483,7 @@ G.FUNCS.mid_index = function(e, mute, nosave)
     if card.ability.index_state == 'UP' then change = -1 end
     card.ability.index_state = 'MID'
     if not card.ability.chiselled or card.config.center_key == 'm_ortalab_index' then
+        play_sound('ortalab_index', 0.8+ (0.9 + 0.2*math.random())*0.2, 0.8)
         card.children.center.atlas.name = 'ortalab_enhanced'
         card.children.center.sprite_pos = {x = 2, y = 0}
         card.children.center:reset()
@@ -488,6 +510,7 @@ G.FUNCS.decrease_index = function(e, mute, nosave)
     if card.ability.index_state == 'UP' then change = 2 end
     card.ability.index_state = 'DOWN'
     if not card.ability.chiselled or card.config.center_key == 'm_ortalab_index' then
+        play_sound('ortalab_index', 0.8+ (0.9 + 0.2*math.random())*0.2, 0.8)
         card.children.center.atlas.name = 'ortalab_enhanced'
         card.children.center.sprite_pos = {x = 0, y = 2}
         card.children.center:reset()

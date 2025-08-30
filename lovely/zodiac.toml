@@ -154,8 +154,10 @@ if G.zodiacs then
         end
 
         -- Display activated text
+        play_sound('ortalab_zodiac', 0.8+ (0.9 + 0.2*math.random())*0.2, 2)
         zodiac_text(localize({set='Tag',key=zodiac_current.key,type='name_text'})..localize('ortalab_zodiac_active'), zodiac_current.key, nil, ophiuchus_active)       
     elseif G.zodiacs['zodiac_ortalab_ophiuchus'] then
+        play_sound('ortalab_zodiac', 0.8+ (0.9 + 0.2*math.random())*0.2, 2)
         zodiac_text(localize({set='Tag',key=zodiac_current.key,type='name_text'})..localize('ortalab_zodiac_active'), zodiac_current.key)       
     end
 end
