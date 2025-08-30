@@ -31,7 +31,15 @@ SMODS.Joker({
                         ref_table = card.ability.extra,
                         ref_value = "mult",
                         scalar_value = "gain",
-                        colour = G.C.RED
+                        scaling_message = {
+                            message = localize('k_upgrade_ex'),
+                            colour = G.C.RED,
+                            message_card = card,
+                            juice_card = _card
+                        },
+                        block_overrides = {
+                            message = true
+                        }
                     })
                 end
             end

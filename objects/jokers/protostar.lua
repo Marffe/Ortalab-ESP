@@ -25,6 +25,7 @@ SMODS.Joker({
             local change = G.GAME.hands[card.ability.extra.poker_hand].played * card.ability.extra.change
             if change >= card.ability.extra.chips then
                 card_eval_status_text(card,'extra', nil, nil, nil, {message = localize('ortalab_protostar')})
+                card.getting_sliced = true
                 G.E_MANAGER:add_event(Event({
                     trigger = 'after',
                     delay = 0.4,
@@ -38,7 +39,7 @@ SMODS.Joker({
                         end
 
                         card:start_dissolve()
-                        local new_joker = SMODS.create_card({area = G.jokers, set = 'Joker', rarity = 0.8, edition = edition, stickers = stickers})
+                        local new_joker = SMODS.create_card({area = G.jokers, set = 'Joker', rarity = (pseudorandom('protostar')+pseudorandom('protostar',7,9))/10, edition = edition, stickers = stickers})
                         new_joker:add_to_deck()
                         G.jokers:emplace(new_joker)
                         new_joker:start_materialize()

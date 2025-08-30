@@ -18,6 +18,12 @@ SMODS.Joker({
 		change_shop_size(card.ability.extra.bonus_slots)
 	end,
 	remove_from_deck = function(self, card, from_debuff)
-		change_shop_size(-card.ability.extra.bonus_slots)
+		Ortalab.croupier_sold = (Ortalab.croupier_sold or 0) + 1
 	end
 })
+
+local ortalab_reroll_shop = G.FUNCS.reroll_shop
+G.FUNCS.reroll_shop = function(e) 
+	if Ortalab.croupier_sold then SMODS.calculate_context({croupier_reroll = true}) end
+	ortalab_reroll_shop()
+end

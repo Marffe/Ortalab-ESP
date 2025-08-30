@@ -594,11 +594,14 @@ offset = (card.ability.set == 'Booster' and card.cost > 0 and next(free_pack) an
 [patches.pattern]
 target = 'functions/button_callbacks.lua'
 match_indent = true
-position = 'at'
+position = 'after'
 pattern = '''
-if (e.config.ref_table.cost) > 0 and (e.config.ref_table.cost > G.GAME.dollars - G.GAME.bankrupt_at) then
-'''
+G.FUNCS.can_open = function(e)'''
 payload = '''
 local free_packs = SMODS.find_card('v_ortalab_anti_inv')
-if not (next(free_packs) and free_packs[1].ability.extra.active) and (e.config.ref_table.cost) > 0 and (e.config.ref_table.cost > G.GAME.dollars - G.GAME.bankrupt_at) then
+if (next(free_packs) and free_packs[1].ability.extra.active) then
+    e.config.colour = G.C.GREEN
+    e.config.button = 'use_card'
+    return
+end
 '''

@@ -16,7 +16,7 @@ SMODS.Joker({
         return {vars = {card.ability.extra.mult_add, card.ability.extra.mult_total}}
     end,
     calculate = function(self, card, context) --Triangle Joker Logic
-        if context.cardarea == G.jokers and context.before and #context.full_hand == 3 and #context.scoring_hand == 3 and not context.blueprint then
+        if context.before and #context.full_hand == 3 and #context.scoring_hand == 3 and not context.blueprint then
             SMODS.scale_card(card, {
                 ref_table = card.ability.extra,
                 ref_value = "mult_total",

@@ -208,8 +208,30 @@ SMODS.Enhancement({
                     if i ~= #G.hand.cards and not Ortalab.config.enhancement_skip then card_eval_status_text(card, 'extra', nil, nil, nil, {message = localize{type='variable',key='a_xmult',vars={card.ability.extra.base_x + (rusty_in_hand * card.ability.extra.x_gain)}}, colour = G.C.RED, delay = 0, Xmult_mod = true}) end
                 end
             end
+            local rusty_joker_add = 0
+            for _, rusty_joker in ipairs(SMODS.find_card('j_ortalab_rusty')) do
+                rusty_joker_add = rusty_joker_add + rusty_joker.ability.extra.gain
+                if not Ortalab.config.enhancement_skip then
+                    G.E_MANAGER:add_event(Event({
+                            trigger = 'after',
+                            delay = 0.3,
+                            func = function()
+                                rusty_joker:juice_up()
+                                play_sound('ortalab_metal1', 0.8+ (0.9 + 0.2*math.random())*0.2, 0.5)
+                                card:juice_up()
+                                G.ROOM.jiggle = G.ROOM.jiggle + 0.7    
+                                return true
+                            end
+                        }))
+                    SMODS.calculate_effect({
+                        message = localize{type='variable',key='a_xmult',vars={card.ability.extra.base_x + (rusty_in_hand * card.ability.extra.x_gain) + (rusty_joker_add * rusty_in_hand)}},
+                        colour = G.C.RED,
+                        delay = 0,
+                    }, card)
+                end
+            end
             return {
-                x_mult = card.ability.extra.base_x + (rusty_in_hand * card.ability.extra.x_gain)
+                x_mult = card.ability.extra.base_x + (rusty_in_hand * card.ability.extra.x_gain) + (rusty_joker_add * rusty_in_hand)
             }
         end
     end

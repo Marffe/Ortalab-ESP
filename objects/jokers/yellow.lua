@@ -21,7 +21,6 @@ SMODS.Joker({
                 ref_value = "mult",
                 scalar_value = "gain",
                 message_colour = G.C.RED,
-                message_key = 'a_mult',
                 operation = function(ref_table, ref_value, initial, scaling)
                     ref_table[ref_value] = initial + (context.scoring_hand and #context.scoring_hand or #context.full_hand)*scaling
                 end
@@ -32,7 +31,7 @@ SMODS.Joker({
                 mult = card.ability.extra.mult
             }
         end
-        if context.end_of_round and context.main_eval and not context.blueprint then
+        if context.end_of_round and context.main_eval and not context.blueprint and not context.retrigger_joker then
             card.ability.extra.mult = 0
             return {
                 message = localize('ortalab_joker_miles_reset')

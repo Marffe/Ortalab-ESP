@@ -44,7 +44,7 @@ function Ortalab.count_ranks()
     -- Count suits
     local ranks = {}
     for _, pcard in ipairs(G.playing_cards) do
-        ranks[pcard.base.value] = (ranks[pcard.base.value] or 0) + 1
+        if not SMODS.has_no_rank(pcard) then ranks[pcard.base.value] = (ranks[pcard.base.value] or 0) + 1 end
     end
     local ranks_by_count = {}
     for rank, count in pairs(ranks) do
@@ -59,7 +59,7 @@ function Ortalab.count_suits()
     -- Count suits
     local suits = {}
     for _, pcard in ipairs(G.playing_cards) do
-        suits[pcard.base.suit] = (suits[pcard.base.suit] or 0) + 1
+        if not SMODS.has_no_suit(pcard) then suits[pcard.base.suit] = (suits[pcard.base.suit] or 0) + 1 end
     end
     local suits_by_count = {}
     for suit, count in pairs(suits) do
@@ -177,18 +177,7 @@ function Ortalab.reset_game_globals(first_pass)
             end
         end
     end
-    -- Kopi remove cards
-    for _, joker in ipairs(G.jokers.cards) do
-        if joker.ability.kopi then
-            SMODS.destroy_cards(joker)
-            G.jokers.config.card_limit = G.jokers.config.card_limit - 1
-        end
-    end
-    -- set most played rank and suit
-    if G.GAME.blind.boss then
-        G.GAME.ortalab.suits_in_deck = Ortalab.count_suits()
-        G.GAME.ortalab.ranks_in_deck = Ortalab.count_ranks()
-    end
+
     -- Reset handsize
     if G.GAME.ortalab.hand_size then
         G.hand:change_size(G.GAME.ortalab.hand_size)
@@ -448,4 +437,34 @@ function Ortalab.check_force_highlight()
             G.hand:add_to_highlighted(card)
         end
     end
+end
+
+function Ortalab:calculate(context)
+    if context.croupier_reroll or context.ending_shop then
+        if Ortalab.croupier_sold then
+            change_shop_size(-Ortalab.croupier_sold)
+            Ortalab.croupier_sold = nil
+        end
+    end
+    if context.ante_change and context.ante_end then
+        G.GAME.ortalab.suits_in_deck = Ortalab.count_suits()
+        G.GAME.ortalab.ranks_in_deck = Ortalab.count_ranks()
+        -- Kopi remove cards
+        for _, joker in ipairs(G.jokers.cards) do
+            if joker.ability.kopi then
+                SMODS.destroy_cards(joker)
+                G.jokers.config.card_limit = G.jokers.config.card_limit - 1
+            end
+        end
+    end
+end
+
+function Ortalab.consumables_in_area(area)
+    local output = {}
+    for _, card in ipairs(area.cards) do
+        if card.config.center.consumeable then
+            output[#output + 1] = card
+        end
+    end
+    return output
 end

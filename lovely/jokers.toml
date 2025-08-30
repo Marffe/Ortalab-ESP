@@ -250,7 +250,7 @@ position = 'before'
 match_indent = true
 payload = '''
 elseif _c.pinkprint then
-    localize{type = 'descriptions', set = 'Joker', key = _c.key, nodes = desc_nodes, vars = specific_vars or _c.vars, AUT = {info = {}}}
+    localize{type = 'descriptions', set = 'Joker', key = _c.key, nodes = desc_nodes, vars = specific_vars or _c.vars, specific_vars = {is_info_queue = true}, AUT = full_UI_table}
 '''
 # # Pinkprint calculation - MISSES
 # [[patches]]
@@ -404,4 +404,28 @@ if v:is_suit('Clubs', nil, true) or v:is_suit('Spades', nil, true) then
 '''
 payload = '''
 if v:is_suit('Clubs', true) or v:is_suit('Spades', true) then
+'''
+
+# Patch Perkeo copying jokers
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+match_indent = true
+position = 'at'
+pattern = '''
+if G.consumeables.cards[1] then
+'''
+payload = '''
+if next(Ortalab.consumables_in_area(G.consumeables)) then
+'''
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+match_indent = true
+position = 'at'
+pattern = '''
+local card = copy_card(pseudorandom_element(G.consumeables.cards, pseudoseed('perkeo')), nil)
+'''
+payload = '''
+local card = copy_card(pseudorandom_element(Ortalab.consumables_in_area(G.consumeables), pseudoseed('perkeo')), nil)
 '''

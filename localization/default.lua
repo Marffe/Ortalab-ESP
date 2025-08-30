@@ -89,6 +89,7 @@ return {
 			ortalab_memorial = 'Remembered!',
 			ortalab_crowd_pleaser_success = 'Complete!',
 			ortalab_none = 'none',
+			ortalab_hand_legendary = 'Cannot target legendaries',
 			['ortalab_na'] = 'N/A',
 			['ortalab_explode'] = 'Exploded!',
 			['ortalab_infected'] = 'Infected!',
@@ -975,7 +976,7 @@ return {
 					'After using {C:attention}#1#{} consumables,',
 					'create a {C:kopi}copy{} of a',
 					'random Joker that lasts until',
-					'a {C:attention}Blind{} is defeated',
+					'the {C:attention}end{} of the Ante',
 					'{C:inactive,s:0.8}(Currently #2#/#1#)'
 				}
 			},
@@ -1239,8 +1240,8 @@ return {
 					"loses {C:blue}#2#{} Chips for each",
 					"time {C:attention}poker hand{} has been",
 					"played this run",
-					"{C:inactive,s:0.8}(Replace with an {C:green,s:0.8}Uncommon Joker",
-					"{C:inactive,s:0.8} when reaching 0)"
+					"{C:inactive,s:0.8}(Replace with an {C:green,s:0.8}Uncommon{C:inactive,s:0.8} or",
+					"{C:red,s:0.8}Rare {C:inactive,s:0.8}Joker when reaching 0)"
 				}
 			},
 			j_ortalab_purple = {
@@ -1321,9 +1322,10 @@ return {
 			['j_ortalab_rusty'] = {
 				["name"] = "Rusty Joker",
 				["text"] = {
-					'{C:attention}Rusty Cards{} give an',
-					'extra {X:red,C:white}X#1#{} Mult for each',
-					'{C:attention}Rusty Card{} held in hand'
+					'{C:attention}Rusty Cards{} gain an',
+					'extra {X:red,C:white}X#1#{} Mult',
+					'for each {C:attention}Rusty Card{}', 
+					'in played {C:attention}poker hand'
 				}
 			},
 			['j_ortalab_salad'] = {
@@ -1411,10 +1413,10 @@ return {
 			['j_ortalab_shrine'] = {
 				["name"] = "Shrine",
 				["text"] = {
-					{"Create a {C:ortalab_mythos,E:1}Mythos Card{} if",
-					'played hand is a {C:dark_edition,E:1}Secret Hand',},
-					{'{C:ortalab_mythos,E:1}Mythos Cards{} curse {C:attention}#1#',
-					'extra card'}
+					"Create a {C:ortalab_mythos,E:1}Mythos Card{} if",
+					'played hand has {C:attention}#1#{} or more',
+					'scoring cards, and {C:ortalab_mythos}curse',
+					'a card in your hand'
 				}
 			},
 			['j_ortalab_skydiving'] = {
@@ -1573,9 +1575,9 @@ return {
 			j_ortalab_taking_the_trick = {
 				name = 'Taking the Trick',
 				text = {
-					'Gains {C:mult}+#1#{} Mult if',
-					'{C:attention}poker hand{} contains a',
+					'Gains {C:mult}+#1#{} Mult for each',
 					'{V:1}#3#{} higher than a {C:attention}#4#',
+					'in {C:attention}poker hand',
 					'{C:inactive}(Currently {C:red}+#2#{C:inactive} Mult)'
 				}
 			},
@@ -2855,7 +2857,7 @@ return {
 				name = '{C:kopi}Kopi\'d',
 				text = {
 					'Will be removed when',
-					'{C:attention}Blind{} is defeated'
+					'at{C:attention}end of ante'
 				}
 			},
 			ortalab_shinku = {

@@ -265,7 +265,7 @@ Ortalab.Curse({
                 p_dollars = -card.ability.curse.extra.base,
             }
         end
-        if context.after and context.cardarea == G.jokers then
+        if context.after and card.ability.set == 'Joker' then
             card.ability.extra_value = card.ability.extra_value - card.ability.curse.extra.gain
             card:set_cost()
             return {
@@ -358,7 +358,7 @@ Ortalab.Curse({
         end
     end,
     calculate = function(self, card, context)
-        if context.before and (context.cardarea == G.hand or context.cardarea == G.jokers) then
+        if context.before and (context.cardarea == G.hand or card.ability.set == 'Joker') then
             Ortalab.modify_temp_levels(-card.ability.curse.extra.level_loss, context.scoring_name)
             return {
                 message = localize({type = 'name_text', set = 'Curse', key = self.key})..'!',
@@ -390,7 +390,7 @@ Ortalab.Curse({
         end
     end,
     calculate = function(self, card, context)
-        if context.final_scoring_step and context.cardarea == G.jokers and card.ability.no_score then
+        if context.final_scoring_step and card.ability.set == 'Joker' and card.ability.no_score then
             G.E_MANAGER:add_event(Event({func = function()
                 card.ability.no_score = false
                 card.ability.no_score_shader = false
@@ -418,7 +418,7 @@ Ortalab.Curse({
                 end
             }))
         end
-        if context.press_play and context.cardarea == G.jokers then
+        if context.press_play and card.ability.set == 'Joker' then
             if SMODS.pseudorandom_probability(card, 'infected_joker_chance', 1, card.ability.curse.extra.denom) then
                 G.E_MANAGER:add_event(Event({func = function()
                     card.ability.no_score_shader = true

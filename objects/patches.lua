@@ -77,7 +77,7 @@ SMODS.Tag({
     artist_credits = {'kosze'},
     config = {type = 'store_joker_modify', edition = 'e_ortalab_fluorescent'},
     loc_vars = function(self, info_queue, card)
-        info_queue[#info_queue+1] = G.P_CENTERS[self.config.edition]
+        info_queue[#info_queue+1] = {set = 'Edition', key = self.config.edition..'_joker', config = G.P_CENTERS.e_ortalab_fluorescent.config, vars = {G.P_CENTERS.e_ortalab_fluorescent.config.p_dollars}}
     end,
     apply = function(self, tag, context)
         if context.type == self.config.type then
@@ -503,6 +503,7 @@ SMODS.Tag({
                         delay = 0.5,
                         func = function()
                             local voucher_card = SMODS.create_card({area = G.play, key = voucher})
+                            voucher_card:add_to_deck()
                             voucher_card:start_materialize()
                             voucher_card.cost = 0
                             G.play:emplace(voucher_card)
@@ -863,19 +864,19 @@ SMODS.Tag({
             local _,_,_,scoring_hand,_ = G.FUNCS.get_poker_hand_info(G.play.cards)
             for i=1, #G.play.cards do
                 if SMODS.in_scoring(G.play.cards[i], scoring_hand) then
+                    G.playing_card = (G.playing_card and G.playing_card + 1) or 1
+                    local _card = copy_card(G.play.cards[i], nil, nil, G.playing_card)
+                    _card.states.visible = nil
+                    table.insert(cards, _card)
+                    table.insert(G.playing_cards, _card)
                     G.E_MANAGER:add_event(Event({
                         trigger = 'after',
                         delay = 0.5,
                         func = function()                
-                            G.playing_card = (G.playing_card and G.playing_card + 1) or 1
-                            local _card = copy_card(G.play.cards[i], nil, nil, G.playing_card)
                             G.play.cards[i]:juice_up()
-                            table.insert(cards, _card)
-                            _card:add_to_deck()
-                            G.deck.config.card_limit = G.deck.config.card_limit + 1
-                            table.insert(G.playing_cards, _card)
                             G.deck:emplace(_card)
-                            _card.states.visible = nil
+                            G.deck.config.card_limit = G.deck.config.card_limit + 1
+                            _card:add_to_deck()
                             _card:start_materialize({G.C.SET.ortalab_mythos})
                             return true
                         end

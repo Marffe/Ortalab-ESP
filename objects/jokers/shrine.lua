@@ -14,24 +14,14 @@ SMODS.Joker({
 	blueprint_compat = true,
 	eternal_compat = true,
 	perishable_compat = true,
-	config = {extra = {increase = 1}},
+	config = {extra = {limit = 5,select = 1}},
     artist_credits = {'kosze'},
 	loc_vars = function(self, info_queue, card)
-        return {vars = {card.ability.extra.increase}}
-    end,
-    add_to_deck = function(self, card, from_debuff)
-        if not from_debuff then
-            G.GAME.ortalab.mythos.extra_select = G.GAME.ortalab.mythos.extra_select + card.ability.extra.increase
-        end
-    end,
-    remove_from_deck = function(self, card, from_debuff)
-        if not from_debuff then
-            G.GAME.ortalab.mythos.extra_select = G.GAME.ortalab.mythos.extra_select - card.ability.extra.increase
-        end
+        return {vars = {card.ability.extra.limit}}
     end,
     calculate = function(self, card, context) --Shrine Logic
-        if context.after then card.ability.extra.hand = context.scoring_name end
-        if context.ortalab_shrine and G.GAME.ortalab.secret_hand_list[card.ability.extra.hand] and (#G.consumeables.cards + G.GAME.consumeable_buffer) < G.consumeables.config.card_limit then
+        if context.after then card.ability.extra.hand_size = #context.scoring_hand end
+        if context.ortalab_shrine and card.ability.extra.hand_size >= card.ability.extra.limit and (#G.consumeables.cards + G.GAME.consumeable_buffer) < G.consumeables.config.card_limit then
             G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
             local mythos
             local old_colours = {
@@ -44,6 +34,7 @@ SMODS.Joker({
                 delay = 0.2,
                 func = function()            
                     play_sound('ortalab_shrine', nil, 2)
+                    percent = 0.3
                     ease_background_colour{special_colour = darken(G.C.SET.ortalab_mythos, 0.5), new_colour = G.C.RED, tertiary_colour = G.C.SET.ortalab_mythos, contrast = 1}
                     return true
                 end
@@ -73,12 +64,16 @@ SMODS.Joker({
                     return true
                 end
             }))
+            if Ortalab.Mythos_Utils.can_curse_in_area(G.hand, 1) then
+                Ortalab.Mythos_Utils.curse_random_hand(card)
+            end
             delay(3)
             G.E_MANAGER:add_event(Event({
                 trigger = 'after',
                 delay = 4,
                 func = function()
                     mythos = SMODS.create_card({set = 'ortalab_mythos', area = G.play})
+                    mythos:add_to_deck()
                     G.play:emplace(mythos)
                     mythos.stay_in_middle = true
                     local eval = function(card) return card.stay_in_middle end
