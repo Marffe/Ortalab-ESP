@@ -108,8 +108,6 @@ end
 Ortalab.ui_config = {
     colour = G.C.L_GREY,
     outline_colour = G.ARGS.LOC_COLOURS.Ortalab,
-    tab_button_colour = G.ARGS.LOC_COLOURS.ortalab_zodiac,
-    author_bg_colour = G.ARGS.LOC_COLOURS.Ortalab,
-    author_colour = G.C.WHITE,
-    author_outline_colour = G.ARGS.LOC_COLOURS.Ortalab
+    tab_button_colour = G.ARGS.LOC_COLOURS.Ortalab,
+    back_colour = G.ARGS.LOC_COLOURS.Ortalab,
 }

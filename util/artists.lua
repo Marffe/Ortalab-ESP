@@ -21,6 +21,7 @@ G.ARGS.LOC_COLOURS['chvsau'] = HEX('008080')
 G.ARGS.LOC_COLOURS['cejai'] = HEX('078446')
 G.ARGS.LOC_COLOURS['heyyou'] = HEX('CC5500')
 G.ARGS.LOC_COLOURS['superb'] = HEX('d68303')
+G.ARGS.LOC_COLOURS['monty'] = HEX('ec0d0d')
 
 function ortalab_artist_tooltip(_c, info_queue, card, desc_nodes, specific_vars, full_UI_table)
     localize{type = 'descriptions', set = 'Ortalab Artist', key = _c.key, nodes = desc_nodes, vars = specific_vars or _c.vars}

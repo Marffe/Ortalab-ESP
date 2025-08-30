@@ -473,3 +473,22 @@ function Ortalab.consumables_in_area(area)
     end
     return output
 end
+
+Ortalab.description_loc_vars = function()
+    return {text_colour = G.C.WHITE, background_colour = G.C.L_BLACK, scale = 1.2}
+end
+
+Ortalab.custom_ui = function(modNodes)
+    modNodes[#modNodes].config.padding = 0.2
+    modNodes[#modNodes].config.outline = 1
+    modNodes[#modNodes].config.outline_colour = Ortalab.badge_colour
+    local credit_nodes = {}
+    localize({set = 'Ortalab_Utility', key = 'ortalab_credit', type = 'descriptions', nodes = credit_nodes, scale = 1.2, text_colour = G.C.WHITE})
+    credit_nodes = desc_from_rows(credit_nodes)
+    credit_nodes.config.colour = G.C.L_BLACK
+    credit_nodes.config.emboss = nil
+    modNodes[#modNodes+1] = {n=G.UIT.R, config = {align = 'cm', outline_colour = Ortalab.badge_colour, colour = G.C.L_BLACK, outline = 1, r = 0.1, padding = 0.2}, nodes = {
+        credit_nodes
+    }}
+    return modNodes
+end

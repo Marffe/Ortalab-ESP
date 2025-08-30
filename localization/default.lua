@@ -363,6 +363,26 @@ return {
 		},
     },
     ["descriptions"] = {
+		Mod = {
+			ortalab = {
+				name = 'Ortalab',
+				text = {
+					'It\'s {C:blue}Balatro{} as you know it, but backwards, and sideways,',
+					'as if the game was designed in an alternate universe.',
+					'Simply put, it\'s {C:blue}Balatro{}, {C:attention}backwards{}.',
+					'And thus, {C:Ortalab}Ortalab!',
+					' ',
+					'With {C:green}150{} new jokers, {C:green}20{} new challenges, {C:green}8{} new stakes,',
+					'{C:green}more than 50{} new consumables, and way, WAY more,',
+					'{C:Ortalab}Ortalab{} is practically a sequel to {C:blue}Balatro{}.',
+					' ',
+					'Get ready to find new strategies, blow the game out of the water,',
+					'and maybe not die to The Plant for once.',
+					' ',
+					'Have fun!'
+				}
+			},
+		},
 		["Ortalab Artist"] = {
 			['no_demo'] = {
 				['text'] = {
@@ -1823,7 +1843,13 @@ return {
 					"Add {C:dark_edition}#1#{} to",
 					"{C:attention}selected{} card"
 				}
-			}
+			},
+			ortalab_credit = {
+				text = {
+					'Created by {C:crimson}Crimson Heart{}, {C:eremel}Eremel{}, {C:gappie}Gappie{},',
+					'{C:heyyou}Hey You{}, {C:monty}Dr. Monty{}, and so many more!',
+				}
+			},
 		},
         ["ortalab_loteria"] = {
             ["c_ortalab_lot_umbrella"] = {
