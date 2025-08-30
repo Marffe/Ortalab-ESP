@@ -438,14 +438,6 @@ SMODS.Blind({
         return {key = 'bl_ortalab_spike_collection'}
     end,
     set_blind = function(self)
-        local _handname, _played, _order = 'High Card', -1, 100
-        for k, v in pairs(G.GAME.hands) do
-            if v.played > _played or (v.played == _played and _order > v.order) then 
-                _played = v.played
-                _handname = k
-            end
-        end
-        G.GAME.current_round.most_played_poker_hand = _handname
         G.GAME.blind.effect.extra.hand_type = G.GAME.current_round.most_played_poker_hand
         G.GAME.blind:set_text()
     end,
