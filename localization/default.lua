@@ -182,26 +182,26 @@ return {
 			ortalab_magenta_seal = 'Magenta Seal'
 		},
 		challenge_names = {
-			c_ortalab_soundC = "Sound of the",
-			c_ortalab_blackC = "Black Parade",
-			c_ortalab_copyC = "Copy Copy Cat",
-			c_ortalab_cursedC = "Cursed!",
-			c_ortalab_starsC = "Stars",
-			c_ortalab_rustyC = "Rusty Needle",
-			c_ortalab_shinkuC = "Shinku idk",
-			c_ortalab_locked_inC = "Locked in",
-			c_ortalab_rich_kidC = "Rich Kid",
-			c_ortalab_evil_upC = "Evil Up!",
-			c_ortalab_freezerC = "Dont Open The Fridge",
-			c_ortalab_fingersC = "Through your Fingers",
-			c_ortalab_lostC = "Lost and Burnt IDK",
-			c_ortalab_shrodingerC = "Schrodinger",
-			c_ortalab_virtuelessC = "Virtueless",
 			c_ortalab_chaosC = "Chaos",
+			c_ortalab_rich_kidC = "Rich Kid",
 			c_ortalab_ambidexrousC = "Ambidextrous",
+			c_ortalab_blackC = "Rest in Paint",
+			c_ortalab_copyC = "Copy Copy Cat",
+			c_ortalab_evil_upC = "Evil Up!",
+			c_ortalab_lostC = "Lost & Cindered",
 			c_ortalab_diseasedC = "Diseased",
 			c_ortalab_russianC = "Russian Roulette",
 			c_ortalab_ephermeralC = "Ephermeral",
+			c_ortalab_policeC = "Cop Out",
+			c_ortalab_cursedC = "Cursed!",
+			c_ortalab_fingersC = "Through your Fingers",
+			c_ortalab_starsC = "Star-Crossed",
+			c_ortalab_freezerC = "Dont Open The Fridge",
+			c_ortalab_shinkuC = "Shinkuception",
+			c_ortalab_shrodingerC = "Schrodinger",
+			c_ortalab_locked_inC = "Locked in",
+			c_ortalab_rustyC = "Rusty Needle",
+			c_ortalab_virtuelessC = "Virtueless",
 		},
     },
     ["descriptions"] = {
@@ -1413,10 +1413,10 @@ return {
 			['j_ortalab_shrine'] = {
 				["name"] = "Shrine",
 				["text"] = {
-					"Create a {C:ortalab_mythos,E:1}Mythos Card{} if",
-					'played hand has {C:attention}#1#{} or more',
-					'scoring cards, and {C:ortalab_mythos}curse',
-					'a card in your hand'
+					"Create a {C:ortalab_mythos,E:1}Mythos Card{} and",
+					'{C:ortalab_mythos}curse{} a card in your hand',
+					'if played hand has {C:attention}#1#{} or ',
+					'more scoring cards'
 				}
 			},
 			['j_ortalab_skydiving'] = {
@@ -1578,6 +1578,7 @@ return {
 					'Gains {C:mult}+#1#{} Mult for each',
 					'{V:1}#3#{} higher than a {C:attention}#4#',
 					'in {C:attention}poker hand',
+					"{C:inactive,s:0.9}(Rank/suit changes each round)",
 					'{C:inactive}(Currently {C:red}+#2#{C:inactive} Mult)'
 				}
 			},
