@@ -1,28 +1,95 @@
 SMODS.Challenge {
-    key = 'soundC',
-    stake = 'ortalab_one',
-    jokers = {
-        {id = 'j_ortalab_policeman', eternal = true, edition = 'negative'},
+    key = 'chaosC',
+    vouchers = {
+        {id = 'v_overstock_norm'},
+        {id = 'v_illusion'},
+    },
+    rules = {
+        custom = {
+            {id = 'ortalab_chaosC'}
+        },
     },
     restrictions = {
         banned_cards = {
-            {id = 'j_ortalab_cardist'},
-            {id = 'j_ortalab_rockstar'},
-            {id = 'v_ortalab_one_mans_trash'},
-            {id = 'c_ortalab_lot_hand'},
-            {id = 'c_ortalab_jackalope'},
+            {id = 'v_ortalab_glamour'},
+            {id = 'v_ortalab_hex'},
+            {id = 'v_ortalab_arcane_archive'},
+            {id = 'v_magic_trick'},
+            {id = 'v_tarot_merchant'},
+            {id = 'v_tarot_tycoon'},
+            {id = 'v_planet_merchant'},
+            {id = 'v_planet_tycoon'},
         },
-        banned_tags = {
-            {id = 'tag_ortalab_hand'},
-        },
-        banned_other = {
-            {id = 'bl_ortalab_fork', type = "blind"},
-        }
+    },
+    deck = {
+        type = 'b_ortalab_challenge',
+        unlocked = function(self)
+            return true
+        end,
     },
     apply = function(self)
         G.GAME.stake = G.P_STAKES.stake_ortalab_one.order
         SMODS.setup_stake(G.P_STAKES.stake_ortalab_one.order)
+        G.GAME.planet_rate = 4
+        G.GAME.tarot_rate = 4
+        G.GAME.ortalab_loteria_rate = 4
+        G.GAME.ortalab_zodiac_rate = 4
+        G.GAME.joker_rate = 4
+        G.GAME.ortalab_mythos_rate = 4
+        G.GAME.ortalab.vouchers.tags_in_shop = 4
+        G.GAME.ortalab_utility_rate = 4
+        G.GAME.ortalab_mythos_rate = 4
+        G.GAME.playing_card_rate = 4
     end,
+}
+
+
+SMODS.Challenge {
+    key = 'rich_kidC',
+    jokers = {
+        {id = 'j_gift', eternal = true},
+        {id = 'j_ortalab_priest', eternal = true},
+    },
+    vouchers = {
+        {id = 'v_hone', eternal = true},
+    },
+    restrictions = {
+        banned_cards = {
+            {id = 'c_ortalab_lot_hand'},
+            {id = 'c_ortalab_tree_of_life'},
+        },
+        banned_tags = {
+            {id = 'tag_ortalab_hand'},
+        },
+    },
+    deck = {
+        type = 'b_ortalab_challenge',
+        unlocked = function(self)
+            return true
+        end,
+    }
+}
+
+
+SMODS.Challenge {
+    key = 'ambidexrousC',
+    jokers = {
+      {id = 'j_ortalab_polydactyly', eternal = true},
+      {id = 'j_four_fingers', eternal = true},  
+    },
+    vouchers = {
+        {id = 'v_ortalab_statue'},
+        {id = 'v_paint_brush'},
+    },
+    restrictions = {
+        banned_cards = {
+            {id = 'c_ortalab_lot_hand'},
+            {id = 'c_ortalab_tree_of_life'},
+        },
+        banned_tags = {
+            {id = 'tag_ortalab_hand'},
+        },
+    },
     deck = {
         type = 'b_ortalab_challenge',
         unlocked = function(self)
@@ -42,6 +109,7 @@ SMODS.Challenge {
     restrictions = {
         banned_cards = {
             {id = 'c_ortalab_lot_hand'},
+            {id = 'c_ortalab_tree_of_life'},
         },
         banned_tags = {
             {id = 'tag_ortalab_hand'},
@@ -66,11 +134,208 @@ SMODS.Challenge {
     restrictions = {
         banned_cards = {
             {id = 'c_ortalab_lot_hand'},
+            {id = 'c_ortalab_tree_of_life'},
         },
         banned_tags = {
             {id = 'tag_ortalab_hand'},
         },
     },
+    deck = {
+        type = 'b_ortalab_challenge',
+        unlocked = function(self)
+            return true
+        end,
+    }
+}
+
+
+
+SMODS.Challenge {
+    key = 'evil_upC',
+    rules = {
+        modifiers = {
+            {id = 'hand_size', value = 4},
+        },
+    },
+    jokers = {
+        {id = 'j_ortalab_false_phd', eternal = true, edition = 'ortalab_overexposed'},
+    },
+    restrictions = {
+        banned_cards = {
+            {id = 'j_ortalab_gloomy_gus'},
+            {id = 'j_ortalab_klutz'},
+            {id = 'j_ortalab_actor'},
+            {id = 'j_turtle_bean'},
+            {id = 'j_juggler'},
+            {id = 'j_troubadour'},
+            {id = 'j_merry_andy'},
+            {id = 'c_ortalab_lot_hand'},
+            {id = 'c_ortalab_jackalope'},
+            {id = 'c_ortalab_tree_of_life'},
+            {id = 'v_ortalab_abacus'},
+            {id = 'v_paint_brush'},
+        },
+        banned_tags = {
+            {id = 'tag_ortalab_hand'},
+        },
+    },
+    deck = {
+        type = 'b_ortalab_challenge',
+        unlocked = function(self)
+            return true
+        end,
+    }
+}
+
+
+SMODS.Challenge {
+    key = 'lostC',
+    vouchers = {
+    },
+    deck = {
+        type = 'b_ortalab_challenge',
+        unlocked = function(self)
+            return true
+        end,
+        cards = {
+            {s='D',r='2'},
+            {s='D',r='3'},
+            {s='D',r='4'},
+            {s='D',r='5'},
+            {s='D',r='6'},
+            {s='D',r='7'},
+            {s='D',r='8'},
+            {s='D',r='9'},
+            {s='D',r='T'},
+            {s='D',r='A'},
+            {s='C',r='2'},
+            {s='C',r='3'},
+            {s='C',r='4'},
+            {s='C',r='5'},
+            {s='C',r='6'},
+            {s='C',r='7'},
+            {s='C',r='8'},
+            {s='C',r='9'},
+            {s='C',r='T'},
+            {s='C',r='A'},
+            {s='H',r='2'},
+            {s='H',r='3'},
+            {s='H',r='4'},
+            {s='H',r='5'},
+            {s='H',r='6'},
+            {s='H',r='7'},
+            {s='H',r='8'},
+            {s='H',r='9'},
+            {s='H',r='T'},
+            {s='H',r='A'},
+            {s='S',r='2'},
+            {s='S',r='3'},
+            {s='S',r='4'},
+            {s='S',r='5'},
+            {s='S',r='6'},
+            {s='S',r='7'},
+            {s='S',r='8'},
+            {s='S',r='9'},
+            {s='S',r='T'},
+            {s='S',r='A'},
+        }
+    }
+}
+
+
+SMODS.Challenge {
+    key = 'diseasedC',
+    restrictions = {
+        banned_cards = {
+            {id = 'c_ortalab_gnome'},
+            {id = 'c_ortalab_ya_te_veo'},
+            {id = 'c_ortalab_crawler'},
+            {id = 'c_ortalab_anubis'},
+            {id = 'c_ortalab_wendigo'},
+        },
+    },
+    deck = {
+        type = 'b_ortalab_challenge',
+        unlocked = function(self)
+            return true
+        end,
+    }
+}
+
+
+
+
+SMODS.Challenge {
+    key = 'russianC',
+    restrictions = {
+        banned_cards = {
+            {id = 'c_ortalab_gnome'},
+            {id = 'c_ortalab_ya_te_veo'},
+            {id = 'c_ortalab_crawler'},
+            {id = 'c_ortalab_anubis'},
+            {id = 'c_ortalab_wendigo'},
+            {id = 'c_ortalab_lot_hand'},
+            {id = 'c_ortalab_tree_of_life'},
+        },
+        banned_tags = {
+            {id = 'tag_ortalab_hand'},
+        },
+    },
+    deck = {
+        type = 'b_ortalab_challenge',
+        unlocked = function(self)
+            return true
+        end,
+    }
+}
+
+
+SMODS.Challenge {
+    key = 'ephermeralC',
+    restrictions = {
+        banned_cards = {
+            {id = 'c_ortalab_tree_of_life'},
+        },
+    },
+    deck = {
+        type = 'b_ortalab_challenge',
+        unlocked = function(self)
+            return true
+        end,
+    }
+}
+
+
+
+
+
+
+SMODS.Challenge {
+    key = 'policeC',
+    stake = 'ortalab_one',
+    jokers = {
+        {id = 'j_ortalab_policeman', eternal = true, edition = 'negative'},
+    },
+    restrictions = {
+        banned_cards = {
+            {id = 'j_ortalab_cardist'},
+            {id = 'j_ortalab_rockstar'},
+            {id = 'v_ortalab_one_mans_trash'},
+            {id = 'c_ortalab_lot_hand'},
+            {id = 'c_ortalab_jackalope'},
+            {id = 'c_ortalab_tree_of_life'},
+        },
+        banned_tags = {
+            {id = 'tag_ortalab_hand'},
+        },
+        banned_other = {
+            {id = 'bl_ortalab_fork', type = "blind"},
+        }
+    },
+    apply = function(self)
+        G.GAME.stake = G.P_STAKES.stake_ortalab_one.order
+        SMODS.setup_stake(G.P_STAKES.stake_ortalab_one.order)
+    end,
     deck = {
         type = 'b_ortalab_challenge',
         unlocked = function(self)
@@ -94,6 +359,7 @@ SMODS.Challenge {
     restrictions = {
         banned_cards = {
             {id = 'c_ortalab_lot_hand'},
+            {id = 'c_ortalab_tree_of_life'},
         },
         banned_tags = {
             {id = 'tag_ortalab_hand'},
@@ -121,6 +387,7 @@ SMODS.Challenge {
     restrictions = {
         banned_cards = {
             {id = 'c_ortalab_lot_hand'},
+            {id = 'c_ortalab_tree_of_life'},
         },
         banned_tags = {
             {id = 'tag_ortalab_hand'},
@@ -141,43 +408,6 @@ SMODS.Challenge {
 
 
 
-SMODS.Challenge {
-    key = 'rustyC',
-    rules = {
-        modifiers = {
-            {id = 'hand_size', value = 1},
-            {id = 'discards', value = 5},
-        },
-    },
-    jokers = {
-        {id = 'j_ortalab_jester', edition = 'ortalab_anaglyphic'},
-    },
-    restrictions = {
-        banned_cards = {
-            {id = 'j_ortalab_rockstar'},
-            {id = 'j_ortalab_gloomy_gus'},
-            {id = 'j_ortalab_klutz'},
-            {id = 'j_ortalab_actor'},
-            {id = 'v_ortalab_abacus'},
-            {id = 'v_ortalab_recyclo_inv'},
-        },
-        banned_other = {
-            {id = 'bl_ortalab_caramel_coin', type = "blind"},
-            {id = 'bl_ortalab_sinker', type = "blind"},
-            {id = 'bl_ortalab_saffron_shield', type = "blind"},
-        }
-    },
-    deck = {
-        type = 'b_ortalab_challenge',
-        unlocked = function(self)
-            return true
-        end,
-    },
-    apply = function(self)
-        G.GAME.stake = G.P_STAKES.stake_ortalab_one.order
-        SMODS.setup_stake(G.P_STAKES.stake_ortalab_one.order)
-    end,
-}
 
 
 SMODS.Challenge {
@@ -185,6 +415,16 @@ SMODS.Challenge {
     jokers = {
         {id = 'j_ortalab_shinku', eternal = true, edition = 'ortalab_overexposed'},
     },
+    modifiers = {
+        {id = 'joker_slots', value = 3},
+    },
+    restrictions = {
+        banned_cards = {
+            {id = 'c_ortalab_tree_of_life'},
+        },
+        banned_tags = {
+        },
+    },
     deck = {
         type = 'b_ortalab_challenge',
         unlocked = function(self)
@@ -196,6 +436,79 @@ SMODS.Challenge {
         SMODS.setup_stake(G.P_STAKES.stake_ortalab_one.order)
     end,
 }
+
+
+
+
+
+
+
+
+
+SMODS.Challenge {
+    key = 'freezerC',
+    jokers = {
+        {id = 'j_ortalab_freezer', eternal = true},
+        {id = 'j_ortalab_head_honcho', eternal = true},
+        
+    },
+    consumeables = {
+        {id = 'c_medium'},
+    },
+    restrictions = {
+        banned_cards = {
+            {id = 'c_ortalab_lot_hand'},
+            {id = 'c_ortalab_tree_of_life'},
+        },
+        banned_tags = {
+            {id = 'tag_ortalab_hand'},
+        },
+    },
+    deck = {
+        type = 'b_ortalab_challenge',
+        unlocked = function(self)
+            return true
+        end,
+    },
+    apply = function(self)
+        G.GAME.stake = G.P_STAKES.stake_ortalab_one.order
+        SMODS.setup_stake(G.P_STAKES.stake_ortalab_one.order)
+    end,
+}
+
+
+
+SMODS.Challenge {
+    key = 'shrodingerC',
+    jokers = {
+        {id = 'j_ortalab_black_cat', eternal = true},
+        {id = 'j_ortalab_flashback', eternal = true},
+    },
+    vouchers = {
+        {id = 'v_ortalab_abacus'},
+        {id = 'v_ortalab_calculator'},
+    },
+    restrictions = {
+        banned_cards = {
+            {id = 'c_ortalab_lot_hand'},
+            {id = 'c_ortalab_tree_of_life'},
+        },
+        banned_tags = {
+            {id = 'tag_ortalab_hand'},
+        },
+    },
+    deck = {
+        type = 'b_ortalab_challenge',
+        unlocked = function(self)
+            return true
+        end,
+    },
+    apply = function(self)
+        G.GAME.stake = G.P_STAKES.stake_ortalab_one.order
+        SMODS.setup_stake(G.P_STAKES.stake_ortalab_one.order)
+    end,
+}
+
 
 
 SMODS.Challenge {
@@ -206,6 +519,9 @@ SMODS.Challenge {
         {id = 'j_ortalab_crime_scene', eternal = true},
         {id = 'j_ortalab_crime_scene', eternal = true},
         {id = 'j_ortalab_misfits', eternal = true},
+    },
+    vouchers = {
+        {id = 'v_tarot_merchant'},
     },
     restrictions = {
         banned_cards = {
@@ -229,6 +545,7 @@ SMODS.Challenge {
             {id = 'c_ortalab_lot_scorpion'},
             {id = 'c_ortalab_lot_bonnet'},
             {id = 'c_ortalab_lot_boot'},
+            {id = 'c_ortalab_tree_of_life'},
         },
         banned_tags = {
             {id = 'tag_ortalab_soul'},
@@ -252,99 +569,6 @@ SMODS.Challenge {
 }
 
 
-
-SMODS.Challenge {
-    key = 'rich_kidC',
-    jokers = {
-        {id = 'j_gift', eternal = true},
-        {id = 'j_ortalab_priest', eternal = true},
-    },
-    vouchers = {
-        {id = 'v_hone', eternal = true},
-    },
-    restrictions = {
-        banned_cards = {
-            {id = 'c_ortalab_lot_hand'},
-        },
-        banned_tags = {
-            {id = 'tag_ortalab_hand'},
-        },
-    },
-    deck = {
-        type = 'b_ortalab_challenge',
-        unlocked = function(self)
-            return true
-        end,
-    }
-}
-
-
-SMODS.Challenge {
-    key = 'evil_upC',
-    rules = {
-        modifiers = {
-            {id = 'hand_size', value = 4},
-        },
-    },
-    jokers = {
-        {id = 'j_ortalab_false_phd', eternal = true, edition = 'ortalab_overexposed'},
-    },
-    restrictions = {
-        banned_cards = {
-            {id = 'j_ortalab_gloomy_gus'},
-            {id = 'j_ortalab_klutz'},
-            {id = 'j_ortalab_actor'},
-            {id = 'j_turtle_bean'},
-            {id = 'j_juggler'},
-            {id = 'j_troubadour'},
-            {id = 'j_merry_andy'},
-            {id = 'c_ortalab_lot_hand'},
-            {id = 'c_ortalab_jackalope'},
-            {id = 'v_ortalab_abacus'},
-            {id = 'v_paint_brush'},
-        },
-        banned_tags = {
-            {id = 'tag_ortalab_hand'},
-        },
-    },
-    deck = {
-        type = 'b_ortalab_challenge',
-        unlocked = function(self)
-            return true
-        end,
-    }
-}
-
-
-SMODS.Challenge {
-    key = 'freezerC',
-    jokers = {
-        {id = 'j_ortalab_freezer', eternal = true},
-        {id = 'j_ortalab_head_honcho', eternal = true},
-        
-    },
-    consumeables = {
-        {id = 'c_medium'},
-    },
-    restrictions = {
-        banned_cards = {
-            {id = 'c_ortalab_lot_hand'},
-        },
-        banned_tags = {
-            {id = 'tag_ortalab_hand'},
-        },
-    },
-    deck = {
-        type = 'b_ortalab_challenge',
-        unlocked = function(self)
-            return true
-        end,
-    },
-    apply = function(self)
-        G.GAME.stake = G.P_STAKES.stake_ortalab_one.order
-        SMODS.setup_stake(G.P_STAKES.stake_ortalab_one.order)
-    end,
-}
 
 
 SMODS.Challenge {
@@ -370,12 +594,24 @@ SMODS.Challenge {
             {id = 'c_ortalab_jormungand'},
         },
         banned_tags = {
-            {id = 'tag_ortalab_hand'},
         },
         banned_other = {
             {id = 'bl_ortalab_hammer', type = "blind"},
         }
     },
+    -- Add this field to lostC
+    calculate = function(self, context)
+        if context.round_eval and G.GAME.last_blind and G.GAME.last_blind.boss then
+            G.E_MANAGER:add_event(Event({
+                func = (function()
+                    add_tag(Tag('tag_ortalab_immolate'))
+                    play_sound('generic1', 0.9 + math.random()*0.1, 0.8)
+                    play_sound('holo1', 1.2 + math.random()*0.1, 0.4)
+                    return true
+                end)
+            }))
+        end
+    end,
     deck = {
         type = 'b_ortalab_challenge',
         unlocked = function(self)
@@ -443,82 +679,31 @@ SMODS.Challenge {
 }
 
 
-
-
 SMODS.Challenge {
-    key = 'lostC',
-    vouchers = {
-        {id = 'v_ortalab_shared_winnings'},
+    key = 'rustyC',
+    rules = {
+        modifiers = {
+            {id = 'hand_size', value = 1},
+            {id = 'discards', value = 5},
+        },
     },
-    deck = {
-        type = 'b_ortalab_challenge',
-        unlocked = function(self)
-            return true
-        end,
-        cards = {
-            {s='D',r='2'},
-            {s='D',r='3'},
-            {s='D',r='4'},
-            {s='D',r='5'},
-            {s='D',r='6'},
-            {s='D',r='7'},
-            {s='D',r='8'},
-            {s='D',r='9'},
-            {s='D',r='T'},
-            {s='D',r='A'},
-            {s='C',r='2'},
-            {s='C',r='3'},
-            {s='C',r='4'},
-            {s='C',r='5'},
-            {s='C',r='6'},
-            {s='C',r='7'},
-            {s='C',r='8'},
-            {s='C',r='9'},
-            {s='C',r='T'},
-            {s='C',r='A'},
-            {s='H',r='2'},
-            {s='H',r='3'},
-            {s='H',r='4'},
-            {s='H',r='5'},
-            {s='H',r='6'},
-            {s='H',r='7'},
-            {s='H',r='8'},
-            {s='H',r='9'},
-            {s='H',r='T'},
-            {s='H',r='A'},
-            {s='S',r='2'},
-            {s='S',r='3'},
-            {s='S',r='4'},
-            {s='S',r='5'},
-            {s='S',r='6'},
-            {s='S',r='7'},
-            {s='S',r='8'},
-            {s='S',r='9'},
-            {s='S',r='T'},
-            {s='S',r='A'},
-        }
-    }
-}
-
-
-
-SMODS.Challenge {
-    key = 'shrodingerC',
     jokers = {
-        {id = 'j_ortalab_black_cat', eternal = true},
-        {id = 'j_ortalab_flashback', eternal = true},
-    },
-    vouchers = {
-        {id = 'v_ortalab_abacus'},
-        {id = 'v_ortalab_calculator'},
+        {id = 'j_ortalab_jester', edition = 'ortalab_anaglyphic'},
     },
     restrictions = {
         banned_cards = {
-            {id = 'c_ortalab_lot_hand'},
+            {id = 'j_ortalab_rockstar'},
+            {id = 'j_ortalab_gloomy_gus'},
+            {id = 'j_ortalab_klutz'},
+            {id = 'j_ortalab_actor'},
+            {id = 'v_ortalab_abacus'},
+            {id = 'v_ortalab_recyclo_inv'},
         },
-        banned_tags = {
-            {id = 'tag_ortalab_hand'},
-        },
+        banned_other = {
+            {id = 'bl_ortalab_caramel_coin', type = "blind"},
+            {id = 'bl_ortalab_sinker', type = "blind"},
+            {id = 'bl_ortalab_saffron_shield', type = "blind"},
+        }
     },
     deck = {
         type = 'b_ortalab_challenge',
@@ -531,6 +716,7 @@ SMODS.Challenge {
         SMODS.setup_stake(G.P_STAKES.stake_ortalab_one.order)
     end,
 }
+
 
 
 SMODS.Challenge {
@@ -550,7 +736,6 @@ SMODS.Challenge {
             {id = 'v_ortalab_pulse_wave'},
             {id = 'v_ortalab_energy_surge'},
             {id = 'c_ortalab_corpus'},
-            {id = 'c_ortalab_tree_of_life'},
             {id = 'p_buffoon_normal_1', ids = {
                 'p_buffoon_normal_1', 'p_buffoon_normal_2',
                 'p_buffoon_jumbo_1', 'p_buffoon_mega_1' }
@@ -560,10 +745,9 @@ SMODS.Challenge {
             {id = 'tag_ortalab_soul'},
             {id = 'tag_ortalab_common'},
             {id = 'tag_ortalab_fluorescent'},
-            {id = 'tag_ortalab_greyscale '},
+            {id = 'tag_ortalab_greyscale'},
             {id = 'tag_ortalab_overexposed'},
             {id = 'tag_ortalab_anaglyphic'},
-            {id = 'tag_ortalab_hand'},
         },
     },
     deck = {
@@ -578,117 +762,14 @@ SMODS.Challenge {
     end,
 }
 
-SMODS.Challenge {
-    key = 'chaosC',
-    rules = {
-        modifiers = {
-            modifiers = function()
-                G.GAME.modifiers.ortalab_only = Ortalab.config.ortalab_only
-                G.GAME.ortalab.double_blind = true
-                if Ortalab.config.ortalab_only then
-                    G.GAME.planet_rate = 4
-                    G.GAME.tarot_rate = 4
-                    G.GAME.ortalab_loteria_rate = 4
-                    G.GAME.ortalab_zodiac_rate = 4
-                    G.GAME.joker_rate = 4
-                    G.GAME.mythos_rate = 4
-                end
-            end
-        }
-    },
-    deck = {
-        type = 'b_ortalab_challenge',
-        unlocked = function(self)
-            return true
-        end,
-    }
-}
 
 
 
-SMODS.Challenge {
-    key = 'ambidexrousC',
-    jokers = {
-      {id = 'j_ortalab_polydactyly', eternal = true},
-      {id = 'j_four_fingers', eternal = true},  
-    },
-    vouchers = {
-        {id = 'v_ortalab_statue'},
-        {id = 'v_paint_brush'},
-    },
-    restrictions = {
-        banned_cards = {
-            {id = 'c_ortalab_lot_hand'},
-        },
-        banned_tags = {
-            {id = 'tag_ortalab_hand'},
-        },
-    },
-    deck = {
-        type = 'b_ortalab_challenge',
-        unlocked = function(self)
-            return true
-        end,
-    }
-}
-
-SMODS.Challenge {
-    key = 'diseasedC',
-    restrictions = {
-        banned_cards = {
-            {id = 'c_ortalab_gnome'},
-            {id = 'c_ortalab_ya_te_veo'},
-            {id = 'c_ortalab_crawler'},
-            {id = 'c_ortalab_anubis'},
-            {id = 'c_ortalab_wendigo'},
-        },
-    },
-    deck = {
-        type = 'b_ortalab_challenge',
-        unlocked = function(self)
-            return true
-        end,
-    }
-}
 
 
 
-SMODS.Challenge {
-    key = 'russianC',
-    restrictions = {
-        banned_cards = {
-            {id = 'c_ortalab_gnome'},
-            {id = 'c_ortalab_ya_te_veo'},
-            {id = 'c_ortalab_crawler'},
-            {id = 'c_ortalab_anubis'},
-            {id = 'c_ortalab_wendigo'},
-            {id = 'c_ortalab_lot_hand'},
-        },
-        banned_tags = {
-            {id = 'tag_ortalab_hand'},
-        },
-    },
-    deck = {
-        type = 'b_ortalab_challenge',
-        unlocked = function(self)
-            return true
-        end,
-    }
-}
 
 
-SMODS.Challenge {
-    key = 'ephermeralC',
-    restrictions = {
-        banned_cards = {
-            {id = 'c_ortalab_tree_of_life'},
-        },
-    },
-    deck = {
-        type = 'b_ortalab_challenge',
-        unlocked = function(self)
-            return true
-        end,
-    }
-}
+
+
 
