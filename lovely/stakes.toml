@@ -146,7 +146,7 @@ pattern = '''
 ((G.GAME.round_resets.ante)%G.GAME.win_ante == 0 and G.GAME.round_resets.ante >= 2) ==
 '''
 payload = '''
-(((G.GAME.round_resets.ante)%G.GAME.win_ante == 0 and G.GAME.round_resets.ante >= 2) or (G.GAME.ortalab.ante_showdown and G.GAME.round_resets.ante == 5)) ==
+(((G.GAME.round_resets.ante)%G.GAME.win_ante == 0 and G.GAME.round_resets.ante >= 2) or (G.GAME.ortalab.ante_showdown and G.GAME.round_resets.ante == 5) or false) ==
 '''
 
 # Stake 8 - don't win after first blind
