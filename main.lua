@@ -64,7 +64,7 @@ SMODS.Shader({
 
 if (SMODS.Mods['malverk'] or {}).can_load then
     AltTextures_Utils.default_atlas['ortalab_zodiac'] = 'ortalab_zodiac_cards'
-    AltTextures_Utils.loc_keys['ortalab_zodiac'] = 'b_zodiac_cards'
+    AltTextures_Utils.loc_keys['ortalab_zodiac'] = 'b_ortalab_zodiac_cards'
     AltTexture({
         key = 'alt_zodiac',
         set = 'ortalab_zodiac',
@@ -75,15 +75,31 @@ if (SMODS.Mods['malverk'] or {}).can_load then
         }
     })
 
+    AltTexture({
+        key = 'alt_loteria_booster',
+        set = 'Booster',
+        path = 'loteria_boosters_alt.png',
+        keys = {
+            'p_ortalab_small_loteria_1', 'p_ortalab_small_loteria_2', 'p_ortalab_small_loteria_3', 'p_ortalab_small_loteria_4',
+            'p_ortalab_mid_loteria_1', 'p_ortalab_mid_loteria_2', 'p_ortalab_big_loteria_1', 'p_ortalab_big_loteria_2'
+        },
+        display_pos = 'p_ortalab_small_loteria_1',
+        loc_txt = {
+            name = 'Plain Loteria Boosters'
+        }
+    })
+
     TexturePack{
         key = 'alt_orta',
         textures = {
             'ortalab_alt_zodiac',
+            'ortalab_alt_loteria_booster'
         },
         loc_txt = {
-            name = 'Full Colour Zodiacs',
+            name = 'Ortalab Alternate Art',
             text = {
-                'Alternate art for {C:zodiac}Zodiac',
+                'Alternate art for',
+                'various {C:Ortalab}Ortalab{} objects'
             }
         }
     }
