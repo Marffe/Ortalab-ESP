@@ -440,6 +440,7 @@ function Ortalab.check_force_highlight()
 end
 
 function Ortalab:calculate(context)
+    -- Remove Croupier slots
     if context.croupier_reroll or context.ending_shop then
         if Ortalab.croupier_sold then
             change_shop_size(-Ortalab.croupier_sold)
@@ -456,6 +457,10 @@ function Ortalab:calculate(context)
                 G.jokers.config.card_limit = G.jokers.config.card_limit - 1
             end
         end
+    end
+    -- Remove cards from polydactyly/statue triggers
+    if context.after then
+        Ortalab.polydactyly.cards = {}
     end
 end
 

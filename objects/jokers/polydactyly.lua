@@ -14,11 +14,6 @@ SMODS.Joker({
 	loc_vars = function(self, info_queue, card)
         return {vars = {card.ability.extra.cards, localize(card.ability.extra.hand_1, 'poker_hands'), localize(card.ability.extra.hand_2, 'poker_hands')}}
 	end,
-	calculate = function(self, card, context)
-		if context.after then
-			Ortalab.polydactyly.cards = {}
-		end
-	end
 })
 
 Ortalab.polydactyly = {cards = {}}
