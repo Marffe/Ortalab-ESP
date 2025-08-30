@@ -11,6 +11,7 @@ SMODS.Challenge {
             {id = 'v_ortalab_one_mans_trash'},
             {id = 'c_ortalab_lot_hand'},
             {id = 'c_ortalab_jackalope'},
+            {id = 'c_ortalab_tree_of_life'},
         },
         banned_tags = {
             {id = 'tag_ortalab_hand'},
@@ -42,6 +43,7 @@ SMODS.Challenge {
     restrictions = {
         banned_cards = {
             {id = 'c_ortalab_lot_hand'},
+            {id = 'c_ortalab_tree_of_life'},
         },
         banned_tags = {
             {id = 'tag_ortalab_hand'},
@@ -66,6 +68,7 @@ SMODS.Challenge {
     restrictions = {
         banned_cards = {
             {id = 'c_ortalab_lot_hand'},
+            {id = 'c_ortalab_tree_of_life'},
         },
         banned_tags = {
             {id = 'tag_ortalab_hand'},
@@ -94,6 +97,7 @@ SMODS.Challenge {
     restrictions = {
         banned_cards = {
             {id = 'c_ortalab_lot_hand'},
+            {id = 'c_ortalab_tree_of_life'},
         },
         banned_tags = {
             {id = 'tag_ortalab_hand'},
@@ -121,6 +125,7 @@ SMODS.Challenge {
     restrictions = {
         banned_cards = {
             {id = 'c_ortalab_lot_hand'},
+            {id = 'c_ortalab_tree_of_life'},
         },
         banned_tags = {
             {id = 'tag_ortalab_hand'},
@@ -185,6 +190,15 @@ SMODS.Challenge {
     jokers = {
         {id = 'j_ortalab_shinku', eternal = true, edition = 'ortalab_overexposed'},
     },
+        restrictions = {
+        banned_cards = {
+            {id = 'c_ortalab_lot_hand'},
+            {id = 'c_ortalab_tree_of_life'},
+        },
+        banned_tags = {
+            {id = 'tag_ortalab_hand'},
+        },
+    },
     deck = {
         type = 'b_ortalab_challenge',
         unlocked = function(self)
@@ -229,6 +243,7 @@ SMODS.Challenge {
             {id = 'c_ortalab_lot_scorpion'},
             {id = 'c_ortalab_lot_bonnet'},
             {id = 'c_ortalab_lot_boot'},
+            {id = 'c_ortalab_tree_of_life'},
         },
         banned_tags = {
             {id = 'tag_ortalab_soul'},
@@ -265,6 +280,7 @@ SMODS.Challenge {
     restrictions = {
         banned_cards = {
             {id = 'c_ortalab_lot_hand'},
+            {id = 'c_ortalab_tree_of_life'},
         },
         banned_tags = {
             {id = 'tag_ortalab_hand'},
@@ -300,6 +316,7 @@ SMODS.Challenge {
             {id = 'j_merry_andy'},
             {id = 'c_ortalab_lot_hand'},
             {id = 'c_ortalab_jackalope'},
+            {id = 'c_ortalab_tree_of_life'},
             {id = 'v_ortalab_abacus'},
             {id = 'v_paint_brush'},
         },
@@ -329,6 +346,7 @@ SMODS.Challenge {
     restrictions = {
         banned_cards = {
             {id = 'c_ortalab_lot_hand'},
+            {id = 'c_ortalab_tree_of_life'},
         },
         banned_tags = {
             {id = 'tag_ortalab_hand'},
@@ -370,7 +388,6 @@ SMODS.Challenge {
             {id = 'c_ortalab_jormungand'},
         },
         banned_tags = {
-            {id = 'tag_ortalab_hand'},
         },
         banned_other = {
             {id = 'bl_ortalab_hammer', type = "blind"},
@@ -515,6 +532,7 @@ SMODS.Challenge {
     restrictions = {
         banned_cards = {
             {id = 'c_ortalab_lot_hand'},
+            {id = 'c_ortalab_tree_of_life'},
         },
         banned_tags = {
             {id = 'tag_ortalab_hand'},
@@ -550,7 +568,6 @@ SMODS.Challenge {
             {id = 'v_ortalab_pulse_wave'},
             {id = 'v_ortalab_energy_surge'},
             {id = 'c_ortalab_corpus'},
-            {id = 'c_ortalab_tree_of_life'},
             {id = 'p_buffoon_normal_1', ids = {
                 'p_buffoon_normal_1', 'p_buffoon_normal_2',
                 'p_buffoon_jumbo_1', 'p_buffoon_mega_1' }
@@ -560,10 +577,9 @@ SMODS.Challenge {
             {id = 'tag_ortalab_soul'},
             {id = 'tag_ortalab_common'},
             {id = 'tag_ortalab_fluorescent'},
-            {id = 'tag_ortalab_greyscale '},
+            {id = 'tag_ortalab_greyscale'},
             {id = 'tag_ortalab_overexposed'},
             {id = 'tag_ortalab_anaglyphic'},
-            {id = 'tag_ortalab_hand'},
         },
     },
     deck = {
@@ -619,6 +635,7 @@ SMODS.Challenge {
     restrictions = {
         banned_cards = {
             {id = 'c_ortalab_lot_hand'},
+            {id = 'c_ortalab_tree_of_life'},
         },
         banned_tags = {
             {id = 'tag_ortalab_hand'},
@@ -663,6 +680,7 @@ SMODS.Challenge {
             {id = 'c_ortalab_anubis'},
             {id = 'c_ortalab_wendigo'},
             {id = 'c_ortalab_lot_hand'},
+            {id = 'c_ortalab_tree_of_life'},
         },
         banned_tags = {
             {id = 'tag_ortalab_hand'},
