@@ -973,6 +973,7 @@ end
 
 G.FUNCS.swap_blind = function(e)
     local type = e.config.type
+    print(type)
     if G.GAME.round_resets.blind_states[type] == 'Defeated' or G.GAME.round_resets.blind_states[type] == 'Skipped' then
         return
     end
@@ -1013,7 +1014,7 @@ G.FUNCS.swap_blind = function(e)
             T = {par.T.x, 0, 0, 0, },
             definition =
                 {n=G.UIT.ROOT, config={align = "cm", colour = G.C.CLEAR}, nodes={
-                UIBox_dyn_container({create_UIBox_blind_choice(type)},false,get_blind_main_colour(type), mix_colours(G.C.BLACK, get_blind_main_colour(type), 0.8))
+                UIBox_dyn_container({create_UIBox_blind_choice(type, G.SETTINGS.paused)},false,get_blind_main_colour(type), mix_colours(G.C.BLACK, get_blind_main_colour(type), 0.8))
                 }},
             config = {align="bmi",
                         offset = {x=0,y=G.ROOM.T.y + 9},
