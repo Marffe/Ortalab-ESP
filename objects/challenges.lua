@@ -191,7 +191,6 @@ SMODS.Challenge {
 SMODS.Challenge {
     key = 'lostC',
     vouchers = {
-        {id = 'v_ortalab_shared_winnings'},
     },
     deck = {
         type = 'b_ortalab_challenge',
@@ -416,13 +415,14 @@ SMODS.Challenge {
     jokers = {
         {id = 'j_ortalab_shinku', eternal = true, edition = 'ortalab_overexposed'},
     },
-        restrictions = {
+    modifiers = {
+        {id = 'joker_slots', value = 3},
+    },
+    restrictions = {
         banned_cards = {
-            {id = 'c_ortalab_lot_hand'},
             {id = 'c_ortalab_tree_of_life'},
         },
         banned_tags = {
-            {id = 'tag_ortalab_hand'},
         },
     },
     deck = {
@@ -520,6 +520,9 @@ SMODS.Challenge {
         {id = 'j_ortalab_crime_scene', eternal = true},
         {id = 'j_ortalab_misfits', eternal = true},
     },
+    vouchers = {
+        {id = 'v_tarot_merchant'},
+    },
     restrictions = {
         banned_cards = {
             {id = 'c_ortalab_lot_umbrella'},
@@ -596,6 +599,19 @@ SMODS.Challenge {
             {id = 'bl_ortalab_hammer', type = "blind"},
         }
     },
+    -- Add this field to lostC
+    calculate = function(self, context)
+        if context.round_eval and G.GAME.last_blind and G.GAME.last_blind.boss then
+            G.E_MANAGER:add_event(Event({
+                func = (function()
+                    add_tag(Tag('tag_ortalab_immolate'))
+                    play_sound('generic1', 0.9 + math.random()*0.1, 0.8)
+                    play_sound('holo1', 1.2 + math.random()*0.1, 0.4)
+                    return true
+                end)
+            }))
+        end
+    end,
     deck = {
         type = 'b_ortalab_challenge',
         unlocked = function(self)
