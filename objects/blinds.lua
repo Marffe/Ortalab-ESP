@@ -428,8 +428,8 @@ SMODS.Blind({
     config = {extra = {triggered = false}},
     artist_credits = {'flare'},
     loc_vars = function(self, info_queue, card)
-        if G.GAME.blind.effect.extra.hand_type then
-            return {vars = {localize(G.GAME.blind.effect.extra.hand_type, 'poker_hands')}}
+        if G.GAME.current_round.most_played_poker_hand then
+            return {vars = {localize(G.GAME.current_round.most_played_poker_hand, 'poker_hands')}}
         else
             return {key = 'bl_ortalab_spike_collection'}
         end
@@ -829,8 +829,8 @@ SMODS.Blind({
     config = {extra = {reset = 5, hand_type = nil}},
     artist_credits = {'flare'},
     loc_vars = function(self, info_queue, card)
-        if G.GAME.blind.effect.extra.hand_type then
-            return {vars = {localize(G.GAME.current_round.most_played_poker_hand, 'poker_hands'), G.GAME.blind.effect.extra.reset}}
+        if G.GAME.current_round.most_played_poker_hand then
+            return {vars = {localize(G.GAME.current_round.most_played_poker_hand, 'poker_hands'), self.config.extra.reset}}
         else
             return {key = 'bl_ortalab_sheep_collection', vars = {self.config.extra.reset}}
 
