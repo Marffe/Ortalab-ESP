@@ -1359,7 +1359,6 @@ Ortalab.Mythos_Utils.Corpus_Effects.ouija = function(card)
 
     
     local rank = SMODS.Ranks[pseudorandom_element(SMODS.Rank.obj_buffer, 'corpus_sigil')].key
-    print(rank)
 
     for _, playing_card in ipairs(G.hand.cards) do
         if not playing_card.getting_sliced then

@@ -34,7 +34,6 @@ SMODS.Joker({
                 delay = 0.2,
                 func = function()            
                     play_sound('ortalab_shrine', nil, 2)
-                    print(percent)
                     percent = 0.3
                     ease_background_colour{special_colour = darken(G.C.SET.ortalab_mythos, 0.5), new_colour = G.C.RED, tertiary_colour = G.C.SET.ortalab_mythos, contrast = 1}
                     return true

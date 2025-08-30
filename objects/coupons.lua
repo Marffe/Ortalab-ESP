@@ -89,8 +89,6 @@ G.FUNCS.skip_blind = function(e)
 end
 
 function Ortalab.home_delivery()
-    print(inspectFunction(G.E_MANAGER.queues.base[#G.E_MANAGER.queues.base].func))
-    
     G.STATE_COMPLETE = false
     G.STATE = G.STATES.SHOP
 end
