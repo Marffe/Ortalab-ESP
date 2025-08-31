@@ -454,7 +454,7 @@ SMODS.Voucher({
 	available = false,
     requires = {'v_ortalab_grabber_inv'},
     config = {extra = {discard_size = 3}},
-    artist_credits = {'no_demo'},
+    artist_credits = {'gappie'},
 	redeem = function(self, card)
         SMODS.change_discard_limit(card.ability.extra.discard_size)
     end,
