@@ -644,7 +644,7 @@ return {
 			j_ortalab_bear = {
 				name = 'Bear',
 				text = {
-					'Gain {C:red}+#1#{} Mult per', 
+					'{C:red}+#1#{} Mult for each', 
 					'{C:money}${} spent in last shop',
 					'{C:inactive}(Currently {C:red}+#2#{C:inactive} Mult)',
 				}
