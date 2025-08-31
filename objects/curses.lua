@@ -277,6 +277,8 @@ Ortalab.Curse({
     end
 })
 
+G.ARGS.LOC_COLOURS.possessed = HEX('82b4f4')
+
 Ortalab.Curse({
     key = 'possessed',
     atlas = 'curses',
@@ -441,6 +443,18 @@ Ortalab.Curse({
         end
     end
 })
+
+local ortalab_card_area_emplace = CardArea.emplace
+function CardArea:emplace(card, location, stay_flipped)
+    ortalab_card_area_emplace(self, card, location, stay_flipped)
+    if card.curse == 'ortalab_possessed' and (self == G.jokers or self == G.consumeables) then
+        SMODS.calculate_effect({
+                message = localize({type = 'name_text', set = 'Curse', key = 'ortalab_possessed'})..'!',
+                colour = Ortalab.Curses.ortalab_possessed.badge_colour
+            }, card)
+        Ortalab.Curses.ortalab_possessed:set_ability(card)
+    end
+end
 
 local ortalab_card_can_calculate = Card.can_calculate
 function Card:can_calculate(ignore_debuff, ignore_sliced)

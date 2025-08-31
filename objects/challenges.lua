@@ -41,6 +41,7 @@ SMODS.Challenge {
         G.GAME.ortalab_mythos_rate = 4
         G.GAME.playing_card_rate = 4
     end,
+    button_colour = Ortalab.badge_colour
 }
 
 SMODS.Challenge {
@@ -66,7 +67,8 @@ SMODS.Challenge {
         unlocked = function(self)
             return true
         end,
-    }
+    },
+    button_colour = Ortalab.badge_colour
 }
 
 SMODS.Challenge {
@@ -93,7 +95,8 @@ SMODS.Challenge {
         unlocked = function(self)
             return true
         end,
-    }
+    },
+    button_colour = Ortalab.badge_colour
 }
 
 SMODS.Challenge {
@@ -116,7 +119,8 @@ SMODS.Challenge {
         unlocked = function(self)
             return true
         end,
-    }
+    },
+    button_colour = Ortalab.badge_colour
 }
 
 SMODS.Challenge {
@@ -139,7 +143,8 @@ SMODS.Challenge {
         unlocked = function(self)
             return true
         end,
-    }
+    },
+    button_colour = Ortalab.badge_colour
 }
 
 SMODS.Challenge {
@@ -176,7 +181,8 @@ SMODS.Challenge {
         unlocked = function(self)
             return true
         end,
-    }
+    },
+    button_colour = Ortalab.badge_colour
 }
 
 SMODS.Challenge {
@@ -209,7 +215,8 @@ SMODS.Challenge {
                 end)
             }))
         end
-    end
+    end,
+    button_colour = Ortalab.badge_colour
 }
 
 SMODS.Challenge {
@@ -233,11 +240,15 @@ SMODS.Challenge {
         unlocked = function(self)
             return true
         end,
-    }
+    },
+    button_colour = Ortalab.badge_colour
 }
 
 SMODS.Challenge {
     key = 'russianC',
+    jokers = {
+        {id = 'j_ortalab_revolver', eternal = true, edition = 'negative'},
+    },
     restrictions = {
         banned_cards = {
             {id = 'c_ortalab_gnome'},
@@ -252,12 +263,18 @@ SMODS.Challenge {
             {id = 'tag_ortalab_hand'},
         },
     },
+    rules = {
+        custom = {
+            {id = 'ortalab_russianC'},
+        },
+    },
     deck = {
         type = 'b_ortalab_challenge',
         unlocked = function(self)
             return true
         end,
-    }
+    },
+    button_colour = Ortalab.badge_colour
 }
 
 SMODS.Challenge {
@@ -277,7 +294,8 @@ SMODS.Challenge {
         unlocked = function(self)
             return true
         end,
-    }
+    },
+    button_colour = Ortalab.badge_colour
 }
 
 SMODS.Challenge {
@@ -315,7 +333,8 @@ SMODS.Challenge {
         unlocked = function(self)
             return true
         end,
-    }
+    },
+    button_colour = Ortalab.badge_colour
 }
 
 SMODS.Challenge {
@@ -351,7 +370,8 @@ SMODS.Challenge {
     apply = function(self)
         G.GAME.stake = G.P_STAKES.stake_ortalab_one.order
         SMODS.setup_stake(G.P_STAKES.stake_ortalab_one.order)
-    end
+    end,
+    button_colour = Ortalab.badge_colour
 }
 
 SMODS.Challenge {
@@ -384,6 +404,7 @@ SMODS.Challenge {
         G.GAME.stake = G.P_STAKES.stake_ortalab_one.order
         SMODS.setup_stake(G.P_STAKES.stake_ortalab_one.order)
     end,
+    button_colour = Ortalab.badge_colour
 }
 
 SMODS.Challenge {
@@ -416,6 +437,7 @@ SMODS.Challenge {
         G.GAME.stake = G.P_STAKES.stake_ortalab_one.order
         SMODS.setup_stake(G.P_STAKES.stake_ortalab_one.order)
     end,
+    button_colour = Ortalab.badge_colour
 }
 
 SMODS.Challenge {
@@ -452,6 +474,7 @@ SMODS.Challenge {
         G.GAME.stake = G.P_STAKES.stake_ortalab_one.order
         SMODS.setup_stake(G.P_STAKES.stake_ortalab_one.order)
     end,
+    button_colour = Ortalab.badge_colour
 }
 
 SMODS.Challenge {
@@ -488,6 +511,7 @@ SMODS.Challenge {
         G.GAME.stake = G.P_STAKES.stake_ortalab_one.order
         SMODS.setup_stake(G.P_STAKES.stake_ortalab_one.order)
     end,
+    button_colour = Ortalab.badge_colour
 }
 
 SMODS.Challenge {
@@ -550,6 +574,7 @@ SMODS.Challenge {
         G.GAME.stake = G.P_STAKES.stake_ortalab_one.order
         SMODS.setup_stake(G.P_STAKES.stake_ortalab_one.order)
     end,
+    button_colour = Ortalab.badge_colour
 }
 
 SMODS.Challenge {
@@ -605,6 +630,7 @@ SMODS.Challenge {
         G.GAME.stake = G.P_STAKES.stake_ortalab_one.order
         SMODS.setup_stake(G.P_STAKES.stake_ortalab_one.order)
     end,
+    button_colour = Ortalab.badge_colour
 }
 
 SMODS.Challenge {
@@ -646,6 +672,7 @@ SMODS.Challenge {
         G.GAME.stake = G.P_STAKES.stake_ortalab_one.order
         SMODS.setup_stake(G.P_STAKES.stake_ortalab_one.order)
     end,
+    button_colour = Ortalab.badge_colour
 }
 
 SMODS.Challenge {
@@ -690,17 +717,21 @@ SMODS.Challenge {
         G.GAME.stake = G.P_STAKES.stake_ortalab_one.order
         SMODS.setup_stake(G.P_STAKES.stake_ortalab_one.order)
     end,
+    button_colour = Ortalab.badge_colour
 }
 
 local ortalab_create_card = create_card
 function create_card(_type, area, legendary, _rarity, skip_materialize, soulable, forced_key, key_append)
     local card = ortalab_create_card(_type, area, legendary, _rarity, skip_materialize, soulable, forced_key, key_append)
-    if (area == G.shop_jokers) or (area == G.pack_cards) then
+    if ((area == G.shop_jokers) or (area == G.pack_cards)) and card.ability.set == 'Joker' then
         if G.GAME.modifiers.ortalab_ephermeralC then
             card:set_perishable(true)
         end
         if G.GAME.modifiers.ortalab_diseasedC then
-            card:set_curse('ortalab_infected', true)
+            card:set_curse('ortalab_infected', true, true)
+        end
+        if G.GAME.modifiers.ortalab_russianC then
+            card:set_curse('ortalab_possessed', true, true)
         end
     end
     return card
