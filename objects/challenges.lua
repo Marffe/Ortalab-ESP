@@ -238,6 +238,9 @@ SMODS.Challenge {
 
 SMODS.Challenge {
     key = 'russianC',
+    jokers = {
+        {id = 'j_ortalab_revolver', eternal = true},
+    },
     restrictions = {
         banned_cards = {
             {id = 'c_ortalab_gnome'},
@@ -250,6 +253,11 @@ SMODS.Challenge {
         },
         banned_tags = {
             {id = 'tag_ortalab_hand'},
+        },
+    },
+    rules = {
+        custom = {
+            {id = 'ortalab_russianC'},
         },
     },
     deck = {
@@ -701,6 +709,9 @@ function create_card(_type, area, legendary, _rarity, skip_materialize, soulable
         end
         if G.GAME.modifiers.ortalab_diseasedC then
             card:set_curse('ortalab_infected', true)
+        end
+        if G.GAME.modifiers.ortalab_russianC then
+            card:set_curse('ortalab_possessed', true)
         end
     end
     return card
