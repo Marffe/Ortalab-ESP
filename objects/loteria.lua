@@ -1201,7 +1201,7 @@ function Card:highlight(is_highlighted)
             G.hand.config.highlighted_limit = self.ability.extra.highlight_limit or 5
         end
     end
-    if self.config.center_key == 'c_ortalab_lot_hand' and self.area == G.consumeables then
+    if self.config.center_key == 'c_ortalab_lot_hand' and G.consumeables and self.area == G.consumeables then
         if is_highlighted then
             G.consumeables.config.highlighted_limit = G.consumeables.config.highlighted_limit + 1
         else

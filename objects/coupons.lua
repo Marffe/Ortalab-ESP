@@ -725,7 +725,7 @@ SMODS.Voucher({
 	discovered = false,
 	available = false,
     requires = {'v_ortalab_shared_winnings'},
-    artist_credits = {'gappie'},
+    artist_credits = {'crimson'},
 	redeem = function(self, card)
         G.GAME.ortalab.alt_boss = get_new_boss()
     end,
@@ -802,7 +802,7 @@ SMODS.Voucher({
 	discovered = false,
 	available = false,
     config = {extra = {bonus_slots = 1}},
-    artist_credits = {'flare'},
+    artist_credits = {'gappie'},
 	redeem = function(self, card)
         G.GAME.modifiers.booster_size_mod = (G.GAME.modifiers.booster_size_mod or 0) + card.ability.extra.bonus_slots
     end,
@@ -821,7 +821,7 @@ SMODS.Voucher({
 	available = false,
     requires = {'v_ortalab_blank_inv'},
     config = {extra = {active = true}},
-    artist_credits = {'flare'},
+    artist_credits = {'gappie'},
     redeem = function(self, card)
         if G.shop_booster and G.shop_booster.cards and next(G.shop_booster.cards) then
             for _, booster in pairs(G.shop_booster.cards) do
