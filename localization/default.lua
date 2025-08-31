@@ -187,6 +187,7 @@ return {
             ch_c_ortalab_chaosC = { "All {C:attention}shop items{} have the same rate" },
             ch_c_ortalab_lostC = { "At the end of each Ante, gain an {C:attention}Immolate Patch{}" },
             ch_c_ortalab_diseasedC = { "All Jokers are {C:infected}Infected{}" },
+			ch_c_ortalab_russianC = { "All Jokers are {C:possessed}Possessed{}" },
             ch_c_ortalab_ephermeralC = { "All Jokers are {C:attention}Perishable{}" },
         },
 		["dictionary"] = {
@@ -326,6 +327,8 @@ return {
 			ortalab_attached = 'Attached!',
 			ortalab_koko = 'Hee hee!',
 			ortalab_ophiuchus = 'Cleansed!',
+			ortalab_plural = 's',
+			ortalab_comma = ', '
 		},
 		['labels'] = {
 			ortalab_greyscale = 'Greyscale',
@@ -1850,6 +1853,11 @@ return {
 					'{C:heyyou}Hey You{}, {C:monty}Dr. Monty{}, and so many more!',
 				}
 			},
+			taking_the_trick = {
+				text = {
+					'#1# of #2#'
+				}
+			}
 		},
         ["ortalab_loteria"] = {
             ["c_ortalab_lot_umbrella"] = {

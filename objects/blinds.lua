@@ -985,12 +985,12 @@ SMODS.Blind({
             trigger = 'after',
             delay = 0.7,
             func = function()
-                local text = {localize(ranks_to_debuff[1], 'ranks')..'s'..(#ranks_to_debuff>2 and ', ' or ''), ""}
+                local text = {localize(ranks_to_debuff[1], 'ranks')..localize('ortalab_plural')..(#ranks_to_debuff>2 and localize('ortalab_comma') or ''), ""}
                 for i=2, #ranks_to_debuff-2 do
-                    text[i<7 and 1 or 2] = text[i<7 and 1 or 2]..localize(ranks_to_debuff[i], 'ranks')..'s, '
+                    text[i<7 and 1 or 2] = text[i<7 and 1 or 2]..localize(ranks_to_debuff[i], 'ranks')..localize('ortalab_plural')..localize('ortalab_comma')
                 end
                 if #ranks_to_debuff > 1 then
-                    text[string.len(text[2])>0 and 2 or 1] = text[string.len(text[2])>0 and 2 or 1] .. (#ranks_to_debuff > 2 and localize(ranks_to_debuff[#ranks_to_debuff-1], 'ranks')..'s' or '') .. localize('ortalab_celadon_and') .. localize(ranks_to_debuff[#ranks_to_debuff], 'ranks') .. 's'
+                    text[string.len(text[2])>0 and 2 or 1] = text[string.len(text[2])>0 and 2 or 1] .. (#ranks_to_debuff > 2 and localize(ranks_to_debuff[#ranks_to_debuff-1], 'ranks')..localize('ortalab_plural') or '') .. localize('ortalab_celadon_and') .. localize(ranks_to_debuff[#ranks_to_debuff], 'ranks') .. localize('ortalab_plural')
                 end
                 text[string.len(text[2])>0 and 2 or 1] = text[string.len(text[2])>0 and 2 or 1] .. localize('ortalab_celadon_notification')
                 attention_text({

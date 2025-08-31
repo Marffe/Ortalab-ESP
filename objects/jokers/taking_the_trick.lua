@@ -53,7 +53,7 @@ SMODS.Joker({
             card.ability.extra.suit = Ortalab.suit_from_deck('ortalab_trick_suit')
             card.ability.extra.rank = Ortalab.rank_from_deck('ortalab_trick_rank')
             return {
-                message = localize(card.ability.extra.rank ..'', 'ranks') .. ' of ' .. localize(card.ability.extra.suit, 'suits_plural'),
+                message = localize({set = 'Ortalab_Utility', key = 'taking_the_trick', type = 'raw_descriptions', vars= {localize(card.ability.extra.rank ..'', 'ranks'), localize(card.ability.extra.suit, 'suits_plural')}}),
                 no_retrigger = true
             }
         end
