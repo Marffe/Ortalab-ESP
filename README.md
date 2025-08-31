@@ -1,19 +1,22 @@
-# __**Demo 3 Patch Notes**__
+# __**Ortalab**__
 
-## [New Consumable Type - Zodiacs](https://imgur.com/fn4c417)
-The second consumable type of Ortalab, **Zodiacs**, is full released in this demo. Zodiacs enhance future plays of specific hand types, adding temporary levels to them and having a secondary effect that manipulates your deck. Each Zodiac starts by providing **+4** temporary levels, which reduces by 2 each activation - each Zodiac triggers twice by default. Using a Zodiac a second time will add the temporary levels to the existing Zodiac, allowing you to stack up high amounts of temporary levels.
-Zodiacs also come with a package of supporting jokers, as well as **two voucher pairs** and **X patches**.
+It's Balatro as you know it, but backwards, and sideways, as if the game was designed in an alternate universe. Simply put, it's Balatro backwards.
+And thus, Ortalab!
+ 
+With 150 new jokers, 20 new challenges, 8 new stakes, more than 50 new consumables, and way, WAY more, Ortalab is practically a sequel to Balatro.
+ 
+Get ready to find new strategies, blow the game out of the water,
+and maybe not die to The Plant for once.
+ 
+Have fun
 
-*Full colour art Zodiacs are available as a Malverk texture pack*
+## Required Mods
+Ortalab requires these mods to function:
+- Lovely v0.8 - [Download here](https://github.com/ethangreen-dev/lovely-injector/releases/tag/v0.8.0)
+- Steamodded BETA-0827c - [Download here](https://github.com/Steamodded/smods/releases/tag/1.0.0-beta-0827c)
 
-## [New Decks](https://imgur.com/pephXnO)
-Demo 3 adds **4** new decks to Ortalab: White Deck, Eclipse Deck, Membership Deck, and Overused Deck. Try them out!
-
-## [New Jokers](https://imgur.com/OKDQK6A)
-Demo 3 increases the joker count to **105**, including some changes to old jokers! Also, meet our new legendary joker - **Caffeyne**!
-
-## [New Blinds](https://imgur.com/R99NM41)
-Ortalab adds **34** blinds to the game:
-   - 23 boss blinds
-   - 5 showdown boss blinds
-   - 6 **new** small/big blinds
+### Recommended Mods
+Here are some quality of life mods that we recommend you use when playing Ortalab to enhance your experience.
+- Galdur - [Download here](https://github.com/Eremel/Galdur/archive/refs/heads/master.zip)
+- Better Tags - [Download here](https://github.com/WaffleDevs/BetterTags/releases/tag/v1.1.1)
+- UnBlind - [Download here](https://github.com/MeraGenio/UnBlind/releases/tag/1.2.1)
