@@ -28,8 +28,6 @@ SMODS.Challenge {
         end,
     },
     apply = function(self)
-        G.GAME.stake = G.P_STAKES.stake_ortalab_one.order
-        SMODS.setup_stake(G.P_STAKES.stake_ortalab_one.order)
         G.GAME.planet_rate = 4
         G.GAME.tarot_rate = 4
         G.GAME.ortalab_loteria_rate = 4
