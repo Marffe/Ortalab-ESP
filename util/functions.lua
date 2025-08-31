@@ -479,6 +479,7 @@ Ortalab.description_loc_vars = function()
 end
 
 Ortalab.custom_ui = function(modNodes)
+    table.remove(modNodes, 1)
     modNodes[#modNodes].config.padding = 0.2
     modNodes[#modNodes].config.outline = 1
     modNodes[#modNodes].config.outline_colour = Ortalab.badge_colour

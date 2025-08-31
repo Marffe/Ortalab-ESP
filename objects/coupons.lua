@@ -961,7 +961,6 @@ end
 
 G.FUNCS.swap_blind = function(e)
     local type = e.config.type
-    print(type)
     if G.GAME.round_resets.blind_states[type] == 'Defeated' or G.GAME.round_resets.blind_states[type] == 'Skipped' then
         return
     end
