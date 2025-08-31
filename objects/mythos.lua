@@ -346,10 +346,10 @@ SMODS.Consumable({
                 for _, copy in ipairs(copies) do
                     draw_card(G.play, G.deck, nil, nil, nil, copy)
                 end
+                G.deck:shuffle()
                 return true
             end
         }))
-        G.deck:shuffle()
     end
 })
 
