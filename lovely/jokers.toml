@@ -104,7 +104,7 @@ pattern = "if card.area and (not nc or card.area == G.pack_cards) then card.area
 match_indent = true
 position = 'before'
 payload = '''
-if card.area == G.pack_cards then
+if G.STATE == G.STATES.SMODS_BOOSTER_OPENED and card.area == G.pack_cards then
     local blue_cards = SMODS.find_card('j_ortalab_blue_card')
     for _, card in pairs(blue_cards) do
         SMODS.scale_card(card, {
