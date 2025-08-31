@@ -647,7 +647,7 @@ return {
 			j_ortalab_bear = {
 				name = 'Bear',
 				text = {
-					'Gain {C:red}+#1#{} Mult per', 
+					'{C:red}+#1#{} Mult for each', 
 					'{C:money}${} spent in last shop',
 					'{C:inactive}(Currently {C:red}+#2#{C:inactive} Mult)',
 				}
@@ -696,7 +696,7 @@ return {
 				}
 			},
 			['j_ortalab_black_friday'] = {
-				["name"] = "Black Friday",
+				["name"] = "Black Market",
 				["text"] = {
 					"All cards in the shop",
 					"are {C:money}#1#%{} off",
@@ -1359,7 +1359,7 @@ return {
 				}
 			},
 			j_ortalab_priest = {
-				name = 'Card Collector',
+				name = 'The Collector',
 				text = {
 					'Gain {C:white,X:red}X#1#{} Mult for each',
 					'{C:money}$1{} of sell value of all',
@@ -1635,7 +1635,7 @@ return {
 				}
 			},
 			['j_ortalab_shelter'] = {
-				["name"] = "The Shelter",
+				["name"] = "The Dates",
 				["text"] = {
 					"{X:mult,C:white}X#1#{} Mult if played",
 					"hand contains a",
