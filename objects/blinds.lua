@@ -963,6 +963,7 @@ SMODS.Blind({
     artist_credits = {'flare'},
     set_blind = function(self)
         -- Find most abundant
+        G.GAME.ortalab.ranks_in_deck = G.GAME.ortalab.ranks_in_deck or Ortalab.count_ranks()
         local max_amount = G.GAME.ortalab.ranks_in_deck[1].count
         local ranks_to_debuff = {}
         for _, rank in ipairs(G.GAME.ortalab.ranks_in_deck) do
@@ -1076,6 +1077,7 @@ SMODS.Blind({
         return {vars = {localize('ortalab_saffron'), colours = {G.ARGS.LOC_COLOURS.attention}}}
     end,
     set_blind = function(self)
+        G.GAME.ortalab.suits_in_deck = G.GAME.ortalab.suits_in_deck or Ortalab.count_suits()
         G.GAME.blind.effect.extra.suit = G.GAME.ortalab.suits_in_deck[#G.GAME.ortalab.suits_in_deck].suit
     end,
     debuff_hand = function(self, cards, hands, handname, check)
