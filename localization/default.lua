@@ -1078,7 +1078,7 @@ return {
 				name = 'Hit The Gym',
 				text = {
 					'Gain {C:white,X:red}X#1#{} Mult for', 
-					'each scored {C:attention}#3#',
+					'each {C:attention}#3#{} in {C:attention}scoring hand',
 					'this round',
 					'{C:inactive}(Currently {C:white,X:red}X#2#{C:inactive} Mult)'
 				}
