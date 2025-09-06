@@ -62,6 +62,23 @@ if _pool_size == 0 then
 end
 '''
 
+# Pool Modifications - Ortalab Only
+# Booster Packs
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/overrides.lua"]'
+match_indent = true
+position = 'before'
+pattern = '''
+if add and not G.GAME.banned_keys[v.key] then cume = cume + (v.current_weight or 1); temp_in_pool[v.key] = true end
+'''
+payload = '''
+if v.kind ~= 'Buffoon' and v.kind ~= 'Standard' and G.GAME.modifiers.ortalab_only then
+    if not v.mod or v.mod.id ~= 'ortalab' then add = false end
+end
+'''
+
+
 [[patches]]
 [patches.pattern]
 target = 'functions/UI_definitions.lua'
@@ -199,17 +216,3 @@ if not v.boss then
 payload = '''
 elseif v == current then
 '''
-
-
-## Patch SMODS get_pack
-# [[patches]]
-# [patches.pattern]
-# target = '=[SMODS _ "src/overrides.lua"]'
-# pattern = '''if add and not G.GAME.banned_keys[v.key] then cume = cume + (v.current_weight or 1); temp_in_pool[v.key] = true end'''
-# position = 'before'
-# match_indent = true
-# payload = '''
-# if v.kind ~= 'Buffoon' and v.kind ~= 'Standard' and G.GAME.modifiers.ortalab_only then
-#     if not v.mod or v.mod.id ~= 'ortalab' then add = false end
-# end
-# '''

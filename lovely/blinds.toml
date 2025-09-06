@@ -266,19 +266,3 @@ else
     draw_card(G.hand, G.discard, i*100/highlighted_count, 'down', false, G.hand.highlighted[i])
 end
 '''
-
-# Rouge Rose
-[[patches]]
-[patches.pattern]
-target = 'game.lua'
-match_indent = true
-position = 'before'
-pattern = '''
-self.consumeables = CardArea(
-'''
-payload = '''
-G.Ortalab_old_deck = CardArea(
-    0, 0,
-    G.CARD_W,G.CARD_H,
-    {card_limit = 500, type = 'discard'})
-'''
