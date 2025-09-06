@@ -938,6 +938,7 @@ SMODS.Consumable({
         return {vars = {card.ability.extra.select}}
     end,
     can_use = function(self, card)
+        if #G.hand.cards == 0 then return false end
         local sacrificed = 0
         for _, v in pairs(card.ability.extra.sacrificed) do if v then sacrificed = sacrificed + 1 end end
         return sacrificed > 0
