@@ -995,7 +995,7 @@ SMODS.Consumable({
             trigger = 'after', delay = 1.5,
             func = function()
                 target.destroyed = {colours = {G.C.SET.ortalab_mythos, darken(G.C.SET.ortalab_mythos, 0.5), G.C.RED, darken(G.C.SET.ortalab_mythos, 0.2), G.ARGS.LOC_COLOURS['ortalab_mythos_alt']}}
-                SMODS.destroy_cards({target})             
+                SMODS.destroy_cards({target}, true, true)             
                 return true
             end
         }))
@@ -1022,6 +1022,7 @@ SMODS.Consumable({
 
 
         G.consumeables:unhighlight_all()
+        save_run()
     end,
     use = function(self, card, area, copier)
         local old_colours = {
