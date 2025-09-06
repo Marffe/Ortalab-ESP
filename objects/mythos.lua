@@ -188,7 +188,7 @@ SMODS.Consumable({
     cost = 5,
     pos = {x=1, y=0},
     discovered = false,
-    config = {extra = {select = 4, curse = 'ortalab_all_curses', method = 'c_ortalab_mult_random', slots = 1, perish_count = 5}},
+    config = {extra = {select = 4, curse = 'ortalab_all_curses', method = 'c_ortalab_mult_random_deck', slots = 1, perish_count = 5}},
     artist_credits = {'gappie'},
     loc_vars = function(self, info_queue, card)
         return {vars = {card.ability.extra.slots, card.ability.extra.perish_count + G.GAME.ortalab.mythos.tree_of_life_count}}
@@ -201,7 +201,7 @@ SMODS.Consumable({
         for _, joker in pairs(G.consumeables.cards) do
             if joker.ability.set == 'Joker' and not joker.ability.perishable then unperish = unperish + 1 end
         end
-        if Ortalab.Mythos_Utils.can_curse_in_area(G.hand.cards, card.ability.extra.select) and unperish >= card.ability.extra.perish_count + G.GAME.ortalab.mythos.tree_of_life_count then
+        if Ortalab.Mythos_Utils.can_curse_in_area(G.deck.cards, card.ability.extra.select) and unperish >= card.ability.extra.perish_count + G.GAME.ortalab.mythos.tree_of_life_count then
             return true
         end
     end,
@@ -247,7 +247,7 @@ SMODS.Consumable({
         G.GAME.ortalab.mythos.tree_of_life_count = G.GAME.ortalab.mythos.tree_of_life_count + 1
 
         -- Curse cards in hand 
-        Ortalab.Mythos_Utils.curse_random_hand(card, {'ortalab_corroded', 'ortalab_infected', 'ortalab_possessed', 'ortalab_restrained'})
+        Ortalab.Mythos_Utils.curse_random_cards(card, G.deck.cards, {'ortalab_corroded', 'ortalab_infected', 'ortalab_possessed', 'ortalab_restrained'})
     end
 })
 
