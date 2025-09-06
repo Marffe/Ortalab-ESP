@@ -19,6 +19,10 @@ SMODS.Joker({
 			local suits = {}
 			for _, _card in pairs(context.scoring_hand) do
 				suits[not SMODS.has_no_suit(_card) and _card.base.suit] = true
+				if SMODS.has_any_suit(_card) then
+					suits['Spades'] = true
+					suits['Clubs'] = true
+				end
 			end
 			if (suits['Spades'] and suits['Clubs']) or Ortalab.suit_smear(card) then
 				return {
