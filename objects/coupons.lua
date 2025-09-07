@@ -483,7 +483,11 @@ SMODS.Voucher({
     set_ability = function(self, card, initial, delay)
         card.ability.extra.left_dragon = card.ability.extra.left_dragon or get_new_boss()
         card.ability.extra.right_dragon = card.ability.extra.right_dragon or Ortalab.get_new_showdown_key()
-        if not next(Ortalab.wyrms_dragons or {}) then self:create_sprites(card) end
+        for _, sprite in pairs(Ortalab.wyrms_dragons or {}) do
+            sprite:remove()
+        end
+        Ortalab.wyrms_dragons = {}
+        self:create_sprites(card)
     end,
     create_sprites = function(self, card)
         Ortalab.wyrms_dragons = Ortalab.wyrms_dragons or {}
@@ -514,10 +518,10 @@ SMODS.Voucher({
 
 
         local mod_id = G.P_BLINDS[card.ability.extra.left_dragon].mod and G.P_BLINDS[card.ability.extra.left_dragon].mod.id or 'vanilla'
-        local atlas = 'ortalab_dragon_heads'
+        local atlas = 'ortalab_blind_dragons_vanilla'
         local counter = 0
-        local x = 0
-        local y = 0
+        local x = 3
+        local y = 5
         if Ortalab.wyrms_atlas[mod_id] then
             atlas = Ortalab.wyrms_atlas[mod_id]
             counter = G.P_BLINDS[card.ability.extra.left_dragon].pos.y - (mod_id == 'ortalab' and 0 or 2)
@@ -527,17 +531,17 @@ SMODS.Voucher({
         Ortalab.wyrms_dragons.left_head = Sprite(0,0,G.CARD_W,G.CARD_H, G.ASSET_ATLAS[atlas], {x=x, y=y})
 
         mod_id = G.P_BLINDS[card.ability.extra.right_dragon].mod and G.P_BLINDS[card.ability.extra.right_dragon].mod.id or 'vanilla'
-        atlas = 'ortalab_dragon_heads'
+        atlas = 'ortalab_blind_dragons_vanilla'
         counter = 0
-        x = 0
-        y = 0
+        x = 4
+        y = 5
         if Ortalab.wyrms_atlas[mod_id] then
             atlas = Ortalab.wyrms_atlas[mod_id]
             counter = G.P_BLINDS[card.ability.extra.right_dragon].pos.y - (mod_id == 'ortalab' and 0 or 2)
             x = (counter)%5
             y = math.floor(counter/5)
         end
-        Ortalab.wyrms_dragons.right_head = Sprite(0,0,G.CARD_W,G.CARD_H, G.ASSET_ATLAS[Ortalab.wyrms_atlas[mod_id] or 'ortalab_blind_dragons_vanilla'], {x=x, y=y})
+        Ortalab.wyrms_dragons.right_head = Sprite(0,0,G.CARD_W,G.CARD_H, G.ASSET_ATLAS[atlas], {x=x, y=y})
     end
 })
 
@@ -671,7 +675,11 @@ SMODS.Voucher({
     end,
     set_ability = function(self, card, initial, delay)
         card.ability.extra.dragon = card.ability.extra.dragon or Ortalab.get_new_showdown_key()
-        if not next(Ortalab.wyrms_dragons_2 or {}) then self:create_sprites(card) end
+        for _, sprite in pairs(Ortalab.wyrms_dragons_2 or {}) do
+            sprite:remove()
+        end
+        Ortalab.wyrms_dragons_2 = {}
+        self:create_sprites(card)
     end,
     create_sprites = function(self, card)
         Ortalab.wyrms_dragons_2 = Ortalab.wyrms_dragons_2 or {}
@@ -688,17 +696,17 @@ SMODS.Voucher({
         Ortalab.wyrms_dragons_2.dragon.atlas.image = love.graphics.newImage(Ortalab.wyrms_dragons_2.dragon.atlas.image_data, {mipmaps = true, dpiscale = G.SETTINGS.GRAPHICS.texture_scaling})
 
         local mod_id = G.P_BLINDS[card.ability.extra.dragon].mod and G.P_BLINDS[card.ability.extra.dragon].mod.id or 'vanilla'
-        local atlas = 'ortalab_dragon_heads'
+        local atlas = 'ortalab_blind_dragons_vanilla_2'
         local counter = 0
-        local x = 0
-        local y = 0
+        local x = 4
+        local y = 5
         if Ortalab.wyrms_atlas[mod_id] then
             atlas = Ortalab.wyrms_atlas[mod_id] .. '_2'
             counter = G.P_BLINDS[card.ability.extra.dragon].pos.y - (mod_id == 'ortalab' and 0 or 2)
             x = (counter)%5
             y = math.floor(counter/5)
-            Ortalab.wyrms_dragons_2.left_head = Sprite(0,0,G.CARD_W,G.CARD_H, G.ASSET_ATLAS[atlas], {x=x, y=y})
         end
+        Ortalab.wyrms_dragons_2.left_head = Sprite(0,0,G.CARD_W,G.CARD_H, G.ASSET_ATLAS[atlas], {x=x, y=y})
     end
 })
 
