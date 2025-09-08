@@ -1071,6 +1071,7 @@ SMODS.Blind({
     config = {extra = {chance = 2}},
     artist_credits = {'flare'},
     loc_vars = function(self, info_queue, card)
+        G.GAME.ortalab.suits_in_deck = G.GAME.ortalab.suits_in_deck or Ortalab.count_suits()
         return {vars = {localize(G.GAME.ortalab.suits_in_deck[#G.GAME.ortalab.suits_in_deck].suit, 'suits_plural'), colours = {G.C.SUITS[G.GAME.ortalab.suits_in_deck[#G.GAME.ortalab.suits_in_deck].suit]}}}
     end,
     collection_loc_vars = function(self)
