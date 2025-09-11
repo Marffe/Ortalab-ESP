@@ -452,7 +452,7 @@ SMODS.Voucher({
 	unlocked = true,
 	discovered = false,
 	available = false,
-    requires = {'v_ortalab_grabber_inv'},
+    requires = {'v_ortalab_wasteful_inv'},
     config = {extra = {discard_size = 3}},
     artist_credits = {'gappie'},
 	redeem = function(self, card)
