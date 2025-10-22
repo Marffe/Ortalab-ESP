@@ -141,16 +141,16 @@ match_indent = true
 position = 'at'
 pattern = '''
 elseif not v.boss.showdown and (v.boss.min <= math.max(1, G.GAME.round_resets.ante) and ((math.max(1, G.GAME.round_resets.ante))%G.GAME.win_ante ~= 0 or G.GAME.round_resets.ante < 2)) then
-    eligible_bosses[k] = true
+    eligible_bosses[k] = res and true or nil
 elseif v.boss.showdown and (G.GAME.round_resets.ante)%G.GAME.win_ante == 0 and G.GAME.round_resets.ante >= 2 then
-    eligible_bosses[k] = true
+    eligible_bosses[k] = res and true or nil
 end
 '''
 payload = '''
 elseif not v.boss.showdown and not (G.GAME.ortalab.ante_showdown and G.GAME.round_resets.ante == 5) and (v.boss.min <= math.max(1, G.GAME.round_resets.ante) and ((math.max(1, G.GAME.round_resets.ante))%G.GAME.win_ante ~= 0 or G.GAME.round_resets.ante < 2)) then
-    eligible_bosses[k] = true
+    eligible_bosses[k] = res and true or nil
 elseif v.boss.showdown and ((G.GAME.round_resets.ante)%G.GAME.win_ante == 0 or (G.GAME.ortalab.ante_showdown and G.GAME.round_resets.ante == 5)) and G.GAME.round_resets.ante >= 2 then
-    eligible_bosses[k] = true
+    eligible_bosses[k] = res and true or nil
 end
 '''
 # Stake 7 - showdowns respect in_pool
