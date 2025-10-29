@@ -963,6 +963,7 @@ SMODS.Blind({
     artist_credits = {'flare'},
     set_blind = function(self)
         -- Find most abundant
+        G.GAME.ortalab.ranks_in_deck = G.GAME.ortalab.ranks_in_deck or Ortalab.count_ranks()
         local max_amount = G.GAME.ortalab.ranks_in_deck[1].count
         local ranks_to_debuff = {}
         for _, rank in ipairs(G.GAME.ortalab.ranks_in_deck) do
@@ -1070,12 +1071,14 @@ SMODS.Blind({
     config = {extra = {chance = 2}},
     artist_credits = {'flare'},
     loc_vars = function(self, info_queue, card)
+        G.GAME.ortalab.suits_in_deck = G.GAME.ortalab.suits_in_deck or Ortalab.count_suits()
         return {vars = {localize(G.GAME.ortalab.suits_in_deck[#G.GAME.ortalab.suits_in_deck].suit, 'suits_plural'), colours = {G.C.SUITS[G.GAME.ortalab.suits_in_deck[#G.GAME.ortalab.suits_in_deck].suit]}}}
     end,
     collection_loc_vars = function(self)
         return {vars = {localize('ortalab_saffron'), colours = {G.ARGS.LOC_COLOURS.attention}}}
     end,
     set_blind = function(self)
+        G.GAME.ortalab.suits_in_deck = G.GAME.ortalab.suits_in_deck or Ortalab.count_suits()
         G.GAME.blind.effect.extra.suit = G.GAME.ortalab.suits_in_deck[#G.GAME.ortalab.suits_in_deck].suit
     end,
     debuff_hand = function(self, cards, hands, handname, check)
@@ -1099,24 +1102,19 @@ SMODS.Blind({
     end,
     set_blind = function(self)
         local card_protos = {}
-        for k, v in pairs(G.P_CARDS) do
-            local _ = nil
-            local _r, _s = string.sub(k, 3, 3), string.sub(k, 1, 1)
-            if table.contains({'S', 'C','D','H'},_s) then
-                card_protos[#card_protos+1] = {s=_s,r=_r,e=nil,d=nil,g=nil}
+        local suits = {'S','C','D','H'}
+        local ranks = {'2','3','4','5','6','7','8','9','10','J','Q','K','A'}
+        for _, suit in ipairs(suits) do
+            for _, rank in ipairs(ranks) do
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'after', delay = 0.05,
+                    func = function()
+                        local card = SMODS.add_card({set = 'Base', area = G.deck, suit = suit, rank = rank})
+                        card.ability.rouge_rose = true
+                        return true
+                    end
+                }))
             end
-        end
-
-        table.sort(card_protos, function (a, b) return 
-            ((a.s or '')..(a.r or '')..(a.e or '')..(a.d or '')..(a.g or '')) < 
-            ((b.s or '')..(b.r or '')..(b.e or '')..(b.d or '')..(b.g or '')) end)
-
-        for k, v in ipairs(card_protos) do
-            G.playing_card = (G.playing_card and G.playing_card + 1) or 1
-            local _card = Card(G.deck.T.x, G.deck.T.y, G.CARD_W, G.CARD_H, G.P_CARDS[v.s..'_'..v.r], G.P_CENTERS[v.e or 'c_base'], {playing_card = G.playing_card})
-            _card.ability.rouge_rose = true
-            G.deck:emplace(_card)
-            table.insert(G.playing_cards, _card)
         end
         self.original_deck_size = G.GAME.starting_deck_size
         G.GAME.starting_deck_size = #G.playing_cards

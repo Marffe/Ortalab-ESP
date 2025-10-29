@@ -28,7 +28,14 @@ SMODS.Joker({
             if card.ability.pinkprint then
                 Card.remove_from_deck(card.ability.pinkprint)
             end
+            local stickers = {card_limit = card.ability.card_limit, extra_slots_used = card.ability.extra_slots_used}
+            for sticker, _ in pairs(SMODS.Stickers) do
+                stickers[sticker] = not not card.ability[sticker]
+            end
             card.ability = copy_table(context.card.ability)
+            for key, value in pairs(stickers) do
+                card.ability[key] = value
+            end
             card.ability.extra = card.ability.extra or {}
             card.ability.pinkprint = Pinkprint({
                 fake_card = true,

@@ -723,7 +723,7 @@ function create_card(_type, area, legendary, _rarity, skip_materialize, soulable
     local card = ortalab_create_card(_type, area, legendary, _rarity, skip_materialize, soulable, forced_key, key_append)
     if ((area == G.shop_jokers) or (area == G.pack_cards)) and card.ability.set == 'Joker' then
         if G.GAME.modifiers.ortalab_ephermeralC then
-            card:set_perishable(true)
+            card:add_sticker('perishable', true)
         end
         if G.GAME.modifiers.ortalab_diseasedC then
             card:set_curse('ortalab_infected', true, true)

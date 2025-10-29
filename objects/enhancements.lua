@@ -370,7 +370,7 @@ SMODS.Enhancement({
 local card_highlight = Card.highlight
 function Card:highlight(highlighted)
     card_highlight(self, highlighted)
-    if highlighted and SMODS.has_enhancement(self, 'm_ortalab_index') and self.area == G.hand and #G.hand.highlighted == 1 and not G.booster_pack then
+    if highlighted and self.area == G.hand and #G.hand.highlighted == 1 and not G.booster_pack and SMODS.has_enhancement(self, 'm_ortalab_index') then
         self.children.use_button = UIBox{
             definition = G.UIDEF.use_index_buttons(self), 
             config = {align = 'cl', offset = {x=0.5, y=0}, parent = self, id = 'ortalab_index'}

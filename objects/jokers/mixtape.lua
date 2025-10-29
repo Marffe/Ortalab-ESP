@@ -9,7 +9,7 @@ SMODS.Joker({
 	blueprint_compat = true,
 	eternal_compat = true,
 	perishable_compat = true,
-	config = {extra = {xmult = 1.0, gain = 0.25}},
+	config = {extra = {xmult = 1.0, gain = 0.2}},
     artist_credits = {'flare'},
     loc_vars = function(self, info_queue, card)
         return {vars = {card.ability.extra.gain, card.ability.extra.xmult}}

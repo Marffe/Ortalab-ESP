@@ -62,6 +62,23 @@ if _pool_size == 0 then
 end
 '''
 
+# Pool Modifications - Ortalab Only
+# Booster Packs
+[[patches]]
+[patches.pattern]
+target = '=[SMODS _ "src/overrides.lua"]'
+match_indent = true
+position = 'before'
+pattern = '''
+if add and not G.GAME.banned_keys[v.key] then cume = cume + (v.current_weight or 1); temp_in_pool[v.key] = true end
+'''
+payload = '''
+if v.kind ~= 'Buffoon' and v.kind ~= 'Standard' and G.GAME.modifiers.ortalab_only then
+    if not v.mod or v.mod.id ~= 'ortalab' then add = false end
+end
+'''
+
+
 [[patches]]
 [patches.pattern]
 target = 'functions/UI_definitions.lua'
@@ -124,16 +141,16 @@ match_indent = true
 position = 'at'
 pattern = '''
 elseif not v.boss.showdown and (v.boss.min <= math.max(1, G.GAME.round_resets.ante) and ((math.max(1, G.GAME.round_resets.ante))%G.GAME.win_ante ~= 0 or G.GAME.round_resets.ante < 2)) then
-    eligible_bosses[k] = true
+    eligible_bosses[k] = res and true or nil
 elseif v.boss.showdown and (G.GAME.round_resets.ante)%G.GAME.win_ante == 0 and G.GAME.round_resets.ante >= 2 then
-    eligible_bosses[k] = true
+    eligible_bosses[k] = res and true or nil
 end
 '''
 payload = '''
 elseif not v.boss.showdown and not (G.GAME.ortalab.ante_showdown and G.GAME.round_resets.ante == 5) and (v.boss.min <= math.max(1, G.GAME.round_resets.ante) and ((math.max(1, G.GAME.round_resets.ante))%G.GAME.win_ante ~= 0 or G.GAME.round_resets.ante < 2)) then
-    eligible_bosses[k] = true
+    eligible_bosses[k] = res and true or nil
 elseif v.boss.showdown and ((G.GAME.round_resets.ante)%G.GAME.win_ante == 0 or (G.GAME.ortalab.ante_showdown and G.GAME.round_resets.ante == 5)) and G.GAME.round_resets.ante >= 2 then
-    eligible_bosses[k] = true
+    eligible_bosses[k] = res and true or nil
 end
 '''
 # Stake 7 - showdowns respect in_pool
@@ -199,17 +216,3 @@ if not v.boss then
 payload = '''
 elseif v == current then
 '''
-
-
-## Patch SMODS get_pack
-# [[patches]]
-# [patches.pattern]
-# target = '=[SMODS _ "src/overrides.lua"]'
-# pattern = '''if add and not G.GAME.banned_keys[v.key] then cume = cume + (v.current_weight or 1); temp_in_pool[v.key] = true end'''
-# position = 'before'
-# match_indent = true
-# payload = '''
-# if v.kind ~= 'Buffoon' and v.kind ~= 'Standard' and G.GAME.modifiers.ortalab_only then
-#     if not v.mod or v.mod.id ~= 'ortalab' then add = false end
-# end
-# '''

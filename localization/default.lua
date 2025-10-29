@@ -1078,7 +1078,7 @@ return {
 				name = 'Hit The Gym',
 				text = {
 					'Gain {C:white,X:red}X#1#{} Mult for', 
-					'each scored {C:attention}#3#',
+					'each {C:attention}#3#{} in {C:attention}scoring hand',
 					'this round',
 					'{C:inactive}(Currently {C:white,X:red}X#2#{C:inactive} Mult)'
 				}
@@ -3650,8 +3650,8 @@ return {
 			},
 			c_ortalab_ya_te_veo_curse = {
 				text = {
-					'{C:ortalab_mythos,s:0.9}Curse #1# random{s:0.9,C:attention} Jokers',
-					'{s:0.9}and {C:ortalab_mythos,s:0.9}#3# random{s:0.9,C:attention} card in deck',
+					'{C:ortalab_mythos,s:0.9}Curse #1# random{s:0.9,C:attention} Joker',
+					'{s:0.9}and {C:ortalab_mythos,s:0.9}#3# random{s:0.9,C:attention} cards in deck',
 					'{s:0.9}with a {V:1,E:2,s:0.9}#2#{}'
 				},
 			},

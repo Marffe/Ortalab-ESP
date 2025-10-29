@@ -20,7 +20,7 @@ SMODS.Joker({
             juice_card_until(card, eval, true)
         end
         if context.destroying_card and not context.blueprint and G.GAME.current_round.hands_played == 0 then
-            if #context.full_hand == 1 then
+            if #context.full_hand == 1 and context.destroying_card == context.full_hand[1] then
                 local played_card = context.full_hand[1]
                 local targets = {}
                 targets[#targets+1] = pseudorandom_element(G.hand.cards, 'ortalab_virus')

@@ -188,7 +188,7 @@ SMODS.Consumable({
     cost = 5,
     pos = {x=1, y=0},
     discovered = false,
-    config = {extra = {select = 4, curse = 'ortalab_all_curses', method = 'c_ortalab_mult_random', slots = 1, perish_count = 5}},
+    config = {extra = {select = 4, curse = 'ortalab_all_curses', method = 'c_ortalab_mult_random_deck', slots = 1, perish_count = 5}},
     artist_credits = {'gappie'},
     loc_vars = function(self, info_queue, card)
         return {vars = {card.ability.extra.slots, card.ability.extra.perish_count + G.GAME.ortalab.mythos.tree_of_life_count}}
@@ -201,7 +201,7 @@ SMODS.Consumable({
         for _, joker in pairs(G.consumeables.cards) do
             if joker.ability.set == 'Joker' and not joker.ability.perishable then unperish = unperish + 1 end
         end
-        if Ortalab.Mythos_Utils.can_curse_in_area(G.hand.cards, card.ability.extra.select) and unperish >= card.ability.extra.perish_count + G.GAME.ortalab.mythos.tree_of_life_count then
+        if Ortalab.Mythos_Utils.can_curse_in_area(G.deck.cards, card.ability.extra.select) and unperish >= card.ability.extra.perish_count + G.GAME.ortalab.mythos.tree_of_life_count then
             return true
         end
     end,
@@ -247,7 +247,7 @@ SMODS.Consumable({
         G.GAME.ortalab.mythos.tree_of_life_count = G.GAME.ortalab.mythos.tree_of_life_count + 1
 
         -- Curse cards in hand 
-        Ortalab.Mythos_Utils.curse_random_hand(card, {'ortalab_corroded', 'ortalab_infected', 'ortalab_possessed', 'ortalab_restrained'})
+        Ortalab.Mythos_Utils.curse_random_cards(card, G.deck.cards, {'ortalab_corroded', 'ortalab_infected', 'ortalab_possessed', 'ortalab_restrained'})
     end
 })
 
@@ -832,7 +832,7 @@ SMODS.Consumable({
     cost = 5,
     pos = {x=0, y=2},
     discovered = false,
-    config = {extra = {select = 2, deck = -1, scale = 2, curse = 'ortalab_random_curses', method = 'c_ortalab_ya_te_veo_curse', tags = 3}},
+    config = {extra = {select = 1, deck = 3, scale = 2, curse = 'ortalab_random_curses', method = 'c_ortalab_ya_te_veo_curse', tags = 3}},
     artist_credits = {'gappie'},
     loc_vars = function(self, info_queue, card)
         return {vars = {card.ability.extra.tags}}
@@ -879,7 +879,7 @@ SMODS.Consumable({
 
         -- Curse jokers and deck
         Ortalab.Mythos_Utils.curse_random_cards(card, G.jokers.cards)
-        Ortalab.Mythos_Utils.curse_random_cards(card, G.deck.cards, nil, card.ability.extra.deck)
+        Ortalab.Mythos_Utils.curse_random_cards(card, G.deck.cards, nil, card.ability.extra.select + card.ability.extra.deck)
     end
 })
 
@@ -938,6 +938,7 @@ SMODS.Consumable({
         return {vars = {card.ability.extra.select}}
     end,
     can_use = function(self, card)
+        if #G.hand.cards == 0 then return false end
         local sacrificed = 0
         for _, v in pairs(card.ability.extra.sacrificed) do if v then sacrificed = sacrificed + 1 end end
         return sacrificed > 0
@@ -995,7 +996,7 @@ SMODS.Consumable({
             trigger = 'after', delay = 1.5,
             func = function()
                 target.destroyed = {colours = {G.C.SET.ortalab_mythos, darken(G.C.SET.ortalab_mythos, 0.5), G.C.RED, darken(G.C.SET.ortalab_mythos, 0.2), G.ARGS.LOC_COLOURS['ortalab_mythos_alt']}}
-                SMODS.destroy_cards({target})             
+                SMODS.destroy_cards({target}, true, true)             
                 return true
             end
         }))
@@ -1022,6 +1023,7 @@ SMODS.Consumable({
 
 
         G.consumeables:unhighlight_all()
+        save_run()
     end,
     use = function(self, card, area, copier)
         local old_colours = {

@@ -53,7 +53,11 @@ SMODS.Joker({
                     operation = function(ref_table, ref_value, initial, change)
                         ref_table[ref_value] = initial - change * G.GAME.hands[card.ability.extra.poker_hand].played
                     end,
-                    message_key = 'a_chips_minus'
+                    scaling_message = {
+                        message = localize{type = 'variable', key = 'a_chips_minus', vars = {card.ability.extra.change * G.GAME.hands[card.ability.extra.poker_hand].played}},
+                        colour = G.C.BLUE,
+                        no_juice = true
+                    }
                 })
             end
         end

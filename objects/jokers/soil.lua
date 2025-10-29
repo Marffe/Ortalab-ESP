@@ -18,7 +18,7 @@ SMODS.Joker({
 		card.ability.extra.base = card.ability.extra.xmult
 	end,
 	calculate = function(self, card, context)
-        if context.before then
+        if context.after then
             card.ability.extra.xmult = card.ability.extra.base
 			card.ability.extra.last_triggered = nil
         end

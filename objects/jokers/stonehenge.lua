@@ -61,10 +61,11 @@ end
 local ortalab_align_cards = CardArea.align_cards
 function CardArea:align_cards()
 	ortalab_align_cards(self)
-	if self.config.type == 'hand' and not (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK or G.STATE == G.STATES.PLANET_PACK or G.STATE == G.STATES.SMODS_BOOSTER_OPENED) then
+	if next(SMODS.find_card('j_ortalab_stonehenge')) and self.config.type == 'hand' and not (G.STATE == G.STATES.TAROT_PACK or G.STATE == G.STATES.SPECTRAL_PACK or G.STATE == G.STATES.PLANET_PACK or G.STATE == G.STATES.SMODS_BOOSTER_OPENED) then
 		for k, card in ipairs(self.cards) do
-            if card.states.drag.is and (card.config.center.no_rank or SMODS.has_enhancement(card, 'm_stone')) then
+            if card.highlighted and card.states.drag.is then
 				self:parse_highlighted()
+				return
 			end
 		end
 	end
